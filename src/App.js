@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import Header from './common/Header'
 import FilmList from './filmList/FilmList'
+import blackPerlsImage from './assets/blackPerls.png'
 
 export default function App() {
   return (
@@ -23,5 +24,6 @@ const AppStyled = styled.div`
 
   display: grid;
   grid-template-rows: 48px auto;
+  background-image: url(${blackPerlsImage});
   background-color: black;
 `

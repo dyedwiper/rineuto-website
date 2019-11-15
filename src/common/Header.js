@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import whitePerlsImage from '../assets/whitePerls.png'
 
 export default function Header() {
   return (
@@ -10,6 +11,8 @@ export default function Header() {
 }
 
 const HeaderStyled = styled.header`
+  padding: 10px;
+  background-image: url(${whitePerlsImage});
   background-color: white;
 `
 
