@@ -12,5 +12,12 @@
     "duration": "123",
     "imageUrl": "https://www.film-rezensionen.de/wp-content/uploads/2011/01/Der-Riss-Frontpage.png",
     "playDate": "16.02.2020"
+  },
+  {
+    "title": "American Honey",
+    "director": "Andrea Arnold",
+    "duration": "162",
+    "imageUrl": "https://compote.slate.com/images/25ba07b6-cceb-45ec-a3a4-b1f7d5debe91.jpg",
+    "playDate": "16.04.2020"
   }
 ]

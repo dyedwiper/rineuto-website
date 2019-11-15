@@ -17,5 +17,6 @@ const FilmListStyled = styled.main`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 10px;
+  overflow: auto;
   padding: 10px;
 `
