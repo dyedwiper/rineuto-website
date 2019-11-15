@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import Header from './common/Header'
+import FilmList from './filmList/FilmList'
 
 export default function App() {
   return (
     <AppStyled>
       <Header />
+      <FilmList />
     </AppStyled>
   )
 }
@@ -21,4 +23,5 @@ const AppStyled = styled.div`
 
   display: grid;
   grid-template-rows: 48px auto;
+  background-color: black;
 `

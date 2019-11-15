@@ -9,7 +9,9 @@ export default function Header() {
   )
 }
 
-const HeaderStyled = styled.header``
+const HeaderStyled = styled.header`
+  background-color: white;
+`
 
 const TitleStyled = styled.h1`
   margin: 0;

@@ -1,0 +1,27 @@
+import React from 'react'
+import styled from 'styled-components/macro'
+
+export default function FilmCard({ film }) {
+  return (
+    <FilmCardStyled>
+      <FilmStillStyled src={film.imageUrl} />
+      <FilmTitleStyled>{film.title}</FilmTitleStyled>
+      <FilmDateStyled>{film.playDate}</FilmDateStyled>
+    </FilmCardStyled>
+  )
+}
+
+const FilmCardStyled = styled.section`
+  display: grid;
+  background-color: white;
+`
+
+const FilmStillStyled = styled.img`
+  width: 100%;
+`
+
+const FilmTitleStyled = styled.h2`
+  margin: 0;
+`
+
+const FilmDateStyled = styled.span``
