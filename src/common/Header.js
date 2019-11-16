@@ -11,7 +11,9 @@ export default function Header() {
 }
 
 const HeaderStyled = styled.header`
-  padding: 10px;
+  display: grid;
+  align-items: center;
+  padding: 0 10px;
   background-image: url(${whitePerlsImage});
   background-color: white;
 `
