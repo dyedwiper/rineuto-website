@@ -6,8 +6,8 @@ export default function FilmCard({ film }) {
     <FilmCardStyled>
       <FilmStillStyled src={film.imageUrl} />
       <FilmInfoStyled>
-        <FilmTitleStyled>{film.title}</FilmTitleStyled>
         <FilmDateStyled>{film.playDate}</FilmDateStyled>
+        <FilmTitleStyled>{film.title}</FilmTitleStyled>
       </FilmInfoStyled>
     </FilmCardStyled>
   )
@@ -22,10 +22,7 @@ const FilmStillStyled = styled.img`
   width: 100%;
 `
 
-const FilmInfoStyled = styled.div`
-  display: grid;
-  grid-auto-columns: min-content;
-`
+const FilmInfoStyled = styled.div``
 
 const FilmDateStyled = styled.div``
 

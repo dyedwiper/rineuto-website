@@ -10,6 +10,7 @@ export default function FilmList() {
       {filmData.map(film => (
         <FilmCard film={film} key={film.title} />
       ))}
+      <Cushion />
     </FilmListStyled>
   )
 }
@@ -25,4 +26,8 @@ const FilmListStyled = styled.main`
 const SubHeadlineStyled = styled.h2`
   margin: 0;
   color: white;
+`
+
+const Cushion = styled.div`
+  height: 30px;
 `
