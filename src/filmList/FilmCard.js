@@ -17,7 +17,7 @@ export default function FilmCard({ film, setSelectedFilm }) {
 
   function handleClick() {
     setSelectedFilm(film)
-    history.push('/screenings/' + film._id)
+    history.push('/film?id=' + film._id)
   }
 }
 
