@@ -10,7 +10,14 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   Screening.create(req.body)
     .then(newScreening => res.json(newScreening))
-    .catch(err => res.status(404).json(err))
+    .catch(err => res.status(400).json(err))
+})
+
+router.patch('/', (req, res) => {
+  const { id } = req.query
+  Screening.findByIdAndUpdate(id, req.body)
+    .then(updatedScreening => res.json(updatedScreening))
+    .catch(err => res.status(400).json(err))
 })
 
 module.exports = router
