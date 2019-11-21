@@ -2,27 +2,27 @@ import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Header from './common/Header'
-import FilmList from './filmList/FilmList'
 import blackPerlsImage from './assets/blackPerls.png'
-import FilmPage from './filmPage/FilmPage'
+import ScreeningsList from './screeningsList/ScreeningsList'
+import ScreeningPage from './screeningPage/ScreeningPage'
 import { getSingleScreening } from './utils/services'
 
 export default function App() {
-  const [selectedFilm, setSelectedFilm] = useState({})
+  const [selectedScreening, setSelectedScreening] = useState({})
 
   useEffect(() => {
     const currentUrl = window.location
     if (
-      currentUrl.pathname === '/film' &&
-      Object.entries(selectedFilm).length === 0 &&
-      selectedFilm.constructor === Object
+      currentUrl.pathname === '/screening' &&
+      Object.entries(selectedScreening).length === 0 &&
+      selectedScreening.constructor === Object
     ) {
       const currentFilmId = currentUrl.search.slice(4)
       getSingleScreening(currentFilmId)
-        .then(setSelectedFilm)
+        .then(setSelectedScreening)
         .catch(console.error)
     }
-  }, [selectedFilm])
+  }, [selectedScreening])
 
   return (
     <Router>
@@ -30,10 +30,10 @@ export default function App() {
         <Header />
         <Switch>
           <Route exact path="/">
-            <FilmList setSelectedFilm={setSelectedFilm} />
+            <ScreeningsList setSelectedScreening={setSelectedScreening} />
           </Route>
-          <Route path={'/film'}>
-            <FilmPage selectedFilm={selectedFilm} />
+          <Route path={'/screening'}>
+            <ScreeningPage selectedScreening={selectedScreening} />
           </Route>
         </Switch>
       </AppStyled>

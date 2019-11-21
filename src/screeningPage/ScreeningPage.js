@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
 
-export default function FilmPage({ selectedFilm }) {
-  useEffect(() => console.log(selectedFilm))
+export default function ScreeningPage({ selectedScreening }) {
+  useEffect(() => console.log(selectedScreening))
 
   return (
     <FilmPageStyled>
-      <FilmTitleStyled>{selectedFilm.title}</FilmTitleStyled>
-      <FilmStillStyled src={selectedFilm.imageUrl} />
-      <FilmDateStyled>{selectedFilm.date}</FilmDateStyled>
+      <FilmTitleStyled>{selectedScreening.title}</FilmTitleStyled>
+      <FilmStillStyled src={selectedScreening.imageUrl} />
+      <FilmDateStyled>{selectedScreening.date}</FilmDateStyled>
     </FilmPageStyled>
   )
 }

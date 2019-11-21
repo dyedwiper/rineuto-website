@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
-import FilmCard from './FilmCard.js'
+import ScreeningCard from './ScreeningCard.js'
 import { getScreenings } from '../utils/services.js'
 
-export default function FilmList({ setSelectedFilm }) {
+export default function ScreeningsList({ setSelectedScreening }) {
   const [screenings, setScreenings] = useState([])
 
   useEffect(() => {
@@ -13,21 +13,21 @@ export default function FilmList({ setSelectedFilm }) {
   }, [])
 
   return (
-    <FilmListStyled>
+    <ScreeningsListStyled>
       <SubHeadlineStyled>Unsere nächsten Filmperlen</SubHeadlineStyled>
-      {screenings.map(film => (
-        <FilmCard
-          film={film}
-          key={film.title}
-          setSelectedFilm={setSelectedFilm}
+      {screenings.map(screening => (
+        <ScreeningCard
+          screening={screening}
+          key={screening.title}
+          setSelectedScreening={setSelectedScreening}
         />
       ))}
       <Cushion />
-    </FilmListStyled>
+    </ScreeningsListStyled>
   )
 }
 
-const FilmListStyled = styled.main`
+const ScreeningsListStyled = styled.main`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 10px;
