@@ -1,9 +1,12 @@
 import React from 'react'
+import { useHistory } from 'react-router'
 import styled from 'styled-components/macro'
 
-export default function FilmCard({ film }) {
+export default function FilmCard({ film, setSelectedFilm }) {
+  let history = useHistory()
+
   return (
-    <FilmCardStyled>
+    <FilmCardStyled onClick={handleClick}>
       <FilmStillStyled src={film.imageUrl} />
       <FilmInfoStyled>
         <FilmDateStyled>{film.date}</FilmDateStyled>
@@ -11,6 +14,11 @@ export default function FilmCard({ film }) {
       </FilmInfoStyled>
     </FilmCardStyled>
   )
+
+  function handleClick() {
+    setSelectedFilm(film)
+    history.push('/screenings/' + film._id)
+  }
 }
 
 const FilmCardStyled = styled.section`

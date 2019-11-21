@@ -1,15 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Header from './common/Header'
 import FilmList from './filmList/FilmList'
 import blackPerlsImage from './assets/blackPerls.png'
+import FilmPage from './filmPage/FilmPage'
 
 export default function App() {
+  const [selectedFilm, setSelectedFilm] = useState({})
+
   return (
-    <AppStyled>
-      <Header />
-      <FilmList />
-    </AppStyled>
+    <Router>
+      <AppStyled>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <FilmList setSelectedFilm={setSelectedFilm} />
+          </Route>
+          <Route path={'/screenings/' + selectedFilm._id}>
+            <FilmPage selectedFilm={selectedFilm} />
+          </Route>
+        </Switch>
+      </AppStyled>
+    </Router>
   )
 }
 

@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import FilmCard from './FilmCard.js'
 import { getScreenings } from '../utils/services.js'
 
-export default function FilmList() {
+export default function FilmList({ setSelectedFilm }) {
   const [screenings, setScreenings] = useState([])
 
   useEffect(() => {
@@ -16,7 +16,11 @@ export default function FilmList() {
     <FilmListStyled>
       <SubHeadlineStyled>Unsere nächsten Filmperlen</SubHeadlineStyled>
       {screenings.map(film => (
-        <FilmCard film={film} key={film.title} />
+        <FilmCard
+          film={film}
+          key={film.title}
+          setSelectedFilm={setSelectedFilm}
+        />
       ))}
       <Cushion />
     </FilmListStyled>
