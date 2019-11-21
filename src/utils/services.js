@@ -9,7 +9,6 @@ function handleError(res) {
       throw err
     })
   } else {
-    console.log(json)
     return json
   }
 }

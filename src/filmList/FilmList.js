@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
-import filmData from '../mockData.json'
 import FilmCard from './FilmCard.js'
+import { getScreenings } from '../utils/services.js'
 
 export default function FilmList() {
+  const [screenings, setScreenings] = useState([])
+
+  useEffect(() => {
+    getScreenings()
+      .then(setScreenings)
+      .catch(console.error)
+  }, [])
+
   return (
     <FilmListStyled>
       <SubHeadlineStyled>Unsere nächsten Filmperlen</SubHeadlineStyled>
-      {filmData.map(film => (
+      {screenings.map(film => (
         <FilmCard film={film} key={film.title} />
       ))}
       <Cushion />
