@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(cors())
 app.set('json spaces', 2)
 
-app.use('/screenings', require('/routes/screenings'))
+app.use('/screenings', require('./routes/screenings'))
 
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost:27017/rineuto', {
