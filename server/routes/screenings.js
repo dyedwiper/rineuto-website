@@ -7,4 +7,10 @@ router.get('/', (req, res) => {
     .catch(err => res.status(404).json(err))
 })
 
+router.post('/', (req, res) => {
+  Screening.create(req.body)
+    .then(newScreening => res.json(newScreening))
+    .catch(err => res.status(404).json(err))
+})
+
 module.exports = router
