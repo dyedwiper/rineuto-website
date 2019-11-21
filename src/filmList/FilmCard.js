@@ -6,7 +6,7 @@ export default function FilmCard({ film }) {
     <FilmCardStyled>
       <FilmStillStyled src={film.imageUrl} />
       <FilmInfoStyled>
-        <FilmDateStyled>{film.playDate}</FilmDateStyled>
+        <FilmDateStyled>{film.date}</FilmDateStyled>
         <FilmTitleStyled>{film.title}</FilmTitleStyled>
       </FilmInfoStyled>
     </FilmCardStyled>
