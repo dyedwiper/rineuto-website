@@ -13,7 +13,14 @@ export default function App() {
 
   useEffect(() => {
     getScreenings()
-      .then(setScreenings)
+      .then(screenings => {
+        const screeningsFormatted = screenings.map(screening => {
+          const dateFormatted = new Date(screening.date)
+          return { ...screening, date: dateFormatted }
+        })
+        console.log(screeningsFormatted)
+        setScreenings(screeningsFormatted)
+      })
       .catch(console.error)
   }, [])
 

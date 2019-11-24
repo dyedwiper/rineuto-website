@@ -9,7 +9,15 @@ export default function ScreeningCard({ screening, setSelectedScreening }) {
     <ScreeningCardStyled onClick={handleClick}>
       <ScreeningStillStyled src={screening.imageUrl} />
       <ScreeningInfoStyled>
-        <ScreeningDateStyled>{screening.date}</ScreeningDateStyled>
+        <ScreeningDateStyled>
+          {screening.date.toLocaleDateString('de-DE', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })}
+        </ScreeningDateStyled>
         <ScreeningTitleStyled>{screening.title}</ScreeningTitleStyled>
       </ScreeningInfoStyled>
     </ScreeningCardStyled>
