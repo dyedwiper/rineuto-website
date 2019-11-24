@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components/macro'
 
 export default function ScreeningPage({ selectedScreening }) {
-  useEffect(() => console.log(selectedScreening))
-
   return (
     <FilmPageStyled>
       <FilmTitleStyled>{selectedScreening.title}</FilmTitleStyled>

@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components/macro'
 import ScreeningCard from './ScreeningCard.js'
-import { getScreenings } from '../utils/services.js'
 
-export default function ScreeningsList({ setSelectedScreening }) {
-  const [screenings, setScreenings] = useState([])
-
-  useEffect(() => {
-    getScreenings()
-      .then(setScreenings)
-      .catch(console.error)
-  }, [])
-
+export default function ScreeningsList({ screenings, setSelectedScreening }) {
   return (
     <ScreeningsListStyled>
       <SubHeadlineStyled>Unsere nächsten Filmperlen</SubHeadlineStyled>

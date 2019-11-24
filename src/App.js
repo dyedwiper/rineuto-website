@@ -5,10 +5,17 @@ import Header from './common/Header'
 import blackPerlsImage from './assets/blackPerls.png'
 import ScreeningsList from './screeningsList/ScreeningsList'
 import ScreeningPage from './screeningPage/ScreeningPage'
-import { getSingleScreening } from './utils/services'
+import { getSingleScreening, getScreenings } from './utils/services'
 
 export default function App() {
+  const [screenings, setScreenings] = useState([])
   const [selectedScreening, setSelectedScreening] = useState({})
+
+  useEffect(() => {
+    getScreenings()
+      .then(setScreenings)
+      .catch(console.error)
+  }, [])
 
   useEffect(() => {
     const currentUrl = window.location
@@ -17,8 +24,8 @@ export default function App() {
       Object.entries(selectedScreening).length === 0 &&
       selectedScreening.constructor === Object
     ) {
-      const currentFilmId = currentUrl.search.slice(4)
-      getSingleScreening(currentFilmId)
+      const currentScreeningId = currentUrl.search.slice(4)
+      getSingleScreening(currentScreeningId)
         .then(setSelectedScreening)
         .catch(console.error)
     }
@@ -30,9 +37,12 @@ export default function App() {
         <Header />
         <Switch>
           <Route exact path="/">
-            <ScreeningsList setSelectedScreening={setSelectedScreening} />
+            <ScreeningsList
+              screenings={screenings}
+              setSelectedScreening={setSelectedScreening}
+            />
           </Route>
-          <Route path={'/screening'}>
+          <Route path="/screening">
             <ScreeningPage selectedScreening={selectedScreening} />
           </Route>
         </Switch>
