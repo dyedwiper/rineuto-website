@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import Header from './common/Header'
 import blackPerlsImage from './assets/blackPerls.png'
-import ScreeningsList from './screeningsList/ScreeningsList'
+import Header from './common/Header'
 import ScreeningPage from './screeningPage/ScreeningPage'
-import { getSingleScreening, getScreenings } from './utils/services'
+import ScreeningsList from './screeningsList/ScreeningsList'
+import { getScreenings } from './utils/services'
 
 export default function App() {
   const [screenings, setScreenings] = useState([])
   const [selectedScreening, setSelectedScreening] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     getScreenings()
@@ -18,8 +19,8 @@ export default function App() {
           const dateFormatted = new Date(screening.date)
           return { ...screening, date: dateFormatted }
         })
-        console.log(screeningsFormatted)
         setScreenings(screeningsFormatted)
+        setIsLoading(false)
       })
       .catch(console.error)
   }, [])
@@ -27,16 +28,18 @@ export default function App() {
   useEffect(() => {
     const currentUrl = window.location
     if (
+      !isLoading &&
       currentUrl.pathname === '/screening' &&
       Object.entries(selectedScreening).length === 0 &&
       selectedScreening.constructor === Object
     ) {
       const currentScreeningId = currentUrl.search.slice(4)
-      getSingleScreening(currentScreeningId)
-        .then(setSelectedScreening)
-        .catch(console.error)
+      const currentScreening = screenings.find(
+        screening => screening._id === currentScreeningId
+      )
+      setSelectedScreening(currentScreening)
     }
-  }, [selectedScreening])
+  }, [isLoading, screenings, selectedScreening])
 
   return (
     <Router>
@@ -50,7 +53,9 @@ export default function App() {
             />
           </Route>
           <Route path="/screening">
-            <ScreeningPage selectedScreening={selectedScreening} />
+            {Object.entries(selectedScreening).length && (
+              <ScreeningPage selectedScreening={selectedScreening} />
+            )}
           </Route>
         </Switch>
       </AppStyled>
