@@ -9,7 +9,7 @@ export default function ScreeningCard({ screening, setSelectedScreening }) {
   return (
     <ScreeningCardStyled onClick={handleClick}>
       <DateRibbon date={screening.date} />
-      <ScreeningStillStyled src={screening.imageUrl} />
+      <FilmStillStyled src={screening.imageUrl} />
       <ScreeningTitleStyled>{screening.title}</ScreeningTitleStyled>
     </ScreeningCardStyled>
   )
@@ -24,7 +24,7 @@ const ScreeningCardStyled = styled.section`
   display: grid;
 `
 
-const ScreeningStillStyled = styled.img`
+const FilmStillStyled = styled.img`
   width: 100%;
 `
 
