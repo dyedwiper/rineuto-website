@@ -4,59 +4,36 @@ import styled from 'styled-components/macro'
 export default function DateRibbon({ date }) {
   return (
     <DateRibbonStyled>
-      <WeekdayStyled>
+      <DateStyled>
         {date.toLocaleDateString('de-DE', {
-          weekday: 'short'
-        })}
-      </WeekdayStyled>
-      <DayStyled>
-        {date.toLocaleDateString('de-DE', {
-          day: '2-digit'
-        })}
-      </DayStyled>
-      <MonthStyled>
-        {date.toLocaleDateString('de-DE', {
+          day: '2-digit',
           month: '2-digit'
         })}
-      </MonthStyled>
-      <YearStyled>
-        {date.toLocaleDateString('de-DE', {
-          year: '2-digit'
+      </DateStyled>
+      <TimeStyled>
+        {date.toLocaleTimeString('de-DE', {
+          hour: '2-digit',
+          minute: '2-digit'
         })}
-      </YearStyled>
+      </TimeStyled>
     </DateRibbonStyled>
   )
 }
 
 const DateRibbonStyled = styled.div`
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: repeat(20px, 4);
-  grid-template-areas:
-    'weekday day day year'
-    'weekday month month year';
+  transform: skew(0deg, -13deg);
+  width: min-content;
+  font-size: 1.5em;
+  font-weight: bold;
 `
 
-const WeekdayStyled = styled.div`
-  grid-area: weekday;
-  background-color: black;
-  color: white;
-  writing-mode: sideways-lr;
-  text-orientation: mixed;
-`
-
-const DayStyled = styled.div`
-  grid-area: day;
+const DateStyled = styled.span`
+  padding: 5px 10px;
   background-color: white;
 `
 
-const MonthStyled = styled.div`
-  grid-area: month;
-  background-color: white;
-`
-
-const YearStyled = styled.div`
-  grid-area: year;
+const TimeStyled = styled.span`
+  padding: 5px 10px;
   background-color: black;
   color: white;
 `

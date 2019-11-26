@@ -1,26 +1,19 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import DateRibbon from '../common/DateRibbon'
 
 export default function ScreeningPage({ selectedScreening }) {
   return (
     <FilmPageStyled>
-      <FilmTitleStyled>{selectedScreening.title}</FilmTitleStyled>
+      <DateRibbon date={selectedScreening.date} />
       <FilmStillStyled src={selectedScreening.imageUrl} />
-      <FilmDateStyled>
-        {selectedScreening.date.toLocaleDateString('de-DE', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        })}
-      </FilmDateStyled>
+      <FilmTitleStyled>{selectedScreening.title}</FilmTitleStyled>
     </FilmPageStyled>
   )
 }
 
 const FilmPageStyled = styled.main`
-  padding: 10px;
+  padding: 40px 10px;
 `
 
 const FilmTitleStyled = styled.h2`
