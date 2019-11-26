@@ -23,7 +23,3 @@ const FilmTitleStyled = styled.h2`
 const FilmStillStyled = styled.img`
   width: 100%;
 `
-
-const FilmDateStyled = styled.span`
-  color: white;
-`
