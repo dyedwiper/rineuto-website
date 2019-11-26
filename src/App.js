@@ -6,6 +6,7 @@ import Header from './common/Header'
 import ScreeningPage from './screeningPage/ScreeningPage'
 import ScreeningsList from './screeningsList/ScreeningsList'
 import { getScreenings } from './utils/services'
+import AboutPage from './pages/AboutPage'
 
 export default function App() {
   const [screenings, setScreenings] = useState([])
@@ -56,6 +57,9 @@ export default function App() {
             {Object.entries(selectedScreening).length && (
               <ScreeningPage selectedScreening={selectedScreening} />
             )}
+          </Route>
+          <Route path="/about">
+            <AboutPage />
           </Route>
         </Switch>
       </AppStyled>
