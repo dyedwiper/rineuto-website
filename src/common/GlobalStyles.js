@@ -10,7 +10,7 @@ export default createGlobalStyle`
     font-family: 'Linux Libertine G', serif;
     font-size: 16px;
   }
-  
+
   input, button, textarea {
     border: none;
     font-family: inherit;

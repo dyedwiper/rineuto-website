@@ -2,18 +2,15 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import whitePerlsImage from '../assets/whitePerls.png'
 
-export default function Header({ isMenuOpen, setIsMenuOpen }) {
+export default function Header({ isNavOpen, setIsNavOpen }) {
   return (
     <HeaderStyled>
       <TitleStyled>Rineuto Lichtspiele</TitleStyled>
       <BurgerMenuStyled>
-        <CheckboxStyled type="checkbox" onChange={() => {
-          console.log(isMenuOpen)
-          setIsMenuOpen(!isMenuOpen)
-        }}></CheckboxStyled>
-        <BurgerSliceStyled isMenuOpen={isMenuOpen} />
-        <BurgerSliceStyled isMenuOpen={isMenuOpen} />
-        <BurgerSliceStyled isMenuOpen={isMenuOpen} />
+        <CheckboxStyled type="checkbox" onChange={() => setIsNavOpen(!isNavOpen)}></CheckboxStyled>
+        <BurgerSliceStyled isNavOpen={isNavOpen} />
+        <BurgerSliceStyled isNavOpen={isNavOpen} />
+        <BurgerSliceStyled isNavOpen={isNavOpen} />
       </BurgerMenuStyled>
     </HeaderStyled>
   )
@@ -53,15 +50,15 @@ const BurgerSliceStyled = styled.div`
   transform-origin: 1px;
 
   :nth-child(2) {
-    transform: ${props => props.isMenuOpen ? 'rotate(45deg)' : 'rotate(0)'}
+    transform: ${props => props.isNavOpen ? 'rotate(45deg)' : 'rotate(0)'}
   }
 
   :nth-child(3) {
-      opacity: ${props => props.isMenuOpen ? '0' : '1'};
-      transform: ${props => props.isMenuOpen ? 'translateX(20px)' : 'translateX(0)'};
+      opacity: ${props => props.isNavOpen ? '0' : '1'};
+      transform: ${props => props.isNavOpen ? 'translateX(20px)' : 'translateX(0)'};
   }
 
   :nth-child(4) {
-      transform: ${props => props.isMenuOpen ? 'rotate(-45deg)' : 'rotate(0)'};
+      transform: ${props => props.isNavOpen ? 'rotate(-45deg)' : 'rotate(0)'};
   }
 `

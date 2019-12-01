@@ -7,12 +7,13 @@ import ScreeningPage from './screeningPage/ScreeningPage'
 import ScreeningsList from './screeningsList/ScreeningsList'
 import { getScreenings } from './utils/services'
 import AboutPage from './pages/AboutPage'
+import Navigation from './common/Navigation'
 
 export default function App() {
   const [screenings, setScreenings] = useState([])
   const [selectedScreening, setSelectedScreening] = useState({})
   const [isLoading, setIsLoading] = useState(true)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isNavOpen, setIsNavOpen] = useState(false)
 
   useEffect(() => {
     getScreenings()
@@ -46,7 +47,8 @@ export default function App() {
   return (
     <Router>
       <AppStyled>
-        <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+        <Navigation isNavOpen={isNavOpen} />
         <Switch>
           <Route exact path="/">
             <ScreeningsList
