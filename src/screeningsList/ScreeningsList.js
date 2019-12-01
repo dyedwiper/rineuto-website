@@ -18,7 +18,7 @@ export default function ScreeningsList({ screenings, setSelectedScreening }) {
   )
 }
 
-const ScreeningsListStyled = styled.main`
+const ScreeningsListStyled = styled.div`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 50px;
@@ -27,7 +27,7 @@ const ScreeningsListStyled = styled.main`
 `
 
 const SubHeadlineStyled = styled.h2`
-  margin: 10px 0;
+  margin: 10px 0 0 0;
   color: white;
 `
 
