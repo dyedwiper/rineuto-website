@@ -9,7 +9,8 @@ const screeningSchema = new mongoose.Schema({
   country: { type: String, required: true },
   year: { type: Number, required: true },
   version: { type: String, required: true },
-  synopsis: { type: String, required: true }
+  synopsis: { type: String, required: true },
+  series: { type: String }
 })
 
 const Screening = mongoose.model('Screening', screeningSchema)
