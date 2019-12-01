@@ -2,11 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import ScreeningCard from './ScreeningCard.js'
 
-export default function ScreeningsList({
-  screenings,
-  setSelectedScreening,
-  isArchived
-}) {
+export default function ScreeningsList({ screenings, setSelectedScreening }) {
   return (
     <ScreeningsListStyled>
       {screenings.map(screening => (
@@ -14,7 +10,6 @@ export default function ScreeningsList({
           screening={screening}
           key={screening.title}
           setSelectedScreening={setSelectedScreening}
-          isArchived={isArchived}
         />
       ))}
       <Cushion />

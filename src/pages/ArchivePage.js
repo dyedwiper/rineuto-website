@@ -11,7 +11,6 @@ export default function ArchivePage({ screenings, setSelectedScreening }) {
           .filter(screening => screening.date < Date.now())
           .sort((a, b) => b.date - a.date)}
         setSelectedScreening={setSelectedScreening}
-        isArchived={true}
       />
     </ArchivePageStyled>
   )

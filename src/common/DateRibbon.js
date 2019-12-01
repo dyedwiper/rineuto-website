@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 
-export default function DateRibbon({ date, isArchived = false }) {
+export default function DateRibbon({ date }) {
+  const isArchived = date < Date.now()
+
   return (
     <DateRibbonStyled>
       {isArchived ? (
