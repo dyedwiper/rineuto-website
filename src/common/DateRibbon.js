@@ -13,19 +13,21 @@ export default function DateRibbon({ date, isArchived = false }) {
           })}
         </DateStyled>
       ) : (
-        <DateStyled>
-          {date.toLocaleDateString('de-DE', {
-            day: '2-digit',
-            month: '2-digit'
-          })}
-        </DateStyled>
+        <>
+          <DateStyled>
+            {date.toLocaleDateString('de-DE', {
+              day: '2-digit',
+              month: '2-digit'
+            })}
+          </DateStyled>
+          <TimeStyled>
+            {date.toLocaleTimeString('de-DE', {
+              hour: '2-digit',
+              minute: '2-digit'
+            })}
+          </TimeStyled>
+        </>
       )}
-      <TimeStyled>
-        {date.toLocaleTimeString('de-DE', {
-          hour: '2-digit',
-          minute: '2-digit'
-        })}
-      </TimeStyled>
     </DateRibbonStyled>
   )
 }
