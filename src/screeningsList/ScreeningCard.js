@@ -3,12 +3,16 @@ import { useHistory } from 'react-router'
 import styled from 'styled-components/macro'
 import DateRibbon from '../common/DateRibbon'
 
-export default function ScreeningCard({ screening, setSelectedScreening }) {
+export default function ScreeningCard({
+  screening,
+  setSelectedScreening,
+  isArchived
+}) {
   let history = useHistory()
 
   return (
     <ScreeningCardStyled onClick={handleClick}>
-      <DateRibbon date={screening.date} />
+      <DateRibbon date={screening.date} isArchived={isArchived} />
       <FilmStillStyled src={screening.imageUrl} />
       <ScreeningTitleStyled>{screening.title}</ScreeningTitleStyled>
     </ScreeningCardStyled>

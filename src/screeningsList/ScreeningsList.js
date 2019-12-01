@@ -2,15 +2,19 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import ScreeningCard from './ScreeningCard.js'
 
-export default function ScreeningsList({ screenings, setSelectedScreening }) {
+export default function ScreeningsList({
+  screenings,
+  setSelectedScreening,
+  isArchived
+}) {
   return (
     <ScreeningsListStyled>
-      <SubHeadlineStyled>Unsere nächsten Filmperlen</SubHeadlineStyled>
       {screenings.map(screening => (
         <ScreeningCard
           screening={screening}
           key={screening.title}
           setSelectedScreening={setSelectedScreening}
+          isArchived={isArchived}
         />
       ))}
       <Cushion />
@@ -23,12 +27,7 @@ const ScreeningsListStyled = styled.div`
   grid-auto-rows: min-content;
   grid-gap: 50px;
   overflow: auto;
-  padding: 10px;
-`
-
-const SubHeadlineStyled = styled.h2`
-  margin: 10px 0 0 0;
-  color: white;
+  padding: 30px 10px;
 `
 
 const Cushion = styled.div`

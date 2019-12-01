@@ -5,14 +5,23 @@ import ScreeningsList from '../screeningsList/ScreeningsList'
 export default function ArchivePage({ screenings, setSelectedScreening }) {
   return (
     <ArchivePageStyled>
+      <SubHeadlineStyled>Vergangene Filmperlen</SubHeadlineStyled>
       <ScreeningsList
         screenings={screenings
           .filter(screening => screening.date < Date.now())
           .sort((a, b) => b.date - a.date)}
         setSelectedScreening={setSelectedScreening}
+        isArchived={true}
       />
     </ArchivePageStyled>
   )
 }
 
-const ArchivePageStyled = styled.main``
+const ArchivePageStyled = styled.main`
+  overflow: auto;
+`
+
+const SubHeadlineStyled = styled.h2`
+  margin: 20px 10px;
+  color: white;
+`

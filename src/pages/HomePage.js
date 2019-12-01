@@ -5,6 +5,7 @@ import ScreeningsList from '../screeningsList/ScreeningsList'
 export default function HomePage({ screenings, setSelectedScreening }) {
   return (
     <HomePageStyled>
+      <SubHeadlineStyled>Unsere nächsten Filmperlen</SubHeadlineStyled>
       <ScreeningsList
         screenings={screenings
           .filter(screening => screening.date >= Date.now())
@@ -15,4 +16,11 @@ export default function HomePage({ screenings, setSelectedScreening }) {
   )
 }
 
-const HomePageStyled = styled.main``
+const HomePageStyled = styled.main`
+  overflow: auto;
+`
+
+const SubHeadlineStyled = styled.h2`
+  margin: 20px 10px;
+  color: white;
+`
