@@ -12,6 +12,7 @@ export default function App() {
   const [screenings, setScreenings] = useState([])
   const [selectedScreening, setSelectedScreening] = useState({})
   const [isLoading, setIsLoading] = useState(true)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
     getScreenings()
@@ -45,7 +46,7 @@ export default function App() {
   return (
     <Router>
       <AppStyled>
-        <Header />
+        <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
         <Switch>
           <Route exact path="/">
             <ScreeningsList
