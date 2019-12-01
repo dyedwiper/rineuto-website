@@ -34,6 +34,7 @@ export default function AboutPage() {
 }
 
 const AboutPageStyled = styled.main`
+  overflow: auto;
   padding: 10px;
 `
 
