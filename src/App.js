@@ -6,11 +6,14 @@ import Header from './common/Header'
 import ScreeningPage from './screeningPage/ScreeningPage'
 import ScreeningsList from './screeningsList/ScreeningsList'
 import { getScreenings } from './utils/services'
+import AboutPage from './pages/AboutPage'
+import Navigation from './common/Navigation'
 
 export default function App() {
   const [screenings, setScreenings] = useState([])
   const [selectedScreening, setSelectedScreening] = useState({})
   const [isLoading, setIsLoading] = useState(true)
+  const [isNavOpen, setIsNavOpen] = useState(false)
 
   useEffect(() => {
     getScreenings()
@@ -44,7 +47,8 @@ export default function App() {
   return (
     <Router>
       <AppStyled>
-        <Header />
+        <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+        <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
         <Switch>
           <Route exact path="/">
             <ScreeningsList
@@ -56,6 +60,9 @@ export default function App() {
             {Object.entries(selectedScreening).length && (
               <ScreeningPage selectedScreening={selectedScreening} />
             )}
+          </Route>
+          <Route path="/about">
+            <AboutPage />
           </Route>
         </Switch>
       </AppStyled>

@@ -21,13 +21,13 @@ export default function ScreeningsList({ screenings, setSelectedScreening }) {
 const ScreeningsListStyled = styled.main`
   display: grid;
   grid-auto-rows: min-content;
-  grid-gap: 40px;
+  grid-gap: 50px;
   overflow: auto;
   padding: 10px;
 `
 
 const SubHeadlineStyled = styled.h2`
-  margin: 0;
+  margin: 10px 0;
   color: white;
 `
 

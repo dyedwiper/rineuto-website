@@ -10,9 +10,12 @@ export default createGlobalStyle`
     font-family: 'Linux Libertine G', serif;
     font-size: 16px;
   }
-  
+
   input, button, textarea {
-    font-family: 'Linux Libertine G', serif;
+    border: none;
+    font-family: inherit;
     font-size: 1em;
+    -webkit-appearance: none;
+    -moz-appearance: none;
   }
 `
