@@ -11,6 +11,9 @@ export default function ScreeningCard({ screening, setSelectedScreening }) {
       <DateRibbon date={screening.date} />
       <FilmStillStyled src={screening.imageUrl} />
       <ScreeningTitleStyled>{screening.title}</ScreeningTitleStyled>
+      <ScreeningSeriesStyled>
+        Filmreihe: {screening.series}
+      </ScreeningSeriesStyled>
     </ScreeningCardStyled>
   )
 
@@ -32,4 +35,10 @@ const ScreeningTitleStyled = styled.h2`
   margin: 0;
   background-color: white;
   padding: 10px;
+`
+
+const ScreeningSeriesStyled = styled.div`
+  padding: 10px;
+  background-color: black;
+  color: white;
 `
