@@ -21,6 +21,9 @@ export default function ScreeningPage({ selectedScreening }) {
         {'Regie: ' + selectedScreening.director}
       </FilmDirectorStyled>
       <FilmSynopsisStyled>{selectedScreening.synopsis}</FilmSynopsisStyled>
+      <ScreeningSeriesStyled>
+        Filmreihe: {selectedScreening.series}
+      </ScreeningSeriesStyled>
     </ScreeningPageStyled>
   )
 }
@@ -54,7 +57,15 @@ const FilmDirectorStyled = styled.div`
 `
 
 const FilmSynopsisStyled = styled.p`
+  overflow: auto;
+  overflow-wrap: break-word;
   margin: 0;
   padding: 10px;
   background-color: white;
+`
+
+const ScreeningSeriesStyled = styled.div`
+  padding: 10px;
+  background-color: black;
+  color: white;
 `

@@ -2,20 +2,34 @@ import React from 'react'
 import styled from 'styled-components/macro'
 
 export default function DateRibbon({ date }) {
+  const isArchived = date < Date.now()
+
   return (
     <DateRibbonStyled>
-      <DateStyled>
-        {date.toLocaleDateString('de-DE', {
-          day: '2-digit',
-          month: '2-digit'
-        })}
-      </DateStyled>
-      <TimeStyled>
-        {date.toLocaleTimeString('de-DE', {
-          hour: '2-digit',
-          minute: '2-digit'
-        })}
-      </TimeStyled>
+      {isArchived ? (
+        <DateStyled>
+          {date.toLocaleDateString('de-DE', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          })}
+        </DateStyled>
+      ) : (
+        <>
+          <DateStyled>
+            {date.toLocaleDateString('de-DE', {
+              day: '2-digit',
+              month: '2-digit'
+            })}
+          </DateStyled>
+          <TimeStyled>
+            {date.toLocaleTimeString('de-DE', {
+              hour: '2-digit',
+              minute: '2-digit'
+            })}
+          </TimeStyled>
+        </>
+      )}
     </DateRibbonStyled>
   )
 }

@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import blackPerlsImage from './assets/blackPerls.png'
 import Header from './common/Header'
-import ScreeningPage from './screeningPage/ScreeningPage'
-import ScreeningsList from './screeningsList/ScreeningsList'
+import ScreeningPage from './pages/ScreeningPage'
 import { getScreenings } from './utils/services'
 import AboutPage from './pages/AboutPage'
 import Navigation from './common/Navigation'
+import ArchivePage from './pages/ArchivePage'
+import HomePage from './pages/HomePage'
 
 export default function App() {
   const [screenings, setScreenings] = useState([])
@@ -51,7 +52,7 @@ export default function App() {
         <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
         <Switch>
           <Route exact path="/">
-            <ScreeningsList
+            <HomePage
               screenings={screenings}
               setSelectedScreening={setSelectedScreening}
             />
@@ -60,6 +61,12 @@ export default function App() {
             {Object.entries(selectedScreening).length && (
               <ScreeningPage selectedScreening={selectedScreening} />
             )}
+          </Route>
+          <Route path="/archive">
+            <ArchivePage
+              screenings={screenings}
+              setSelectedScreening={setSelectedScreening}
+            />
           </Route>
           <Route path="/about">
             <AboutPage />

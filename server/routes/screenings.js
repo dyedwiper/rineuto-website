@@ -25,4 +25,10 @@ router.patch('/:id', (req, res) => {
     .catch(err => res.status(400).json(err))
 })
 
+router.delete('/:id', (req, res) => {
+  Screening.findByIdAndDelete(req.params.id)
+    .then(deletedScreening => res.json(deletedScreening))
+    .catch(err => res.status(400).json(err))
+})
+
 module.exports = router

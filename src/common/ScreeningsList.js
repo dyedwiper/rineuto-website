@@ -5,7 +5,6 @@ import ScreeningCard from './ScreeningCard.js'
 export default function ScreeningsList({ screenings, setSelectedScreening }) {
   return (
     <ScreeningsListStyled>
-      <SubHeadlineStyled>Unsere nächsten Filmperlen</SubHeadlineStyled>
       {screenings.map(screening => (
         <ScreeningCard
           screening={screening}
@@ -18,17 +17,12 @@ export default function ScreeningsList({ screenings, setSelectedScreening }) {
   )
 }
 
-const ScreeningsListStyled = styled.main`
+const ScreeningsListStyled = styled.div`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 50px;
   overflow: auto;
-  padding: 10px;
-`
-
-const SubHeadlineStyled = styled.h2`
-  margin: 10px 0;
-  color: white;
+  padding: 30px 10px;
 `
 
 const Cushion = styled.div`
