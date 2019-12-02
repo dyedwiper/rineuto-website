@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import ScreeningsList from '../screeningsList/ScreeningsList'
+import ScreeningsList from '../common/ScreeningsList'
 
 export default function ArchivePage({ screenings, setSelectedScreening }) {
   return (

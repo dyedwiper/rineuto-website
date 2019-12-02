@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components/macro'
-import DateRibbon from '../common/DateRibbon'
+import DateRibbon from './DateRibbon'
 
 export default function ScreeningCard({ screening, setSelectedScreening }) {
   let history = useHistory()
