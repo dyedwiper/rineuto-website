@@ -20,10 +20,19 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
 }
 
 const NavigationStyled = styled.nav`
+  position: absolute;
+  right: 0;
+  top: 48px;
   display: ${props => (props.isNavOpen ? 'grid' : 'none')};
   grid-gap: 10px;
   padding: 10px 16px;
   background-image: url(${whitePerlsImage});
+
+  /* @media (min-width: 600px) {
+    display: grid;
+    grid-auto-flow: row;
+    grid-gap: 10px;
+  } */
 `
 
 const NavLinkStyled = styled(NavLink)`

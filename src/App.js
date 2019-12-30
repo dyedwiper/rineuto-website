@@ -49,7 +49,6 @@ export default function App() {
     <Router>
       <AppStyled>
         <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-        <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
         <Switch>
           <Route exact path="/">
             <HomePage
