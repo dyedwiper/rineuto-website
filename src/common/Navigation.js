@@ -23,16 +23,21 @@ const NavigationStyled = styled.nav`
   position: absolute;
   right: 0;
   top: 48px;
-  display: ${props => (props.isNavOpen ? 'grid' : 'none')};
+  display: grid;
   grid-gap: 10px;
   padding: 10px 16px;
   background-image: url(${whitePerlsImage});
+
+  transition: all 0.3s linear;
+  transform: ${props =>
+    props.isNavOpen ? 'translateX(0)' : 'translateX(101%)'};
 
   @media (min-width: 900px) {
     position: static;
     display: grid;
     grid-auto-flow: column;
     grid-gap: 5px;
+    transform: translateX(0);
   }
 `
 
