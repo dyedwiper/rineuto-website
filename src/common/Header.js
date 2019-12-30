@@ -29,6 +29,10 @@ const HeaderStyled = styled.header`
   padding: 0 10px;
   background-image: url(${whitePerlsImage});
   background-color: white;
+
+  @media (min-width: 900px) {
+    grid-template-columns: 350px auto auto;
+  }
 `
 
 const TitleStyled = styled.h1`
@@ -42,6 +46,10 @@ const BurgerMenuStyled = styled.label`
   width: 48px;
   height: 48px;
   padding: 9px 6px;
+
+  @media (min-width: 900px) {
+    display: none;
+  }
 `
 
 const CheckboxStyled = styled.input`

@@ -6,7 +6,6 @@ import Header from './common/Header'
 import ScreeningPage from './pages/ScreeningPage'
 import { getScreenings } from './utils/services'
 import AboutPage from './pages/AboutPage'
-import Navigation from './common/Navigation'
 import ArchivePage from './pages/ArchivePage'
 import HomePage from './pages/HomePage'
 
@@ -82,7 +81,6 @@ const AppStyled = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
-  /* overflow: auto; */
   height: 100%;
 
   display: grid;

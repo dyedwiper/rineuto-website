@@ -28,11 +28,12 @@ const NavigationStyled = styled.nav`
   padding: 10px 16px;
   background-image: url(${whitePerlsImage});
 
-  /* @media (min-width: 600px) {
+  @media (min-width: 900px) {
+    position: static;
     display: grid;
-    grid-auto-flow: row;
-    grid-gap: 10px;
-  } */
+    grid-auto-flow: column;
+    grid-gap: 5px;
+  }
 `
 
 const NavLinkStyled = styled(NavLink)`
@@ -41,4 +42,8 @@ const NavLinkStyled = styled(NavLink)`
   color: black;
   font-size: 1.5em;
   font-weight: bold;
+
+  @media (min-width: 900px) {
+    text-align: left;
+  }
 `
