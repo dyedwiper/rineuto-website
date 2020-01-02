@@ -26,17 +26,17 @@ const HeaderStyled = styled.header`
   display: grid;
   grid-template-columns: auto 48px;
   align-items: center;
-  padding: 0 10px;
   background-image: url(${whitePerlsImage});
   background-color: white;
 
   @media (min-width: 900px) {
-    grid-template-columns: 350px auto;
+    grid-template-columns: 321px auto;
   }
 `
 
 const TitleStyled = styled.h1`
   margin: 0;
+  padding-left: 10px;
 `
 
 const BurgerMenuStyled = styled.label`

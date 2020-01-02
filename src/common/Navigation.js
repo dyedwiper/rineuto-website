@@ -37,6 +37,7 @@ const NavigationStyled = styled.nav`
     display: grid;
     grid-auto-flow: column;
     grid-gap: 5px;
+    height: 48px;
     transform: translateX(0);
   }
 `
