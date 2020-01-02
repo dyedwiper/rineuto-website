@@ -25,6 +25,7 @@ export default function ScreeningCard({ screening, setSelectedScreening }) {
 
 const ScreeningCardStyled = styled.section`
   display: grid;
+  cursor: pointer;
 `
 
 const FilmStillStyled = styled.img`
