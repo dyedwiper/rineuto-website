@@ -22,5 +22,6 @@ const HomePageStyled = styled.main`
 
 const SubHeadlineStyled = styled.h2`
   margin: 20px 10px;
+  text-align: center;
   color: white;
 `

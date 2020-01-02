@@ -41,16 +41,19 @@ const AboutPageStyled = styled.main`
 const SubHeadlineStyled = styled.h2`
   margin: 10px 0;
   color: white;
+  text-align: center;
 `
 
 const AboutTextStyled = styled.p`
-  margin: 0;
+  margin: 0 auto;
+  max-width: 600px;
   padding: 10px;
   background-color: white;
 `
 
 const AboutQuotesStyled = styled.p`
-  margin: 0;
+  margin: 0 auto;
+  max-width: 600px;
   padding: 10px;
   background-color: black;
   color: white;
