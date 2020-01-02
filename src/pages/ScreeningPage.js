@@ -31,6 +31,7 @@ export default function ScreeningPage({ selectedScreening }) {
 const ScreeningPageStyled = styled.main`
   display: grid;
   grid-auto-rows: min-content;
+  overflow: auto;
   padding: 40px 10px;
 `
 
