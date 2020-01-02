@@ -1,12 +1,17 @@
 import React from 'react'
+import { useHistory } from 'react-router'
 import styled from 'styled-components/macro'
 import whitePerlsImage from '../assets/whitePerls.png'
 import Navigation from './Navigation'
 
 export default function Header({ isNavOpen, setIsNavOpen }) {
+  let history = useHistory()
+
   return (
     <HeaderStyled>
-      <TitleStyled>Rineuto Lichtspiele</TitleStyled>
+      <TitleStyled onClick={() => history.push('/')}>
+        Rineuto Lichtspiele
+      </TitleStyled>
       <BurgerMenuStyled>
         <CheckboxStyled
           type="checkbox"
@@ -37,6 +42,7 @@ const HeaderStyled = styled.header`
 const TitleStyled = styled.h1`
   margin: 0;
   padding-left: 10px;
+  cursor: pointer;
 `
 
 const BurgerMenuStyled = styled.label`
