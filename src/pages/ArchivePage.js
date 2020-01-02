@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
 import ScreeningsList from '../common/ScreeningsList'
 
 export default function ArchivePage({ screenings, setSelectedScreening }) {
+  useEffect(() => {
+    document.title = 'Archiv | Rineuto Lichtspiele'
+  }, [])
+
   return (
     <ArchivePageStyled>
       <SubHeadlineStyled>Vergangene Filmperlen</SubHeadlineStyled>

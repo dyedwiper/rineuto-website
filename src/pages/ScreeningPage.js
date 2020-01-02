@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
 import DateRibbon from '../common/DateRibbon'
 
 export default function ScreeningPage({ selectedScreening }) {
+  useEffect(() => {
+    document.title = selectedScreening.title + ' | Rineuto Lichtspiele'
+  }, [selectedScreening])
+
   return (
     <ScreeningPageStyled>
       <ScreeningInfoStyled>
