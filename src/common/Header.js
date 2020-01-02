@@ -31,7 +31,7 @@ const HeaderStyled = styled.header`
   background-color: white;
 
   @media (min-width: 900px) {
-    grid-template-columns: 350px auto auto;
+    grid-template-columns: 350px auto;
   }
 `
 

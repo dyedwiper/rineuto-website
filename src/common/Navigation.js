@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import whitePerlsImage from '../assets/whitePerls.png'
+import whitePerlsImage from '../assets/darkGreenPerls_150x100.png'
 
 export default function Navigation({ isNavOpen, setIsNavOpen }) {
   return (
@@ -44,7 +44,7 @@ const NavigationStyled = styled.nav`
 const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
   text-align: right;
-  color: black;
+  color: white;
   font-size: 1.5em;
   font-weight: bold;
 
