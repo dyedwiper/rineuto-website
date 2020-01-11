@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import whitePerlsImage from '../assets/whitePerls.png'
+import whitePerlsImage from '../assets/darkGreenPerls_150x100.png'
 
 export default function Navigation({ isNavOpen, setIsNavOpen }) {
   return (
@@ -20,16 +20,36 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
 }
 
 const NavigationStyled = styled.nav`
-  display: ${props => (props.isNavOpen ? 'grid' : 'none')};
+  position: absolute;
+  right: 0;
+  top: 48px;
+  display: grid;
   grid-gap: 10px;
   padding: 10px 16px;
   background-image: url(${whitePerlsImage});
+
+  transition: all 0.3s linear;
+  transform: ${props =>
+    props.isNavOpen ? 'translateX(0)' : 'translateX(101%)'};
+
+  @media (min-width: 900px) {
+    position: static;
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 5px;
+    height: 48px;
+    transform: translateX(0);
+  }
 `
 
 const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
   text-align: right;
-  color: black;
+  color: white;
   font-size: 1.5em;
   font-weight: bold;
+
+  @media (min-width: 900px) {
+    text-align: left;
+  }
 `

@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
 
 export default function AboutPage() {
+  useEffect(() => {
+    document.title = 'Über uns | Rineuto Lichtspiele'
+  }, [])
+
   const aboutText =
     'Wir veranstalten etwa alle zwei Wochen einen Filmabend in der Mokrystr. 1. \n In unseren Filmreihen widmen wir uns über je zwei Monate einem Thema oder einer Person. \n Nach den Filmen diskutieren wir häufig noch ein Weilchen über die Eindrücke und manchmal gibt es ein kurzes filmhistorisches Referat. \n Der Eintritt ist frei. Kühle Getränke gibt es an der Bar. Für beides nehmen wir gerne Spenden entgegen.'
 
@@ -41,16 +45,19 @@ const AboutPageStyled = styled.main`
 const SubHeadlineStyled = styled.h2`
   margin: 10px 0;
   color: white;
+  text-align: center;
 `
 
 const AboutTextStyled = styled.p`
-  margin: 0;
+  margin: 0 auto;
+  max-width: 600px;
   padding: 10px;
   background-color: white;
 `
 
 const AboutQuotesStyled = styled.p`
-  margin: 0;
+  margin: 0 auto;
+  max-width: 600px;
   padding: 10px;
   background-color: black;
   color: white;

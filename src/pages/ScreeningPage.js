@@ -1,36 +1,48 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
 import DateRibbon from '../common/DateRibbon'
 
 export default function ScreeningPage({ selectedScreening }) {
+  useEffect(() => {
+    document.title = selectedScreening.title + ' | Rineuto Lichtspiele'
+  }, [selectedScreening])
+
   return (
     <ScreeningPageStyled>
-      <DateRibbon date={selectedScreening.date} />
-      <FilmStillStyled src={selectedScreening.imageUrl} />
-      <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
-      <FilmInfoStyled>
-        {selectedScreening.country +
-          ' ' +
-          selectedScreening.year +
-          ' | ' +
-          selectedScreening.length +
-          ' Min | ' +
-          selectedScreening.version}
-      </FilmInfoStyled>
-      <FilmDirectorStyled>
-        {'Regie: ' + selectedScreening.director}
-      </FilmDirectorStyled>
-      <FilmSynopsisStyled>{selectedScreening.synopsis}</FilmSynopsisStyled>
-      <ScreeningSeriesStyled>
-        Filmreihe: {selectedScreening.series}
-      </ScreeningSeriesStyled>
+      <ScreeningInfoStyled>
+        <DateRibbon date={selectedScreening.date} />
+        <FilmStillStyled src={selectedScreening.imageUrl} />
+        <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
+        <FilmInfoStyled>
+          {selectedScreening.country +
+            ' ' +
+            selectedScreening.year +
+            ' | ' +
+            selectedScreening.length +
+            ' Min | ' +
+            selectedScreening.version}
+        </FilmInfoStyled>
+        <FilmDirectorStyled>
+          {'Regie: ' + selectedScreening.director}
+        </FilmDirectorStyled>
+        <FilmSynopsisStyled>{selectedScreening.synopsis}</FilmSynopsisStyled>
+        <ScreeningSeriesStyled>
+          Filmreihe: {selectedScreening.series}
+        </ScreeningSeriesStyled>
+      </ScreeningInfoStyled>
     </ScreeningPageStyled>
   )
 }
 
 const ScreeningPageStyled = styled.main`
+  overflow: auto;
+`
+
+const ScreeningInfoStyled = styled.div`
   display: grid;
   grid-auto-rows: min-content;
+  margin: 0 auto;
+  max-width: 600px;
   padding: 40px 10px;
 `
 
