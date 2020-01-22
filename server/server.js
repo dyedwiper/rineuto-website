@@ -1,18 +1,19 @@
-const express = require('express')
-const app = express()
-const cors = require('cors')
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const mongoose = require('mongoose');
 
-app.listen(3333, () => console.log('Server ready on port 3333'))
+app.listen(3333, () => console.log('Server ready on port 3333'));
 
-app.use(express.json())
-app.use(cors())
-app.set('json spaces', 2)
+app.use(express.json());
+app.use(cors());
+app.set('json spaces', 2);
 
-app.use('/screenings', require('./routes/screenings'))
+app.use('/screenings', require('./routes/screenings'));
+app.use('/users', require('./routes/users'));
 
-const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost:27017/rineuto', {
   useNewUrlParser: true,
   useUnifiedTopology: true
-})
-mongoose.set('useFindAndModify', false)
+});
+mongoose.set('useFindAndModify', false);
