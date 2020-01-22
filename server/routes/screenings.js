@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Screening = require('../models/screenings')
+const Screening = require('../models/Screening')
 
 router.get('/', (req, res) => {
   Screening.find()

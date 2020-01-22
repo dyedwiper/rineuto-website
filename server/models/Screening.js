@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const screeningSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -12,8 +12,8 @@ const screeningSchema = new mongoose.Schema({
   synopsis: { type: String, required: true },
   series: { type: String, required: true },
   links: { type: [String] }
-})
+});
 
-const Screening = mongoose.model('Screening', screeningSchema)
+const Screening = mongoose.model('Screening', screeningSchema);
 
-module.exports = Screening
+module.exports = Screening;
