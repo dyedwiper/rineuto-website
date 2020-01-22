@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
 router.post('/create', (req, res) => {
   if (!req.body.username) {
@@ -13,13 +14,18 @@ router.post('/create', (req, res) => {
       if (user) {
         return res.status(400).json({ error: 'username already taken' });
       }
-      const newUser = new User({
-        username: req.body.username,
-        password: req.body.password
-      });
-      newUser
-        .save()
-        .then(res.json(newUser))
+      bcrypt
+        .hash(req.body.password, 10)
+        .then(hashedPassword => {
+          const newUser = new User({
+            username: req.body.username,
+            password: hashedPassword
+          });
+          newUser
+            .save()
+            .then(res.json(newUser))
+            .catch(err => res.status(400).json(err));
+        })
         .catch(err => res.status(400).json(err));
     })
     .catch(err => res.status(400).json(err));
