@@ -1,14 +1,9 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const { validateUser } = require('../middleware/validation');
 
-router.post('/create', (req, res) => {
-  if (!req.body.username) {
-    return res.status(400).json({ error: 'username must not be blank' });
-  }
-  if (!req.body.password) {
-    return res.status(400).json({ error: 'password must not be blank' });
-  }
+router.post('/create', validateUser, (req, res) => {
   User.findOne({ username: req.body.username })
     .then(user => {
       if (user) {
@@ -23,7 +18,9 @@ router.post('/create', (req, res) => {
           });
           newUser
             .save()
-            .then(res.json(newUser))
+            .then(newUser =>
+              res.json({ success: 'user ' + newUser.username + ' registered' })
+            )
             .catch(err => res.status(400).json(err));
         })
         .catch(err => res.status(400).json(err));
