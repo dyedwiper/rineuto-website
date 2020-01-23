@@ -3,8 +3,9 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validateUser } = require('../middleware/validation');
+const verifyToken = require('../middleware/verifyToken');
 
-router.get('/', (req, res) => {
+router.get('/', verifyToken, (req, res) => {
   User.find()
     .then(users => {
       res.json(users);
