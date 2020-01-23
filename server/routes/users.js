@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { validateUser } = require('../middleware/validation');
 
 router.post('/create', validateUser, (req, res) => {
@@ -22,6 +23,26 @@ router.post('/create', validateUser, (req, res) => {
               res.json({ success: 'user ' + newUser.username + ' registered' })
             )
             .catch(err => res.status(400).json(err));
+        })
+        .catch(err => res.status(400).json(err));
+    })
+    .catch(err => res.status(400).json(err));
+});
+
+router.post('/login', validateUser, (req, res) => {
+  User.findOne({ username: req.body.username })
+    .then(user => {
+      if (!user) {
+        return res.status(400).json({ error: 'username does not exist' });
+      }
+      bcrypt
+        .compare(req.body.password, user.password)
+        .then(valid => {
+          if (!valid) {
+            return res.status(400).json({ error: 'password is incorrect' });
+          }
+          const token = jwt.sign({ _id: user._id }, 'secret');
+          res.set('auth-token', token).send(token);
         })
         .catch(err => res.status(400).json(err));
     })
