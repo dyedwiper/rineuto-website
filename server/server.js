@@ -3,7 +3,9 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-app.listen(3333, () => console.log('Server ready on port 3333'));
+const port = process.env.PORT || 3333;
+
+app.listen(port, () => console.log('Server ready on port ' + port));
 
 app.use(express.json());
 app.use(cors());
