@@ -4,6 +4,14 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validateUser } = require('../middleware/validation');
 
+router.get('/', (req, res) => {
+  User.find()
+    .then(users => {
+      res.json(users);
+    })
+    .catch(err => res.status(400).json(err));
+});
+
 router.post('/create', validateUser, (req, res) => {
   User.findOne({ username: req.body.username })
     .then(user => {
