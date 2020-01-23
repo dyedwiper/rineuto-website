@@ -50,7 +50,8 @@ router.post('/login', validateUser, (req, res) => {
           if (!valid) {
             return res.status(400).json({ error: 'password is incorrect' });
           }
-          const token = jwt.sign({ _id: user._id }, 'secret');
+          console.log(process.env.JWT_SECRET);
+          const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
           res.set('auth-token', token).send(token);
         })
         .catch(err => res.status(400).json(err));

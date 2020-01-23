@@ -2,11 +2,11 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
-// const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 
 const port = process.env.PORT || 3333;
 
-// dotenv.config();
+dotenv.config();
 
 app.use(express.json());
 app.use(cors());
@@ -16,7 +16,7 @@ app.use('/screenings', require('./routes/screenings'));
 app.use('/users', require('./routes/users'));
 
 mongoose.connect(
-  'mongodb://localhost:27017/rineuto',
+  process.env.DB_CONNECT,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true

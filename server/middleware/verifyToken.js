@@ -6,7 +6,7 @@ function verifyToken(req, res, next) {
     return res.status(400).send('No token');
   }
   try {
-    req.user = jwt.verify(token, 'secret');
+    req.user = jwt.verify(token, process.env.JWT_SECRET);
     next();
   } catch (error) {
     res.status(400).send('Invalid token');
