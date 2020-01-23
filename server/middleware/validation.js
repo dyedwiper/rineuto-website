@@ -17,4 +17,17 @@ function validateUser(req, res, next) {
   next();
 }
 
+function validateLogin(req, res, next) {
+  const loginSchema = Joi.object({
+    username: Joi.string().required(),
+    password: Joi.string().required()
+  });
+  const { error } = loginSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json(error);
+  }
+  next();
+}
+
 module.exports.validateUser = validateUser;
+module.exports.validateLogin = validateLogin;

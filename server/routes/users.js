@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { validateUser } = require('../middleware/validation');
+const { validateUser, validateLogin } = require('../middleware/validation');
 const verifyToken = require('../middleware/verifyToken');
 const authorize = require('../middleware/authorize');
 
@@ -14,7 +14,7 @@ router.get('/', verifyToken, authorize, (req, res) => {
     .catch(err => res.status(400).json(err));
 });
 
-router.post('/create', validateUser, (req, res) => {
+router.post('/create', verifyToken, authorize, validateUser, (req, res) => {
   User.findOne({ username: req.body.username })
     .then(user => {
       if (user) {
@@ -40,7 +40,7 @@ router.post('/create', validateUser, (req, res) => {
     .catch(err => res.status(400).json(err));
 });
 
-router.post('/login', validateUser, (req, res) => {
+router.post('/login', validateLogin, (req, res) => {
   User.findOne({ username: req.body.username })
     .then(user => {
       if (!user) {
