@@ -7,7 +7,8 @@ function validateUser(req, res, next) {
       .required(),
     password: Joi.string()
       .min(8)
-      .required()
+      .required(),
+    admin: Joi.boolean()
   });
   const { error } = userSchema.validate(req.body);
   if (error) {

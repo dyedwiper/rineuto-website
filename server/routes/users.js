@@ -4,8 +4,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validateUser } = require('../middleware/validation');
 const verifyToken = require('../middleware/verifyToken');
+const authorize = require('../middleware/authorize');
 
-router.get('/', verifyToken, (req, res) => {
+router.get('/', verifyToken, authorize, (req, res) => {
   User.find()
     .then(users => {
       res.json(users);
@@ -24,7 +25,8 @@ router.post('/create', validateUser, (req, res) => {
         .then(hashedPassword => {
           const newUser = new User({
             username: req.body.username,
-            password: hashedPassword
+            password: hashedPassword,
+            admin: req.body.admin
           });
           newUser
             .save()
@@ -50,7 +52,8 @@ router.post('/login', validateUser, (req, res) => {
           if (!valid) {
             return res.status(400).json({ error: 'password is incorrect' });
           }
-          console.log(process.env.JWT_SECRET);
+          user.lastLogin = Date.now();
+          user.save();
           const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
           res.set('auth-token', token).send(token);
         })
