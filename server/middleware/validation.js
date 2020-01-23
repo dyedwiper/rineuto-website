@@ -8,8 +8,9 @@ function validateUser(req, res, next) {
     password: Joi.string()
       .min(8)
       .required(),
+    repeat_password: Joi.ref('password'),
     admin: Joi.boolean()
-  });
+  }).with('password', 'repeat_password');
   const { error } = userSchema.validate(req.body);
   if (error) {
     return res.status(400).json(error);
