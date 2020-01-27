@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 import styled from 'styled-components/macro';
 import blackPerlsImage from './assets/blackPerls.png';
 import Header from './common/Header';
@@ -9,12 +14,14 @@ import AboutPage from './pages/AboutPage';
 import ArchivePage from './pages/ArchivePage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import AddScreeningPage from './pages/AddScreeningPage';
 
 export default function App() {
   const [screenings, setScreenings] = useState([]);
   const [selectedScreening, setSelectedScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     getScreenings()
@@ -70,12 +77,21 @@ export default function App() {
           <Route path="/about">
             <AboutPage />
           </Route>
-          <Route path="/intern">
+          <Route exact path="/intern">
             <LoginPage />
           </Route>
+          <PrivateRoute path="/intern/addScreening" isLoggedIn={isLoggedIn}>
+            <AddScreeningPage />
+          </PrivateRoute>
         </Switch>
       </AppStyled>
     </Router>
+  );
+}
+
+function PrivateRoute({ children, isLoggedIn, ...rest }) {
+  return (
+    <Route {...rest}>{isLoggedIn ? children : <Redirect to="/intern" />}</Route>
   );
 }
 
