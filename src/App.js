@@ -10,6 +10,7 @@ import blackPerlsImage from './assets/blackPerls.png';
 import Header from './common/Header';
 import ScreeningPage from './pages/ScreeningPage';
 import { getScreenings } from './utils/services';
+import { getFromStorage } from './utils/storage';
 import AboutPage from './pages/AboutPage';
 import ArchivePage from './pages/ArchivePage';
 import HomePage from './pages/HomePage';
@@ -21,7 +22,15 @@ export default function App() {
   const [selectedScreening, setSelectedScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // useEffect(() => {
+  //   console.log(isLoggedIn);
+  //   const jwt = getFromStorage('jwt');
+  //   if (jwt) {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, [isLoggedIn]);
 
   useEffect(() => {
     getScreenings()
@@ -80,7 +89,7 @@ export default function App() {
           <Route exact path="/intern">
             <LoginPage />
           </Route>
-          <PrivateRoute path="/intern/addScreening" isLoggedIn={isLoggedIn}>
+          <PrivateRoute path="/intern/addScreening">
             <AddScreeningPage />
           </PrivateRoute>
         </Switch>
@@ -89,7 +98,8 @@ export default function App() {
   );
 }
 
-function PrivateRoute({ children, isLoggedIn, ...rest }) {
+function PrivateRoute({ children, ...rest }) {
+  const isLoggedIn = getFromStorage('jwt');
   return (
     <Route {...rest}>{isLoggedIn ? children : <Redirect to="/intern" />}</Route>
   );
