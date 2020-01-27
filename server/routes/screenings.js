@@ -1,34 +1,35 @@
-const router = require('express').Router()
-const Screening = require('../models/Screening')
+const router = require('express').Router();
+const Screening = require('../models/Screening');
+const verifyToken = require('../middleware/verifyToken');
 
 router.get('/', (req, res) => {
   Screening.find()
     .then(screenings => res.json(screenings))
-    .catch(err => res.status(404).json(err))
-})
+    .catch(err => res.status(404).json(err));
+});
 
 router.get('/:id', (req, res) => {
   Screening.findById(req.params.id)
     .then(screening => res.json(screening))
-    .catch(err => res.status(404).json(err))
-})
+    .catch(err => res.status(404).json(err));
+});
 
-router.post('/', (req, res) => {
+router.post('/', verifyToken, (req, res) => {
   Screening.create(req.body)
     .then(newScreening => res.json(newScreening))
-    .catch(err => res.status(400).json(err))
-})
+    .catch(err => res.status(400).json(err));
+});
 
-router.patch('/:id', (req, res) => {
+router.patch('/:id', verifyToken, (req, res) => {
   Screening.findByIdAndUpdate(req.params.id, req.body)
     .then(updatedScreening => res.json(updatedScreening))
-    .catch(err => res.status(400).json(err))
-})
+    .catch(err => res.status(400).json(err));
+});
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', verifyToken, (req, res) => {
   Screening.findByIdAndDelete(req.params.id)
     .then(deletedScreening => res.json(deletedScreening))
-    .catch(err => res.status(400).json(err))
-})
+    .catch(err => res.status(400).json(err));
+});
 
-module.exports = router
+module.exports = router;
