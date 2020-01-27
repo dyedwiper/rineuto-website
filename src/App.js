@@ -1,48 +1,49 @@
-import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import styled from 'styled-components/macro'
-import blackPerlsImage from './assets/blackPerls.png'
-import Header from './common/Header'
-import ScreeningPage from './pages/ScreeningPage'
-import { getScreenings } from './utils/services'
-import AboutPage from './pages/AboutPage'
-import ArchivePage from './pages/ArchivePage'
-import HomePage from './pages/HomePage'
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import styled from 'styled-components/macro';
+import blackPerlsImage from './assets/blackPerls.png';
+import Header from './common/Header';
+import ScreeningPage from './pages/ScreeningPage';
+import { getScreenings } from './utils/services';
+import AboutPage from './pages/AboutPage';
+import ArchivePage from './pages/ArchivePage';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
 
 export default function App() {
-  const [screenings, setScreenings] = useState([])
-  const [selectedScreening, setSelectedScreening] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
-  const [isNavOpen, setIsNavOpen] = useState(false)
+  const [screenings, setScreenings] = useState([]);
+  const [selectedScreening, setSelectedScreening] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   useEffect(() => {
     getScreenings()
       .then(screenings => {
         const screeningsFormatted = screenings.map(screening => {
-          const dateFormatted = new Date(screening.date)
-          return { ...screening, date: dateFormatted }
-        })
-        setScreenings(screeningsFormatted)
-        setIsLoading(false)
+          const dateFormatted = new Date(screening.date);
+          return { ...screening, date: dateFormatted };
+        });
+        setScreenings(screeningsFormatted);
+        setIsLoading(false);
       })
-      .catch(console.error)
-  }, [])
+      .catch(console.error);
+  }, []);
 
   useEffect(() => {
-    const currentUrl = window.location
+    const currentUrl = window.location;
     if (
       !isLoading &&
       currentUrl.pathname === '/screening' &&
       Object.entries(selectedScreening).length === 0 &&
       selectedScreening.constructor === Object
     ) {
-      const currentScreeningId = currentUrl.search.slice(4)
+      const currentScreeningId = currentUrl.search.slice(4);
       const currentScreening = screenings.find(
         screening => screening._id === currentScreeningId
-      )
-      setSelectedScreening(currentScreening)
+      );
+      setSelectedScreening(currentScreening);
     }
-  }, [isLoading, screenings, selectedScreening])
+  }, [isLoading, screenings, selectedScreening]);
 
   return (
     <Router>
@@ -69,10 +70,13 @@ export default function App() {
           <Route path="/about">
             <AboutPage />
           </Route>
+          <Route path="/intern">
+            <LoginPage />
+          </Route>
         </Switch>
       </AppStyled>
     </Router>
-  )
+  );
 }
 
 const AppStyled = styled.div`
@@ -87,4 +91,4 @@ const AppStyled = styled.div`
   grid-template-rows: 48px auto;
   background-image: url(${blackPerlsImage});
   background-color: black;
-`
+`;
