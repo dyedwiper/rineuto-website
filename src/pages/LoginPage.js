@@ -4,7 +4,7 @@ import { setToStorage } from '../utils/storage';
 import { useHistory } from 'react-router-dom';
 import { postLoginUser } from '../utils/services';
 
-export default function LoginPage() {
+export default function LoginPage({ setIsLoggedIn }) {
   let history = useHistory();
 
   return (
@@ -29,8 +29,9 @@ export default function LoginPage() {
             throw err;
           });
         }
-        setToStorage('jwt', res.headers.get('auth-token'));
-        history.push('/intern/');
+        setToStorage('rineuto-token', res.headers.get('auth-token'));
+        setIsLoggedIn(true);
+        history.push('/intern');
       })
       .catch(err => console.error(err));
   }

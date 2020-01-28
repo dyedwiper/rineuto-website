@@ -14,6 +14,17 @@ router.get('/', verifyToken, authorize, (req, res) => {
     .catch(err => res.status(400).json(err));
 });
 
+router.get('/verify', verifyToken, (req, res) => {
+  User.findById(req.user)
+    .then(user => {
+      if (!user) {
+        return res.status(400).json({ error: 'No user for this token' });
+      }
+      res.json(user);
+    })
+    .catch(err => res.status(400).json(err));
+});
+
 router.post('/create', verifyToken, authorize, validateUser, (req, res) => {
   User.findOne({ username: req.body.username })
     .then(user => {

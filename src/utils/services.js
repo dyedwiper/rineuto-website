@@ -16,6 +16,12 @@ export function postLoginUser(data) {
   });
 }
 
+export function getVerifyToken(token) {
+  return fetch('/users/verify', { headers: { 'auth-token': token } }).then(
+    handleError
+  );
+}
+
 function handleError(res) {
   let json = res.json();
   if (!res.ok) {

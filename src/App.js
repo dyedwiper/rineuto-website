@@ -9,28 +9,37 @@ import styled from 'styled-components/macro';
 import blackPerlsImage from './assets/blackPerls.png';
 import Header from './common/Header';
 import ScreeningPage from './pages/ScreeningPage';
-import { getScreenings } from './utils/services';
+import { getScreenings, getVerifyToken } from './utils/services';
 import { getFromStorage } from './utils/storage';
 import AboutPage from './pages/AboutPage';
 import ArchivePage from './pages/ArchivePage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import InternPage from './pages/InternPage';
+import LoadingPage from './pages/LoadingPage';
 
 export default function App() {
   const [screenings, setScreenings] = useState([]);
   const [selectedScreening, setSelectedScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
 
-  // useEffect(() => {
-  //   console.log(isLoggedIn);
-  //   const jwt = getFromStorage('jwt');
-  //   if (jwt) {
-  //     setIsLoggedIn(true);
-  //   }
-  // }, [isLoggedIn]);
+  useEffect(() => {
+    const token = getFromStorage('rineuto-token');
+    getVerifyToken(token)
+      .then(() => {
+        setIsLoggedIn(true);
+      })
+      .then(() => {
+        setIsLoadingUser(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setIsLoadingUser(false);
+      });
+  }, []);
 
   useEffect(() => {
     getScreenings()
@@ -42,7 +51,7 @@ export default function App() {
         setScreenings(screeningsFormatted);
         setIsLoading(false);
       })
-      .catch(console.error);
+      .catch(err => console.error(err));
   }, []);
 
   useEffect(() => {
@@ -87,9 +96,14 @@ export default function App() {
             <AboutPage />
           </Route>
           <Route exact path="/intern/login">
-            <LoginPage />
+            <LoginPage setIsLoggedIn={setIsLoggedIn} />
           </Route>
-          <PrivateRoute exact path="/intern/">
+          <PrivateRoute
+            exact
+            path="/intern"
+            isLoadingUser={isLoadingUser}
+            isLoggedIn={isLoggedIn}
+          >
             <InternPage />
           </PrivateRoute>
         </Switch>
@@ -98,8 +112,15 @@ export default function App() {
   );
 }
 
-function PrivateRoute({ children, ...rest }) {
-  const isLoggedIn = getFromStorage('jwt');
+function PrivateRoute({ children, isLoggedIn, isLoadingUser, ...rest }) {
+  console.log('loading user', isLoadingUser, 'logged in', isLoggedIn);
+  if (isLoadingUser) {
+    return (
+      <Route>
+        <LoadingPage />
+      </Route>
+    );
+  }
   return (
     <Route {...rest}>
       {isLoggedIn ? children : <Redirect to="/intern/login" />}
