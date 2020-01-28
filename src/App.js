@@ -15,7 +15,7 @@ import AboutPage from './pages/AboutPage';
 import ArchivePage from './pages/ArchivePage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
-import AddScreeningPage from './pages/AddScreeningPage';
+import InternPage from './pages/InternPage';
 
 export default function App() {
   const [screenings, setScreenings] = useState([]);
@@ -86,11 +86,11 @@ export default function App() {
           <Route path="/about">
             <AboutPage />
           </Route>
-          <Route exact path="/intern">
+          <Route exact path="/intern/login">
             <LoginPage />
           </Route>
-          <PrivateRoute path="/intern/addScreening">
-            <AddScreeningPage />
+          <PrivateRoute exact path="/intern/">
+            <InternPage />
           </PrivateRoute>
         </Switch>
       </AppStyled>
@@ -101,7 +101,9 @@ export default function App() {
 function PrivateRoute({ children, ...rest }) {
   const isLoggedIn = getFromStorage('jwt');
   return (
-    <Route {...rest}>{isLoggedIn ? children : <Redirect to="/intern" />}</Route>
+    <Route {...rest}>
+      {isLoggedIn ? children : <Redirect to="/intern/login" />}
+    </Route>
   );
 }
 

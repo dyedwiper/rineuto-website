@@ -30,7 +30,7 @@ export default function LoginPage() {
           });
         }
         setToStorage('jwt', res.headers.get('auth-token'));
-        history.push('/intern/addScreening');
+        history.push('/intern/');
       })
       .catch(err => console.error(err));
   }
