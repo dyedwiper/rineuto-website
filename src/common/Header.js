@@ -1,11 +1,11 @@
-import React from 'react'
-import { useHistory } from 'react-router'
-import styled from 'styled-components/macro'
-import whitePerlsImage from '../assets/whitePerls.png'
-import Navigation from './Navigation'
+import React from 'react';
+import { useHistory } from 'react-router';
+import styled from 'styled-components/macro';
+import whitePerlsImage from '../assets/whitePerls.png';
+import Navigation from './Navigation';
 
-export default function Header({ isNavOpen, setIsNavOpen }) {
-  let history = useHistory()
+export default function Header({ isNavOpen, setIsNavOpen, isLoggedIn }) {
+  let history = useHistory();
 
   return (
     <HeaderStyled>
@@ -21,9 +21,13 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
         <BurgerSliceStyled isNavOpen={isNavOpen} />
         <BurgerSliceStyled isNavOpen={isNavOpen} />
       </BurgerMenuStyled>
-      <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+      <Navigation
+        isNavOpen={isNavOpen}
+        setIsNavOpen={setIsNavOpen}
+        isLoggedIn={isLoggedIn}
+      />
     </HeaderStyled>
-  )
+  );
 }
 
 const HeaderStyled = styled.header`
@@ -37,13 +41,13 @@ const HeaderStyled = styled.header`
   @media (min-width: 900px) {
     grid-template-columns: 321px auto;
   }
-`
+`;
 
 const TitleStyled = styled.h1`
   margin: 0;
   padding-left: 10px;
   cursor: pointer;
-`
+`;
 
 const BurgerMenuStyled = styled.label`
   display: grid;
@@ -56,11 +60,11 @@ const BurgerMenuStyled = styled.label`
   @media (min-width: 900px) {
     display: none;
   }
-`
+`;
 
 const CheckboxStyled = styled.input`
   display: none;
-`
+`;
 
 const BurgerSliceStyled = styled.div`
   width: 36px;
@@ -82,4 +86,4 @@ const BurgerSliceStyled = styled.div`
   :nth-child(4) {
     transform: ${props => (props.isNavOpen ? 'rotate(-45deg)' : 'rotate(0)')};
   }
-`
+`;

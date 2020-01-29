@@ -1,9 +1,9 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import styled from 'styled-components/macro'
-import whitePerlsImage from '../assets/darkGreenPerls_150x100.png'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components/macro';
+import whitePerlsImage from '../assets/darkGreenPerls_150x100.png';
 
-export default function Navigation({ isNavOpen, setIsNavOpen }) {
+export default function Navigation({ isNavOpen, setIsNavOpen, isLoggedIn }) {
   return (
     <NavigationStyled isNavOpen={isNavOpen}>
       <NavLinkStyled exact to="/" onClick={() => setIsNavOpen(false)}>
@@ -15,8 +15,13 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
       <NavLinkStyled to="/about" onClick={() => setIsNavOpen(false)}>
         Über uns
       </NavLinkStyled>
+      {isLoggedIn && (
+        <NavLinkStyled to="/intern" onClick={() => setIsNavOpen(false)}>
+          intern
+        </NavLinkStyled>
+      )}
     </NavigationStyled>
-  )
+  );
 }
 
 const NavigationStyled = styled.nav`
@@ -40,7 +45,7 @@ const NavigationStyled = styled.nav`
     height: 48px;
     transform: translateX(0);
   }
-`
+`;
 
 const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
@@ -52,4 +57,4 @@ const NavLinkStyled = styled(NavLink)`
   @media (min-width: 900px) {
     text-align: left;
   }
-`
+`;
