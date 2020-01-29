@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import blackPerlsImage from './assets/blackPerls.png';
 import Header from './common/Header';
-import ScreeningPage from './pages/ScreeningPage';
-import { getScreenings, getVerifyToken } from './utils/services';
-import { getFromStorage } from './utils/storage';
+import PrivateRoute from './common/PrivateRoute';
 import AboutPage from './pages/AboutPage';
 import ArchivePage from './pages/ArchivePage';
 import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
 import InternPage from './pages/InternPage';
-import LoadingPage from './pages/LoadingPage';
+import LoginPage from './pages/LoginPage';
+import ScreeningPage from './pages/ScreeningPage';
+import { getScreenings, getVerifyToken } from './utils/services';
+import { getFromStorage } from './utils/storage';
 
 export default function App() {
   const [screenings, setScreenings] = useState([]);
@@ -73,7 +68,11 @@ export default function App() {
   return (
     <Router>
       <AppStyled>
-        <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+        <Header
+          isNavOpen={isNavOpen}
+          setIsNavOpen={setIsNavOpen}
+          isLoggedIn={isLoggedIn}
+        />
         <Switch>
           <Route exact path="/">
             <HomePage
@@ -109,22 +108,6 @@ export default function App() {
         </Switch>
       </AppStyled>
     </Router>
-  );
-}
-
-function PrivateRoute({ children, isLoggedIn, isLoadingUser, ...rest }) {
-  console.log('loading user', isLoadingUser, 'logged in', isLoggedIn);
-  if (isLoadingUser) {
-    return (
-      <Route>
-        <LoadingPage />
-      </Route>
-    );
-  }
-  return (
-    <Route {...rest}>
-      {isLoggedIn ? children : <Redirect to="/intern/login" />}
-    </Route>
   );
 }
 
