@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { setToStorage } from '../utils/storage';
 import { useHistory } from 'react-router-dom';
 import { postLoginUser } from '../utils/services';
+import magicGif from '../assets/ahahah.gif';
 
 export default function LoginPage({ setIsLoggedIn }) {
+  const [didLoginFail, setDidLoginFail] = useState(false);
   let history = useHistory();
 
   return (
@@ -20,6 +22,7 @@ export default function LoginPage({ setIsLoggedIn }) {
         </LabelStyled>
         <ButtonStyled>Login</ButtonStyled>
       </LoginFormStyled>
+      {didLoginFail && <ImageStyled src={magicGif}></ImageStyled>}
     </LoginPageStyled>
   );
 
@@ -37,13 +40,21 @@ export default function LoginPage({ setIsLoggedIn }) {
         }
         setToStorage('rineuto-token', res.headers.get('auth-token'));
         setIsLoggedIn(true);
+        setDidLoginFail(false);
         history.push('/intern');
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        console.error(err);
+        setDidLoginFail(true);
+      });
   }
 }
 
 const LoginPageStyled = styled.main`
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-gap: 40px;
+  justify-items: center;
   padding: 20px;
   color: white;
 `;
@@ -68,4 +79,8 @@ const ButtonStyled = styled.button`
   justify-self: center;
   width: min-content;
   padding: 5px 20px;
+`;
+
+const ImageStyled = styled.img`
+  width: 90%;
 `;
