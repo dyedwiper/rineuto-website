@@ -17,11 +17,13 @@ const storage = multer.diskStorage({
 });
 
 function fileFilter(req, file, cb) {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(new Error('mimetype not allowed'), false);
+  if (req.body.title.length > 100) {
+    return cb(new Error('title too long'), false);
   }
+  if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
+    return cb(new Error('mimetype not allowed'), false);
+  }
+  cb(null, true);
 }
 
 const uploadImage = multer({
