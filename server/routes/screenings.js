@@ -1,37 +1,8 @@
 const router = require('express').Router();
-const multer = require('multer');
 const Screening = require('../models/Screening');
 const verifyToken = require('../middleware/verifyToken');
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/filmstills');
-  },
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      new Date().toISOString() +
-        '_' +
-        req.body.title.toLowerCase().replace(/ /g, '_') +
-        '.' +
-        file.mimetype.slice(file.mimetype.indexOf('/') + 1)
-    );
-  }
-});
-
-function fileFilter(req, file, cb) {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, true);
-  } else {
-    cb(new Error('mimetype not allowed'), false);
-  }
-}
-
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 1024 * 1024 * 5 },
-  fileFilter: fileFilter
-});
+const { validateScreening } = require('../middleware/validation');
+const { uploadImage } = require('../middleware/upload');
 
 router.get('/', (req, res) => {
   Screening.find()
@@ -45,9 +16,11 @@ router.get('/:id', (req, res) => {
     .catch(err => res.status(404).json(err));
 });
 
-router.post('/', verifyToken, upload.single('image'), (req, res) => {
-  console.log(req.file);
-  const newScreening = new Screening({ ...req.body, imageUrl: req.file.path });
+router.post('/', verifyToken, uploadImage.single('image'), (req, res) => {
+  const newScreening = new Screening({
+    ...req.body,
+    imageUrl: req.file.path
+  });
   newScreening
     .save()
     .then(newScreening => res.json(newScreening))
