@@ -14,7 +14,11 @@ export default function InternPage() {
         </LabelStyled>
         <LabelStyled>
           Vorführdatum
-          <InputStyled type="date" name="date" />
+          <InputStyled type="date" name="day" />
+        </LabelStyled>
+        <LabelStyled>
+          Uhrzeit
+          <InputStyled type="time" name="time" />
         </LabelStyled>
         <LabelStyled>
           Regie
@@ -25,7 +29,7 @@ export default function InternPage() {
           <InputStyled name="imageUrl" />
         </LabelStyled>
         <LabelStyled>
-          Länge
+          Länge in Minuten
           <InputStyled name="length" />
         </LabelStyled>
         <LabelStyled>
@@ -60,9 +64,14 @@ export default function InternPage() {
   function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
-    const formData = new FormData(form);
-    const screeningData = Object.fromEntries(formData);
+    const formData = Object.fromEntries(new FormData(form));
     const jwt = getFromStorage('rineuto-token');
+    const screeningData = {
+      ...formData,
+      date: formData.day + 'T' + formData.time
+    };
+    delete screeningData.day;
+    delete screeningData.time;
     postScreening(screeningData, jwt)
       .then(res => console.log(res))
       .catch(err => console.error(err));
