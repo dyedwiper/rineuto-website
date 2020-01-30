@@ -10,8 +10,14 @@ export default function LoginPage({ setIsLoggedIn }) {
   return (
     <LoginPageStyled>
       <LoginFormStyled onSubmit={handleSubmit}>
-        <InputStyled name="username" />
-        <InputStyled type="password" name="password" />
+        <LabelStyled>
+          Name
+          <InputStyled name="username" />
+        </LabelStyled>
+        <LabelStyled>
+          Passwort
+          <InputStyled type="password" name="password" />
+        </LabelStyled>
         <ButtonStyled>Login</ButtonStyled>
       </LoginFormStyled>
     </LoginPageStyled>
@@ -45,9 +51,21 @@ const LoginPageStyled = styled.main`
 const LoginFormStyled = styled.form`
   display: grid;
   grid-auto-rows: min-content;
-  grid-gap: 10px;
+  grid-gap: 15px;
 `;
 
-const InputStyled = styled.input``;
+const LabelStyled = styled.label`
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-gap: 5px;
+`;
 
-const ButtonStyled = styled.button``;
+const InputStyled = styled.input`
+  padding: 5px;
+`;
+
+const ButtonStyled = styled.button`
+  justify-self: center;
+  width: min-content;
+  padding: 5px 20px;
+`;
