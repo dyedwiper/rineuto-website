@@ -37,7 +37,7 @@ export default function InternPage() {
           <InputStyled name="country" />
         </LabelStyled>
         <LabelStyled>
-          Prodoktionsjahr
+          Erscheinungsjahr
           <InputStyled name="year" />
         </LabelStyled>
         <LabelStyled>
@@ -90,16 +90,29 @@ const HeadlineStyled = styled.h2`
 
 const FormStyled = styled.form`
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 15px;
 `;
 
 const LabelStyled = styled.label`
   display: grid;
   grid-auto-rows: min-content;
+  grid-gap: 5px;
 `;
 
-const InputStyled = styled.input``;
+const InputStyled = styled.input`
+  padding: 5px;
+`;
 
-const TextareaStyled = styled.textarea``;
+const TextareaStyled = styled.textarea`
+  display: block;
+  overflow: auto;
+  resize: none;
+  min-height: 150px;
+  padding: 5px;
+`;
 
-const ButtonStyled = styled.button``;
+const ButtonStyled = styled.button`
+  justify-self: center;
+  width: min-content;
+  padding: 5px;
+`;
