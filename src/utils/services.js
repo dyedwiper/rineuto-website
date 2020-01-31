@@ -9,9 +9,8 @@ export function getSingleScreening(id) {
 export function postScreening(data, token) {
   return fetch('/screenings', {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: data,
     headers: {
-      'Content-Type': 'application/json',
       'auth-token': token
     }
   }).then(handleError);

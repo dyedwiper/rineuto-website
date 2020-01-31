@@ -16,22 +16,17 @@ router.get('/:id', (req, res) => {
     .catch(err => res.status(404).json(err));
 });
 
-router.post(
-  '/',
-  verifyToken,
-  uploadImage.single('image'),
-  validateScreening,
-  (req, res) => {
-    const newScreening = new Screening({
-      ...req.body,
-      imageUrl: req.file.path
-    });
-    newScreening
-      .save()
-      .then(newScreening => res.json(newScreening))
-      .catch(err => res.status(400).json(err));
-  }
-);
+router.post('/', verifyToken, uploadImage.single('image'), (req, res) => {
+  const newScreening = new Screening({
+    ...req.body,
+    date: req.body.day + 'T' + req.body.time,
+    imageUrl: req.file.path
+  });
+  newScreening
+    .save()
+    .then(newScreening => res.json(newScreening))
+    .catch(err => res.status(400).json(err));
+});
 
 router.patch('/:id', verifyToken, (req, res) => {
   Screening.findByIdAndUpdate(req.params.id, req.body)

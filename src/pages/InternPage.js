@@ -25,8 +25,8 @@ export default function InternPage() {
           <InputStyled name="director" />
         </LabelStyled>
         <LabelStyled>
-          URL des Bildes
-          <InputStyled name="imageUrl" />
+          Bild
+          <InputStyled type="file" name="image" />
         </LabelStyled>
         <LabelStyled>
           Länge in Minuten
@@ -64,15 +64,9 @@ export default function InternPage() {
   function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
-    const formData = Object.fromEntries(new FormData(form));
+    const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
-    const screeningData = {
-      ...formData,
-      date: formData.day + 'T' + formData.time
-    };
-    delete screeningData.day;
-    delete screeningData.time;
-    postScreening(screeningData, jwt)
+    postScreening(formData, jwt)
       .then(res => console.log(res))
       .catch(err => console.error(err));
   }

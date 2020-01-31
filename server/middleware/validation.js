@@ -53,7 +53,7 @@ function validateScreening(req, res, next) {
       .min(1890)
       .max(10000),
     version: Joi.string().max(50),
-    synopsis: Joi.string().max(10000),
+    synopsis: Joi.string().max(3000),
     series: Joi.string().max(100),
     links: Joi.array().items(Joi.string().max(1000))
   });
