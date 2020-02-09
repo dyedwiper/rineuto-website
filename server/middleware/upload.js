@@ -2,14 +2,14 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/filmstills');
+    cb(null, 'public/filmstills');
   },
   filename: (req, file, cb) => {
     cb(
       null,
-      new Date().toISOString() +
+      req.body.title.toLowerCase().replace(/[^a-z^A-z^0-9]+/g, '_') +
         '_' +
-        req.body.title.toLowerCase().replace(/[^a-z^A-z^0-9]+/g, '_') +
+        req.body.day +
         '.' +
         file.mimetype.slice(file.mimetype.indexOf('/') + 1)
     );

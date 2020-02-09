@@ -9,7 +9,6 @@ const port = process.env.PORT || 3333;
 dotenv.config();
 
 app.use(express.json());
-app.use(express.static('uploads'));
 app.use(cors());
 app.set('json spaces', 2);
 

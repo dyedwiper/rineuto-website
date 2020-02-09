@@ -37,7 +37,6 @@ function validateLogin(req, res, next) {
 }
 
 function validateScreening(req, res, next) {
-  console.log(req.body);
   const screeningSchema = Joi.object({
     title: Joi.string().max(100),
     date: Joi.date(),

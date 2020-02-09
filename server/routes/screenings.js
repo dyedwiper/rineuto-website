@@ -26,7 +26,7 @@ router.post(
   (req, res) => {
     const newScreening = new Screening({
       ...req.body,
-      imageUrl: req.file.path
+      imageUrl: req.file.path.slice(req.file.path.indexOf('/') + 1)
     });
     newScreening
       .save()
