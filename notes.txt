@@ -1,0 +1,13 @@
+Notizen:
+
+- Impressum
+
+- Datenschutzerklärung
+
+- SEO: Suchwörter sollen im Text vorkommen
+
+- Analyse: Matomo
+
+- Map: Openstreet-Map (Screenshot geht auch)
+
+- Host: All-Inkl (gucken, wo Node läuft)
