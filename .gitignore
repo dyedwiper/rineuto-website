@@ -25,5 +25,5 @@ yarn-error.log*
 #environment
 .env
 
-#uploads
-/uploads
+#image uploads
+/public/filmstills
