@@ -18,7 +18,7 @@ export default function InternPage() {
         </LabelStyled>
         <LabelStyled>
           Uhrzeit
-          <InputStyled type="time" name="time" />
+          <InputStyled type="time" name="time" defaultValue="20:30" />
         </LabelStyled>
         <LabelStyled>
           Regie
@@ -65,6 +65,8 @@ export default function InternPage() {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
+    // const screeningData = Object.fromEntries(formData);
+    // console.log(screeningData.day, screeningData.time);
     const jwt = getFromStorage('rineuto-token');
     postScreening(formData, jwt)
       .then(res => console.log(res))
