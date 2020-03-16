@@ -17,7 +17,7 @@ import UserContext from './userContext';
 export default function App() {
   const [screenings, setScreenings] = useState([]);
   const [selectedScreening, setSelectedScreening] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [user, setUser] = useState({});
   const [isLoadingUser, setIsLoadingUser] = useState(true);
@@ -26,7 +26,7 @@ export default function App() {
     const token = getFromStorage('rineuto-token');
     getUser(token)
       .then(user => {
-        console.log('user', user);
+        console.log('getUser called');
         setUser(user);
       })
       .then(() => {
@@ -46,7 +46,7 @@ export default function App() {
           return { ...screening, date: dateFormatted };
         });
         setScreenings(screeningsFormatted);
-        setIsLoading(false);
+        setIsLoadingScreenings(false);
       })
       .catch(err => console.error(err));
   }, []);
@@ -54,7 +54,7 @@ export default function App() {
   useEffect(() => {
     const currentUrl = window.location;
     if (
-      !isLoading &&
+      !isLoadingScreenings &&
       currentUrl.pathname === '/screening' &&
       Object.entries(selectedScreening).length === 0 &&
       selectedScreening.constructor === Object
@@ -65,7 +65,7 @@ export default function App() {
       );
       setSelectedScreening(currentScreening);
     }
-  }, [isLoading, screenings, selectedScreening]);
+  }, [isLoadingScreenings, screenings, selectedScreening]);
 
   return (
     <Router>
@@ -113,7 +113,6 @@ const AppStyled = styled.div`
   top: 0;
   bottom: 0;
   height: 100%;
-
   display: grid;
   grid-template-rows: 48px auto;
   background-image: url(${blackPerlsImage});

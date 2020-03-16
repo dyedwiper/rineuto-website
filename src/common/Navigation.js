@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import whitePerlsImage from '../assets/darkGreenPerls_150x100.png';
+import UserContext from '../userContext';
 
-export default function Navigation({ isNavOpen, setIsNavOpen, isLoggedIn }) {
+export default function Navigation({ isNavOpen, setIsNavOpen }) {
+  const user = useContext(UserContext);
+  const loggedIn = Object.keys(user).length !== 0;
+
   return (
     <NavigationStyled isNavOpen={isNavOpen}>
       <NavLinkStyled exact to="/" onClick={() => setIsNavOpen(false)}>
@@ -15,7 +19,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen, isLoggedIn }) {
       <NavLinkStyled to="/about" onClick={() => setIsNavOpen(false)}>
         Über uns
       </NavLinkStyled>
-      {isLoggedIn && (
+      {loggedIn && (
         <NavLinkStyled to="/intern" onClick={() => setIsNavOpen(false)}>
           intern
         </NavLinkStyled>
