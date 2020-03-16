@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
-import { setToStorage } from '../utils/storage';
 import { useHistory } from 'react-router-dom';
 import { postLoginUser } from '../utils/services';
 import magicGif from '../assets/ahahah.gif';
 
-export default function LoginPage({ setIsLoggedIn }) {
+export default function LoginPage({ setUser }) {
   const [didLoginFail, setDidLoginFail] = useState(false);
   let history = useHistory();
 
@@ -32,14 +31,9 @@ export default function LoginPage({ setIsLoggedIn }) {
     const formData = new FormData(form);
     const loginData = Object.fromEntries(formData);
     postLoginUser(loginData)
-      .then(res => {
-        if (!res.ok) {
-          return res.json().then(err => {
-            throw err;
-          });
-        }
-        setToStorage('rineuto-token', res.headers.get('auth-token'));
-        setIsLoggedIn(true);
+      .then(user => {
+        console.log('user', user);
+        setUser(user);
         setDidLoginFail(false);
         history.push('/intern');
       })

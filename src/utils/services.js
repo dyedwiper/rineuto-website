@@ -1,3 +1,5 @@
+import { setToStorage } from '../utils/storage';
+
 export function getScreenings() {
   return fetch('/screenings').then(handleError);
 }
@@ -23,10 +25,10 @@ export function postLoginUser(data) {
     headers: {
       'Content-Type': 'application/json'
     }
-  });
+  }).then(handleLogin);
 }
 
-export function getVerifyToken(token) {
+export function getUser(token) {
   return fetch('/users/verify', { headers: { 'auth-token': token } }).then(
     handleError
   );
@@ -38,7 +40,17 @@ function handleError(res) {
     return json.then(err => {
       throw err;
     });
-  } else {
-    return json;
   }
+  return json;
+}
+
+function handleLogin(res) {
+  let json = res.json();
+  if (!res.ok) {
+    return json.then(err => {
+      throw err;
+    });
+  }
+  setToStorage('rineuto-token', res.headers.get('auth-token'));
+  return json;
 }

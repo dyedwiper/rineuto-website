@@ -66,7 +66,7 @@ router.post('/login', validateLogin, (req, res) => {
           user.lastLogin = Date.now();
           user.save();
           const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-          res.set('auth-token', token).json({ success: 'user logged in' });
+          res.set('auth-token', token).json(user);
         })
         .catch(err => res.status(400).json(err));
     })

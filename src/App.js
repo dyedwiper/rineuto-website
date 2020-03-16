@@ -10,22 +10,25 @@ import HomePage from './pages/HomePage';
 import InternPage from './pages/InternPage';
 import LoginPage from './pages/LoginPage';
 import ScreeningPage from './pages/ScreeningPage';
-import { getScreenings, getVerifyToken } from './utils/services';
+import { getScreenings, getUser } from './utils/services';
 import { getFromStorage } from './utils/storage';
+import UserContext from './userContext';
 
 export default function App() {
   const [screenings, setScreenings] = useState([]);
   const [selectedScreening, setSelectedScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
 
   useEffect(() => {
     const token = getFromStorage('rineuto-token');
-    getVerifyToken(token)
-      .then(() => {
-        setIsLoggedIn(true);
+    getUser(token)
+      .then(user => {
+        console.log('user', user);
+        setUser(user);
       })
       .then(() => {
         setIsLoadingUser(false);
@@ -67,12 +70,9 @@ export default function App() {
 
   return (
     <Router>
+      {/* <UserContext.Provider value={}> */}
       <AppStyled>
-        <Header
-          isNavOpen={isNavOpen}
-          setIsNavOpen={setIsNavOpen}
-          isLoggedIn={isLoggedIn}
-        />
+        <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
         <Switch>
           <Route exact path="/">
             <HomePage
@@ -95,18 +95,14 @@ export default function App() {
             <AboutPage />
           </Route>
           <Route exact path="/intern/login">
-            <LoginPage setIsLoggedIn={setIsLoggedIn} />
+            <LoginPage setUser={setUser} />
           </Route>
-          <PrivateRoute
-            exact
-            path="/intern"
-            isLoadingUser={isLoadingUser}
-            isLoggedIn={isLoggedIn}
-          >
+          <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
             <InternPage />
           </PrivateRoute>
         </Switch>
       </AppStyled>
+      {/* </UserContext.Provider> */}
     </Router>
   );
 }
