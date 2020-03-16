@@ -20,7 +20,6 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [user, setUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
 
   useEffect(() => {
@@ -70,39 +69,39 @@ export default function App() {
 
   return (
     <Router>
-      {/* <UserContext.Provider value={}> */}
-      <AppStyled>
-        <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-        <Switch>
-          <Route exact path="/">
-            <HomePage
-              screenings={screenings}
-              setSelectedScreening={setSelectedScreening}
-            />
-          </Route>
-          <Route path="/screening">
-            {Object.entries(selectedScreening).length && (
-              <ScreeningPage selectedScreening={selectedScreening} />
-            )}
-          </Route>
-          <Route path="/archive">
-            <ArchivePage
-              screenings={screenings}
-              setSelectedScreening={setSelectedScreening}
-            />
-          </Route>
-          <Route path="/about">
-            <AboutPage />
-          </Route>
-          <Route exact path="/intern/login">
-            <LoginPage setUser={setUser} />
-          </Route>
-          <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
-            <InternPage />
-          </PrivateRoute>
-        </Switch>
-      </AppStyled>
-      {/* </UserContext.Provider> */}
+      <UserContext.Provider value={user}>
+        <AppStyled>
+          <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+          <Switch>
+            <Route exact path="/">
+              <HomePage
+                screenings={screenings}
+                setSelectedScreening={setSelectedScreening}
+              />
+            </Route>
+            <Route path="/screening">
+              {Object.entries(selectedScreening).length && (
+                <ScreeningPage selectedScreening={selectedScreening} />
+              )}
+            </Route>
+            <Route path="/archive">
+              <ArchivePage
+                screenings={screenings}
+                setSelectedScreening={setSelectedScreening}
+              />
+            </Route>
+            <Route path="/about">
+              <AboutPage />
+            </Route>
+            <Route exact path="/intern/login">
+              <LoginPage setUser={setUser} />
+            </Route>
+            <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
+              <InternPage />
+            </PrivateRoute>
+          </Switch>
+        </AppStyled>
+      </UserContext.Provider>
     </Router>
   );
 }
