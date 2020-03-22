@@ -17,7 +17,10 @@ const storage = multer.diskStorage({
 });
 
 function fileFilter(req, file, cb) {
-  if (req.body.title.length > 100) {
+  if (!req.body.title) {
+    return cb(new Error('title must not be empty'));
+  }
+  if (req.body.title.length > 50) {
     return cb(new Error('title too long'), false);
   }
   if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
@@ -27,9 +30,9 @@ function fileFilter(req, file, cb) {
 }
 
 const uploadImage = multer({
-  storage: storage,
-  limits: { fileSize: 1024 * 1024 * 5 },
-  fileFilter: fileFilter
+  limits: { fileSize: 1024 * 1024 * 1 },
+  fileFilter: fileFilter,
+  storage: storage
 });
 
 module.exports.uploadImage = uploadImage;

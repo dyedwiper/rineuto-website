@@ -21,8 +21,8 @@ router.post(
   '/',
   verifyToken,
   uploadImage.single('image'),
-  formatDate,
   validateScreening,
+  formatDate,
   (req, res) => {
     const newScreening = new Screening({
       ...req.body,

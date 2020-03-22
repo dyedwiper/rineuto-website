@@ -38,13 +38,14 @@ function validateLogin(req, res, next) {
 
 function validateScreening(req, res, next) {
   const screeningSchema = Joi.object({
-    title: Joi.string().max(100),
-    date: Joi.date(),
-    director: Joi.string().max(100),
+    title: Joi.string().max(50),
+    day: Joi.date(),
+    time: Joi.string().pattern(/([0-1]\d|[2][0-3]):([0-5]\d)/),
+    director: Joi.string().max(50),
     length: Joi.number()
       .integer()
       .positive()
-      .max(1000),
+      .max(1440),
     country: Joi.string().max(50),
     year: Joi.number()
       .integer()
@@ -52,11 +53,11 @@ function validateScreening(req, res, next) {
       .min(1890)
       .max(10000),
     version: Joi.string().max(50),
-    synopsis: Joi.string().max(3000),
-    series: Joi.string().max(100),
+    synopsis: Joi.string().max(2000),
+    series: Joi.string().max(50),
     links: Joi.string()
       .allow('')
-      .max(1000)
+      .max(200)
   });
   const { error } = screeningSchema.validate(req.body);
   if (error) {
