@@ -1,4 +1,4 @@
-const Joi = require('@hapi/joi');
+const Joi = require('@hapi/joi').extend(require('@hapi/joi-date'));
 
 function validateUser(req, res, next) {
   const userSchema = Joi.object({
@@ -39,7 +39,7 @@ function validateLogin(req, res, next) {
 function validateScreening(req, res, next) {
   const screeningSchema = Joi.object({
     title: Joi.string().max(50),
-    day: Joi.date(),
+    day: Joi.date().format('YYYY-MM-DD'),
     time: Joi.string().pattern(/([0-1]\d|[2][0-3]):([0-5]\d)/),
     director: Joi.string().max(50),
     length: Joi.number()

@@ -9,6 +9,7 @@
   "private": true,
   "dependencies": {
     "@hapi/joi": "^17.1.0",
+    "@hapi/joi-date": "^2.0.1",
     "bcrypt": "^3.0.7",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
