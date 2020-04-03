@@ -20,14 +20,19 @@ router.get('/:id', (req, res) => {
 router.post(
   '/',
   verifyToken,
-  uploadImage.single('image'),
+  uploadImage,
   validateScreening,
   formatDate,
   (req, res) => {
-    const newScreening = new Screening({
-      ...req.body,
-      imageUrl: req.file.path.slice(req.file.path.indexOf('/') + 1)
-    });
+    let newScreening;
+    if (req.file) {
+      newScreening = new Screening({
+        ...req.body,
+        imageUrl: req.file.path.slice(req.file.path.indexOf('/') + 1)
+      });
+    } else {
+      newScreening = new Screening(req.body);
+    }
     newScreening
       .save()
       .then(newScreening => res.json(newScreening))

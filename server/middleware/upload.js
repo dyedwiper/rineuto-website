@@ -17,14 +17,14 @@ const storage = multer.diskStorage({
 });
 
 function fileFilter(req, file, cb) {
+  if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
+    return cb(new Error('mimetype not allowed'), false);
+  }
   if (!req.body.title) {
-    return cb(new Error('title must not be empty'));
+    return cb(new Error('title must not be empty'), false);
   }
   if (req.body.title.length > 50) {
     return cb(new Error('title too long'), false);
-  }
-  if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
-    return cb(new Error('mimetype not allowed'), false);
   }
   cb(null, true);
 }
@@ -33,6 +33,6 @@ const uploadImage = multer({
   limits: { fileSize: 1024 * 1024 * 1 },
   fileFilter: fileFilter,
   storage: storage
-});
+}).single('image');
 
 module.exports.uploadImage = uploadImage;
