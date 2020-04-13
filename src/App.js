@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import blackPerlsImage from './assets/blackPerls.png';
+import blackPerlImage from './assets/blackPerl.png';
 import Header from './common/Header';
+import Navigation from './common/Navigation';
 import PrivateRoute from './common/PrivateRoute';
 import AboutPage from './pages/AboutPage';
 import ArchivePage from './pages/ArchivePage';
@@ -72,6 +73,7 @@ export default function App() {
       <UserContext.Provider value={{ user, setUser }}>
         <AppStyled>
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+          <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Switch>
             <Route exact path="/">
               <HomePage
@@ -115,6 +117,11 @@ const AppStyled = styled.div`
   height: 100%;
   display: grid;
   grid-template-rows: 48px auto;
-  background-image: url(${blackPerlsImage});
+  background-image: url(${blackPerlImage});
   background-color: black;
+
+  @media (min-width: 900px) {
+    grid-template-columns: 240px auto;
+    grid-template-rows: 60px auto;
+  }
 `;

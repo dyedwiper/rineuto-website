@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import whitePerlsImage from '../assets/darkGreenPerls_150x100.png';
+import greenPerlImage from '../assets/darkGreenPerl.png';
 import UserContext from '../userContext';
 import { setToStorage } from '../utils/storage';
 
@@ -48,7 +48,7 @@ const NavigationStyled = styled.nav`
   display: grid;
   grid-gap: 10px;
   padding: 10px 16px;
-  background-image: url(${whitePerlsImage});
+  background-image: url(${greenPerlImage});
 
   transition: all 0.3s linear;
   transform: ${(props) =>
@@ -56,10 +56,11 @@ const NavigationStyled = styled.nav`
 
   @media (min-width: 900px) {
     position: static;
+    grid-column-start: 1;
     display: grid;
-    grid-auto-flow: column;
-    grid-gap: 5px;
-    height: 48px;
+    grid-auto-rows: min-content;
+    grid-gap: 16px;
+    padding: 20px 16px;
     transform: translateX(0);
   }
 `;
@@ -73,6 +74,7 @@ const NavLinkStyled = styled(NavLink)`
 
   @media (min-width: 900px) {
     text-align: left;
+    font-size: 2em;
   }
 `;
 

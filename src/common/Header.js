@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components/macro';
-import whitePerlsImage from '../assets/whitePerls.png';
-import Navigation from './Navigation';
+import whitePerlImage from '../assets/whitePerl.png';
 
 export default function Header({ isNavOpen, setIsNavOpen }) {
+  const [title, setTitle] = useState('Rineuto Lichtspiele');
   let history = useHistory();
+
+  const mql = window.matchMedia('(min-width: 900px)');
+  mql.addListener(handleWidthChange);
+
+  useEffect(() => {
+    handleWidthChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <HeaderStyled>
-      <TitleStyled onClick={() => history.push('/')}>
-        Rineuto Lichtspiele
-      </TitleStyled>
+      <TitleStyled onClick={() => history.push('/')}>{title}</TitleStyled>
       <BurgerMenuStyled>
         <CheckboxStyled
           type="checkbox"
@@ -21,27 +27,33 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
         <BurgerSliceStyled isNavOpen={isNavOpen} />
         <BurgerSliceStyled isNavOpen={isNavOpen} />
       </BurgerMenuStyled>
-      <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
     </HeaderStyled>
   );
+
+  function handleWidthChange() {
+    if (mql.matches) {
+      setTitle('Rineuto Lichtspiele - Filmperlen in der Mokry');
+    } else {
+      setTitle('Rineuto Lichtspiele');
+    }
+  }
 }
 
 const HeaderStyled = styled.header`
-  position: relative;
   display: grid;
   grid-template-columns: auto 48px;
   align-items: center;
-  background-image: url(${whitePerlsImage});
+  background-image: url(${whitePerlImage});
   background-color: white;
 
   @media (min-width: 900px) {
-    grid-template-columns: 321px auto;
+    grid-column: 1 / 3;
   }
 `;
 
 const TitleStyled = styled.h1`
   margin: 0;
-  padding-left: 10px;
+  padding-left: 16px;
   cursor: pointer;
 `;
 
