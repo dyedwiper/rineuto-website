@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react'
-import styled from 'styled-components/macro'
-import DateRibbon from '../common/DateRibbon'
+import React, { useEffect } from 'react';
+import styled from 'styled-components/macro';
+import DateRibbon from '../common/DateRibbon';
 
 export default function ScreeningPage({ selectedScreening }) {
   useEffect(() => {
-    document.title = selectedScreening.title + ' | Rineuto Lichtspiele'
-  }, [selectedScreening])
+    document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
+  }, [selectedScreening]);
 
   return (
     <ScreeningPageStyled>
       <ScreeningInfoStyled>
         <DateRibbon date={selectedScreening.date} />
-        <FilmStillStyled src={selectedScreening.imageUrl} />
+        <FilmStillStyled
+          src={process.env.PUBLIC_URL + selectedScreening.imageUrl}
+        />
         <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
         <FilmInfoStyled>
           {selectedScreening.country +
@@ -31,12 +33,12 @@ export default function ScreeningPage({ selectedScreening }) {
         </ScreeningSeriesStyled>
       </ScreeningInfoStyled>
     </ScreeningPageStyled>
-  )
+  );
 }
 
 const ScreeningPageStyled = styled.main`
   overflow: auto;
-`
+`;
 
 const ScreeningInfoStyled = styled.div`
   display: grid;
@@ -44,29 +46,29 @@ const ScreeningInfoStyled = styled.div`
   margin: 0 auto;
   max-width: 600px;
   padding: 40px 10px;
-`
+`;
 
 const FilmStillStyled = styled.img`
   width: 100%;
-`
+`;
 
 const ScreeningTitleStyled = styled.h2`
   margin: 0;
   padding: 10px;
   background-color: white;
-`
+`;
 
 const FilmInfoStyled = styled.div`
   padding: 5px 10px 0 10px;
   background-color: black;
   color: white;
-`
+`;
 
 const FilmDirectorStyled = styled.div`
   padding: 0 10px 5px 10px;
   background-color: black;
   color: white;
-`
+`;
 
 const FilmSynopsisStyled = styled.p`
   overflow: auto;
@@ -74,10 +76,10 @@ const FilmSynopsisStyled = styled.p`
   margin: 0;
   padding: 10px;
   background-color: white;
-`
+`;
 
 const ScreeningSeriesStyled = styled.div`
   padding: 10px;
   background-color: black;
   color: white;
-`
+`;
