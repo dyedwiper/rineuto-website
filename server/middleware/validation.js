@@ -2,7 +2,7 @@ const Joi = require('@hapi/joi').extend(require('@hapi/joi-date'));
 
 function validateUser(req, res, next) {
   const userSchema = Joi.object({
-    username: Joi.string().min(4).max(30).required(),
+    username: Joi.string().min(4).max(20).required(),
     password: Joi.string().min(8).max(40).required(),
     repeat_password: Joi.ref('password'),
     admin: Joi.boolean(),
@@ -16,7 +16,7 @@ function validateUser(req, res, next) {
 
 function validateLogin(req, res, next) {
   const loginSchema = Joi.object({
-    username: Joi.string().max(30).required(),
+    username: Joi.string().max(20).required(),
     password: Joi.string().max(40).required(),
   });
   const { error } = loginSchema.validate(req.body);

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-function verifyToken(req, res, next) {
+function authenticate(req, res, next) {
   const token = req.get('auth-token');
   if (!token) {
     return res.status(400).json({ error: 'No token' });
@@ -13,4 +13,4 @@ function verifyToken(req, res, next) {
   }
 }
 
-module.exports = verifyToken;
+module.exports = authenticate;

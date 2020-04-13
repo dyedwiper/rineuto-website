@@ -3,10 +3,10 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validateUser, validateLogin } = require('../middleware/validation');
-const verifyToken = require('../middleware/verifyToken');
+const authenticate = require('../middleware/authenticate');
 const authorize = require('../middleware/authorize');
 
-router.get('/', verifyToken, authorize, (req, res) => {
+router.get('/', authenticate, authorize, (req, res) => {
   User.find()
     .then((users) => {
       res.json(users);
@@ -14,7 +14,7 @@ router.get('/', verifyToken, authorize, (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.get('/verify', verifyToken, (req, res) => {
+router.get('/authenticate', authenticate, (req, res) => {
   User.findById(req.user)
     .then((user) => {
       if (!user) {
@@ -25,7 +25,7 @@ router.get('/verify', verifyToken, (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.post('/create', verifyToken, authorize, validateUser, (req, res) => {
+router.post('/create', authenticate, authorize, validateUser, (req, res) => {
   User.findOne({ username: req.body.username })
     .then((user) => {
       if (user) {

@@ -13,8 +13,8 @@ export function postScreening(data, token) {
     method: 'POST',
     body: data,
     headers: {
-      'auth-token': token
-    }
+      'auth-token': token,
+    },
   }).then(handleError);
 }
 
@@ -23,21 +23,21 @@ export function postLoginUser(data) {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   }).then(handleLogin);
 }
 
 export function getUser(token) {
-  return fetch('/users/verify', { headers: { 'auth-token': token } }).then(
-    handleError
-  );
+  return fetch('/users/authenticate', {
+    headers: { 'auth-token': token },
+  }).then(handleError);
 }
 
 function handleError(res) {
   let json = res.json();
   if (!res.ok) {
-    return json.then(err => {
+    return json.then((err) => {
       throw err;
     });
   }
@@ -47,7 +47,7 @@ function handleError(res) {
 function handleLogin(res) {
   let json = res.json();
   if (!res.ok) {
-    return json.then(err => {
+    return json.then((err) => {
       throw err;
     });
   }

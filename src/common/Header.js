@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import whitePerlsImage from '../assets/whitePerls.png';
 import Navigation from './Navigation';
 
-export default function Header({ isNavOpen, setIsNavOpen, isLoggedIn }) {
+export default function Header({ isNavOpen, setIsNavOpen }) {
   let history = useHistory();
 
   return (
@@ -21,11 +21,7 @@ export default function Header({ isNavOpen, setIsNavOpen, isLoggedIn }) {
         <BurgerSliceStyled isNavOpen={isNavOpen} />
         <BurgerSliceStyled isNavOpen={isNavOpen} />
       </BurgerMenuStyled>
-      <Navigation
-        isNavOpen={isNavOpen}
-        setIsNavOpen={setIsNavOpen}
-        isLoggedIn={isLoggedIn}
-      />
+      <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
     </HeaderStyled>
   );
 }
@@ -74,16 +70,16 @@ const BurgerSliceStyled = styled.div`
   transform-origin: 1px;
 
   :nth-child(2) {
-    transform: ${props => (props.isNavOpen ? 'rotate(45deg)' : 'rotate(0)')};
+    transform: ${(props) => (props.isNavOpen ? 'rotate(45deg)' : 'rotate(0)')};
   }
 
   :nth-child(3) {
-    opacity: ${props => (props.isNavOpen ? '0' : '1')};
-    transform: ${props =>
+    opacity: ${(props) => (props.isNavOpen ? '0' : '1')};
+    transform: ${(props) =>
       props.isNavOpen ? 'translateX(20px)' : 'translateX(0)'};
   }
 
   :nth-child(4) {
-    transform: ${props => (props.isNavOpen ? 'rotate(-45deg)' : 'rotate(0)')};
+    transform: ${(props) => (props.isNavOpen ? 'rotate(-45deg)' : 'rotate(0)')};
   }
 `;

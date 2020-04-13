@@ -7,13 +7,13 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     cb(
       null,
-      req.body.title.toLowerCase().replace(/[^a-z^A-z^0-9]+/g, '_') +
+      req.body.title.toLowerCase().replace(/[^a-z^A-Z^0-9]+/g, '_') +
         '_' +
         req.body.day +
         '.' +
         file.mimetype.slice(file.mimetype.indexOf('/') + 1)
     );
-  }
+  },
 });
 
 function fileFilter(req, file, cb) {
@@ -32,7 +32,7 @@ function fileFilter(req, file, cb) {
 const uploadImage = multer({
   limits: { fileSize: 1024 * 1024 * 1 },
   fileFilter: fileFilter,
-  storage: storage
+  storage: storage,
 }).single('image');
 
 module.exports.uploadImage = uploadImage;
