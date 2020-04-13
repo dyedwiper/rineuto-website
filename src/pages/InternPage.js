@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { postScreening } from '../utils/services';
 import { getFromStorage } from '../utils/storage';
 
 export default function InternPage() {
+  const [validationError, setValidationError] = useState('');
+
   return (
     <InternPageStyled>
       <HeadlineStyled>Neues Screening anlegen</HeadlineStyled>
@@ -56,6 +58,7 @@ export default function InternPage() {
           Links
           <InputStyled name="links" />
         </LabelStyled>
+        <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         <ButtonStyled>Senden</ButtonStyled>
       </FormStyled>
     </InternPageStyled>
@@ -67,8 +70,13 @@ export default function InternPage() {
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
     postScreening(formData, jwt)
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.error(err);
+        if (err.hasOwnProperty('joiError')) {
+          setValidationError(err.joiError);
+        }
+      });
   }
 }
 
@@ -109,4 +117,8 @@ const ButtonStyled = styled.button`
   justify-self: center;
   width: min-content;
   padding: 5px;
+`;
+
+const ErrorMessageStyled = styled.span`
+  color: red;
 `;
