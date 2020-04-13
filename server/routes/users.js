@@ -20,7 +20,7 @@ router.get('/verify', verifyToken, (req, res) => {
       if (!user) {
         return res.status(400).json({ error: 'No user for this token' });
       }
-      res.json(user);
+      res.json({ username: user.username });
     })
     .catch((err) => res.status(400).json(err));
 });
