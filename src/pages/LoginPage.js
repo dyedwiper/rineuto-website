@@ -30,15 +30,18 @@ export default function LoginPage({ setUser }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const loginData = Object.fromEntries(formData);
+    const nameInput = form.elements.username;
     postLoginUser(loginData)
-      .then(user => {
+      .then((user) => {
         console.log('user', user);
         setUser(user);
         setDidLoginFail(false);
         history.push('/intern');
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
+        form.reset();
+        nameInput.focus();
         setDidLoginFail(true);
       });
   }
