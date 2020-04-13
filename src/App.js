@@ -25,14 +25,14 @@ export default function App() {
   useEffect(() => {
     const token = getFromStorage('rineuto-token');
     getUser(token)
-      .then(user => {
+      .then((user) => {
         console.log('getUser called');
         setUser(user);
       })
       .then(() => {
         setIsLoadingUser(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         setIsLoadingUser(false);
       });
@@ -40,15 +40,15 @@ export default function App() {
 
   useEffect(() => {
     getScreenings()
-      .then(screenings => {
-        const screeningsFormatted = screenings.map(screening => {
+      .then((screenings) => {
+        const screeningsFormatted = screenings.map((screening) => {
           const dateFormatted = new Date(screening.date);
           return { ...screening, date: dateFormatted };
         });
         setScreenings(screeningsFormatted);
         setIsLoadingScreenings(false);
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function App() {
     ) {
       const currentScreeningId = currentUrl.search.slice(4);
       const currentScreening = screenings.find(
-        screening => screening._id === currentScreeningId
+        (screening) => screening._id === currentScreeningId
       );
       setSelectedScreening(currentScreening);
     }
@@ -69,7 +69,7 @@ export default function App() {
 
   return (
     <Router>
-      <UserContext.Provider value={user}>
+      <UserContext.Provider value={{ user, setUser }}>
         <AppStyled>
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Switch>

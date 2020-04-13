@@ -4,7 +4,7 @@ import LoadingPage from '../pages/LoadingPage';
 import UserContext from '../userContext';
 
 export default function PrivateRoute({ children, isLoadingUser, ...rest }) {
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const loggedIn = Object.keys(user).length !== 0;
 
   console.log('loading user', isLoadingUser);

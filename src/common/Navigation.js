@@ -3,9 +3,10 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import whitePerlsImage from '../assets/darkGreenPerls_150x100.png';
 import UserContext from '../userContext';
+import { setToStorage } from '../utils/storage';
 
 export default function Navigation({ isNavOpen, setIsNavOpen }) {
-  const user = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const loggedIn = Object.keys(user).length !== 0;
 
   return (
@@ -20,12 +21,24 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
         Über uns
       </NavLinkStyled>
       {loggedIn && (
-        <NavLinkStyled to="/intern" onClick={() => setIsNavOpen(false)}>
-          intern
-        </NavLinkStyled>
+        <>
+          {/* <HorizontalLineStyled /> */}
+          <NavLinkStyled to="/intern" onClick={() => setIsNavOpen(false)}>
+            Intern
+          </NavLinkStyled>
+          <NavLinkStyled exact to="/" onClick={handleLogout}>
+            Logout
+          </NavLinkStyled>
+        </>
       )}
     </NavigationStyled>
   );
+
+  function handleLogout() {
+    setToStorage('rineuto-token', null);
+    setUser({});
+    setIsNavOpen(false);
+  }
 }
 
 const NavigationStyled = styled.nav`
@@ -38,7 +51,7 @@ const NavigationStyled = styled.nav`
   background-image: url(${whitePerlsImage});
 
   transition: all 0.3s linear;
-  transform: ${props =>
+  transform: ${(props) =>
     props.isNavOpen ? 'translateX(0)' : 'translateX(101%)'};
 
   @media (min-width: 900px) {
@@ -62,3 +75,5 @@ const NavLinkStyled = styled(NavLink)`
     text-align: left;
   }
 `;
+
+// const HorizontalLineStyled = styled.hr``;
