@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
 import { postLoginUser } from '../utils/services';
 import magicGif from '../assets/ahahah.gif';
+import UserContext from '../userContext';
 
-export default function LoginPage({ setUser }) {
+export default function LoginPage() {
   const [didLoginFail, setDidLoginFail] = useState(false);
   let history = useHistory();
+  const { setUser } = useContext(UserContext);
 
   return (
     <LoginPageStyled>

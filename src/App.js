@@ -94,7 +94,7 @@ export default function App() {
               <AboutPage />
             </Route>
             <Route exact path="/intern/login">
-              <LoginPage setUser={setUser} />
+              <LoginPage />
             </Route>
             <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
               <InternPage />
