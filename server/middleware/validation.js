@@ -2,16 +2,10 @@ const Joi = require('@hapi/joi').extend(require('@hapi/joi-date'));
 
 function validateUser(req, res, next) {
   const userSchema = Joi.object({
-    username: Joi.string()
-      .min(4)
-      .max(30)
-      .required(),
-    password: Joi.string()
-      .min(8)
-      .max(40)
-      .required(),
+    username: Joi.string().min(4).max(30).required(),
+    password: Joi.string().min(8).max(40).required(),
     repeat_password: Joi.ref('password'),
-    admin: Joi.boolean()
+    admin: Joi.boolean(),
   }).with('password', 'repeat_password');
   const { error } = userSchema.validate(req.body);
   if (error) {
@@ -22,12 +16,8 @@ function validateUser(req, res, next) {
 
 function validateLogin(req, res, next) {
   const loginSchema = Joi.object({
-    username: Joi.string()
-      .max(30)
-      .required(),
-    password: Joi.string()
-      .max(40)
-      .required()
+    username: Joi.string().max(30).required(),
+    password: Joi.string().max(40).required(),
   });
   const { error } = loginSchema.validate(req.body);
   if (error) {
@@ -39,25 +29,16 @@ function validateLogin(req, res, next) {
 function validateScreening(req, res, next) {
   const screeningSchema = Joi.object({
     title: Joi.string().max(50),
-    day: Joi.date().format('YYYY-MM-DD'),
+    day: Joi.date().format('YYYY-MM-DD').required(),
     time: Joi.string().pattern(/([0-1]\d|[2][0-3]):([0-5]\d)/),
     director: Joi.string().max(50),
-    length: Joi.number()
-      .integer()
-      .positive()
-      .max(1440),
+    length: Joi.number().integer().positive().max(1440).required(),
     country: Joi.string().max(50),
-    year: Joi.number()
-      .integer()
-      .positive()
-      .min(1890)
-      .max(10000),
-    version: Joi.string().max(50),
+    year: Joi.number().integer().positive().min(1890).max(10000).required(),
+    version: Joi.string().allow('').max(50),
     synopsis: Joi.string().max(2000),
     series: Joi.string().max(50),
-    links: Joi.string()
-      .allow('')
-      .max(200)
+    links: Joi.string().allow('').max(200),
   });
   const { error } = screeningSchema.validate(req.body);
   if (error) {
