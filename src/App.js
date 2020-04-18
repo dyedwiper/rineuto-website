@@ -114,9 +114,11 @@ const AppStyled = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
+  max-width: 1020px;
   height: 100%;
   display: grid;
   grid-template-rows: 48px auto;
+  margin: auto;
   background-image: url(${blackPerlImage});
   background-color: black;
 
