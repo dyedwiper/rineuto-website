@@ -66,8 +66,8 @@ const TitleStyled = styled.h1`
 
 const PerlLinkStyled = styled.a`
   position: absolute;
-  top: 21px;
-  left: 981px;
+  top: 20px;
+  left: 980px;
 `;
 
 const RedPerlStyled = styled.img``;
@@ -78,7 +78,7 @@ const CheckboxStyled = styled.input`
 
 const PerlMenuLabelStyled = styled.label`
   position: absolute;
-  top: 21px;
+  top: 20px;
   right: ${(window.innerWidth % 20 === 0 ? 20 : window.innerWidth % 20) + 'px'};
   width: 20px;
   height: 20px;

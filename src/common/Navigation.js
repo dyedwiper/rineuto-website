@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import greenPerlImage from '../assets/darkGreenPerl.png';
+import redPerlImage from '../assets/redPerl.png';
 import UserContext from '../userContext';
 import { setToStorage } from '../utils/storage';
 
@@ -10,7 +11,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
   const loggedIn = Object.keys(user).length !== 0;
 
   return (
-    <NavigationStyled isNavOpen={isNavOpen}>
+    <NavigationStyled id="nav" isNavOpen={isNavOpen}>
       <NavLinkStyled exact to="/" onClick={() => setIsNavOpen(false)}>
         Programm
       </NavLinkStyled>
@@ -31,6 +32,9 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
           </NavLinkStyled>
         </>
       )}
+      <PerlLinkStyled target="_blank" href="https://youtu.be/hKBfQdKvyXc">
+        <RedPerlStyled src={redPerlImage} />
+      </PerlLinkStyled>
     </NavigationStyled>
   );
 
@@ -48,7 +52,7 @@ const NavigationStyled = styled.nav`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 10px;
-  height: min-content;
+  height: 120px;
   padding: 10px 16px;
   background-image: url(${greenPerlImage});
 
@@ -82,3 +86,16 @@ const NavLinkStyled = styled(NavLink)`
 `;
 
 // const HorizontalLineStyled = styled.hr``;
+
+const PerlLinkStyled = styled.a`
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  height: 20px;
+
+  @media (min-width: 900px) {
+    display: none;
+  }
+`;
+
+const RedPerlStyled = styled.img``;
