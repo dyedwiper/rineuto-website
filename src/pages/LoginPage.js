@@ -82,4 +82,5 @@ const ButtonStyled = styled.button`
 
 const ImageStyled = styled.img`
   width: 90%;
+  max-width: 400px;
 `;

@@ -74,34 +74,36 @@ export default function App() {
         <AppStyled>
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-          <Switch>
-            <Route exact path="/">
-              <HomePage
-                screenings={screenings}
-                setSelectedScreening={setSelectedScreening}
-              />
-            </Route>
-            <Route path="/screening">
-              {Object.entries(selectedScreening).length && (
-                <ScreeningPage selectedScreening={selectedScreening} />
-              )}
-            </Route>
-            <Route path="/archive">
-              <ArchivePage
-                screenings={screenings}
-                setSelectedScreening={setSelectedScreening}
-              />
-            </Route>
-            <Route path="/about">
-              <AboutPage />
-            </Route>
-            <Route exact path="/intern/login">
-              <LoginPage />
-            </Route>
-            <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
-              <InternPage />
-            </PrivateRoute>
-          </Switch>
+          <MainContainerStyled isNavOpen={isNavOpen}>
+            <Switch>
+              <Route exact path="/">
+                <HomePage
+                  screenings={screenings}
+                  setSelectedScreening={setSelectedScreening}
+                />
+              </Route>
+              <Route path="/screening">
+                {Object.entries(selectedScreening).length && (
+                  <ScreeningPage selectedScreening={selectedScreening} />
+                )}
+              </Route>
+              <Route path="/archive">
+                <ArchivePage
+                  screenings={screenings}
+                  setSelectedScreening={setSelectedScreening}
+                />
+              </Route>
+              <Route path="/about">
+                <AboutPage />
+              </Route>
+              <Route exact path="/intern/login">
+                <LoginPage />
+              </Route>
+              <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
+                <InternPage />
+              </PrivateRoute>
+            </Switch>
+          </MainContainerStyled>
         </AppStyled>
       </UserContext.Provider>
     </Router>
@@ -117,13 +119,22 @@ const AppStyled = styled.div`
   max-width: 1020px;
   height: 100%;
   display: grid;
-  grid-template-rows: 48px auto;
+  grid-template-rows: 60px auto;
   margin: auto;
   background-image: url(${blackPerlImage});
   background-color: black;
 
   @media (min-width: 900px) {
     grid-template-columns: 240px auto;
-    grid-template-rows: 60px auto;
+  }
+`;
+
+const MainContainerStyled = styled.div`
+  overflow: auto;
+  filter: ${(props) => (props.isNavOpen ? 'blur(4px)' : 'none')};
+
+  @media (min-width: 900px) {
+    grid-template-columns: 240px auto;
+    filter: none;
   }
 `;

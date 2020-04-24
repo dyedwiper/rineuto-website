@@ -42,11 +42,13 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
 }
 
 const NavigationStyled = styled.nav`
-  position: absolute;
+  position: ${(props) => (props.isNavOpen ? 'static' : 'absolute')};
   right: 0;
-  top: 48px;
+  top: 60px;
   display: grid;
+  grid-auto-rows: min-content;
   grid-gap: 10px;
+  height: min-content;
   padding: 10px 16px;
   background-image: url(${greenPerlImage});
 
@@ -60,6 +62,7 @@ const NavigationStyled = styled.nav`
     display: grid;
     grid-auto-rows: min-content;
     grid-gap: 16px;
+    height: auto;
     padding: 20px 16px;
     transform: translateX(0);
   }

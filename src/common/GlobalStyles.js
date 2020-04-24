@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components/macro';
+import blackPerlImage from '../assets/blackPerl.png';
 
 export default createGlobalStyle`
   * {
@@ -7,6 +8,9 @@ export default createGlobalStyle`
  
   body {
     margin: 0;
+    background-image: url(${blackPerlImage});
+    background-size: 100%;
+    background-color: black;
     font-family: 'Linux Libertine G', serif;
     font-size: 16px;
   }

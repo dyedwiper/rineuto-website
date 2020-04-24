@@ -5,7 +5,7 @@ import ScreeningCard from './ScreeningCard.js';
 export default function ScreeningsList({ screenings, setSelectedScreening }) {
   return (
     <ScreeningsListStyled>
-      {screenings.map(screening => (
+      {screenings.map((screening) => (
         <ScreeningCard
           key={screening._id}
           screening={screening}
