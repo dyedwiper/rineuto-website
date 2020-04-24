@@ -45,7 +45,7 @@ const ScreeningInfoStyled = styled.div`
   grid-auto-rows: min-content;
   margin: 0 auto;
   max-width: 600px;
-  padding: 40px 10px;
+  padding: 40px 20px;
 `;
 
 const FilmStillStyled = styled.img`

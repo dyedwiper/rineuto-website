@@ -19,7 +19,7 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
 
   return (
     <HeaderStyled>
-      <TitleStyled onClick={() => history.push('/')}>{title}</TitleStyled>
+      <TitleStyled onClick={handleTitleClick}>{title}</TitleStyled>
       <PerlLinkStyled target="_blank" href="https://youtu.be/hKBfQdKvyXc">
         <RedPerlStyled src={redPerlImage} />
       </PerlLinkStyled>
@@ -38,6 +38,11 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
     } else {
       setTitle('Rineuto Lichtspiele');
     }
+  }
+
+  function handleTitleClick() {
+    history.push('/');
+    setIsNavOpen(false);
   }
 }
 
