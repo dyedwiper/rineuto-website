@@ -11,7 +11,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
   const loggedIn = Object.keys(user).length !== 0;
 
   return (
-    <NavigationStyled id="nav" isNavOpen={isNavOpen}>
+    <NavigationStyled loggedIn={loggedIn} isNavOpen={isNavOpen}>
       <NavLinkStyled exact to="/" onClick={() => setIsNavOpen(false)}>
         Programm
       </NavLinkStyled>
@@ -23,7 +23,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
       </NavLinkStyled>
       {loggedIn && (
         <>
-          {/* <HorizontalLineStyled /> */}
+          <HorizontalLineStyled />
           <NavLinkStyled to="/intern" onClick={() => setIsNavOpen(false)}>
             Intern
           </NavLinkStyled>
@@ -52,7 +52,7 @@ const NavigationStyled = styled.nav`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 10px;
-  height: 120px;
+  height: ${(props) => (props.loggedIn ? '240px' : '120px')};
   padding: 10px 16px;
   background-image: url(${greenPerlImage});
 
@@ -85,7 +85,15 @@ const NavLinkStyled = styled(NavLink)`
   }
 `;
 
-// const HorizontalLineStyled = styled.hr``;
+const HorizontalLineStyled = styled.hr`
+  justify-self: right;
+  width: 120px;
+  height: 3px;
+  margin: 10px 0;
+  color: white;
+  background-color: white;
+  transform: skew(0deg, -13deg);
+`;
 
 const PerlLinkStyled = styled.a`
   position: absolute;

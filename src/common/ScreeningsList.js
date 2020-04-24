@@ -24,7 +24,7 @@ const ScreeningsListStyled = styled.div`
   overflow: auto;
   margin: 0 auto;
   max-width: 600px;
-  padding: 30px 10px;
+  padding: 30px 20px;
 `;
 
 const Cushion = styled.div`
