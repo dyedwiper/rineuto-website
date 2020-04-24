@@ -73,26 +73,29 @@ const NavigationStyled = styled.nav`
 `;
 
 const NavLinkStyled = styled(NavLink)`
+  justify-self: right;
+  width: max-content;
   text-decoration: none;
-  text-align: right;
   color: white;
   font-size: 1.5em;
   font-weight: bold;
 
+  :hover {
+    color: grey;
+  }
+
+  &.active {
+    transform: skew(0deg, -13deg);
+  }
+
   @media (min-width: 900px) {
-    text-align: left;
+    justify-self: left;
     font-size: 2em;
   }
 `;
 
 const HorizontalLineStyled = styled.hr`
-  justify-self: right;
-  width: 120px;
-  height: 3px;
-  margin: 10px 0;
-  color: white;
-  background-color: white;
-  transform: skew(0deg, -13deg);
+  visibility: hidden;
 `;
 
 const PerlLinkStyled = styled.a`
