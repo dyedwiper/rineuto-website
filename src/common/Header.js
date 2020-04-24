@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components/macro';
 import whitePerlImage from '../assets/whitePerl.png';
+import redPerlImage from '../assets/redPerl.png';
 
 export default function Header({ isNavOpen, setIsNavOpen }) {
   const [title, setTitle] = useState('Rineuto Lichtspiele');
@@ -18,6 +19,9 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
   return (
     <HeaderStyled>
       <TitleStyled onClick={() => history.push('/')}>{title}</TitleStyled>
+      <PerlLinkStyled target="_blank" href="https://youtu.be/hKBfQdKvyXc">
+        <RedPerlStyled src={redPerlImage} />
+      </PerlLinkStyled>
       <BurgerMenuStyled>
         <CheckboxStyled
           type="checkbox"
@@ -47,6 +51,7 @@ const HeaderStyled = styled.header`
   background-color: white;
 
   @media (min-width: 900px) {
+    grid-template-columns: max-content;
     grid-column: 1 / 3;
   }
 `;
@@ -56,6 +61,14 @@ const TitleStyled = styled.h1`
   padding-left: 16px;
   cursor: pointer;
 `;
+
+const PerlLinkStyled = styled.a`
+  position: absolute;
+  top: 21px;
+  left: 981px;
+`;
+
+const RedPerlStyled = styled.img``;
 
 const BurgerMenuStyled = styled.label`
   display: grid;
