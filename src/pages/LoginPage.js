@@ -54,7 +54,7 @@ const LoginPageStyled = styled.div`
   grid-auto-rows: min-content;
   grid-gap: 40px;
   justify-items: center;
-  padding: 20px;
+  padding: 40px 20px;
   color: white;
 `;
 

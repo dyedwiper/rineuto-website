@@ -82,7 +82,8 @@ export default function InternPage() {
 
 const InternPageStyled = styled.div`
   overflow: auto;
-  padding: 20px;
+  max-width: 600px;
+  margin: 40px auto;
   color: white;
 `;
 
