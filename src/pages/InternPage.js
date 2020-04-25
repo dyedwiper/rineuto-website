@@ -80,7 +80,7 @@ export default function InternPage() {
   }
 }
 
-const InternPageStyled = styled.main`
+const InternPageStyled = styled.div`
   overflow: auto;
   padding: 20px;
   color: white;

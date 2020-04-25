@@ -37,7 +37,7 @@ export default function AboutPage() {
   );
 }
 
-const AboutPageStyled = styled.main`
+const AboutPageStyled = styled.div`
   overflow: auto;
   padding: 10px 20px;
 `;

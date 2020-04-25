@@ -74,10 +74,7 @@ export default function App() {
         <AppStyled>
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-          <MainContainerStyled
-            isNavOpen={isNavOpen}
-            onClickCapture={handleMainClick}
-          >
+          <MainStyled isNavOpen={isNavOpen} onClickCapture={handleMainClick}>
             <Switch>
               <Route exact path="/">
                 <HomePage
@@ -106,7 +103,7 @@ export default function App() {
                 <InternPage />
               </PrivateRoute>
             </Switch>
-          </MainContainerStyled>
+          </MainStyled>
         </AppStyled>
       </UserContext.Provider>
     </Router>
@@ -139,7 +136,7 @@ const AppStyled = styled.div`
   }
 `;
 
-const MainContainerStyled = styled.div`
+const MainStyled = styled.main`
   overflow: auto;
   filter: ${(props) => (props.isNavOpen ? 'blur(4px)' : 'none')};
   /* pointer-events: ${(props) => (props.isNavOpen ? 'none' : 'auto')}; */

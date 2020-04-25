@@ -81,7 +81,8 @@ const NavLinkStyled = styled(NavLink)`
   font-weight: bold;
 
   :hover {
-    color: grey;
+    /* color: grey; */
+    text-decoration: underline;
   }
 
   &.active {

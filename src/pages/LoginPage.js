@@ -49,7 +49,7 @@ export default function LoginPage() {
   }
 }
 
-const LoginPageStyled = styled.main`
+const LoginPageStyled = styled.div`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 40px;

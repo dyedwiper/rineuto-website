@@ -20,7 +20,7 @@ export default function ArchivePage({ screenings, setSelectedScreening }) {
   );
 }
 
-const ArchivePageStyled = styled.main`
+const ArchivePageStyled = styled.div`
   overflow: auto;
 `;
 

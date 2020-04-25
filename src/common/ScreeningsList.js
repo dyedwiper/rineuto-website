@@ -17,7 +17,7 @@ export default function ScreeningsList({ screenings, setSelectedScreening }) {
   );
 }
 
-const ScreeningsListStyled = styled.div`
+const ScreeningsListStyled = styled.ul`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 50px;
@@ -25,6 +25,7 @@ const ScreeningsListStyled = styled.div`
   margin: 0 auto;
   max-width: 600px;
   padding: 30px 20px;
+  list-style-type: none;
 `;
 
 const Cushion = styled.div`
