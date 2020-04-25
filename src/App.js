@@ -74,7 +74,7 @@ export default function App() {
         <AppStyled>
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-          <MainStyled isNavOpen={isNavOpen} onClickCapture={handleMainClick}>
+          <MainStyled isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
             <Switch>
               <Route exact path="/">
                 <HomePage
@@ -108,13 +108,6 @@ export default function App() {
       </UserContext.Provider>
     </Router>
   );
-
-  function handleMainClick(event) {
-    if (isNavOpen) {
-      event.stopPropagation();
-      setIsNavOpen(false);
-    }
-  }
 }
 
 const AppStyled = styled.div`
@@ -139,10 +132,17 @@ const AppStyled = styled.div`
 const MainStyled = styled.main`
   overflow: auto;
   filter: ${(props) => (props.isNavOpen ? 'blur(4px)' : 'none')};
-  /* pointer-events: ${(props) => (props.isNavOpen ? 'none' : 'auto')}; */
+
+  * {
+    pointer-events: ${(props) => (props.isNavOpen ? 'none' : 'auto')};
+  }
 
   @media (min-width: 900px) {
     grid-template-columns: 240px auto;
     filter: none;
+
+    * {
+      pointer-events: auto;
+    }
   }
 `;

@@ -48,7 +48,6 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
 
 const HeaderStyled = styled.header`
   display: grid;
-  /* grid-template-columns: auto 60px; */
   grid-template-columns: max-content;
   align-items: center;
   background-image: url(${whitePerlImage});
@@ -61,7 +60,7 @@ const HeaderStyled = styled.header`
 
 const TitleStyled = styled.h1`
   margin: 0;
-  padding-left: 16px;
+  padding-left: 20px;
   cursor: pointer;
 
   @media (max-width: 340px) {

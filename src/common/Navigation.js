@@ -67,7 +67,7 @@ const NavigationStyled = styled.nav`
     grid-auto-rows: min-content;
     grid-gap: 16px;
     height: auto;
-    padding: 20px 16px;
+    padding: 20px 20px;
     transform: translateX(0);
   }
 `;
@@ -81,7 +81,6 @@ const NavLinkStyled = styled(NavLink)`
   font-weight: bold;
 
   :hover {
-    /* color: grey; */
     text-decoration: underline;
   }
 
