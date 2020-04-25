@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import styled from 'styled-components/macro';
 import blackPerlImage from './assets/blackPerl.png';
 import Header from './common/Header';
@@ -102,6 +107,9 @@ export default function App() {
               <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
                 <InternPage />
               </PrivateRoute>
+              <Route path="/logout">
+                <Redirect exact to="/" />
+              </Route>
             </Switch>
           </MainStyled>
         </AppStyled>

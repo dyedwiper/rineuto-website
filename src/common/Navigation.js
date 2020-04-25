@@ -27,7 +27,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
           <NavLinkStyled to="/intern" onClick={() => setIsNavOpen(false)}>
             Intern
           </NavLinkStyled>
-          <NavLinkStyled exact to="/" onClick={handleLogout}>
+          <NavLinkStyled exact to="/logout" onClick={handleLogout}>
             Logout
           </NavLinkStyled>
         </>
