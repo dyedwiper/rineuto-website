@@ -1,85 +1,102 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components/macro';
-import whitePerlsImage from '../assets/whitePerls.png';
-import Navigation from './Navigation';
+import whitePerlImage from '../assets/whitePerl.png';
+import redPerlImage from '../assets/redPerl.png';
+import darkGreenPerlImage from '../assets/darkGreenPerl.png';
 
 export default function Header({ isNavOpen, setIsNavOpen }) {
+  const [title, setTitle] = useState('Rineuto Lichtspiele');
   let history = useHistory();
+
+  const mql = window.matchMedia('(min-width: 900px)');
+  mql.addListener(handleWidthChange);
+
+  useEffect(() => {
+    handleWidthChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <HeaderStyled>
-      <TitleStyled onClick={() => history.push('/')}>
-        Rineuto Lichtspiele
-      </TitleStyled>
-      <BurgerMenuStyled>
+      <TitleStyled onClick={handleTitleClick}>{title}</TitleStyled>
+      <PerlLinkStyled target="_blank" href="https://youtu.be/hKBfQdKvyXc">
+        <RedPerlStyled src={redPerlImage} />
+      </PerlLinkStyled>
+      <PerlMenuLabelStyled isNavOpen={isNavOpen}>
         <CheckboxStyled
           type="checkbox"
           onChange={() => setIsNavOpen(!isNavOpen)}
         ></CheckboxStyled>
-        <BurgerSliceStyled isNavOpen={isNavOpen} />
-        <BurgerSliceStyled isNavOpen={isNavOpen} />
-        <BurgerSliceStyled isNavOpen={isNavOpen} />
-      </BurgerMenuStyled>
-      <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+      </PerlMenuLabelStyled>
     </HeaderStyled>
   );
+
+  function handleWidthChange() {
+    if (mql.matches) {
+      setTitle('Rineuto Lichtspiele - Filmperlen in der Mokry');
+    } else {
+      setTitle('Rineuto Lichtspiele');
+    }
+  }
+
+  function handleTitleClick() {
+    history.push('/');
+    setIsNavOpen(false);
+  }
 }
 
 const HeaderStyled = styled.header`
-  position: relative;
   display: grid;
-  grid-template-columns: auto 48px;
+  grid-template-columns: max-content;
   align-items: center;
-  background-image: url(${whitePerlsImage});
+  background-image: url(${whitePerlImage});
   background-color: white;
 
   @media (min-width: 900px) {
-    grid-template-columns: 321px auto;
+    grid-column: 1 / 3;
   }
 `;
 
 const TitleStyled = styled.h1`
   margin: 0;
-  padding-left: 10px;
+  padding-left: 20px;
   cursor: pointer;
-`;
 
-const BurgerMenuStyled = styled.label`
-  display: grid;
-  grid-auto-rows: min-content;
-  grid-gap: 6px;
-  width: 48px;
-  height: 48px;
-  padding: 9px 6px;
-
-  @media (min-width: 900px) {
-    display: none;
+  @media (max-width: 340px) {
+    font-size: 1.75em;
   }
 `;
+
+const PerlLinkStyled = styled.a`
+  position: absolute;
+  top: 20px;
+  left: 980px;
+`;
+
+const RedPerlStyled = styled.img``;
 
 const CheckboxStyled = styled.input`
   display: none;
 `;
 
-const BurgerSliceStyled = styled.div`
-  width: 36px;
-  height: 6px;
-  background-color: black;
-  transition: all 0.3s linear;
-  transform-origin: 1px;
+const PerlMenuLabelStyled = styled.label`
+  position: absolute;
+  top: 20px;
+  right: ${(window.innerWidth % 20 === 0 ? 20 : window.innerWidth % 20) + 'px'};
+  width: 20px;
+  height: 20px;
+  background-image: ${(props) =>
+    props.isNavOpen ? `url(${redPerlImage})` : `url(${darkGreenPerlImage})`};
+  background-color: ${(props) => (props.isNavOpen ? 'red' : 'green')};
 
-  :nth-child(2) {
-    transform: ${(props) => (props.isNavOpen ? 'rotate(45deg)' : 'rotate(0)')};
+  @media (min-width: 600px) {
+    right: ${(window.innerWidth % 20 === 0
+      ? 40
+      : (window.innerWidth % 20) + 20) + 'px'};
   }
 
-  :nth-child(3) {
-    opacity: ${(props) => (props.isNavOpen ? '0' : '1')};
-    transform: ${(props) =>
-      props.isNavOpen ? 'translateX(20px)' : 'translateX(0)'};
-  }
-
-  :nth-child(4) {
-    transform: ${(props) => (props.isNavOpen ? 'rotate(-45deg)' : 'rotate(0)')};
+  @media (min-width: 900px) {
+    display: none;
   }
 `;

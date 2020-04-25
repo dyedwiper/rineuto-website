@@ -49,12 +49,12 @@ export default function LoginPage() {
   }
 }
 
-const LoginPageStyled = styled.main`
+const LoginPageStyled = styled.div`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 40px;
   justify-items: center;
-  padding: 20px;
+  padding: 40px 20px;
   color: white;
 `;
 
@@ -82,4 +82,5 @@ const ButtonStyled = styled.button`
 
 const ImageStyled = styled.img`
   width: 90%;
+  max-width: 400px;
 `;

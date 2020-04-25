@@ -7,10 +7,15 @@ export default function ScreeningCard({ screening, setSelectedScreening }) {
   let history = useHistory();
 
   return (
-    <ScreeningCardStyled onClick={handleClick}>
+    <ScreeningCardStyled>
       <DateRibbon date={screening.date} />
-      <FilmStillStyled src={process.env.PUBLIC_URL + screening.imageUrl} />
-      <ScreeningTitleStyled>{screening.title}</ScreeningTitleStyled>
+      <FilmStillStyled
+        onClick={handleClick}
+        src={process.env.PUBLIC_URL + screening.imageUrl}
+      />
+      <ScreeningTitleStyled onClick={handleClick}>
+        {screening.title}
+      </ScreeningTitleStyled>
       <ScreeningSeriesStyled>
         Filmreihe: {screening.series}
       </ScreeningSeriesStyled>
@@ -23,19 +28,24 @@ export default function ScreeningCard({ screening, setSelectedScreening }) {
   }
 }
 
-const ScreeningCardStyled = styled.section`
+const ScreeningCardStyled = styled.li`
   display: grid;
-  cursor: pointer;
 `;
 
 const FilmStillStyled = styled.img`
   width: 100%;
+  cursor: pointer;
 `;
 
 const ScreeningTitleStyled = styled.h2`
   margin: 0;
   background-color: white;
   padding: 10px;
+  cursor: pointer;
+
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 const ScreeningSeriesStyled = styled.div`

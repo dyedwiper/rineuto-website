@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import blackPerlsImage from './assets/blackPerls.png';
+import blackPerlImage from './assets/blackPerl.png';
 import Header from './common/Header';
+import Navigation from './common/Navigation';
 import PrivateRoute from './common/PrivateRoute';
 import AboutPage from './pages/AboutPage';
 import ArchivePage from './pages/ArchivePage';
@@ -72,34 +73,37 @@ export default function App() {
       <UserContext.Provider value={{ user, setUser }}>
         <AppStyled>
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-          <Switch>
-            <Route exact path="/">
-              <HomePage
-                screenings={screenings}
-                setSelectedScreening={setSelectedScreening}
-              />
-            </Route>
-            <Route path="/screening">
-              {Object.entries(selectedScreening).length && (
-                <ScreeningPage selectedScreening={selectedScreening} />
-              )}
-            </Route>
-            <Route path="/archive">
-              <ArchivePage
-                screenings={screenings}
-                setSelectedScreening={setSelectedScreening}
-              />
-            </Route>
-            <Route path="/about">
-              <AboutPage />
-            </Route>
-            <Route exact path="/intern/login">
-              <LoginPage />
-            </Route>
-            <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
-              <InternPage />
-            </PrivateRoute>
-          </Switch>
+          <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+          <MainStyled isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
+            <Switch>
+              <Route exact path="/">
+                <HomePage
+                  screenings={screenings}
+                  setSelectedScreening={setSelectedScreening}
+                />
+              </Route>
+              <Route path="/screening">
+                {Object.entries(selectedScreening).length && (
+                  <ScreeningPage selectedScreening={selectedScreening} />
+                )}
+              </Route>
+              <Route path="/archive">
+                <ArchivePage
+                  screenings={screenings}
+                  setSelectedScreening={setSelectedScreening}
+                />
+              </Route>
+              <Route path="/about">
+                <AboutPage />
+              </Route>
+              <Route exact path="/intern/login">
+                <LoginPage />
+              </Route>
+              <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
+                <InternPage />
+              </PrivateRoute>
+            </Switch>
+          </MainStyled>
         </AppStyled>
       </UserContext.Provider>
     </Router>
@@ -112,9 +116,33 @@ const AppStyled = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
+  max-width: 1020px;
   height: 100%;
   display: grid;
-  grid-template-rows: 48px auto;
-  background-image: url(${blackPerlsImage});
+  grid-template-rows: 60px auto;
+  margin: auto;
+  background-image: url(${blackPerlImage});
   background-color: black;
+
+  @media (min-width: 900px) {
+    grid-template-columns: 240px auto;
+  }
+`;
+
+const MainStyled = styled.main`
+  overflow: auto;
+  filter: ${(props) => (props.isNavOpen ? 'blur(4px)' : 'none')};
+
+  * {
+    pointer-events: ${(props) => (props.isNavOpen ? 'none' : 'auto')};
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: 240px auto;
+    filter: none;
+
+    * {
+      pointer-events: auto;
+    }
+  }
 `;

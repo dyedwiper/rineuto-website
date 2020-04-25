@@ -9,43 +9,37 @@ export default function ScreeningPage({ selectedScreening }) {
 
   return (
     <ScreeningPageStyled>
-      <ScreeningInfoStyled>
-        <DateRibbon date={selectedScreening.date} />
-        <FilmStillStyled
-          src={process.env.PUBLIC_URL + selectedScreening.imageUrl}
-        />
-        <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
-        <FilmInfoStyled>
-          {selectedScreening.country +
-            ' ' +
-            selectedScreening.year +
-            ' | ' +
-            selectedScreening.length +
-            ' Min | ' +
-            selectedScreening.version}
-        </FilmInfoStyled>
-        <FilmDirectorStyled>
-          {'Regie: ' + selectedScreening.director}
-        </FilmDirectorStyled>
-        <FilmSynopsisStyled>{selectedScreening.synopsis}</FilmSynopsisStyled>
-        <ScreeningSeriesStyled>
-          Filmreihe: {selectedScreening.series}
-        </ScreeningSeriesStyled>
-      </ScreeningInfoStyled>
+      <DateRibbon date={selectedScreening.date} />
+      <FilmStillStyled
+        src={process.env.PUBLIC_URL + selectedScreening.imageUrl}
+      />
+      <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
+      <FilmInfoStyled>
+        {selectedScreening.country +
+          ' ' +
+          selectedScreening.year +
+          ' | ' +
+          selectedScreening.length +
+          ' Min | ' +
+          selectedScreening.version}
+      </FilmInfoStyled>
+      <FilmDirectorStyled>
+        {'Regie: ' + selectedScreening.director}
+      </FilmDirectorStyled>
+      <FilmSynopsisStyled>{selectedScreening.synopsis}</FilmSynopsisStyled>
+      <ScreeningSeriesStyled>
+        Filmreihe: {selectedScreening.series}
+      </ScreeningSeriesStyled>
     </ScreeningPageStyled>
   );
 }
 
-const ScreeningPageStyled = styled.main`
-  overflow: auto;
-`;
-
-const ScreeningInfoStyled = styled.div`
+const ScreeningPageStyled = styled.article`
   display: grid;
   grid-auto-rows: min-content;
   margin: 0 auto;
   max-width: 600px;
-  padding: 40px 10px;
+  padding: 40px 20px;
 `;
 
 const FilmStillStyled = styled.img`

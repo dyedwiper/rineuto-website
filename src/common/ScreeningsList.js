@@ -5,7 +5,7 @@ import ScreeningCard from './ScreeningCard.js';
 export default function ScreeningsList({ screenings, setSelectedScreening }) {
   return (
     <ScreeningsListStyled>
-      {screenings.map(screening => (
+      {screenings.map((screening) => (
         <ScreeningCard
           key={screening._id}
           screening={screening}
@@ -17,14 +17,15 @@ export default function ScreeningsList({ screenings, setSelectedScreening }) {
   );
 }
 
-const ScreeningsListStyled = styled.div`
+const ScreeningsListStyled = styled.ul`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 50px;
   overflow: auto;
   margin: 0 auto;
   max-width: 600px;
-  padding: 30px 10px;
+  padding: 30px 20px;
+  list-style-type: none;
 `;
 
 const Cushion = styled.div`
