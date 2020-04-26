@@ -101,16 +101,14 @@ const MainStyled = styled.main`
   overflow: auto;
   filter: ${(props) => (props.isNavOpen ? 'blur(4px)' : 'none')};
 
-  * {
-    pointer-events: ${(props) => (props.isNavOpen ? 'none' : 'auto')};
+  @media (max-width: 900px) {
+    * {
+      pointer-events: ${(props) => (props.isNavOpen ? 'none' : 'auto')};
+    }
   }
 
   @media (min-width: 900px) {
     grid-template-columns: 240px auto;
     filter: none;
-
-    * {
-      pointer-events: auto;
-    }
   }
 `;
