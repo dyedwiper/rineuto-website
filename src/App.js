@@ -12,19 +12,18 @@ import Navigation from './common/Navigation';
 import PrivateRoute from './common/PrivateRoute';
 import AboutPage from './pages/AboutPage';
 import ArchivePage from './pages/ArchivePage';
-import HomePage from './pages/HomePage';
+import ProgramPage from './pages/ProgramPage';
 import InternPage from './pages/InternPage';
 import LoginPage from './pages/LoginPage';
 import ScreeningPage from './pages/ScreeningPage';
-import { getScreenings, getUser } from './utils/services';
+import { getUser } from './utils/services';
 import { getFromStorage } from './utils/storage';
 import UserContext from './userContext';
 
 export default function App() {
-  const [screenings, setScreenings] = useState([]);
-  const [isNavOpen, setIsNavOpen] = useState(false);
   const [user, setUser] = useState({});
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   useEffect(() => {
     const token = getFromStorage('rineuto-token');
@@ -42,18 +41,6 @@ export default function App() {
       });
   }, []);
 
-  useEffect(() => {
-    getScreenings()
-      .then((screenings) => {
-        const screeningsFormatted = screenings.map((screening) => {
-          const dateFormatted = new Date(screening.date);
-          return { ...screening, date: dateFormatted };
-        });
-        setScreenings(screeningsFormatted);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
   return (
     <Router>
       <UserContext.Provider value={{ user, setUser }}>
@@ -63,13 +50,13 @@ export default function App() {
           <MainStyled isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
             <Switch>
               <Route exact path="/">
-                <HomePage screenings={screenings} />
+                <ProgramPage />
               </Route>
               <Route path="/screening">
                 <ScreeningPage />
               </Route>
               <Route path="/archive">
-                <ArchivePage screenings={screenings} />
+                <ArchivePage />
               </Route>
               <Route path="/about">
                 <AboutPage />

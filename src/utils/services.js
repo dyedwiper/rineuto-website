@@ -4,6 +4,14 @@ export function getScreenings() {
   return fetch('/screenings').then(handleError);
 }
 
+export function getFutureScreenings() {
+  return fetch('/screenings/future').then(handleError);
+}
+
+export function getPastScreenings() {
+  return fetch('/screenings/past').then(handleError);
+}
+
 export function getSingleScreening(id) {
   return fetch('/screenings/' + id).then(handleError);
 }

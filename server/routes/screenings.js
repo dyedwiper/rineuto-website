@@ -11,6 +11,30 @@ router.get('/', (req, res) => {
     .catch((err) => res.status(404).json(err));
 });
 
+router.get('/future', (req, res) => {
+  Screening.find()
+    .then((screenings) => {
+      const now = Date.now();
+      const futureScreenings = screenings.filter(
+        (screening) => screening.date >= now
+      );
+      res.json(futureScreenings);
+    })
+    .catch((err) => res.status(404).json(err));
+});
+
+router.get('/past', (req, res) => {
+  Screening.find()
+    .then((screenings) => {
+      const now = Date.now();
+      const pastScreenings = screenings.filter(
+        (screening) => screening.date < now
+      );
+      res.json(pastScreenings);
+    })
+    .catch((err) => res.status(404).json(err));
+});
+
 router.get('/:id', (req, res) => {
   Screening.findById(req.params.id)
     .then((screening) => res.json(screening))
