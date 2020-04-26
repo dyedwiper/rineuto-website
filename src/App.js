@@ -22,8 +22,6 @@ import UserContext from './userContext';
 
 export default function App() {
   const [screenings, setScreenings] = useState([]);
-  const [selectedScreening, setSelectedScreening] = useState({});
-  const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [user, setUser] = useState({});
   const [isLoadingUser, setIsLoadingUser] = useState(true);
@@ -52,26 +50,9 @@ export default function App() {
           return { ...screening, date: dateFormatted };
         });
         setScreenings(screeningsFormatted);
-        setIsLoadingScreenings(false);
       })
       .catch((err) => console.error(err));
   }, []);
-
-  useEffect(() => {
-    const currentUrl = window.location;
-    if (
-      !isLoadingScreenings &&
-      currentUrl.pathname === '/screening' &&
-      Object.entries(selectedScreening).length === 0 &&
-      selectedScreening.constructor === Object
-    ) {
-      const currentScreeningId = currentUrl.search.slice(4);
-      const currentScreening = screenings.find(
-        (screening) => screening._id === currentScreeningId
-      );
-      setSelectedScreening(currentScreening);
-    }
-  }, [isLoadingScreenings, screenings, selectedScreening]);
 
   return (
     <Router>
@@ -82,21 +63,13 @@ export default function App() {
           <MainStyled isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
             <Switch>
               <Route exact path="/">
-                <HomePage
-                  screenings={screenings}
-                  setSelectedScreening={setSelectedScreening}
-                />
+                <HomePage screenings={screenings} />
               </Route>
               <Route path="/screening">
-                {Object.entries(selectedScreening).length && (
-                  <ScreeningPage selectedScreening={selectedScreening} />
-                )}
+                <ScreeningPage />
               </Route>
               <Route path="/archive">
-                <ArchivePage
-                  screenings={screenings}
-                  setSelectedScreening={setSelectedScreening}
-                />
+                <ArchivePage screenings={screenings} />
               </Route>
               <Route path="/about">
                 <AboutPage />

@@ -1,51 +1,46 @@
 import React from 'react';
-import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import DateRibbon from './DateRibbon';
 
-export default function ScreeningCard({ screening, setSelectedScreening }) {
-  let history = useHistory();
-
+export default function ScreeningCard({ screening }) {
   return (
     <ScreeningCardStyled>
       <DateRibbon date={screening.date} />
-      <FilmStillStyled
-        onClick={handleClick}
-        src={process.env.PUBLIC_URL + screening.imageUrl}
-      />
-      <ScreeningTitleStyled onClick={handleClick}>
-        {screening.title}
-      </ScreeningTitleStyled>
+      <LinkStyled to={'/screening/' + screening._id}>
+        <FilmStillStyled src={process.env.PUBLIC_URL + screening.imageUrl} />
+        <ScreeningTitleStyled>{screening.title}</ScreeningTitleStyled>
+      </LinkStyled>
       <ScreeningSeriesStyled>
         Filmreihe: {screening.series}
       </ScreeningSeriesStyled>
     </ScreeningCardStyled>
   );
-
-  function handleClick() {
-    setSelectedScreening(screening);
-    history.push('/screening?id=' + screening._id);
-  }
 }
 
 const ScreeningCardStyled = styled.li`
   display: grid;
 `;
 
-const FilmStillStyled = styled.img`
-  width: 100%;
-  cursor: pointer;
-`;
-
-const ScreeningTitleStyled = styled.h2`
-  margin: 0;
-  background-color: white;
-  padding: 10px;
-  cursor: pointer;
+const LinkStyled = styled(Link)`
+  display: grid;
+  color: black;
+  text-decoration: none;
 
   :hover {
     text-decoration: underline;
   }
+`;
+
+const FilmStillStyled = styled.img`
+  width: 100%;
+`;
+
+const ScreeningTitleStyled = styled.h2`
+  margin: 0;
+  padding: 10px;
+  background-color: white;
+  color: black;
 `;
 
 const ScreeningSeriesStyled = styled.div`
