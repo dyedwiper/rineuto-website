@@ -1,17 +1,26 @@
-import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import PrivateRoute from './PrivateRoute';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
-import ProgramPage from '../pages/ProgramPage';
 import InternPage from '../pages/InternPage';
 import LoginPage from '../pages/LoginPage';
+import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
+import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser }) {
+  let history = useHistory();
+  const mainElement = useRef(null);
+
+  useEffect(() => {
+    history.listen(() => {
+      mainElement.current.scrollTop = 0;
+    });
+  }, [history]);
+
   return (
-    <MainStyled isNavOpen={isNavOpen}>
+    <MainStyled ref={mainElement} isNavOpen={isNavOpen}>
       <Switch>
         <Route exact path="/">
           <ProgramPage />
