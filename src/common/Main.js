@@ -11,7 +11,7 @@ import PrivateRoute from './PrivateRoute';
 import NotFoundPage from './NotFoundPage';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
-  let history = useHistory();
+  const history = useHistory();
   const mainElement = useRef(null);
 
   useEffect(() => {

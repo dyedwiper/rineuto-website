@@ -14,9 +14,8 @@ router.get('/', (req, res) => {
 router.get('/future', (req, res) => {
   Screening.find()
     .then((screenings) => {
-      const now = Date.now();
       const futureScreenings = screenings.filter(
-        (screening) => screening.date >= now
+        (screening) => screening.date >= Date.now()
       );
       res.json(futureScreenings);
     })
@@ -26,9 +25,8 @@ router.get('/future', (req, res) => {
 router.get('/past', (req, res) => {
   Screening.find()
     .then((screenings) => {
-      const now = Date.now();
       const pastScreenings = screenings.filter(
-        (screening) => screening.date < now
+        (screening) => screening.date < Date.now()
       );
       res.json(pastScreenings);
     })

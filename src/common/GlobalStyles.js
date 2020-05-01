@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components/macro';
-// import blackPerlImage from '../assets/blackPerl.png';
 import twinCurtainImage from '../assets/twinCurtain.jpg';
 
 export default createGlobalStyle`
