@@ -1,27 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import blackPerlImage from './assets/blackPerl.png';
 import Header from './common/Header';
+import Main from './common/Main';
 import Navigation from './common/Navigation';
-import PrivateRoute from './common/PrivateRoute';
-import AboutPage from './pages/AboutPage';
-import ArchivePage from './pages/ArchivePage';
-import HomePage from './pages/HomePage';
-import InternPage from './pages/InternPage';
-import LoginPage from './pages/LoginPage';
-import ScreeningPage from './pages/ScreeningPage';
-import { getScreenings, getUser } from './utils/services';
-import { getFromStorage } from './utils/storage';
 import UserContext from './userContext';
+import { getUser } from './utils/services';
+import { getFromStorage } from './utils/storage';
 
 export default function App() {
-  const [screenings, setScreenings] = useState([]);
-  const [selectedScreening, setSelectedScreening] = useState({});
-  const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
-  const [isNavOpen, setIsNavOpen] = useState(false);
   const [user, setUser] = useState({});
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   useEffect(() => {
     const token = getFromStorage('rineuto-token');
@@ -39,71 +30,17 @@ export default function App() {
       });
   }, []);
 
-  useEffect(() => {
-    getScreenings()
-      .then((screenings) => {
-        const screeningsFormatted = screenings.map((screening) => {
-          const dateFormatted = new Date(screening.date);
-          return { ...screening, date: dateFormatted };
-        });
-        setScreenings(screeningsFormatted);
-        setIsLoadingScreenings(false);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
-  useEffect(() => {
-    const currentUrl = window.location;
-    if (
-      !isLoadingScreenings &&
-      currentUrl.pathname === '/screening' &&
-      Object.entries(selectedScreening).length === 0 &&
-      selectedScreening.constructor === Object
-    ) {
-      const currentScreeningId = currentUrl.search.slice(4);
-      const currentScreening = screenings.find(
-        (screening) => screening._id === currentScreeningId
-      );
-      setSelectedScreening(currentScreening);
-    }
-  }, [isLoadingScreenings, screenings, selectedScreening]);
-
   return (
     <Router>
       <UserContext.Provider value={{ user, setUser }}>
         <AppStyled>
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-          <MainStyled isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
-            <Switch>
-              <Route exact path="/">
-                <HomePage
-                  screenings={screenings}
-                  setSelectedScreening={setSelectedScreening}
-                />
-              </Route>
-              <Route path="/screening">
-                {Object.entries(selectedScreening).length && (
-                  <ScreeningPage selectedScreening={selectedScreening} />
-                )}
-              </Route>
-              <Route path="/archive">
-                <ArchivePage
-                  screenings={screenings}
-                  setSelectedScreening={setSelectedScreening}
-                />
-              </Route>
-              <Route path="/about">
-                <AboutPage />
-              </Route>
-              <Route exact path="/intern/login">
-                <LoginPage />
-              </Route>
-              <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
-                <InternPage />
-              </PrivateRoute>
-            </Switch>
-          </MainStyled>
+          <Main
+            isNavOpen={isNavOpen}
+            setIsNavOpen={setIsNavOpen}
+            isLoadingUser={isLoadingUser}
+          />
         </AppStyled>
       </UserContext.Provider>
     </Router>
@@ -126,23 +63,5 @@ const AppStyled = styled.div`
 
   @media (min-width: 900px) {
     grid-template-columns: 240px auto;
-  }
-`;
-
-const MainStyled = styled.main`
-  overflow: auto;
-  filter: ${(props) => (props.isNavOpen ? 'blur(4px)' : 'none')};
-
-  * {
-    pointer-events: ${(props) => (props.isNavOpen ? 'none' : 'auto')};
-  }
-
-  @media (min-width: 900px) {
-    grid-template-columns: 240px auto;
-    filter: none;
-
-    * {
-      pointer-events: auto;
-    }
   }
 `;

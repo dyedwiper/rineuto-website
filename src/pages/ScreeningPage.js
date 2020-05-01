@@ -1,18 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import DateRibbon from '../common/DateRibbon';
+import { getSingleScreening } from '../utils/services';
+import LoadingPage from './LoadingPage';
+import { Redirect } from 'react-router-dom';
 
-export default function ScreeningPage({ selectedScreening }) {
+export default function ScreeningPage() {
+  const [selectedScreening, setSelectedScreening] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [isInvalidId, setIsInvalidId] = useState(false);
+
+  useEffect(() => {
+    const screeningId = window.location.pathname.slice(11);
+    getSingleScreening(screeningId)
+      .then((screening) => {
+        // console.log('public url: ', process.env.PUBLIC_URL);
+        const dateFormatted = new Date(screening.date);
+        setSelectedScreening({ ...screening, date: dateFormatted });
+        setIsLoading(false);
+      })
+      .catch(() => setIsInvalidId(true));
+  }, []);
+
   useEffect(() => {
     document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
   }, [selectedScreening]);
 
+  if (isInvalidId) {
+    return <Redirect to="/404" />;
+  }
+  if (isLoading) {
+    return <LoadingPage />;
+  }
   return (
     <ScreeningPageStyled>
       <DateRibbon date={selectedScreening.date} />
-      <FilmStillStyled
-        src={process.env.PUBLIC_URL + selectedScreening.imageUrl}
-      />
+      <FilmStillStyled src={'/' + selectedScreening.imageUrl} />
       <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
       <FilmInfoStyled>
         {selectedScreening.country +

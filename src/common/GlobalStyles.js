@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components/macro';
-import blackPerlImage from '../assets/blackPerl.png';
+import twinCurtainImage from '../assets/twinCurtain.jpg';
 
 export default createGlobalStyle`
   * {
@@ -8,7 +8,7 @@ export default createGlobalStyle`
  
   body {
     margin: 0;
-    background-image: url(${blackPerlImage});
+    background-image: url(${twinCurtainImage});
     background-size: 100%;
     background-color: black;
     font-family: 'Linux Libertine G', serif;
