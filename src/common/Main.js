@@ -9,6 +9,7 @@ import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
 import PrivateRoute from './PrivateRoute';
 import NotFoundPage from './NotFoundPage';
+import ImprintPage from '../pages/ImprintPage';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const history = useHistory();
@@ -38,6 +39,9 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         </Route>
         <Route path="/about">
           <AboutPage />
+        </Route>
+        <Route path="/imprint">
+          <ImprintPage />
         </Route>
         <Route exact path="/intern/login">
           <LoginPage />
