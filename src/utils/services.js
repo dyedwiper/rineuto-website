@@ -1,23 +1,23 @@
 import { setToStorage } from '../utils/storage';
 
 export function getScreenings() {
-  return fetch('/screenings').then(handleError);
+  return fetch('/api/screenings').then(handleError);
 }
 
 export function getFutureScreenings() {
-  return fetch('/screenings/future').then(handleError);
+  return fetch('/api/screenings/future').then(handleError);
 }
 
 export function getPastScreenings() {
-  return fetch('/screenings/past').then(handleError);
+  return fetch('/api/screenings/past').then(handleError);
 }
 
 export function getSingleScreening(id) {
-  return fetch('/screenings/' + id).then(handleError);
+  return fetch('/api/screenings/' + id).then(handleError);
 }
 
 export function postScreening(data, token) {
-  return fetch('/screenings', {
+  return fetch('/api/screenings', {
     method: 'POST',
     body: data,
     headers: {
@@ -27,7 +27,7 @@ export function postScreening(data, token) {
 }
 
 export function postLoginUser(data) {
-  return fetch('/users/login', {
+  return fetch('/api/users/login', {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
@@ -37,7 +37,7 @@ export function postLoginUser(data) {
 }
 
 export function getUser(token) {
-  return fetch('/users/authenticate', {
+  return fetch('/api/users/authenticate', {
     headers: { 'auth-token': token },
   }).then(handleError);
 }

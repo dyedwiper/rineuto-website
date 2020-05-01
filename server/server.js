@@ -12,8 +12,8 @@ app.use(express.json());
 app.use(cors());
 app.set('json spaces', 2);
 
-app.use('/screenings', require('./routes/screenings'));
-app.use('/users', require('./routes/users'));
+app.use('/api/screenings', require('./routes/screenings'));
+app.use('/api/users', require('./routes/users'));
 
 mongoose.connect(
   process.env.DB_CONNECT,
