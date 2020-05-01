@@ -3,10 +3,12 @@ import styled from 'styled-components/macro';
 import DateRibbon from '../common/DateRibbon';
 import { getSingleScreening } from '../utils/services';
 import LoadingPage from './LoadingPage';
+import { Redirect } from 'react-router-dom';
 
 export default function ScreeningPage() {
   const [selectedScreening, setSelectedScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isInvalidId, setIsInvalidId] = useState(false);
 
   useEffect(() => {
     const screeningId = window.location.pathname.slice(11);
@@ -17,13 +19,16 @@ export default function ScreeningPage() {
         setSelectedScreening({ ...screening, date: dateFormatted });
         setIsLoading(false);
       })
-      .catch((err) => console.error(err));
+      .catch(() => setIsInvalidId(true));
   }, []);
 
   useEffect(() => {
     document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
   }, [selectedScreening]);
 
+  if (isInvalidId) {
+    return <Redirect to="/404" />;
+  }
   if (isLoading) {
     return <LoadingPage />;
   }

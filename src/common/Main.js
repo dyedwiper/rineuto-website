@@ -8,6 +8,7 @@ import LoginPage from '../pages/LoginPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
 import PrivateRoute from './PrivateRoute';
+import NotFoundPage from './NotFoundPage';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   let history = useHistory();
@@ -47,6 +48,10 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         <Route path="/logout">
           <Redirect exact to="/" />
         </Route>
+        <Route path="/404">
+          <NotFoundPage />
+        </Route>
+        <Redirect to="/404" />
       </Switch>
     </MainStyled>
   );
