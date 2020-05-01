@@ -46,19 +46,21 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
 }
 
 const NavigationStyled = styled.nav`
-  position: ${(props) => (props.isNavOpen ? 'static' : 'absolute')};
+  position: absolute;
   right: 0;
   top: 60px;
+  z-index: 1000;
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 10px;
+  width: 100%;
   height: ${(props) => (props.loggedIn ? '240px' : '120px')};
   padding: 10px 16px;
   background-image: url(${greenPerlImage});
-
-  transition: all 0.3s linear;
+  filter: ${(props) => (props.isNavOpen ? 'none' : 'blur(4px)')};
   transform: ${(props) =>
     props.isNavOpen ? 'translateX(0)' : 'translateX(101%)'};
+  transition: all 2.3s linear;
 
   @media (min-width: 900px) {
     position: static;
@@ -68,6 +70,7 @@ const NavigationStyled = styled.nav`
     grid-gap: 16px;
     height: auto;
     padding: 20px 20px;
+    filter: none;
     transform: translateX(0);
   }
 `;

@@ -9,7 +9,7 @@ import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
 import PrivateRoute from './PrivateRoute';
 
-export default function Main({ isNavOpen, isLoadingUser }) {
+export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   let history = useHistory();
   const mainElement = useRef(null);
 
@@ -20,7 +20,11 @@ export default function Main({ isNavOpen, isLoadingUser }) {
   }, [history]);
 
   return (
-    <MainStyled ref={mainElement} isNavOpen={isNavOpen}>
+    <MainStyled
+      ref={mainElement}
+      isNavOpen={isNavOpen}
+      onClick={() => setIsNavOpen()}
+    >
       <Switch>
         <Route exact path="/">
           <ProgramPage />
@@ -51,6 +55,8 @@ export default function Main({ isNavOpen, isLoadingUser }) {
 const MainStyled = styled.main`
   overflow: auto;
   filter: ${(props) => (props.isNavOpen ? 'blur(4px)' : 'none')};
+
+  transition: filter 2.3s linear;
 
   @media (max-width: 900px) {
     * {

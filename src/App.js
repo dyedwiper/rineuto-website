@@ -38,7 +38,7 @@ export default function App() {
           <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Main
             isNavOpen={isNavOpen}
-            onClick={() => setIsNavOpen(false)}
+            setIsNavOpen={setIsNavOpen}
             isLoadingUser={isLoadingUser}
           />
         </AppStyled>
