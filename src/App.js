@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import blackPerlImage from './assets/blackPerl.png';
 import Header from './common/Header';
+import Main from './common/Main';
 import Navigation from './common/Navigation';
-import PrivateRoute from './common/PrivateRoute';
-import AboutPage from './pages/AboutPage';
-import ArchivePage from './pages/ArchivePage';
-import ProgramPage from './pages/ProgramPage';
-import InternPage from './pages/InternPage';
-import LoginPage from './pages/LoginPage';
-import ScreeningPage from './pages/ScreeningPage';
+import UserContext from './userContext';
 import { getUser } from './utils/services';
 import { getFromStorage } from './utils/storage';
-import UserContext from './userContext';
 
 export default function App() {
   const [user, setUser] = useState({});
@@ -47,31 +36,11 @@ export default function App() {
         <AppStyled>
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-          <MainStyled isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
-            <Switch>
-              <Route exact path="/">
-                <ProgramPage />
-              </Route>
-              <Route path="/screening">
-                <ScreeningPage />
-              </Route>
-              <Route path="/archive">
-                <ArchivePage />
-              </Route>
-              <Route path="/about">
-                <AboutPage />
-              </Route>
-              <Route exact path="/intern/login">
-                <LoginPage />
-              </Route>
-              <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
-                <InternPage />
-              </PrivateRoute>
-              <Route path="/logout">
-                <Redirect exact to="/" />
-              </Route>
-            </Switch>
-          </MainStyled>
+          <Main
+            isNavOpen={isNavOpen}
+            onClick={() => setIsNavOpen(false)}
+            isLoadingUser={isLoadingUser}
+          />
         </AppStyled>
       </UserContext.Provider>
     </Router>
@@ -94,21 +63,5 @@ const AppStyled = styled.div`
 
   @media (min-width: 900px) {
     grid-template-columns: 240px auto;
-  }
-`;
-
-const MainStyled = styled.main`
-  overflow: auto;
-  filter: ${(props) => (props.isNavOpen ? 'blur(4px)' : 'none')};
-
-  @media (max-width: 900px) {
-    * {
-      pointer-events: ${(props) => (props.isNavOpen ? 'none' : 'auto')};
-    }
-  }
-
-  @media (min-width: 900px) {
-    grid-template-columns: 240px auto;
-    filter: none;
   }
 `;
