@@ -6,23 +6,7 @@ import whitePerlImage from '../assets/perls/whitePerl.png';
 export default function PosterPage() {
   return (
     <PosterPageStyled>
-      <YearNavigation
-        years={[
-          '2018',
-          '2019',
-          '2020',
-          '2021',
-          '2022',
-          '2022',
-          '2022',
-          '2022',
-          '2022',
-          '2022',
-          '2022',
-          '2022',
-          '2022',
-        ]}
-      />
+      <YearNavigation years={['2018', '2019', '2020', '2021', '2022']} />
       <PosterListStyled>
         <PosterItemStyled>
           <PosterStyled src="/posters/2018/rineuto_poster_201805.jpg" />
@@ -49,7 +33,6 @@ const PosterListStyled = styled.ul`
   grid-template-columns: 320px;
   grid-gap: 40px;
   justify-content: center;
-  overflow: auto;
   margin: 0;
   padding: 40px;
   list-style: none;
