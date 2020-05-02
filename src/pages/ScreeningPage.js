@@ -51,7 +51,8 @@ export default function ScreeningPage() {
       </FilmDirectorStyled>
       <FilmSynopsisStyled>{selectedScreening.synopsis}</FilmSynopsisStyled>
       <ScreeningSeriesStyled>
-        Filmreihe: {selectedScreening.series}
+        Filmreihe:{' '}
+        {selectedScreening.series ? selectedScreening.series.title : ''}
       </ScreeningSeriesStyled>
     </ScreeningPageStyled>
   );

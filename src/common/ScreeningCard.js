@@ -12,7 +12,7 @@ export default function ScreeningCard({ screening }) {
         <ScreeningTitleStyled>{screening.title}</ScreeningTitleStyled>
       </LinkStyled>
       <ScreeningSeriesStyled>
-        Filmreihe: {screening.series}
+        Filmreihe: {screening.series ? screening.series.title : ''}
       </ScreeningSeriesStyled>
     </ScreeningCardStyled>
   );
