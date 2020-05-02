@@ -6,6 +6,7 @@ const seriesSchema = new Schema({
   year: { type: Number, required: true },
   screenings: [{ type: Schema.Types.ObjectId, ref: 'screenings' }],
   description: { type: String },
+  posterUrl: { type: String },
 });
 
 const Series = mongoose.model('Series', seriesSchema);

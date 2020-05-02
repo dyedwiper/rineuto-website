@@ -1,9 +1,5 @@
 import { setToStorage } from '../utils/storage';
 
-export function getScreenings() {
-  return fetch('/api/screenings').then(handleError);
-}
-
 export function getFutureScreenings() {
   return fetch('/api/screenings/future').then(handleError);
 }
@@ -24,6 +20,10 @@ export function postScreening(data, token) {
       'auth-token': token,
     },
   }).then(handleError);
+}
+
+export function getSeries(year) {
+  return fetch('/api/series/' + year).then(handleError);
 }
 
 export function postLoginUser(data) {

@@ -4,7 +4,13 @@ const Series = require('../models/Series');
 router.get('/', (req, res) => {
   Series.find()
     .then((series) => res.json(series))
-    .catch((err) => console.error(err));
+    .catch((err) => res.status(400).json(err));
+});
+
+router.get('/:year', (req, res) => {
+  Series.find({ year: req.params.year })
+    .then((series) => res.json(series))
+    .catch((err) => res.status(400).json(err));
 });
 
 router.post('/', (req, res) => {
@@ -12,7 +18,13 @@ router.post('/', (req, res) => {
   newSeries
     .save()
     .then((series) => res.json(series))
-    .catch((err) => console.error(err));
+    .catch((err) => res.status(400).json(err));
+});
+
+router.patch('/:id', (req, res) => {
+  Series.findByIdAndUpdate(req.params.id, req.body)
+    .then((updatedSeries) => res.json(updatedSeries))
+    .catch((err) => res.status(400).json(err));
 });
 
 module.exports = router;
