@@ -17,7 +17,12 @@ export default function ImprintPage() {
 }
 
 const ImprintPageStyled = styled.div`
-  padding: 40px;
+  padding: 20px;
   color: white;
-  font-size: 1.5em;
+  font-size: 1.2em;
+
+  @media (min-width: 900px) {
+    padding: 40px;
+    font-size: 1.5em;
+  }
 `;
