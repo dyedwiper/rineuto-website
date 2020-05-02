@@ -39,7 +39,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         <Route path="/archive">
           <ArchivePage />
         </Route>
-        <Route path="/poster">
+        <Route path="/posters">
           <PosterPage />
         </Route>
         <Route path="/about">

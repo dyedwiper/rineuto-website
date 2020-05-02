@@ -23,7 +23,7 @@ export function postScreening(data, token) {
 }
 
 export function getSeries(year) {
-  return fetch('/api/series/' + year).then(handleError);
+  return fetch('/api/series/year/' + year).then(handleError);
 }
 
 export function postLoginUser(data) {

@@ -13,7 +13,7 @@ export default function PosterPage() {
     hithertoYears.push(year);
   }
 
-  const [selectedYear, setSelectedYear] = useState(startYear);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedSeries, setSelectedSeries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,7 +22,6 @@ export default function PosterPage() {
     getSeries(selectedYear)
       .then((series) => {
         setSelectedSeries(series);
-        console.log('series', series);
         setIsLoading(false);
       })
       .catch((err) => console.error(err));
@@ -34,7 +33,10 @@ export default function PosterPage() {
 
   return (
     <PosterPageStyled>
-      <YearNavigation years={hithertoYears} />
+      <YearNavigation
+        hithertoYears={hithertoYears}
+        setSelectedYear={setSelectedYear}
+      />
       <PosterListStyled>
         {selectedSeries.map((series) => (
           <PosterItemStyled key={series._id}>

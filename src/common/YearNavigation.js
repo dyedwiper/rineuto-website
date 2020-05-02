@@ -1,14 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import darkGreenPerlImage from '../assets/perls/darkGreenPerl.png';
 import whitePerlImage from '../assets/perls/whitePerl.png';
 
-export default function YearNavigation({ years }) {
+export default function YearNavigation({ hithertoYears, setSelectedYear }) {
   return (
     <YearNavigationStyled>
-      {years.map((year) => (
-        <YearLinkStyled key={year} to="#">
+      {hithertoYears.map((year) => (
+        <YearLinkStyled
+          key={year}
+          to={'/posters/' + year}
+          onClick={() => setSelectedYear(year)}
+        >
           {year}
         </YearLinkStyled>
       ))}
@@ -26,7 +30,7 @@ const YearNavigationStyled = styled.nav`
   }
 `;
 
-const YearLinkStyled = styled(Link)`
+const YearLinkStyled = styled(NavLink)`
   display: inline-grid;
   place-items: center;
   width: 80px;
@@ -37,4 +41,8 @@ const YearLinkStyled = styled(Link)`
   color: black;
   font-size: 1.5em;
   text-decoration: none;
+
+  &.active {
+    transform: skew(0deg, -13deg);
+  }
 `;

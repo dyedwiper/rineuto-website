@@ -18,7 +18,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
       <NavLinkStyled to="/archive" onClick={() => setIsNavOpen(false)}>
         Archiv
       </NavLinkStyled>
-      <NavLinkStyled to="/poster" onClick={() => setIsNavOpen(false)}>
+      <NavLinkStyled to="/posters" onClick={() => setIsNavOpen(false)}>
         Plakate
       </NavLinkStyled>
       <NavLinkStyled to="/about" onClick={() => setIsNavOpen(false)}>

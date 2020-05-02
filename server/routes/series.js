@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.get('/:year', (req, res) => {
+router.get('/year/:year', (req, res) => {
   Series.find({ year: req.params.year })
     .then((series) => res.json(series))
     .catch((err) => res.status(400).json(err));
