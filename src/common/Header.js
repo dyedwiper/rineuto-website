@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components/macro';
-import whitePerlImage from '../assets/whitePerl.png';
-import redPerlImage from '../assets/redPerl.png';
-import darkGreenPerlImage from '../assets/darkGreenPerl.png';
+import whitePerlImage from '../assets/perls/whitePerl.png';
+import redPerlImage from '../assets/perls/redPerl.png';
+import darkGreenPerlImage from '../assets/perls/darkGreenPerl.png';
 
 export default function Header({ isNavOpen, setIsNavOpen }) {
   const [title, setTitle] = useState('Rineuto Lichtspiele');

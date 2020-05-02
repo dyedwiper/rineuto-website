@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import blackPerlImage from './assets/blackPerl.png';
+import blackPerlImage from './assets/perls/blackPerl.png';
 import Header from './common/Header';
 import Main from './common/Main';
 import Navigation from './common/Navigation';

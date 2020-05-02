@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import greenPerlImage from '../assets/darkGreenPerl.png';
-import redPerlImage from '../assets/redPerl.png';
+import greenPerlImage from '../assets/perls/darkGreenPerl.png';
+import redPerlImage from '../assets/perls/redPerl.png';
 import UserContext from '../userContext';
 import { setToStorage } from '../utils/storage';
 
@@ -17,6 +17,9 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
       </NavLinkStyled>
       <NavLinkStyled to="/archive" onClick={() => setIsNavOpen(false)}>
         Archiv
+      </NavLinkStyled>
+      <NavLinkStyled to="/poster" onClick={() => setIsNavOpen(false)}>
+        Plakate
       </NavLinkStyled>
       <NavLinkStyled to="/about" onClick={() => setIsNavOpen(false)}>
         Über uns
@@ -57,7 +60,7 @@ const NavigationStyled = styled.nav`
   grid-auto-rows: min-content;
   grid-gap: 10px;
   width: 100%;
-  height: ${(props) => (props.loggedIn ? '240px' : '120px')};
+  height: ${(props) => (props.loggedIn ? '320px' : '200px')};
   padding: 10px 16px;
   background-image: url(${greenPerlImage});
   filter: ${(props) => (props.isNavOpen ? 'none' : 'blur(4px)')};
