@@ -14,7 +14,6 @@ export default function ScreeningPage() {
     const screeningId = window.location.pathname.slice(11);
     getSingleScreening(screeningId)
       .then((screening) => {
-        // console.log('public url: ', process.env.PUBLIC_URL);
         const dateFormatted = new Date(screening.date);
         setSelectedScreening({ ...screening, date: dateFormatted });
         setIsLoading(false);
@@ -35,7 +34,9 @@ export default function ScreeningPage() {
   return (
     <ScreeningPageStyled>
       <DateRibbon date={selectedScreening.date} />
-      <FilmStillStyled src={'/' + selectedScreening.imageUrl} />
+      <FilmStillStyled
+        src={process.env.PUBLIC_URL + selectedScreening.imageUrl}
+      />
       <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
       <FilmInfoStyled>
         {selectedScreening.country +
