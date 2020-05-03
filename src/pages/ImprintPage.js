@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 
 export default function ImprintPage() {
+  useEffect(() => {
+    document.title = 'Impressum | Rineuto Lichtspiele';
+  }, []);
+
   return (
     <ImprintPageStyled>
       <div>Mokryhütten e.V.</div>

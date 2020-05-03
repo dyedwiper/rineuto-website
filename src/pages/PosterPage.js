@@ -16,6 +16,10 @@ export default function PosterPage() {
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
   useEffect(() => {
+    document.title = 'Plakate | Rineuto Lichtspiele';
+  }, []);
+
+  useEffect(() => {
     let yearFromPath = window.location.pathname.slice(9);
     if (!yearFromPath) {
       history.push('/posters/' + currentYear);
