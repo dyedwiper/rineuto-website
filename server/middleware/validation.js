@@ -17,7 +17,7 @@ function validateUser(req, res, next) {
 function validateLogin(req, res, next) {
   const loginSchema = Joi.object({
     username: Joi.string().max(20).required(),
-    password: Joi.string().max(40).required(),
+    password: Joi.string().max(100).required(),
   });
   const { error } = loginSchema.validate(req.body);
   if (error) {
@@ -47,6 +47,21 @@ function validateScreening(req, res, next) {
   next();
 }
 
+function validateSeries(req, res, next) {
+  const seriesSchema = Joi.object({
+    title: Joi.string().max(50),
+    year: Joi.number().min(2018).max(10000),
+    month: Joi.number().min(1).max(12),
+    posterUrl: Joi.string().max(1000),
+  });
+  const { error } = seriesSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ joiError: error.details[0].message });
+  }
+  next();
+}
+
 module.exports.validateUser = validateUser;
 module.exports.validateLogin = validateLogin;
 module.exports.validateScreening = validateScreening;
+module.exports.validateSeries = validateSeries;

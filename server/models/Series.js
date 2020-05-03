@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const seriesSchema = new Schema({
   title: { type: String, required: true },
   year: { type: Number, required: true },
-  screenings: [{ type: Schema.Types.ObjectId, ref: 'screenings' }],
-  description: { type: String },
+  month: { type: Number, required: true },
   posterUrl: { type: String },
 });
 

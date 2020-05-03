@@ -24,11 +24,13 @@ export default function PostersList({ selectedYear }) {
 
   return (
     <PosterListStyled>
-      {series.map((series) => (
-        <PosterItemStyled key={series._id}>
-          <PosterStyled src={process.env.PUBLIC_URL + series.posterUrl} />
-        </PosterItemStyled>
-      ))}
+      {series
+        .sort((a, b) => a.month - b.month)
+        .map((series) => (
+          <PosterItemStyled key={series._id}>
+            <PosterStyled src={process.env.PUBLIC_URL + series.posterUrl} />
+          </PosterItemStyled>
+        ))}
     </PosterListStyled>
   );
 }
