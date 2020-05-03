@@ -58,9 +58,9 @@ const NavigationStyled = styled.nav`
   z-index: 1000;
   display: grid;
   grid-auto-rows: min-content;
-  grid-gap: 10px;
+  grid-gap: 15px;
   width: 100%;
-  height: ${(props) => (props.loggedIn ? '320px' : '200px')};
+  height: ${(props) => (props.loggedIn ? '340px' : '220px')};
   padding: 10px 16px;
   background-image: url(${greenPerlImage});
   filter: ${(props) => (props.isNavOpen ? 'none' : 'blur(4px)')};

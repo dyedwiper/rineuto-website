@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import PostersList from '../common/PostersList';
 import YearNavigation from '../common/YearNavigation';
@@ -12,13 +12,28 @@ export default function PosterPage() {
     hithertoYears.push(year);
   }
 
-  const yearFromPath = window.location.pathname.slice(9);
   let history = useHistory();
-  if (!yearFromPath) {
-    history.push('/posters/' + currentYear);
-  }
+  const [selectedYear, setSelectedYear] = useState(currentYear);
 
-  const [selectedYear, setSelectedYear] = useState(yearFromPath || currentYear);
+  useEffect(() => {
+    let yearFromPath = window.location.pathname.slice(9);
+    if (!yearFromPath) {
+      history.push('/posters/' + currentYear);
+    }
+    if (yearFromPath.endsWith('/')) {
+      yearFromPath = yearFromPath.slice(0, -1);
+    }
+    setSelectedYear(yearFromPath);
+
+    const unlisten = history.listen(() => {
+      if (window.location.pathname === ('/posters' || '/posters/')) {
+        history.push('/posters/' + currentYear);
+        setSelectedYear(currentYear);
+      }
+    });
+
+    return unlisten;
+  }, [currentYear, history]);
 
   return (
     <PosterPageStyled>

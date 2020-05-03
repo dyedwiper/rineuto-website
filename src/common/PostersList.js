@@ -9,6 +9,7 @@ export default function PostersList({ selectedYear }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (isNaN(selectedYear)) return;
     getSeries(selectedYear)
       .then((series) => {
         setSeries(series);
