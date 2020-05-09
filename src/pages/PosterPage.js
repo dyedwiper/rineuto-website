@@ -28,16 +28,7 @@ export default function PosterPage() {
       yearFromPath = yearFromPath.slice(0, -1);
     }
     setSelectedYear(yearFromPath);
-
-    const unlisten = history.listen(() => {
-      if (window.location.pathname === ('/posters' || '/posters/')) {
-        history.push('/posters/' + currentYear);
-        setSelectedYear(currentYear);
-      }
-    });
-
-    return unlisten;
-  }, [currentYear, history]);
+  }, [currentYear, history, history.location.pathname]);
 
   return (
     <PosterPageStyled>

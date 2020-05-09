@@ -18,6 +18,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
 
   useEffect(() => {
     const unlisten = history.listen(() => {
+      console.log('history', history);
       mainElement.current.scrollTop = 0;
     });
     return unlisten;
