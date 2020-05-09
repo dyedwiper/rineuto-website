@@ -26,6 +26,10 @@ export function getSeries(year) {
   return fetch('/api/series/year/' + year).then(handleError);
 }
 
+export function getNews() {
+  return fetch('api/news').then(handleError);
+}
+
 export function postLoginUser(data) {
   return fetch('/api/users/login', {
     method: 'POST',

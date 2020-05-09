@@ -4,11 +4,6 @@ import blackPerlImage from '../assets/perls/blackPerl.png';
 import whiteCircleImage from '../assets/whitePerlsCircle.png';
 
 export default function LoadingPage() {
-  console.log(
-    'window.innerHeight',
-    window.innerHeight / 2 - (window.innerHeight % 20) / 2
-  );
-
   return (
     <LoadingPageStyled>
       <WhiteCircleStyled>

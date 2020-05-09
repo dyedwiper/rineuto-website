@@ -15,6 +15,7 @@ app.set('json spaces', 2);
 app.use('/api/screenings', require('./routes/screenings'));
 app.use('/api/series', require('./routes/series'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/news', require('./routes/news'));
 
 mongoose.connect(
   process.env.DB_CONNECT,

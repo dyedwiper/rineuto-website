@@ -13,6 +13,9 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
   return (
     <NavigationStyled loggedIn={loggedIn} isNavOpen={isNavOpen}>
       <NavLinkStyled exact to="/" onClick={() => setIsNavOpen(false)}>
+        Home
+      </NavLinkStyled>
+      <NavLinkStyled to="/program" onClick={() => setIsNavOpen(false)}>
         Programm
       </NavLinkStyled>
       <NavLinkStyled to="/archive" onClick={() => setIsNavOpen(false)}>
