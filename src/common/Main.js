@@ -11,6 +11,7 @@ import PrivateRoute from './PrivateRoute';
 import NotFoundPage from './NotFoundPage';
 import ImprintPage from '../pages/ImprintPage';
 import PosterPage from '../pages/PosterPage';
+import LoadingPage from '../pages/LoadingPage';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const history = useHistory();
@@ -18,7 +19,6 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
 
   useEffect(() => {
     const unlisten = history.listen(() => {
-      console.log('history', history);
       mainElement.current.scrollTop = 0;
     });
     return unlisten;
