@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
+import NewsCard from '../common/NewsCard';
 import { getNews } from '../utils/services';
 import LoadingPage from './LoadingPage';
-import NewsCard from '../common/NewsCard';
 
 export default function HomePage() {
   const [news, setNews] = useState([]);
@@ -12,8 +12,9 @@ export default function HomePage() {
     getNews()
       .then((news) => {
         const newsFormatted = news.map((element) => {
+          const textFormatted = element.text.replace(/\\n/g, '\n');
           const dateFormatted = new Date(element.date);
-          return { ...element, date: dateFormatted };
+          return { ...element, text: textFormatted, date: dateFormatted };
         });
         setNews(newsFormatted);
         setIsLoading(false);
@@ -29,10 +30,13 @@ export default function HomePage() {
     <WelcomePageStyled>
       <SubHeadlineStyled>Newsreel</SubHeadlineStyled>
       <NewsListStyled>
-        {news.map((singleNews) => (
-          <NewsCard key={singleNews._id} news={singleNews} />
-        ))}
+        {news
+          .sort((a, b) => b.date - a.date)
+          .map((singleNews) => (
+            <NewsCard key={singleNews._id} news={singleNews} />
+          ))}
       </NewsListStyled>
+      <Cushion />
     </WelcomePageStyled>
   );
 }
@@ -56,4 +60,8 @@ const NewsListStyled = styled.ul`
   max-width: 600px;
   padding: 30px 20px;
   list-style-type: none;
+`;
+
+const Cushion = styled.div`
+  height: 30px;
 `;

@@ -29,26 +29,27 @@ const NewsImageStyled = styled.img`
 `;
 
 const NewsTitleRowStyled = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 1fr;
+  position: relative;
 `;
 
-const NewsTitleStyled = styled.h3`
+const NewsTitleStyled = styled.h2`
   margin: 0;
   padding: 10px;
-  color: white;
-  background-color: black;
+  background-color: white;
 `;
 
 const NewsDateStyled = styled.div`
-  display: grid;
-  place-items: center;
-  padding: 10px;
-  background-color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px 20px;
+  color: white;
+  background-color: black;
 `;
 
 const NewsTextStyled = styled.p`
   margin: 0;
   padding: 10px;
   background-color: white;
+  white-space: pre-line;
 `;
