@@ -49,6 +49,7 @@ router.get('/year/:year', (req, res) => {
       $lte: endDate,
     },
   })
+    .populate('series')
     .then((screenings) => res.json(screenings))
     .catch((err) => res.status(404).json(err));
 });

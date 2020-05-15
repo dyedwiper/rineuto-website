@@ -11,10 +11,10 @@ export default function HomePage() {
   useEffect(() => {
     getNews()
       .then((news) => {
-        const newsFormatted = news.map((element) => {
-          const textFormatted = element.text.replace(/\\n/g, '\n');
-          const dateFormatted = new Date(element.date);
-          return { ...element, text: textFormatted, date: dateFormatted };
+        const newsFormatted = news.map((newsItem) => {
+          const textFormatted = newsItem.text.replace(/\\n/g, '\n');
+          const dateFormatted = new Date(newsItem.date);
+          return { ...newsItem, text: textFormatted, date: dateFormatted };
         });
         setNews(newsFormatted);
         setIsLoading(false);
