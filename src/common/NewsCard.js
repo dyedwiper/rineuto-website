@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import Linkify from 'react-linkify';
 
 export default function NewsCard({ news }) {
   return (
@@ -15,7 +16,17 @@ export default function NewsCard({ news }) {
           })}
         </NewsDateStyled>
       </NewsTitleRowStyled>
-      <NewsTextStyled>{news.text}</NewsTextStyled>
+      <NewsTextStyled>
+        <Linkify
+          componentDecorator={(decoratedHref, decoratedText, key) => (
+            <a target="blank" href={decoratedHref} key={key}>
+              {decoratedText}
+            </a>
+          )}
+        >
+          {news.text}
+        </Linkify>
+      </NewsTextStyled>
     </NewsCardStyled>
   );
 }
@@ -34,7 +45,8 @@ const NewsTitleRowStyled = styled.div`
 
 const NewsTitleStyled = styled.h2`
   margin: 0;
-  padding: 10px;
+  padding: 20px;
+  padding-bottom: 10px;
   background-color: white;
 `;
 
@@ -49,7 +61,7 @@ const NewsDateStyled = styled.div`
 
 const NewsTextStyled = styled.p`
   margin: 0;
-  padding: 10px;
+  padding: 20px;
   background-color: white;
   white-space: pre-line;
 `;
