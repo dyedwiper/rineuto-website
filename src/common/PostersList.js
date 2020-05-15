@@ -28,7 +28,9 @@ export default function PostersList({ selectedYear }) {
         .sort((a, b) => a.month - b.month)
         .map((series) => (
           <PosterItemStyled key={series._id}>
-            <PosterStyled src={process.env.PUBLIC_URL + series.posterUrl} />
+            <a href={process.env.PUBLIC_URL + series.posterUrl}>
+              <PosterStyled src={process.env.PUBLIC_URL + series.posterUrl} />
+            </a>
           </PosterItemStyled>
         ))}
     </PosterListStyled>
