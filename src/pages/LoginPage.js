@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
 import { postLoginUser } from '../utils/services';
@@ -9,6 +9,10 @@ export default function LoginPage() {
   const [didLoginFail, setDidLoginFail] = useState(false);
   let history = useHistory();
   const { setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    document.title = 'Login | Rineuto Lichtspiele';
+  }, []);
 
   return (
     <LoginPageStyled>

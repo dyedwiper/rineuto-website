@@ -9,15 +9,19 @@ import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
 import PrivateRoute from './PrivateRoute';
 import NotFoundPage from './NotFoundPage';
+import ImprintPage from '../pages/ImprintPage';
+import PosterPage from '../pages/PosterPage';
+import HomePage from '../pages/HomePage';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const history = useHistory();
   const mainElement = useRef(null);
 
   useEffect(() => {
-    history.listen(() => {
+    const unlisten = history.listen(() => {
       mainElement.current.scrollTop = 0;
     });
+    return unlisten;
   }, [history]);
 
   return (
@@ -28,6 +32,9 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
     >
       <Switch>
         <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route path="/program">
           <ProgramPage />
         </Route>
         <Route path="/screening">
@@ -36,8 +43,14 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         <Route path="/archive">
           <ArchivePage />
         </Route>
+        <Route path="/posters">
+          <PosterPage />
+        </Route>
         <Route path="/about">
           <AboutPage />
+        </Route>
+        <Route path="/imprint">
+          <ImprintPage />
         </Route>
         <Route exact path="/intern/login">
           <LoginPage />

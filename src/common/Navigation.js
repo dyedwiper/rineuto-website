@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import greenPerlImage from '../assets/darkGreenPerl.png';
-import redPerlImage from '../assets/redPerl.png';
+import greenPerlImage from '../assets/perls/darkGreenPerl.png';
+import redPerlImage from '../assets/perls/redPerl.png';
 import UserContext from '../userContext';
 import { setToStorage } from '../utils/storage';
 
@@ -13,13 +13,22 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
   return (
     <NavigationStyled loggedIn={loggedIn} isNavOpen={isNavOpen}>
       <NavLinkStyled exact to="/" onClick={() => setIsNavOpen(false)}>
+        Home
+      </NavLinkStyled>
+      <NavLinkStyled to="/program" onClick={() => setIsNavOpen(false)}>
         Programm
       </NavLinkStyled>
       <NavLinkStyled to="/archive" onClick={() => setIsNavOpen(false)}>
         Archiv
       </NavLinkStyled>
+      <NavLinkStyled to="/posters" onClick={() => setIsNavOpen(false)}>
+        Plakate
+      </NavLinkStyled>
       <NavLinkStyled to="/about" onClick={() => setIsNavOpen(false)}>
         Über uns
+      </NavLinkStyled>
+      <NavLinkStyled to="/imprint" onClick={() => setIsNavOpen(false)}>
+        Impressum
       </NavLinkStyled>
       {loggedIn && (
         <>
@@ -52,10 +61,10 @@ const NavigationStyled = styled.nav`
   z-index: 1000;
   display: grid;
   grid-auto-rows: min-content;
-  grid-gap: 10px;
+  grid-gap: 20px;
   width: 100%;
-  height: ${(props) => (props.loggedIn ? '240px' : '120px')};
-  padding: 10px 16px;
+  height: 100%;
+  padding: 20px;
   background-image: url(${greenPerlImage});
   filter: ${(props) => (props.isNavOpen ? 'none' : 'blur(4px)')};
   transform: ${(props) =>

@@ -17,7 +17,7 @@ function validateUser(req, res, next) {
 function validateLogin(req, res, next) {
   const loginSchema = Joi.object({
     username: Joi.string().max(20).required(),
-    password: Joi.string().max(40).required(),
+    password: Joi.string().max(100).required(),
   });
   const { error } = loginSchema.validate(req.body);
   if (error) {
@@ -29,12 +29,12 @@ function validateLogin(req, res, next) {
 function validateScreening(req, res, next) {
   const screeningSchema = Joi.object({
     title: Joi.string().max(50),
-    day: Joi.date().format('YYYY-MM-DD').required(),
+    day: Joi.date().format('YYYY-MM-DD'),
     time: Joi.string().pattern(/([0-1]\d|[2][0-3]):([0-5]\d)/),
     director: Joi.string().max(50),
-    length: Joi.number().integer().positive().max(1440).required(),
+    length: Joi.number().integer().positive().max(1440),
     country: Joi.string().max(50),
-    year: Joi.number().integer().positive().min(1890).max(10000).required(),
+    year: Joi.number().integer().positive().min(1890).max(10000),
     version: Joi.string().allow('').max(50),
     synopsis: Joi.string().max(2000),
     series: Joi.string().max(50),
@@ -47,6 +47,36 @@ function validateScreening(req, res, next) {
   next();
 }
 
+function validateSeries(req, res, next) {
+  const seriesSchema = Joi.object({
+    title: Joi.string().max(50),
+    year: Joi.number().min(2018).max(10000),
+    month: Joi.number().min(1).max(12),
+    posterUrl: Joi.string().max(200),
+  });
+  const { error } = seriesSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ joiError: error.details[0].message });
+  }
+  next();
+}
+
+function validateNews(req, res, next) {
+  const newsSchema = Joi.object({
+    title: Joi.string().max(50),
+    date: Joi.date(),
+    text: Joi.string().max(10000),
+    imageUrl: Joi.string().max(200),
+  });
+  const { error } = newsSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ joiError: error.details[0].message });
+  }
+  next();
+}
+
 module.exports.validateUser = validateUser;
 module.exports.validateLogin = validateLogin;
 module.exports.validateScreening = validateScreening;
+module.exports.validateSeries = validateSeries;
+module.exports.validateNews = validateNews;

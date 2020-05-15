@@ -3,18 +3,19 @@ import styled from 'styled-components/macro';
 import DateRibbon from '../common/DateRibbon';
 import { getSingleScreening } from '../utils/services';
 import LoadingPage from './LoadingPage';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 export default function ScreeningPage() {
   const [selectedScreening, setSelectedScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
 
+  let history = useHistory();
+
   useEffect(() => {
     const screeningId = window.location.pathname.slice(11);
     getSingleScreening(screeningId)
       .then((screening) => {
-        // console.log('public url: ', process.env.PUBLIC_URL);
         const dateFormatted = new Date(screening.date);
         setSelectedScreening({ ...screening, date: dateFormatted });
         setIsLoading(false);
@@ -34,8 +35,11 @@ export default function ScreeningPage() {
   }
   return (
     <ScreeningPageStyled>
+      <BackButtonStyled onClick={history.goBack}>Zurück</BackButtonStyled>
       <DateRibbon date={selectedScreening.date} />
-      <FilmStillStyled src={'/' + selectedScreening.imageUrl} />
+      <FilmStillStyled
+        src={process.env.PUBLIC_URL + selectedScreening.imageUrl}
+      />
       <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
       <FilmInfoStyled>
         {selectedScreening.country +
@@ -51,18 +55,33 @@ export default function ScreeningPage() {
       </FilmDirectorStyled>
       <FilmSynopsisStyled>{selectedScreening.synopsis}</FilmSynopsisStyled>
       <ScreeningSeriesStyled>
-        Filmreihe: {selectedScreening.series}
+        Filmreihe:{' '}
+        {selectedScreening.series ? selectedScreening.series.title : ''}
       </ScreeningSeriesStyled>
     </ScreeningPageStyled>
   );
 }
 
 const ScreeningPageStyled = styled.article`
+  position: relative;
   display: grid;
   grid-auto-rows: min-content;
   margin: 0 auto;
   max-width: 600px;
   padding: 40px 20px;
+`;
+
+const BackButtonStyled = styled.button`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 20px;
+  background-color: white;
+
+  @media (min-width: 900px) {
+    display: none;
+  }
 `;
 
 const FilmStillStyled = styled.img`
