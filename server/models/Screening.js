@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const screeningSchema = new Schema({
-  title: { type: String, required: true },
-  date: { type: Date, required: true },
-  director: { type: String, required: true },
+  title: { type: String },
+  date: { type: Date },
+  director: { type: String },
   imageUrl: { type: String },
-  length: { type: Number, required: true },
-  country: { type: String, required: true },
-  year: { type: Number, required: true },
+  length: { type: Number },
+  country: { type: String },
+  year: { type: Number },
   version: { type: String },
-  synopsis: { type: String, required: true },
+  synopsis: { type: String },
   series: { type: Schema.Types.ObjectId, ref: 'Series' },
   links: { type: [String] },
 });

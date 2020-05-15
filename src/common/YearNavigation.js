@@ -4,13 +4,17 @@ import styled from 'styled-components/macro';
 import darkGreenPerlImage from '../assets/perls/darkGreenPerl.png';
 import whitePerlImage from '../assets/perls/whitePerl.png';
 
-export default function YearNavigation({ hithertoYears, setSelectedYear }) {
+export default function YearNavigation({
+  hithertoYears,
+  setSelectedYear,
+  pagePath,
+}) {
   return (
     <YearNavigationStyled>
       {hithertoYears.map((year) => (
         <YearLinkStyled
           key={year}
-          to={'/posters/' + year}
+          to={pagePath + year}
           onClick={() => setSelectedYear(year)}
         >
           {year}

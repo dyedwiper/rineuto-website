@@ -12,6 +12,10 @@ export function getSingleScreening(id) {
   return fetch('/api/screenings/' + id).then(handleError);
 }
 
+export function getPastScreeningsByYear(year) {
+  return fetch('/api/screenings/year/' + year).then(handleError);
+}
+
 export function postScreening(data, token) {
   return fetch('/api/screenings', {
     method: 'POST',

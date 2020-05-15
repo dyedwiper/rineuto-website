@@ -13,6 +13,7 @@ export default function PosterPage() {
   }
 
   let history = useHistory();
+  
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
   useEffect(() => {
@@ -35,6 +36,7 @@ export default function PosterPage() {
       <YearNavigation
         hithertoYears={hithertoYears}
         setSelectedYear={setSelectedYear}
+        pagePath={history.location.pathname.split('/', 2).join('/') + '/'}
       />
       <PostersList selectedYear={selectedYear} />
     </PosterPageStyled>
