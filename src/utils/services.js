@@ -1,19 +1,7 @@
 import { setToStorage } from '../utils/storage';
 
-export function getFutureScreenings() {
-  return fetch('/api/screenings/future').then(handleError);
-}
-
-export function getPastScreenings() {
-  return fetch('/api/screenings/past').then(handleError);
-}
-
-export function getSingleScreening(id) {
-  return fetch('/api/screenings/' + id).then(handleError);
-}
-
-export function getPastScreeningsByYear(year) {
-  return fetch('/api/screenings/year/' + year).then(handleError);
+export function getScreenings() {
+  return fetch('/api/screenings').then(handleError);
 }
 
 export function postScreening(data, token) {

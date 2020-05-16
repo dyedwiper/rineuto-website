@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import DateRibbon from '../common/DateRibbon';
-import { getSingleScreening } from '../utils/services';
 import LoadingPage from './LoadingPage';
-import { Redirect, useHistory } from 'react-router-dom';
 
-export default function ScreeningPage() {
+export default function ScreeningPage({ screenings }) {
   const [selectedScreening, setSelectedScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
@@ -14,25 +13,30 @@ export default function ScreeningPage() {
 
   useEffect(() => {
     const screeningId = window.location.pathname.slice(11);
-    getSingleScreening(screeningId)
-      .then((screening) => {
-        const dateFormatted = new Date(screening.date);
-        setSelectedScreening({ ...screening, date: dateFormatted });
-        setIsLoading(false);
-      })
-      .catch(() => setIsInvalidId(true));
-  }, []);
+    const screening = screenings.find(
+      (screening) => screening._id === screeningId
+    );
+    if (!screening) {
+      setIsInvalidId(true);
+    }
+    setSelectedScreening(screening);
+    setIsLoading(false);
+  }, [screenings]);
 
   useEffect(() => {
-    document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
-  }, [selectedScreening]);
+    if (!isInvalidId) {
+      document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
+    }
+  }, [selectedScreening, isInvalidId]);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   if (isInvalidId) {
     return <Redirect to="/404" />;
   }
-  if (isLoading) {
-    return <LoadingPage />;
-  }
+
   return (
     <ScreeningPageStyled>
       <BackButtonStyled onClick={history.goBack}>Zurück</BackButtonStyled>

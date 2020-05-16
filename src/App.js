@@ -11,6 +11,7 @@ import { getFromStorage } from './utils/storage';
 
 export default function App() {
   const [user, setUser] = useState({});
+
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
 

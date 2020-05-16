@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import AboutPage from '../pages/AboutPage';
@@ -12,8 +12,13 @@ import NotFoundPage from './NotFoundPage';
 import ImprintPage from '../pages/ImprintPage';
 import PosterPage from '../pages/PosterPage';
 import HomePage from '../pages/HomePage';
+import LoadingPage from '../pages/LoadingPage';
+import { getScreenings } from '../utils/services';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
+  const [screenings, setScreenings] = useState([]);
+  const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
+
   const history = useHistory();
   const mainElement = useRef(null);
 
@@ -23,6 +28,23 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
     });
     return unlisten;
   }, [history]);
+
+  useEffect(() => {
+    getScreenings()
+      .then((screenings) => {
+        const screeningsFormatted = screenings.map((screening) => {
+          const dateFormatted = new Date(screening.date);
+          return { ...screening, date: dateFormatted };
+        });
+        setScreenings(screeningsFormatted);
+        setIsLoadingScreenings(false);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  if (isLoadingScreenings) {
+    return <LoadingPage />;
+  }
 
   return (
     <MainStyled
@@ -35,13 +57,13 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <HomePage />
         </Route>
         <Route path="/program">
-          <ProgramPage />
+          <ProgramPage screenings={screenings} />
         </Route>
         <Route path="/screening">
-          <ScreeningPage />
+          <ScreeningPage screenings={screenings} />
         </Route>
         <Route path="/archive">
-          <ArchivePage />
+          <ArchivePage screenings={screenings} />
         </Route>
         <Route path="/posters">
           <PosterPage />

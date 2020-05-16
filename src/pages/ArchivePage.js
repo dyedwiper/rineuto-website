@@ -3,10 +3,8 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import ScreeningsList from '../common/ScreeningsList';
 import YearNavigation from '../common/YearNavigation';
-import { getPastScreeningsByYear } from '../utils/services';
-import LoadingPage from './LoadingPage';
 
-export default function ArchivePage() {
+export default function ArchivePage({ screenings }) {
   const startYear = 2018;
   const currentYear = new Date().getFullYear();
   const hithertoYears = [];
@@ -17,8 +15,7 @@ export default function ArchivePage() {
   let history = useHistory();
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [screenings, setScreenings] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [filteredScreenings, setFilteredScreenings] = useState([]);
 
   useEffect(() => {
     document.title = 'Archiv | Rineuto Lichtspiele';
@@ -36,21 +33,15 @@ export default function ArchivePage() {
   }, [currentYear, history, history.location.pathname]);
 
   useEffect(() => {
-    getPastScreeningsByYear(selectedYear)
-      .then((pastScreenings) => {
-        const pastScreeningsFormatted = pastScreenings.map((pastScreening) => {
-          const dateFormatted = new Date(pastScreening.date);
-          return { ...pastScreening, date: dateFormatted };
-        });
-        setScreenings(pastScreeningsFormatted);
-        setIsLoading(false);
-      })
-      .catch((err) => console.error(err));
-  }, [selectedYear]);
-
-  if (isLoading) {
-    return <LoadingPage />;
-  }
+    setFilteredScreenings(
+      screenings.filter(
+        (screening) =>
+          // eslint-disable-next-line eqeqeq
+          screening.date.getFullYear() == selectedYear &&
+          screening.date < Date.now()
+      )
+    );
+  }, [screenings, selectedYear]);
 
   return (
     <ArchivePageStyled>
@@ -60,7 +51,9 @@ export default function ArchivePage() {
         pagePath={history.location.pathname.split('/', 2).join('/') + '/'}
       />
       <SubHeadlineStyled>Vergangene Filmperlen</SubHeadlineStyled>
-      <ScreeningsList screenings={screenings.sort((a, b) => b.date - a.date)} />
+      <ScreeningsList
+        screenings={filteredScreenings.sort((a, b) => b.date - a.date)}
+      />
     </ArchivePageStyled>
   );
 }
