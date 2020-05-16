@@ -4,7 +4,7 @@ import ScreeningsList from '../common/ScreeningsList';
 
 export default function ProgramPage({ screenings }) {
   useEffect(() => {
-    document.title = 'Rineuto Lichtspiele';
+    document.title = 'Programm | Rineuto Lichtspiele';
   }, []);
 
   return (

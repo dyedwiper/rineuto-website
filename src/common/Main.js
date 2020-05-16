@@ -57,7 +57,7 @@ export default function Main({
           <ScreeningPage screenings={screenings} />
         </Route>
         <Route path="/archive">
-          <ArchivePage />
+          <ArchivePage screenings={screenings} />
         </Route>
         <Route path="/posters">
           <PosterPage />
