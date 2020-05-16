@@ -1,5 +1,9 @@
 import { setToStorage } from '../utils/storage';
 
+export function getScreenings() {
+  return fetch('/api/screenings').then(handleError);
+}
+
 export function getFutureScreenings() {
   return fetch('/api/screenings/future').then(handleError);
 }

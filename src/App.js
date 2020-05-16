@@ -6,11 +6,13 @@ import Header from './common/Header';
 import Main from './common/Main';
 import Navigation from './common/Navigation';
 import UserContext from './userContext';
-import { getUser } from './utils/services';
+import { getUser, getScreenings } from './utils/services';
 import { getFromStorage } from './utils/storage';
 
 export default function App() {
   const [user, setUser] = useState({});
+  const [screenings, setScreenings] = useState([]);
+  const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -30,6 +32,19 @@ export default function App() {
       });
   }, []);
 
+  useEffect(() => {
+    getScreenings()
+      .then((screenings) => {
+        const screeningsFormatted = screenings.map((screening) => {
+          const dateFormatted = new Date(screening.date);
+          return { ...screening, date: dateFormatted };
+        });
+        setScreenings(screeningsFormatted);
+        setIsLoadingScreenings(false);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
     <Router>
       <UserContext.Provider value={{ user, setUser }}>
@@ -40,6 +55,9 @@ export default function App() {
             isNavOpen={isNavOpen}
             setIsNavOpen={setIsNavOpen}
             isLoadingUser={isLoadingUser}
+            screenings={screenings}
+            setScreenings={setScreenings}
+            isLoadingScreenings={isLoadingScreenings}
           />
         </AppStyled>
       </UserContext.Provider>

@@ -1,45 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import ScreeningsList from '../common/ScreeningsList';
-import { getFutureScreenings } from '../utils/services';
-import LoadingPage from './LoadingPage';
 
-export default function HomePage() {
-  const [screenings, setScreenings] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
+export default function ProgramPage({ screenings }) {
   useEffect(() => {
     document.title = 'Rineuto Lichtspiele';
   }, []);
 
-  useEffect(() => {
-    getFutureScreenings()
-      .then((futureScreenings) => {
-        const futureScreeningsFormatted = futureScreenings.map(
-          (futureScreening) => {
-            const dateFormatted = new Date(futureScreening.date);
-            return { ...futureScreening, date: dateFormatted };
-          }
-        );
-        setScreenings(futureScreeningsFormatted);
-        setIsLoading(false);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-
   return (
-    <HomePageStyled>
+    <ProgramPageStyled>
       <SubHeadlineStyled>Unsere nächsten Filmperlen</SubHeadlineStyled>
-      <ScreeningsList screenings={screenings.sort((a, b) => a.date - b.date)} />
-    </HomePageStyled>
+      <ScreeningsList
+        screenings={screenings
+          .filter((screening) => screening.date >= Date.now())
+          .sort((a, b) => a.date - b.date)}
+      />
+    </ProgramPageStyled>
   );
 }
 
-const HomePageStyled = styled.div`
+const ProgramPageStyled = styled.div`
   overflow: auto;
 `;
 

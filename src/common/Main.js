@@ -12,8 +12,16 @@ import NotFoundPage from './NotFoundPage';
 import ImprintPage from '../pages/ImprintPage';
 import PosterPage from '../pages/PosterPage';
 import HomePage from '../pages/HomePage';
+import LoadingPage from '../pages/LoadingPage';
 
-export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
+export default function Main({
+  isNavOpen,
+  isLoadingUser,
+  setIsNavOpen,
+  screenings,
+  setScreenings,
+  isLoadingScreenings,
+}) {
   const history = useHistory();
   const mainElement = useRef(null);
 
@@ -23,6 +31,14 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
     });
     return unlisten;
   }, [history]);
+
+  useEffect(() => {
+    console.log('isLoadingScreenings', isLoadingScreenings);
+  }, [isLoadingScreenings]);
+
+  if (isLoadingScreenings) {
+    return <LoadingPage />;
+  }
 
   return (
     <MainStyled
@@ -35,10 +51,10 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <HomePage />
         </Route>
         <Route path="/program">
-          <ProgramPage />
+          <ProgramPage screenings={screenings} />
         </Route>
         <Route path="/screening">
-          <ScreeningPage />
+          <ScreeningPage screenings={screenings} />
         </Route>
         <Route path="/archive">
           <ArchivePage />
