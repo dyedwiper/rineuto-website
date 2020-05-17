@@ -42,11 +42,17 @@ router.post(
   }
 );
 
-router.patch('/:id', authenticate, (req, res) => {
-  Screening.findByIdAndUpdate(req.params.id, req.body)
-    .then((updatedScreening) => res.json(updatedScreening))
-    .catch((err) => res.status(400).json(err));
-});
+router.patch(
+  '/:id',
+  authenticate,
+  validateScreening,
+  formatDate,
+  (req, res) => {
+    Screening.findByIdAndUpdate(req.params.id, req.body)
+      .then((updatedScreening) => res.json(updatedScreening))
+      .catch((err) => res.status(400).json(err));
+  }
+);
 
 router.delete('/:id', authenticate, (req, res) => {
   Screening.findByIdAndDelete(req.params.id)

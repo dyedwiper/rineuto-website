@@ -19,6 +19,7 @@ import EditScreeningPage from '../pages/EditScreeningPage';
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
   const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
+  const [hasBeenEdited, setHasBeenEdited] = useState(false);
 
   const history = useHistory();
   const mainElement = useRef(null);
@@ -71,7 +72,11 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <ProgramPage screenings={screenings} />
         </Route>
         <Route path="/screening">
-          <ScreeningPage screenings={screenings} />
+          <ScreeningPage
+            screenings={screenings}
+            hasBeenEdited={hasBeenEdited}
+            setHasBeenEdited={setHasBeenEdited}
+          />
         </Route>
         <Route path="/archive">
           <ArchivePage screenings={screenings} />
@@ -89,7 +94,10 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <LoginPage />
         </Route>
         <PrivateRoute path="/intern/screening" isLoadingUser={isLoadingUser}>
-          <EditScreeningPage screenings={screenings} />
+          <EditScreeningPage
+            screenings={screenings}
+            setHasBeenEdited={setHasBeenEdited}
+          />
         </PrivateRoute>
         <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
           <InternPage />

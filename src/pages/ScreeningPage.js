@@ -4,8 +4,13 @@ import styled from 'styled-components/macro';
 import DateRibbon from '../common/DateRibbon';
 import LoadingPage from './LoadingPage';
 import UserContext from '../userContext';
+import { getSingleScreening } from '../utils/services';
 
-export default function ScreeningPage({ screenings }) {
+export default function ScreeningPage({
+  screenings,
+  hasBeenEdited,
+  setHasBeenEdited,
+}) {
   const [selectedScreening, setSelectedScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
@@ -24,14 +29,26 @@ export default function ScreeningPage({ screenings }) {
       setIsInvalidId(true);
     }
     setSelectedScreening(screening);
+    if (hasBeenEdited) {
+      getSingleScreening(screeningId)
+        .then((editedScreening) => {
+          const dateFormatted = new Date(editedScreening.date);
+          setSelectedScreening({ ...editedScreening, date: dateFormatted });
+        })
+        .catch((err) => console.error(err));
+    }
     setIsLoading(false);
-  }, [screenings]);
+  }, [screenings, hasBeenEdited]);
 
   useEffect(() => {
     if (!isInvalidId) {
       document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
     }
   }, [selectedScreening, isInvalidId]);
+
+  useEffect(() => {
+    return () => setHasBeenEdited(false);
+  }, [setHasBeenEdited]);
 
   if (isLoading) {
     return <LoadingPage />;
@@ -43,6 +60,7 @@ export default function ScreeningPage({ screenings }) {
 
   return (
     <ScreeningPageStyled>
+      {hasBeenEdited && <EditNoteStyled>Änderungen übernommen</EditNoteStyled>}
       <BackButtonStyled onClick={history.goBack}>Zurück</BackButtonStyled>
       <DateRibbon date={selectedScreening.date} />
       <FilmStillStyled
@@ -81,7 +99,14 @@ const ScreeningPageStyled = styled.article`
   grid-auto-rows: min-content;
   margin: 0 auto;
   max-width: 600px;
-  padding: 40px 20px;
+  padding: 60px 20px;
+`;
+
+const EditNoteStyled = styled.div`
+  margin-bottom: 30px;
+  color: green;
+  font-size: 1.5em;
+  font-weight: bold;
 `;
 
 const BackButtonStyled = styled.button`

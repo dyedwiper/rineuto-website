@@ -5,9 +5,13 @@ import { patchScreening } from '../utils/services';
 import { getFromStorage } from '../utils/storage';
 import LoadingPage from './LoadingPage';
 
-export default function EditScreeningPage({ screenings }) {
+export default function EditScreeningPage({
+  screenings,
+  setSelectedScreening,
+  setHasBeenEdited,
+}) {
   const [validationError, setValidationError] = useState('');
-  const [selectedScreening, setSelectedScreening] = useState({});
+  const [screeningToEdit, setScreeningToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
 
@@ -21,15 +25,15 @@ export default function EditScreeningPage({ screenings }) {
     if (!screening) {
       setIsInvalidId(true);
     }
-    setSelectedScreening(screening);
+    setScreeningToEdit(screening);
     setIsLoading(false);
   }, [screenings]);
 
   useEffect(() => {
     if (!isInvalidId) {
-      document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
+      document.title = screeningToEdit.title + ' | Rineuto Lichtspiele';
     }
-  }, [selectedScreening, isInvalidId]);
+  }, [screeningToEdit, isInvalidId]);
 
   if (isLoading) {
     return <LoadingPage />;
@@ -45,14 +49,14 @@ export default function EditScreeningPage({ screenings }) {
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Filmtitel
-          <InputStyled name="title" defaultValue={selectedScreening.title} />
+          <InputStyled name="title" defaultValue={screeningToEdit.title} />
         </LabelStyled>
         <LabelStyled>
           Vorführdatum
           <InputStyled
             type="date"
             name="day"
-            defaultValue={selectedScreening.date.toISOString().slice(0, 10)}
+            defaultValue={screeningToEdit.date.toISOString().slice(0, 10)}
           />
         </LabelStyled>
         <LabelStyled>
@@ -61,9 +65,9 @@ export default function EditScreeningPage({ screenings }) {
             type="time"
             name="time"
             defaultValue={
-              selectedScreening.date.getHours() +
+              screeningToEdit.date.getHours() +
               ':' +
-              selectedScreening.date.getMinutes()
+              screeningToEdit.date.getMinutes()
             }
           />
         </LabelStyled>
@@ -71,36 +75,30 @@ export default function EditScreeningPage({ screenings }) {
           Regie
           <InputStyled
             name="director"
-            defaultValue={selectedScreening.director}
+            defaultValue={screeningToEdit.director}
           />
         </LabelStyled>
         <LabelStyled>
           Länge in Minuten
-          <InputStyled name="length" defaultValue={selectedScreening.length} />
+          <InputStyled name="length" defaultValue={screeningToEdit.length} />
         </LabelStyled>
         <LabelStyled>
           Prodoktionsländer
-          <InputStyled
-            name="country"
-            defaultValue={selectedScreening.country}
-          />
+          <InputStyled name="country" defaultValue={screeningToEdit.country} />
         </LabelStyled>
         <LabelStyled>
           Erscheinungsjahr
-          <InputStyled name="year" defaultValue={selectedScreening.year} />
+          <InputStyled name="year" defaultValue={screeningToEdit.year} />
         </LabelStyled>
         <LabelStyled>
           Version
-          <InputStyled
-            name="version"
-            defaultValue={selectedScreening.version}
-          />
+          <InputStyled name="version" defaultValue={screeningToEdit.version} />
         </LabelStyled>
         <LabelStyled>
           Beschreibung
           <TextareaStyled
             name="synopsis"
-            defaultValue={selectedScreening.synopsis}
+            defaultValue={screeningToEdit.synopsis}
           />
         </LabelStyled>
         <LabelStyled>
@@ -120,9 +118,10 @@ export default function EditScreeningPage({ screenings }) {
     const formData = new FormData(form);
     const editedScreening = Object.fromEntries(formData);
     const jwt = getFromStorage('rineuto-token');
-    patchScreening(selectedScreening._id, editedScreening, jwt)
-      .then((res) => {
-        history.push('/screening/' + selectedScreening._id);
+    patchScreening(screeningToEdit._id, editedScreening, jwt)
+      .then((updatedScreening) => {
+        setHasBeenEdited(true);
+        history.push('/screening/' + screeningToEdit._id);
       })
       .catch((err) => {
         console.error(err);
