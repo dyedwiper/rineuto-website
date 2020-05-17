@@ -24,7 +24,9 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
 
   useEffect(() => {
     const unlisten = history.listen(() => {
-      mainElement.current.scrollTop = 0;
+      if (mainElement.current) {
+        mainElement.current.scrollTop = 0;
+      }
     });
     return unlisten;
   }, [history]);
