@@ -23,16 +23,22 @@ function fileFilter(req, file, cb) {
   if (!req.body.title) {
     return cb(new Error('title must not be empty'), false);
   }
-  if (req.body.title.length > 50) {
-    return cb(new Error('title too long'), false);
-  }
   cb(null, true);
 }
 
-const uploadImage = multer({
-  limits: { fileSize: 1024 * 1024 * 1 },
-  fileFilter: fileFilter,
-  storage: storage,
-}).single('image');
+function uploadImage(req, res, next) {
+  const upload = multer({
+    limits: { fileSize: 1024 * 1024 * 1 },
+    fileFilter: fileFilter,
+    storage: storage,
+  }).single('image');
+
+  upload(req, res, function (err) {
+    if (err) {
+      return res.status(400).json({ multerError: err.message });
+    }
+    next();
+  });
+}
 
 module.exports.uploadImage = uploadImage;
