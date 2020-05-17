@@ -14,6 +14,7 @@ import PosterPage from '../pages/PosterPage';
 import HomePage from '../pages/HomePage';
 import LoadingPage from '../pages/LoadingPage';
 import { getScreenings } from '../utils/services';
+import EditScreeningPage from '../pages/EditScreeningPage';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
@@ -36,7 +37,15 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
       .then((screenings) => {
         const screeningsFormatted = screenings.map((screening) => {
           const dateFormatted = new Date(screening.date);
-          return { ...screening, date: dateFormatted };
+          let synopsisFormatted = '';
+          if (screening.synopsis) {
+            synopsisFormatted = screening.synopsis.replace(/\\n/g, '\n');
+          }
+          return {
+            ...screening,
+            date: dateFormatted,
+            synopsis: synopsisFormatted,
+          };
         });
         setScreenings(screeningsFormatted);
         setIsLoadingScreenings(false);
@@ -79,6 +88,9 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         <Route exact path="/intern/login">
           <LoginPage />
         </Route>
+        <PrivateRoute path="/intern/screening" isLoadingUser={isLoadingUser}>
+          <EditScreeningPage screenings={screenings} />
+        </PrivateRoute>
         <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
           <InternPage />
         </PrivateRoute>

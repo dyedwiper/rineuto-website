@@ -14,6 +14,17 @@ export function postScreening(data, token) {
   }).then(handleError);
 }
 
+export function patchScreening(id, data, token) {
+  return fetch('/api/screenings/' + id, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+    headers: {
+      'auth-token': token,
+      'Content-Type': 'application/json',
+    },
+  }).then(handleError);
+}
+
 export function getSeries(year) {
   return fetch('/api/series/year/' + year).then(handleError);
 }

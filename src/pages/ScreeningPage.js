@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { Redirect, useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import DateRibbon from '../common/DateRibbon';
 import LoadingPage from './LoadingPage';
+import UserContext from '../userContext';
 
 export default function ScreeningPage({ screenings }) {
   const [selectedScreening, setSelectedScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
 
+  const { user } = useContext(UserContext);
+  const loggedIn = Object.keys(user).length !== 0;
+
   let history = useHistory();
 
   useEffect(() => {
-    const screeningId = window.location.pathname.slice(11);
+    const screeningId = window.location.pathname.slice(-24);
     const screening = screenings.find(
       (screening) => screening._id === screeningId
     );
@@ -62,6 +66,11 @@ export default function ScreeningPage({ screenings }) {
         Filmreihe:{' '}
         {selectedScreening.series ? selectedScreening.series.title : ''}
       </ScreeningSeriesStyled>
+      {loggedIn && (
+        <EditLinkStyled to={'/intern/screening/' + selectedScreening._id}>
+          Bearbeiten
+        </EditLinkStyled>
+      )}
     </ScreeningPageStyled>
   );
 }
@@ -116,10 +125,18 @@ const FilmSynopsisStyled = styled.p`
   margin: 0;
   padding: 10px;
   background-color: white;
+  white-space: pre-line;
 `;
 
 const ScreeningSeriesStyled = styled.div`
   padding: 10px;
   background-color: black;
   color: white;
+`;
+
+const EditLinkStyled = styled(Link)`
+  padding: 10px;
+  background-color: white;
+  color: black;
+  text-align: right;
 `;
