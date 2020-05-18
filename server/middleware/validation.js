@@ -31,14 +31,13 @@ function validateScreening(req, res, next) {
     title: Joi.string().max(50),
     day: Joi.date().format('YYYY-MM-DD'),
     time: Joi.string().pattern(/([0-1]\d|[2][0-3]):([0-5]\d)/),
-    director: Joi.string().max(50),
+    director: Joi.string().allow('').max(50),
     length: Joi.number().integer().positive().max(1440),
-    country: Joi.string().max(50),
+    country: Joi.string().allow('').max(50),
     year: Joi.number().integer().positive().min(1890).max(10000),
     version: Joi.string().allow('').max(50),
-    synopsis: Joi.string().max(2000),
-    series: Joi.string().max(50),
-    links: Joi.string().allow('').max(200),
+    synopsis: Joi.string().allow('').max(2000),
+    // series: Joi.string().max(50),
   });
   const { error } = screeningSchema.validate(req.body);
   if (error) {

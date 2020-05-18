@@ -3,7 +3,7 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
-import InternPage from '../pages/InternPage';
+import AddScreeningPage from '../pages/intern/AddScreeningPage';
 import LoginPage from '../pages/LoginPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
@@ -14,7 +14,7 @@ import PosterPage from '../pages/PosterPage';
 import HomePage from '../pages/HomePage';
 import LoadingPage from '../pages/LoadingPage';
 import { getScreenings } from '../utils/services';
-import EditScreeningPage from '../pages/EditScreeningPage';
+import EditScreeningPage from '../pages/intern/EditScreeningPage';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
@@ -99,8 +99,12 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
             setHasBeenEdited={setHasBeenEdited}
           />
         </PrivateRoute>
-        <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
-          <InternPage />
+        <PrivateRoute
+          exact
+          path="/intern/addScreening"
+          isLoadingUser={isLoadingUser}
+        >
+          <AddScreeningPage />
         </PrivateRoute>
         <Route path="/logout">
           <Redirect exact to="/" />

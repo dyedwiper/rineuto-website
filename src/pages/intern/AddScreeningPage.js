@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
-import { postScreening } from '../utils/services';
-import { getFromStorage } from '../utils/storage';
+import { postScreening } from '../../utils/services';
+import { getFromStorage } from '../../utils/storage';
+import { useHistory } from 'react-router-dom';
 
-export default function InternPage() {
+export default function AddScreeningPage() {
   const [validationError, setValidationError] = useState('');
 
+  let history = useHistory();
+
   return (
-    <InternPageStyled>
-      <HeadlineStyled>Neues Screening anlegen</HeadlineStyled>
+    <AddScreeningPageStyled>
+      <HeadlineStyled>Neue Vorführung anlegen</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Filmtitel
@@ -50,18 +53,16 @@ export default function InternPage() {
           Beschreibung
           <TextareaStyled name="synopsis" />
         </LabelStyled>
+        {/* 
+        Select für Reihe
         <LabelStyled>
           Filmreihe
           <InputStyled name="series" />
-        </LabelStyled>
-        <LabelStyled>
-          Links
-          <InputStyled name="links" />
-        </LabelStyled>
+        </LabelStyled> */}
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         <ButtonStyled>Senden</ButtonStyled>
       </FormStyled>
-    </InternPageStyled>
+    </AddScreeningPageStyled>
   );
 
   function handleSubmit(event) {
@@ -70,17 +71,23 @@ export default function InternPage() {
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
     postScreening(formData, jwt)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        history.push('/program');
+      })
       .catch((err) => {
         console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
         }
+        if (err.hasOwnProperty('multerError')) {
+          setValidationError(err.multerError);
+        }
       });
   }
 }
 
-const InternPageStyled = styled.div`
+const AddScreeningPageStyled = styled.div`
   overflow: auto;
   max-width: 600px;
   margin: 20px auto;

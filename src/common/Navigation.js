@@ -33,8 +33,11 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
       {loggedIn && (
         <>
           <HorizontalLineStyled />
-          <NavLinkStyled to="/intern" onClick={() => setIsNavOpen(false)}>
-            Intern
+          <NavLinkStyled
+            to="/intern/addScreening"
+            onClick={() => setIsNavOpen(false)}
+          >
+            Neuer Film
           </NavLinkStyled>
           <NavLinkStyled exact to="/logout" onClick={handleLogout}>
             Logout

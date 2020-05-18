@@ -12,7 +12,6 @@ const screeningSchema = new Schema({
   version: { type: String },
   synopsis: { type: String },
   series: { type: Schema.Types.ObjectId, ref: 'Series' },
-  links: { type: [String] },
 });
 
 const Screening = mongoose.model('Screening', screeningSchema);

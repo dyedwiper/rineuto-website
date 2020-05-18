@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { patchScreening } from '../utils/services';
-import { getFromStorage } from '../utils/storage';
-import LoadingPage from './LoadingPage';
+import { patchScreening } from '../../utils/services';
+import { getFromStorage } from '../../utils/storage';
+import LoadingPage from '../LoadingPage';
 
 export default function EditScreeningPage({
   screenings,
@@ -45,7 +45,7 @@ export default function EditScreeningPage({
 
   return (
     <EditScreeningPageStyled>
-      <HeadlineStyled>Neues Screening anlegen</HeadlineStyled>
+      <HeadlineStyled>Vorführung ändern</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Filmtitel
