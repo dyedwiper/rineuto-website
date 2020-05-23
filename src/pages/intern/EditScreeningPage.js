@@ -5,7 +5,11 @@ import { patchScreening } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
-export default function EditScreeningPage({ screenings, setHasBeenEdited }) {
+export default function EditScreeningPage({
+  screenings,
+  series,
+  setHasBeenEdited,
+}) {
   const [validationError, setValidationError] = useState('');
   const [screeningToEdit, setScreeningToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -103,8 +107,16 @@ export default function EditScreeningPage({ screenings, setHasBeenEdited }) {
         </LabelStyled>
         <LabelStyled>
           Filmreihe
-          {/* hier sollte ein select hin */}
-          {/* <InputStyled name="series" defaultValue={selectedScreening.series} /> */}
+          <SelectStyled name="series">
+            <option value="000000000000000000000000">
+              -- Film ohne Reihe --
+            </option>
+            {series
+              .sort((a, b) => b.year - a.year || b.month - a.month)
+              .map((series) => (
+                <option value={series._id}>{series.title}</option>
+              ))}
+          </SelectStyled>
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         <ButtonStyled
@@ -172,6 +184,10 @@ const TextareaStyled = styled.textarea`
   overflow: auto;
   resize: none;
   min-height: 150px;
+  padding: 5px;
+`;
+
+const SelectStyled = styled.select`
   padding: 5px;
 `;
 

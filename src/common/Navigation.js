@@ -34,16 +34,16 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
         <>
           <HorizontalLineStyled />
           <NavLinkStyled
-            to="/intern/addScreening"
-            onClick={() => setIsNavOpen(false)}
-          >
-            Neuer Film
-          </NavLinkStyled>
-          <NavLinkStyled
             to="/intern/addSeries"
             onClick={() => setIsNavOpen(false)}
           >
             Neue Reihe
+          </NavLinkStyled>
+          <NavLinkStyled
+            to="/intern/addScreening"
+            onClick={() => setIsNavOpen(false)}
+          >
+            Neuer Film
           </NavLinkStyled>
           <NavLinkStyled exact to="/logout" onClick={handleLogout}>
             Logout

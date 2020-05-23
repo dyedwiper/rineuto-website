@@ -15,7 +15,7 @@ export default function AddSeriesPage() {
 
   return (
     <AddSeriesPageStyled>
-      <HeadlineStyled>Neue Vorführung anlegen</HeadlineStyled>
+      <HeadlineStyled>Neue Filmreihe anlegen</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Reihentitel

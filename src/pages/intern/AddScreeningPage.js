@@ -4,7 +4,7 @@ import { postScreening } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import { useHistory } from 'react-router-dom';
 
-export default function AddScreeningPage() {
+export default function AddScreeningPage({ series }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -57,12 +57,19 @@ export default function AddScreeningPage() {
           Beschreibung
           <TextareaStyled name="synopsis" />
         </LabelStyled>
-        {/* 
-        Select für Reihe
         <LabelStyled>
           Filmreihe
-          <InputStyled name="series" />
-        </LabelStyled> */}
+          <SelectStyled name="series">
+            <option value="000000000000000000000000">
+              -- Film ohne Reihe --
+            </option>
+            {series
+              .sort((a, b) => b.year - a.year || b.month - a.month)
+              .map((series) => (
+                <option value={series._id}>{series.title}</option>
+              ))}
+          </SelectStyled>
+        </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         <ButtonStyled type="button" onClick={() => history.push('/')}>
           Abbrechen
@@ -125,6 +132,10 @@ const TextareaStyled = styled.textarea`
   overflow: auto;
   resize: none;
   min-height: 150px;
+  padding: 5px;
+`;
+
+const SelectStyled = styled.select`
   padding: 5px;
 `;
 

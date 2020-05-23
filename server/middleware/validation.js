@@ -37,7 +37,7 @@ function validateScreening(req, res, next) {
     year: Joi.number().integer().positive().min(1890).max(10000),
     version: Joi.string().allow('').max(50),
     synopsis: Joi.string().allow('').max(2000),
-    // series: Joi.string().max(50),
+    series: Joi.string().allow('').max(50),
   });
   const { error } = screeningSchema.validate(req.body);
   if (error) {

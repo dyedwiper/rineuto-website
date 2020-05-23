@@ -26,6 +26,9 @@ router.post(
   validateScreening,
   formatDate,
   (req, res) => {
+    if (!req.body.series) {
+      req.body.series = null;
+    }
     let newScreening;
     if (req.file) {
       newScreening = new Screening({

@@ -108,6 +108,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         >
           <EditScreeningPage
             screenings={screenings}
+            series={series}
             setHasBeenEdited={setHasBeenEdited}
           />
         </PrivateRoute>
@@ -116,7 +117,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           path="/intern/addScreening"
           isLoadingUser={isLoadingUser}
         >
-          <AddScreeningPage />
+          <AddScreeningPage series={series} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editSeries" isLoadingUser={isLoadingUser}>
           <EditSeriesPage series={series} setHasBeenEdited={setHasBeenEdited} />

@@ -42,7 +42,7 @@ export default function LoginPage() {
         console.log('user', user);
         setUser(user);
         setDidLoginFail(false);
-        history.push('/intern');
+        history.push('/');
       })
       .catch((err) => {
         console.error(err);
