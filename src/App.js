@@ -18,7 +18,6 @@ export default function App() {
     const token = getFromStorage('rineuto-token');
     getUser(token)
       .then((user) => {
-        console.log('getUser called');
         setUser(user);
       })
       .then(() => {
