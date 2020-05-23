@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Screening = require('../models/Screening');
 const authenticate = require('../middleware/authenticate');
 const { validateScreening } = require('../middleware/validation');
-const { uploadImage } = require('../middleware/upload');
+const { uploadFilmstill } = require('../middleware/uploadFilmstill');
 const formatDate = require('../middleware/formatDate');
 
 router.get('/', (req, res) => {
@@ -22,7 +22,7 @@ router.get('/:id', (req, res) => {
 router.post(
   '/',
   authenticate,
-  uploadImage,
+  uploadFilmstill,
   validateScreening,
   formatDate,
   (req, res) => {
@@ -45,7 +45,7 @@ router.post(
 router.patch(
   '/:id',
   authenticate,
-  uploadImage,
+  uploadFilmstill,
   validateScreening,
   formatDate,
   (req, res) => {

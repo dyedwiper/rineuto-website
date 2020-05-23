@@ -20,13 +20,16 @@ function fileFilter(req, file, cb) {
   if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
     return cb(new Error('mimetype not allowed'), false);
   }
+  if (!req.body.day) {
+    return cb(new Error('day must not be empty'), false);
+  }
   if (!req.body.title) {
     return cb(new Error('title must not be empty'), false);
   }
   cb(null, true);
 }
 
-function uploadImage(req, res, next) {
+function uploadFilmstill(req, res, next) {
   const upload = multer({
     limits: { fileSize: 1024 * 1024 * 1 },
     fileFilter: fileFilter,
@@ -41,4 +44,4 @@ function uploadImage(req, res, next) {
   });
 }
 
-module.exports.uploadImage = uploadImage;
+module.exports.uploadFilmstill = uploadFilmstill;

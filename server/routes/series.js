@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Series = require('../models/Series');
 const authenticate = require('../middleware/authenticate');
 const { validateSeries } = require('../middleware/validation');
+const { uploadPoster } = require('../middleware/uploadPoster');
 
 router.get('/', (req, res) => {
   Series.find()
@@ -9,8 +10,16 @@ router.get('/', (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.post('/', authenticate, validateSeries, (req, res) => {
-  const newSeries = new Series(req.body);
+router.post('/', uploadPoster, authenticate, validateSeries, (req, res) => {
+  let newSeries;
+  if (req.file) {
+    newSeries = new Series({
+      ...req.body,
+      imageUrl: req.file.path.slice(req.file.path.indexOf('/posters')),
+    });
+  } else {
+    newSeries = new Series(req.body);
+  }
   newSeries
     .save()
     .then((series) => res.json(series))

@@ -51,7 +51,7 @@ function validateSeries(req, res, next) {
     title: Joi.string().max(50),
     year: Joi.number().min(2018).max(10000),
     month: Joi.number().min(1).max(12),
-    posterUrl: Joi.string().max(200),
+    imageUrl: Joi.string().max(200),
   });
   const { error } = seriesSchema.validate(req.body);
   if (error) {
