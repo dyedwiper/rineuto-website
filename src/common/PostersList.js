@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/macro';
 import whitePerlImage from '../assets/perls/whitePerl.png';
+import { Link } from 'react-router-dom';
+import UserContext from '../userContext';
 
 export default function PostersList({ series, selectedYear }) {
+  const { user } = useContext(UserContext);
+  const loggedIn = Object.keys(user).length !== 0;
+
   return (
     <PosterListStyled>
       {series
@@ -12,6 +17,11 @@ export default function PostersList({ series, selectedYear }) {
             <a href={process.env.PUBLIC_URL + series.imageUrl}>
               <PosterStyled src={process.env.PUBLIC_URL + series.imageUrl} />
             </a>
+            {loggedIn && (
+              <LinkStyled to={'/intern/editSeries/' + series._id}>
+                Bearbeiten
+              </LinkStyled>
+            )}
           </PosterItemStyled>
         ))}
     </PosterListStyled>
@@ -41,4 +51,12 @@ const PosterItemStyled = styled.li`
 
 const PosterStyled = styled.img`
   width: 280px;
+`;
+
+const LinkStyled = styled(Link)`
+  display: block;
+  padding-top: 10px;
+  color: black;
+  font-size: 1.5em;
+  text-align: right;
 `;

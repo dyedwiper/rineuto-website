@@ -6,7 +6,9 @@ import ArchivePage from '../pages/ArchivePage';
 import HomePage from '../pages/HomePage';
 import ImprintPage from '../pages/ImprintPage';
 import AddScreeningPage from '../pages/intern/AddScreeningPage';
+import AddSeriesPage from '../pages/intern/AddSeriesPage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
+import EditSeriesPage from '../pages/intern/EditSeriesPage';
 import LoadingPage from '../pages/LoadingPage';
 import LoginPage from '../pages/LoginPage';
 import PosterPage from '../pages/PosterPage';
@@ -15,7 +17,6 @@ import ScreeningPage from '../pages/ScreeningPage';
 import { getScreenings, getSeries } from '../utils/services';
 import NotFoundPage from './NotFoundPage';
 import PrivateRoute from './PrivateRoute';
-import AddSeriesPage from '../pages/intern/AddSeriesPage';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
@@ -116,6 +117,9 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           isLoadingUser={isLoadingUser}
         >
           <AddScreeningPage />
+        </PrivateRoute>
+        <PrivateRoute path="/intern/editSeries" isLoadingUser={isLoadingUser}>
+          <EditSeriesPage series={series} setHasBeenEdited={setHasBeenEdited} />
         </PrivateRoute>
         <PrivateRoute
           exact

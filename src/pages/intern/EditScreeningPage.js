@@ -5,11 +5,7 @@ import { patchScreening } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
-export default function EditScreeningPage({
-  screenings,
-  setSelectedScreening,
-  setHasBeenEdited,
-}) {
+export default function EditScreeningPage({ screenings, setHasBeenEdited }) {
   const [validationError, setValidationError] = useState('');
   const [screeningToEdit, setScreeningToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);

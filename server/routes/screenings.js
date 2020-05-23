@@ -59,7 +59,7 @@ router.patch(
       screeningToUpdate = req.body;
     }
     Screening.findByIdAndUpdate(req.params.id, screeningToUpdate)
-      .then((updatedScreening) => res.json('updated successfully'))
+      .then(() => res.json('updated successfully'))
       .catch((err) => res.status(400).json(err));
   }
 );

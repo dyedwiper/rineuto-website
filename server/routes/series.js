@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.post('/', uploadPoster, authenticate, validateSeries, (req, res) => {
+router.post('/', authenticate, uploadPoster, validateSeries, (req, res) => {
   let newSeries;
   if (req.file) {
     newSeries = new Series({
@@ -26,9 +26,18 @@ router.post('/', uploadPoster, authenticate, validateSeries, (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.patch('/:id', authenticate, validateSeries, (req, res) => {
-  Series.findByIdAndUpdate(req.params.id, req.body)
-    .then((updatedSeries) => res.json(updatedSeries))
+router.patch('/:id', authenticate, uploadPoster, validateSeries, (req, res) => {
+  let seriesToUpdate;
+  if (req.file) {
+    seriesToUpdate = {
+      ...req.body,
+      imageUrl: req.file.path.slice(req.file.path.indexOf('/posters')),
+    };
+  } else {
+    seriesToUpdate = req.body;
+  }
+  Series.findByIdAndUpdate(req.params.id, seriesToUpdate)
+    .then(() => res.json('updated successfully'))
     .catch((err) => res.status(400).json(err));
 });
 
