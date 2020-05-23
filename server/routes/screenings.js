@@ -30,7 +30,7 @@ router.post(
     if (req.file) {
       newScreening = new Screening({
         ...req.body,
-        imageUrl: req.file.path.slice(req.file.path.indexOf('/')),
+        imageUrl: req.file.path.slice(req.file.path.indexOf('/filmstills')),
       });
     } else {
       newScreening = new Screening(req.body);
