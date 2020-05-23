@@ -1,27 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import whitePerlImage from '../assets/perls/whitePerl.png';
-import { getSeries } from '../utils/services';
-import LoadingPage from '../pages/LoadingPage';
 
-export default function PostersList({ selectedYear }) {
-  const [series, setSeries] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if (!selectedYear || isNaN(selectedYear)) return;
-    getSeries(selectedYear)
-      .then((series) => {
-        setSeries(series);
-        setIsLoading(false);
-      })
-      .catch((err) => console.error(err));
-  }, [selectedYear]);
-
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-
+export default function PostersList({ series, selectedYear }) {
   return (
     <PosterListStyled>
       {series

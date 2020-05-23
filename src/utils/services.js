@@ -28,8 +28,8 @@ export function patchScreening(id, data, token) {
   }).then(handleError);
 }
 
-export function getSeries(year) {
-  return fetch('/api/series/year/' + year).then(handleError);
+export function getSeries() {
+  return fetch('/api/series/').then(handleError);
 }
 
 export function getNews() {

@@ -3,21 +3,22 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
+import HomePage from '../pages/HomePage';
+import ImprintPage from '../pages/ImprintPage';
 import AddScreeningPage from '../pages/intern/AddScreeningPage';
+import EditScreeningPage from '../pages/intern/EditScreeningPage';
+import LoadingPage from '../pages/LoadingPage';
 import LoginPage from '../pages/LoginPage';
+import PosterPage from '../pages/PosterPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
-import PrivateRoute from './PrivateRoute';
+import { getScreenings, getSeries } from '../utils/services';
 import NotFoundPage from './NotFoundPage';
-import ImprintPage from '../pages/ImprintPage';
-import PosterPage from '../pages/PosterPage';
-import HomePage from '../pages/HomePage';
-import LoadingPage from '../pages/LoadingPage';
-import { getScreenings } from '../utils/services';
-import EditScreeningPage from '../pages/intern/EditScreeningPage';
+import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
+  const [series, setSeries] = useState([]);
   const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
   const [hasBeenEdited, setHasBeenEdited] = useState(false);
 
@@ -54,6 +55,12 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
       .catch((err) => console.error(err));
   }, []);
 
+  useEffect(() => {
+    getSeries()
+      .then((series) => setSeries(series))
+      .catch((err) => console.error(err));
+  }, []);
+
   if (isLoadingScreenings) {
     return <LoadingPage />;
   }
@@ -82,7 +89,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <ArchivePage screenings={screenings} />
         </Route>
         <Route path="/posters">
-          <PosterPage />
+          <PosterPage series={series} />
         </Route>
         <Route path="/about">
           <AboutPage />
