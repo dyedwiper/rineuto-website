@@ -93,7 +93,10 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         <Route exact path="/intern/login">
           <LoginPage />
         </Route>
-        <PrivateRoute path="/intern/screening" isLoadingUser={isLoadingUser}>
+        <PrivateRoute
+          path="/intern/editScreening"
+          isLoadingUser={isLoadingUser}
+        >
           <EditScreeningPage
             screenings={screenings}
             setHasBeenEdited={setHasBeenEdited}

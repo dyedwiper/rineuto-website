@@ -21,10 +21,9 @@ export function postScreening(data, token) {
 export function patchScreening(id, data, token) {
   return fetch('/api/screenings/' + id, {
     method: 'PATCH',
-    body: JSON.stringify(data),
+    body: data,
     headers: {
       'auth-token': token,
-      'Content-Type': 'application/json',
     },
   }).then(handleError);
 }

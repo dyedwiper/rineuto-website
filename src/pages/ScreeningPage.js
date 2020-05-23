@@ -85,7 +85,7 @@ export default function ScreeningPage({
         {selectedScreening.series ? selectedScreening.series.title : ''}
       </ScreeningSeriesStyled>
       {loggedIn && (
-        <EditLinkStyled to={'/intern/screening/' + selectedScreening._id}>
+        <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>
           Bearbeiten
         </EditLinkStyled>
       )}

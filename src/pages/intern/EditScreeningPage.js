@@ -79,6 +79,10 @@ export default function EditScreeningPage({
           />
         </LabelStyled>
         <LabelStyled>
+          Bild
+          <InputStyled type="file" name="image" />
+        </LabelStyled>
+        <LabelStyled>
           Länge in Minuten
           <InputStyled name="length" defaultValue={screeningToEdit.length} />
         </LabelStyled>
@@ -116,9 +120,8 @@ export default function EditScreeningPage({
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const editedScreening = Object.fromEntries(formData);
     const jwt = getFromStorage('rineuto-token');
-    patchScreening(screeningToEdit._id, editedScreening, jwt)
+    patchScreening(screeningToEdit._id, formData, jwt)
       .then((updatedScreening) => {
         setHasBeenEdited(true);
         history.push('/screening/' + screeningToEdit._id);

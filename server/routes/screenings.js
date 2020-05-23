@@ -45,11 +45,21 @@ router.post(
 router.patch(
   '/:id',
   authenticate,
+  uploadImage,
   validateScreening,
   formatDate,
   (req, res) => {
-    Screening.findByIdAndUpdate(req.params.id, req.body)
-      .then((updatedScreening) => res.json(updatedScreening))
+    let screeningToUpdate;
+    if (req.file) {
+      screeningToUpdate = {
+        ...req.body,
+        imageUrl: req.file.path.slice(req.file.path.indexOf('/filmstills')),
+      };
+    } else {
+      screeningToUpdate = req.body;
+    }
+    Screening.findByIdAndUpdate(req.params.id, screeningToUpdate)
+      .then((updatedScreening) => res.json('updated successfully'))
       .catch((err) => res.status(400).json(err));
   }
 );
