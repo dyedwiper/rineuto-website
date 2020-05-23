@@ -1,75 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { postScreening } from '../../utils/services';
-import { getFromStorage } from '../../utils/storage';
 import { useHistory } from 'react-router-dom';
+import { getFromStorage } from '../../utils/storage';
+import { postSeries } from '../../utils/services';
 
-export default function AddScreeningPage() {
+export default function AddSeriesPage() {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
 
   useEffect(() => {
-    document.title = ' Screening anlegen | Rineuto Lichtspiele';
+    document.title = ' Reihe anlegen | Rineuto Lichtspiele';
   }, []);
 
   return (
-    <AddScreeningPageStyled>
+    <AddSeriesPageStyled>
       <HeadlineStyled>Neue Vorführung anlegen</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
-          Filmtitel
+          Reihentitel
           <InputStyled name="title" />
         </LabelStyled>
         <LabelStyled>
-          Vorführdatum
-          <InputStyled type="date" name="day" />
-        </LabelStyled>
-        <LabelStyled>
-          Uhrzeit
-          <InputStyled type="time" name="time" defaultValue="20:30" />
-        </LabelStyled>
-        <LabelStyled>
-          Regie
-          <InputStyled name="director" />
-        </LabelStyled>
-        <LabelStyled>
-          Bild
-          <InputStyled type="file" name="image" />
-        </LabelStyled>
-        <LabelStyled>
-          Länge in Minuten
-          <InputStyled name="length" />
-        </LabelStyled>
-        <LabelStyled>
-          Prodoktionsländer
-          <InputStyled name="country" />
-        </LabelStyled>
-        <LabelStyled>
-          Erscheinungsjahr
+          Jahr der ersten Vorstellung (vierstellige Zahl)
           <InputStyled name="year" />
         </LabelStyled>
         <LabelStyled>
-          Version
-          <InputStyled name="version" />
+          Monat der ersten Vorstellung (zweistellige Zahl)
+          <InputStyled name="month" />
         </LabelStyled>
         <LabelStyled>
-          Beschreibung
-          <TextareaStyled name="synopsis" />
+          Poster
+          <InputStyled type="file" name="image" />
         </LabelStyled>
-        {/* 
-        Select für Reihe
-        <LabelStyled>
-          Filmreihe
-          <InputStyled name="series" />
-        </LabelStyled> */}
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         <ButtonStyled type="button" onClick={() => history.push('/')}>
           Abbrechen
         </ButtonStyled>
         <ButtonStyled>Senden</ButtonStyled>
       </FormStyled>
-    </AddScreeningPageStyled>
+    </AddSeriesPageStyled>
   );
 
   function handleSubmit(event) {
@@ -77,9 +47,9 @@ export default function AddScreeningPage() {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
-    postScreening(formData, jwt)
+    postSeries(formData, jwt)
       .then((res) => {
-        history.push('/program');
+        history.push('/posters');
       })
       .catch((err) => {
         console.error(err);
@@ -93,7 +63,7 @@ export default function AddScreeningPage() {
   }
 }
 
-const AddScreeningPageStyled = styled.div`
+const AddSeriesPageStyled = styled.div`
   overflow: auto;
   max-width: 600px;
   margin: 20px auto;
@@ -117,14 +87,6 @@ const LabelStyled = styled.label`
 `;
 
 const InputStyled = styled.input`
-  padding: 5px;
-`;
-
-const TextareaStyled = styled.textarea`
-  display: block;
-  overflow: auto;
-  resize: none;
-  min-height: 150px;
   padding: 5px;
 `;
 

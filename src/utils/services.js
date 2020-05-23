@@ -32,6 +32,16 @@ export function getSeries() {
   return fetch('/api/series/').then(handleError);
 }
 
+export function postSeries(data, token) {
+  return fetch('/api/series', {
+    method: 'POST',
+    body: data,
+    headers: {
+      'auth-token': token,
+    },
+  }).then(handleError);
+}
+
 export function getNews() {
   return fetch('api/news').then(handleError);
 }

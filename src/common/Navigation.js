@@ -39,6 +39,12 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
           >
             Neuer Film
           </NavLinkStyled>
+          <NavLinkStyled
+            to="/intern/addSeries"
+            onClick={() => setIsNavOpen(false)}
+          >
+            Neue Reihe
+          </NavLinkStyled>
           <NavLinkStyled exact to="/logout" onClick={handleLogout}>
             Logout
           </NavLinkStyled>
