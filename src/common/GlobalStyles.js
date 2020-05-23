@@ -22,4 +22,8 @@ export default createGlobalStyle`
     -webkit-appearance: none;
     -moz-appearance: none;
   }
+
+  button {
+    cursor: pointer;
+  }
 `;

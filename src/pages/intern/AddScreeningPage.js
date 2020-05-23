@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { postScreening } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
@@ -8,6 +8,10 @@ export default function AddScreeningPage() {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
+
+  useEffect(() => {
+    document.title = ' Screening anlegen | Rineuto Lichtspiele';
+  }, []);
 
   return (
     <AddScreeningPageStyled>
@@ -60,6 +64,9 @@ export default function AddScreeningPage() {
           <InputStyled name="series" />
         </LabelStyled> */}
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
+        <ButtonStyled type="button" onClick={() => history.push('/')}>
+          Abbrechen
+        </ButtonStyled>
         <ButtonStyled>Senden</ButtonStyled>
       </FormStyled>
     </AddScreeningPageStyled>

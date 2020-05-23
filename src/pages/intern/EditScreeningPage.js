@@ -31,7 +31,7 @@ export default function EditScreeningPage({
 
   useEffect(() => {
     if (!isInvalidId) {
-      document.title = screeningToEdit.title + ' | Rineuto Lichtspiele';
+      document.title = screeningToEdit.title + ' - edit | Rineuto Lichtspiele';
     }
   }, [screeningToEdit, isInvalidId]);
 
@@ -111,6 +111,12 @@ export default function EditScreeningPage({
           {/* <InputStyled name="series" defaultValue={selectedScreening.series} /> */}
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
+        <ButtonStyled
+          type="button"
+          onClick={() => history.push('/screening/' + screeningToEdit._id)}
+        >
+          Abbrechen
+        </ButtonStyled>
         <ButtonStyled>Senden</ButtonStyled>
       </FormStyled>
     </EditScreeningPageStyled>
@@ -130,6 +136,9 @@ export default function EditScreeningPage({
         console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
+        }
+        if (err.hasOwnProperty('multerError')) {
+          setValidationError(err.multerError);
         }
       });
   }
