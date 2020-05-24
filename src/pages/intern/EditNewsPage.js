@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { patchNews } from '../../utils/services';
+import { patchNews, deleteNews } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
-export default function EditNewsPage({ news, setEditedObject }) {
+export default function EditNewsPage({ news, setNews, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [newsToEdit, setNewsToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
+  const [showDeletePrompt, setShowDeletePrompt] = useState(false);
 
   let history = useHistory();
 
@@ -61,6 +62,26 @@ export default function EditNewsPage({ news, setEditedObject }) {
           Abbrechen
         </ButtonStyled>
         <ButtonStyled>Änderungen speichern</ButtonStyled>
+        <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
+          Diese News löschen
+        </ButtonStyled>
+        {showDeletePrompt && (
+          <DeletePromptStyled>
+            Wirklich?
+            <DeletePromptButtonStyled
+              type="button"
+              onClick={() => {
+                setShowDeletePrompt(false);
+                setEditedObject({});
+              }}
+            >
+              Nein
+            </DeletePromptButtonStyled>
+            <DeletePromptButtonStyled type="button" onClick={handleDelete}>
+              Ja
+            </DeletePromptButtonStyled>
+          </DeletePromptStyled>
+        )}
       </FormStyled>
     </EditNewsPageStyled>
   );
@@ -84,6 +105,19 @@ export default function EditNewsPage({ news, setEditedObject }) {
           setValidationError(err.multerError);
         }
       });
+  }
+
+  function handleDelete() {
+    setShowDeletePrompt(false);
+    const jwt = getFromStorage('rineuto-token');
+    deleteNews(newsToEdit._id, jwt)
+      .then(() => {
+        news.splice(news.indexOf(newsToEdit), 1);
+        setEditedObject({ deleted: 'news' });
+        setNews(news);
+        history.push('/');
+      })
+      .catch((err) => console.error(err));
   }
 }
 
@@ -130,4 +164,14 @@ const ButtonStyled = styled.button`
 const ErrorMessageStyled = styled.span`
   color: red;
   font-size: 1.5em;
+`;
+
+const DeletePromptStyled = styled.div`
+  justify-self: center;
+`;
+
+const DeletePromptButtonStyled = styled.button`
+  width: 50px;
+  margin: 0 10px;
+  padding: 5px;
 `;

@@ -117,7 +117,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <LoginPage />
         </Route>
         <PrivateRoute path="/intern/editNews" isLoadingUser={isLoadingUser}>
-          <EditNewsPage news={news} setEditedObject={setEditedObject} />
+          <EditNewsPage news={news} setEditedObject={setEditedObject} setNews={setNews} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addNews" isLoadingUser={isLoadingUser}>
           <AddNewsPage />

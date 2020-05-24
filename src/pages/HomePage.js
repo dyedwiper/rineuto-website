@@ -6,6 +6,7 @@ export default function HomePage({ news, editedObject }) {
   return (
     <WelcomePageStyled>
       <SubHeadlineStyled>Newsreel</SubHeadlineStyled>
+      {editedObject.deleted === 'news' && <EditNoteStyled>News gelöscht</EditNoteStyled>}
       <NewsListStyled>
         {news
           .sort((a, b) => b.date - a.date)
@@ -26,6 +27,14 @@ const SubHeadlineStyled = styled.h2`
   margin: 20px 0 0 0;
   text-align: center;
   color: white;
+`;
+
+const EditNoteStyled = styled.div`
+  margin: 20px;
+  color: green;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
 `;
 
 const NewsListStyled = styled.ul`

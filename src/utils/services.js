@@ -76,6 +76,15 @@ export function patchNews(id, data, token) {
   }).then(handleError);
 }
 
+export function deleteNews(id, token) {
+  return fetch('/api/news/' + id, {
+    method: 'DELETE',
+    headers: {
+      'auth-token': token,
+    },
+  }).then(handleError);
+}
+
 export function postLoginUser(data) {
   return fetch('/api/users/login', {
     method: 'POST',
