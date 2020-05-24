@@ -4,7 +4,7 @@ import PostersList from '../common/PostersList';
 import YearNavigation from '../common/YearNavigation';
 import { useHistory } from 'react-router-dom';
 
-export default function PosterPage({ series }) {
+export default function PosterPage({ series, editedObject }) {
   const startYear = 2018;
   const currentYear = new Date().getFullYear();
   const hithertoYears = [];
@@ -41,6 +41,7 @@ export default function PosterPage({ series }) {
       <PostersList
         // eslint-disable-next-line eqeqeq
         series={series.filter((series) => series.year == selectedYear)}
+        editedObject={editedObject}
       />
     </PosterPageStyled>
   );

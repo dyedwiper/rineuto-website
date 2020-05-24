@@ -4,7 +4,7 @@ import whitePerlImage from '../assets/perls/whitePerl.png';
 import { Link } from 'react-router-dom';
 import UserContext from '../userContext';
 
-export default function PostersList({ series, selectedYear }) {
+export default function PostersList({ series, selectedYear, editedObject }) {
   const { user } = useContext(UserContext);
   const loggedIn = Object.keys(user).length !== 0;
 
@@ -18,9 +18,10 @@ export default function PostersList({ series, selectedYear }) {
               <PosterStyled src={process.env.PUBLIC_URL + series.imageUrl} />
             </a>
             {loggedIn && (
-              <LinkStyled to={'/intern/editSeries/' + series._id}>
-                Bearbeiten
-              </LinkStyled>
+              <EditContainerStyled>
+                {series._id === editedObject._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
+                <EditLinkStyled to={'/intern/editSeries/' + series._id}>Bearbeiten</EditLinkStyled>
+              </EditContainerStyled>
             )}
           </PosterItemStyled>
         ))}
@@ -53,10 +54,20 @@ const PosterStyled = styled.img`
   width: 280px;
 `;
 
-const LinkStyled = styled(Link)`
-  display: block;
+const EditContainerStyled = styled.div`
   padding-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+
+const EditNoteStyled = styled.span`
+  color: green;
+  font-size: 1.3em;
+`;
+
+const EditLinkStyled = styled(Link)`
+  grid-column-start: 2;
+  justify-self: right;
   color: black;
-  font-size: 1.5em;
-  text-align: right;
+  font-size: 1.3em;
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { getFromStorage } from '../../utils/storage';
 import { useHistory } from 'react-router-dom';
@@ -8,6 +8,10 @@ export default function AddNewsPage() {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
+
+  useEffect(() => {
+    document.title = ' News anlegen | Rineuto Lichtspiele';
+  }, []);
 
   return (
     <AddNewsPageStyled>
@@ -33,7 +37,7 @@ export default function AddNewsPage() {
         <ButtonStyled type="button" onClick={() => history.push('/')}>
           Abbrechen
         </ButtonStyled>
-        <ButtonStyled>Senden</ButtonStyled>
+        <ButtonStyled>News anlegen</ButtonStyled>
       </FormStyled>
     </AddNewsPageStyled>
   );
@@ -96,7 +100,6 @@ const TextareaStyled = styled.textarea`
 
 const ButtonStyled = styled.button`
   justify-self: center;
-  width: min-content;
   padding: 5px;
 `;
 

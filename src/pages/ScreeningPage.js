@@ -1,16 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { Redirect, useHistory, Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import DateRibbon from '../common/DateRibbon';
-import LoadingPage from './LoadingPage';
 import UserContext from '../userContext';
-import { getSingleScreening } from '../utils/services';
+import LoadingPage from './LoadingPage';
 
-export default function ScreeningPage({
-  screenings,
-  hasBeenEdited,
-  setHasBeenEdited,
-}) {
+export default function ScreeningPage({ screenings, editedObject }) {
   const [selectedScreening, setSelectedScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
@@ -22,33 +17,19 @@ export default function ScreeningPage({
 
   useEffect(() => {
     const screeningId = window.location.pathname.slice(-24);
-    const screening = screenings.find(
-      (screening) => screening._id === screeningId
-    );
+    const screening = screenings.find((screening) => screening._id === screeningId);
     if (!screening) {
       setIsInvalidId(true);
     }
     setSelectedScreening(screening);
-    if (hasBeenEdited) {
-      getSingleScreening(screeningId)
-        .then((editedScreening) => {
-          const dateFormatted = new Date(editedScreening.date);
-          setSelectedScreening({ ...editedScreening, date: dateFormatted });
-        })
-        .catch((err) => console.error(err));
-    }
     setIsLoading(false);
-  }, [screenings, hasBeenEdited]);
+  }, [screenings]);
 
   useEffect(() => {
     if (!isInvalidId) {
       document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
     }
   }, [selectedScreening, isInvalidId]);
-
-  useEffect(() => {
-    return () => setHasBeenEdited(false);
-  }, [setHasBeenEdited]);
 
   if (isLoading) {
     return <LoadingPage />;
@@ -60,12 +41,10 @@ export default function ScreeningPage({
 
   return (
     <ScreeningPageStyled>
-      {hasBeenEdited && <EditNoteStyled>Änderungen übernommen</EditNoteStyled>}
+      {editedObject._id === selectedScreening._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
       <BackButtonStyled onClick={history.goBack}>Zurück</BackButtonStyled>
       <DateRibbon date={selectedScreening.date} />
-      <FilmStillStyled
-        src={process.env.PUBLIC_URL + selectedScreening.imageUrl}
-      />
+      <FilmStillStyled src={process.env.PUBLIC_URL + selectedScreening.imageUrl} />
       <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
       <FilmInfoStyled>
         {selectedScreening.country +
@@ -76,19 +55,12 @@ export default function ScreeningPage({
           ' Min | ' +
           selectedScreening.version}
       </FilmInfoStyled>
-      <FilmDirectorStyled>
-        {'Regie: ' + selectedScreening.director}
-      </FilmDirectorStyled>
+      <FilmDirectorStyled>{'Regie: ' + selectedScreening.director}</FilmDirectorStyled>
       <FilmSynopsisStyled>{selectedScreening.synopsis}</FilmSynopsisStyled>
       <ScreeningSeriesStyled>
-        Filmreihe:{' '}
-        {selectedScreening.series ? selectedScreening.series.title : ''}
+        Filmreihe: {selectedScreening.series ? selectedScreening.series.title : ''}
       </ScreeningSeriesStyled>
-      {loggedIn && (
-        <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>
-          Bearbeiten
-        </EditLinkStyled>
-      )}
+      {loggedIn && <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>Bearbeiten</EditLinkStyled>}
     </ScreeningPageStyled>
   );
 }

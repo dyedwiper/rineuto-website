@@ -10,7 +10,7 @@ export default function AddScreeningPage({ series }) {
   let history = useHistory();
 
   useEffect(() => {
-    document.title = ' Screening anlegen | Rineuto Lichtspiele';
+    document.title = ' Vorführung anlegen | Rineuto Lichtspiele';
   }, []);
 
   return (
@@ -74,7 +74,7 @@ export default function AddScreeningPage({ series }) {
         <ButtonStyled type="button" onClick={() => history.push('/')}>
           Abbrechen
         </ButtonStyled>
-        <ButtonStyled>Senden</ButtonStyled>
+        <ButtonStyled>Vorführung anlegen</ButtonStyled>
       </FormStyled>
     </AddScreeningPageStyled>
   );
@@ -141,7 +141,6 @@ const SelectStyled = styled.select`
 
 const ButtonStyled = styled.button`
   justify-self: center;
-  width: min-content;
   padding: 5px;
 `;
 

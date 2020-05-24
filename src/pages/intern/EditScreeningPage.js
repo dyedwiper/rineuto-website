@@ -5,11 +5,7 @@ import { patchScreening } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
-export default function EditScreeningPage({
-  screenings,
-  series,
-  setHasBeenEdited,
-}) {
+export default function EditScreeningPage({ screenings, series, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [screeningToEdit, setScreeningToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -19,9 +15,7 @@ export default function EditScreeningPage({
 
   useEffect(() => {
     const screeningId = window.location.pathname.slice(-24);
-    const screening = screenings.find(
-      (screening) => screening._id === screeningId
-    );
+    const screening = screenings.find((screening) => screening._id === screeningId);
     if (!screening) {
       setIsInvalidId(true);
     }
@@ -53,30 +47,19 @@ export default function EditScreeningPage({
         </LabelStyled>
         <LabelStyled>
           Vorführdatum
-          <InputStyled
-            type="date"
-            name="day"
-            defaultValue={screeningToEdit.date.toISOString().slice(0, 10)}
-          />
+          <InputStyled type="date" name="day" defaultValue={screeningToEdit.date.toISOString().slice(0, 10)} />
         </LabelStyled>
         <LabelStyled>
           Uhrzeit
           <InputStyled
             type="time"
             name="time"
-            defaultValue={
-              screeningToEdit.date.getHours() +
-              ':' +
-              screeningToEdit.date.getMinutes()
-            }
+            defaultValue={screeningToEdit.date.getHours() + ':' + screeningToEdit.date.getMinutes()}
           />
         </LabelStyled>
         <LabelStyled>
           Regie
-          <InputStyled
-            name="director"
-            defaultValue={screeningToEdit.director}
-          />
+          <InputStyled name="director" defaultValue={screeningToEdit.director} />
         </LabelStyled>
         <LabelStyled>
           Bild
@@ -100,17 +83,12 @@ export default function EditScreeningPage({
         </LabelStyled>
         <LabelStyled>
           Beschreibung
-          <TextareaStyled
-            name="synopsis"
-            defaultValue={screeningToEdit.synopsis}
-          />
+          <TextareaStyled name="synopsis" defaultValue={screeningToEdit.synopsis} />
         </LabelStyled>
         <LabelStyled>
           Filmreihe
           <SelectStyled name="series">
-            <option value="000000000000000000000000">
-              -- Film ohne Reihe --
-            </option>
+            <option value="000000000000000000000000">-- Film ohne Reihe --</option>
             {series
               .sort((a, b) => b.year - a.year || b.month - a.month)
               .map((series) => (
@@ -119,13 +97,10 @@ export default function EditScreeningPage({
           </SelectStyled>
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled
-          type="button"
-          onClick={() => history.push('/screening/' + screeningToEdit._id)}
-        >
+        <ButtonStyled type="button" onClick={() => history.push('/screening/' + screeningToEdit._id)}>
           Abbrechen
         </ButtonStyled>
-        <ButtonStyled>Senden</ButtonStyled>
+        <ButtonStyled>Änderungen speichern</ButtonStyled>
       </FormStyled>
     </EditScreeningPageStyled>
   );
@@ -136,8 +111,8 @@ export default function EditScreeningPage({
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
     patchScreening(screeningToEdit._id, formData, jwt)
-      .then((updatedScreening) => {
-        setHasBeenEdited(true);
+      .then(() => {
+        setEditedObject(screeningToEdit);
         history.push('/screening/' + screeningToEdit._id);
       })
       .catch((err) => {
@@ -193,7 +168,6 @@ const SelectStyled = styled.select`
 
 const ButtonStyled = styled.button`
   justify-self: center;
-  width: min-content;
   padding: 5px;
 `;
 

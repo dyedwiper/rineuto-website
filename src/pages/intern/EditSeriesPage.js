@@ -5,7 +5,7 @@ import { patchSeries } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
-export default function EditSeriesPage({ series, setHasBeenEdited }) {
+export default function EditSeriesPage({ series, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [seriesToEdit, setSeriesToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -61,7 +61,7 @@ export default function EditSeriesPage({ series, setHasBeenEdited }) {
         <ButtonStyled type="button" onClick={() => history.push('/posters/' + seriesToEdit.year)}>
           Abbrechen
         </ButtonStyled>
-        <ButtonStyled>Senden</ButtonStyled>
+        <ButtonStyled>Änderungen speichern</ButtonStyled>
       </FormStyled>
     </EditSeriesPageStyled>
   );
@@ -73,8 +73,8 @@ export default function EditSeriesPage({ series, setHasBeenEdited }) {
     const jwt = getFromStorage('rineuto-token');
     patchSeries(seriesToEdit._id, formData, jwt)
       .then((res) => {
-        setHasBeenEdited(true);
-        history.push('/posters');
+        setEditedObject(seriesToEdit);
+        history.push('/posters/' + seriesToEdit.year);
       })
       .catch((err) => {
         console.error(err);
@@ -117,7 +117,6 @@ const InputStyled = styled.input`
 
 const ButtonStyled = styled.button`
   justify-self: center;
-  width: min-content;
   padding: 5px;
 `;
 

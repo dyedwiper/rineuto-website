@@ -60,7 +60,7 @@ export default function EditNewsPage({ news, setEditedObject }) {
         <ButtonStyled type="button" onClick={() => history.push('/')}>
           Abbrechen
         </ButtonStyled>
-        <ButtonStyled>Senden</ButtonStyled>
+        <ButtonStyled>Änderungen speichern</ButtonStyled>
       </FormStyled>
     </EditNewsPageStyled>
   );
@@ -124,7 +124,6 @@ const TextareaStyled = styled.textarea`
 
 const ButtonStyled = styled.button`
   justify-self: center;
-  width: min-content;
   padding: 5px;
 `;
 

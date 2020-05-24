@@ -27,7 +27,6 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
   const [isLoadingSeries, setIsLoadingSeries] = useState(true);
   const [isLoadingNews, setIsLoadingNews] = useState(true);
-  const [hasBeenEdited, setHasBeenEdited] = useState(false);
   const [editedObject, setEditedObject] = useState({});
 
   const history = useHistory();
@@ -100,13 +99,13 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <ProgramPage screenings={screenings} />
         </Route>
         <Route path="/screening">
-          <ScreeningPage screenings={screenings} hasBeenEdited={hasBeenEdited} setHasBeenEdited={setHasBeenEdited} />
+          <ScreeningPage screenings={screenings} editedObject={editedObject} />
         </Route>
         <Route path="/archive">
           <ArchivePage screenings={screenings} />
         </Route>
         <Route path="/posters">
-          <PosterPage series={series} />
+          <PosterPage series={series} editedObject={editedObject} />
         </Route>
         <Route path="/about">
           <AboutPage />
@@ -124,13 +123,13 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <AddNewsPage />
         </PrivateRoute>
         <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
-          <EditScreeningPage screenings={screenings} series={series} setHasBeenEdited={setHasBeenEdited} />
+          <EditScreeningPage screenings={screenings} series={series} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
           <AddScreeningPage series={series} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editSeries" isLoadingUser={isLoadingUser}>
-          <EditSeriesPage series={series} setHasBeenEdited={setHasBeenEdited} />
+          <EditSeriesPage series={series} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addSeries" isLoadingUser={isLoadingUser}>
           <AddSeriesPage />

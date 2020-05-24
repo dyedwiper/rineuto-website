@@ -37,7 +37,7 @@ export default function AddSeriesPage() {
         <ButtonStyled type="button" onClick={() => history.push('/')}>
           Abbrechen
         </ButtonStyled>
-        <ButtonStyled>Senden</ButtonStyled>
+        <ButtonStyled>Filmreihe anlegen</ButtonStyled>
       </FormStyled>
     </AddSeriesPageStyled>
   );
@@ -92,7 +92,6 @@ const InputStyled = styled.input`
 
 const ButtonStyled = styled.button`
   justify-self: center;
-  width: min-content;
   padding: 5px;
 `;
 

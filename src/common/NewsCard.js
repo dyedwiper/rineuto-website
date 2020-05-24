@@ -32,10 +32,12 @@ export default function NewsCard({ news, editedObject }) {
           {news.text}
         </Linkify>
       </NewsTextStyled>
-      <EditContainerStyled>
-        {editedObject._id === news._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
-        {loggedIn && <EditLinkStyled to={'/intern/editNews/' + news._id}>Bearbeiten</EditLinkStyled>}
-      </EditContainerStyled>
+      {loggedIn && (
+        <EditContainerStyled>
+          {editedObject._id === news._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
+          <EditLinkStyled to={'/intern/editNews/' + news._id}>Bearbeiten</EditLinkStyled>
+        </EditContainerStyled>
+      )}
     </NewsCardStyled>
   );
 }
