@@ -28,6 +28,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const [isLoadingSeries, setIsLoadingSeries] = useState(true);
   const [isLoadingNews, setIsLoadingNews] = useState(true);
   const [hasBeenEdited, setHasBeenEdited] = useState(false);
+  const [editedObject, setEditedObject] = useState({});
 
   const history = useHistory();
   const mainElement = useRef(null);
@@ -93,7 +94,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
     <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen()}>
       <Switch>
         <Route exact path="/">
-          <HomePage news={news} />
+          <HomePage news={news} editedObject={editedObject} />
         </Route>
         <Route path="/program">
           <ProgramPage screenings={screenings} />
@@ -117,7 +118,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <LoginPage />
         </Route>
         <PrivateRoute path="/intern/editNews" isLoadingUser={isLoadingUser}>
-          <EditNewsPage news={news} setHasBeenEdited={setHasBeenEdited} />
+          <EditNewsPage news={news} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addNews" isLoadingUser={isLoadingUser}>
           <AddNewsPage />

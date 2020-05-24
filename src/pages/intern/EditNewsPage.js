@@ -5,7 +5,7 @@ import { patchNews } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
-export default function EditNewsPage({ news, setHasBeenEdited }) {
+export default function EditNewsPage({ news, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [newsToEdit, setNewsToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -72,7 +72,7 @@ export default function EditNewsPage({ news, setHasBeenEdited }) {
     const jwt = getFromStorage('rineuto-token');
     patchNews(newsToEdit._id, formData, jwt)
       .then(() => {
-        setHasBeenEdited(true);
+        setEditedObject(newsToEdit);
         history.push('/');
       })
       .catch((err) => {

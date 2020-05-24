@@ -35,11 +35,7 @@ export default function App() {
         <AppStyled>
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-          <Main
-            isNavOpen={isNavOpen}
-            setIsNavOpen={setIsNavOpen}
-            isLoadingUser={isLoadingUser}
-          />
+          <Main isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} isLoadingUser={isLoadingUser} />
         </AppStyled>
       </UserContext.Provider>
     </Router>

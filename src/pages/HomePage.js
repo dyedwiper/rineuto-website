@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import NewsCard from '../common/NewsCard';
 
-export default function HomePage({ news }) {
+export default function HomePage({ news, editedObject }) {
   return (
     <WelcomePageStyled>
       <SubHeadlineStyled>Newsreel</SubHeadlineStyled>
@@ -10,7 +10,7 @@ export default function HomePage({ news }) {
         {news
           .sort((a, b) => b.date - a.date)
           .map((singleNews) => (
-            <NewsCard key={singleNews._id} news={singleNews} />
+            <NewsCard key={singleNews._id} news={singleNews} editedObject={editedObject} />
           ))}
       </NewsListStyled>
       <Cushion />
