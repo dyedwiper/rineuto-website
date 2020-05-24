@@ -60,9 +60,7 @@ export default function AddScreeningPage({ series }) {
         <LabelStyled>
           Filmreihe
           <SelectStyled name="series">
-            <option value="000000000000000000000000">
-              -- Film ohne Reihe --
-            </option>
+            <option value="000000000000000000000000">-- Film ohne Reihe --</option>
             {series
               .sort((a, b) => b.year - a.year || b.month - a.month)
               .map((series) => (

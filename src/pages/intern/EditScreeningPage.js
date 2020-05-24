@@ -45,7 +45,7 @@ export default function EditScreeningPage({
 
   return (
     <EditScreeningPageStyled>
-      <HeadlineStyled>Vorführung ändern</HeadlineStyled>
+      <HeadlineStyled>Vorführung bearbeiten</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Filmtitel

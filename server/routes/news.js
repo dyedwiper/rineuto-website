@@ -28,9 +28,24 @@ router.post('/', authenticate, uploadNewsImage, validateNews, (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.patch('/:id', authenticate, validateNews, (req, res) => {
-  News.findByIdAndUpdate(req.params.id, req.body)
+router.patch('/:id', authenticate, uploadNewsImage, validateNews, (req, res) => {
+  let newsToUpdate;
+  if (req.file) {
+    newsToUpdate = {
+      ...req.body,
+      imageUrl: req.file.path.slice(req.file.path.indexOf('/news')),
+    };
+  } else {
+    newsToUpdate = req.body;
+  }
+  News.findByIdAndUpdate(req.params.id, newsToUpdate)
     .then(() => res.json('updated successfully'))
+    .catch((err) => res.status(400).json(err));
+});
+
+router.delete('/:id', authenticate, (req, res) => {
+  News.findByIdAndDelete(req.params.id)
+    .then((deletedNews) => res.json('Deleted ' + deletedNews.title))
     .catch((err) => res.status(400).json(err));
 });
 

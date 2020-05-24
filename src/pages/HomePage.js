@@ -1,31 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import NewsCard from '../common/NewsCard';
-import { getNews } from '../utils/services';
-import LoadingPage from './LoadingPage';
 
-export default function HomePage() {
-  const [news, setNews] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    getNews()
-      .then((news) => {
-        const newsFormatted = news.map((newsItem) => {
-          const textFormatted = newsItem.text.replace(/\\n/g, '\n');
-          const dateFormatted = new Date(newsItem.date);
-          return { ...newsItem, text: textFormatted, date: dateFormatted };
-        });
-        setNews(newsFormatted);
-        setIsLoading(false);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-
+export default function HomePage({ news }) {
   return (
     <WelcomePageStyled>
       <SubHeadlineStyled>Newsreel</SubHeadlineStyled>

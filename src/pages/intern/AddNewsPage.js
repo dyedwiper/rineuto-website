@@ -11,7 +11,7 @@ export default function AddNewsPage() {
 
   return (
     <AddNewsPageStyled>
-      <HeadlineStyled>Neue Vorführung anlegen</HeadlineStyled>
+      <HeadlineStyled>Neue News anlegen</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Schlagzeile
@@ -19,11 +19,7 @@ export default function AddNewsPage() {
         </LabelStyled>
         <LabelStyled>
           Datum
-          <InputStyled
-            type="date"
-            name="date"
-            defaultValue={new Date().toISOString().slice(0, 10)}
-          />
+          <InputStyled type="date" name="date" defaultValue={new Date().toISOString().slice(0, 10)} />
         </LabelStyled>
         <LabelStyled>
           Bild
@@ -48,7 +44,7 @@ export default function AddNewsPage() {
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
     postNews(formData, jwt)
-      .then((res) => {
+      .then(() => {
         history.push('/');
       })
       .catch((err) => {
@@ -95,10 +91,6 @@ const TextareaStyled = styled.textarea`
   overflow: auto;
   resize: none;
   min-height: 150px;
-  padding: 5px;
-`;
-
-const SelectStyled = styled.select`
   padding: 5px;
 `;
 

@@ -53,12 +53,22 @@ export function patchSeries(id, data, token) {
 }
 
 export function getNews() {
-  return fetch('api/news').then(handleError);
+  return fetch('/api/news').then(handleError);
 }
 
 export function postNews(data, token) {
   return fetch('/api/news', {
     method: 'POST',
+    body: data,
+    headers: {
+      'auth-token': token,
+    },
+  }).then(handleError);
+}
+
+export function patchNews(id, data, token) {
+  return fetch('/api/news/' + id, {
+    method: 'PATCH',
     body: data,
     headers: {
       'auth-token': token,

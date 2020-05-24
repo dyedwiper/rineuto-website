@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { patchSeries } from '../../utils/services';
+import { patchNews } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
-export default function EditSeriesPage({ series, setHasBeenEdited }) {
+export default function EditNewsPage({ news, setHasBeenEdited }) {
   const [validationError, setValidationError] = useState('');
-  const [seriesToEdit, setSeriesToEdit] = useState({});
+  const [newsToEdit, setNewsToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
 
   let history = useHistory();
 
   useEffect(() => {
-    const seriesId = window.location.pathname.slice(-24);
-    const selectedSeries = series.find((screening) => screening._id === seriesId);
-    if (!selectedSeries) {
+    const newsId = window.location.pathname.slice(-24);
+    const selectedNews = news.find((news) => news._id === newsId);
+    if (!selectedNews) {
       setIsInvalidId(true);
     }
-    setSeriesToEdit(selectedSeries);
+    setNewsToEdit(selectedNews);
     setIsLoading(false);
-  }, [series]);
+  }, [news]);
 
   useEffect(() => {
     if (!isInvalidId) {
-      document.title = seriesToEdit.title + ' - edit | Rineuto Lichtspiele';
+      document.title = newsToEdit.title + ' - edit | Rineuto Lichtspiele';
     }
-  }, [seriesToEdit, isInvalidId]);
+  }, [newsToEdit, isInvalidId]);
 
   if (isLoading) {
     return <LoadingPage />;
@@ -36,34 +36,33 @@ export default function EditSeriesPage({ series, setHasBeenEdited }) {
   if (isInvalidId) {
     return <Redirect to="/404" />;
   }
-
   return (
-    <EditSeriesPageStyled>
-      <HeadlineStyled>Filmreihe bearbeiten</HeadlineStyled>
+    <EditNewsPageStyled>
+      <HeadlineStyled>News bearbeiten</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
-          Reihentitel
-          <InputStyled name="title" defaultValue={seriesToEdit.title} />
+          Schlagzeile
+          <InputStyled name="title" defaultValue={newsToEdit.title} />
         </LabelStyled>
         <LabelStyled>
-          Jahr der ersten Vorstellung (vierstellig)
-          <InputStyled name="year" defaultValue={seriesToEdit.year} />
+          Datum
+          <InputStyled type="date" name="date" defaultValue={newsToEdit.date.toISOString().slice(0, 10)} />
         </LabelStyled>
         <LabelStyled>
-          Monat der ersten Vorstellung
-          <InputStyled name="month" defaultValue={seriesToEdit.month} />
-        </LabelStyled>
-        <LabelStyled>
-          Poster
+          Bild
           <InputStyled type="file" name="image" />
         </LabelStyled>
+        <LabelStyled>
+          Text
+          <TextareaStyled name="text" defaultValue={newsToEdit.text} />
+        </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled type="button" onClick={() => history.push('/posters/' + seriesToEdit.year)}>
+        <ButtonStyled type="button" onClick={() => history.push('/')}>
           Abbrechen
         </ButtonStyled>
         <ButtonStyled>Senden</ButtonStyled>
       </FormStyled>
-    </EditSeriesPageStyled>
+    </EditNewsPageStyled>
   );
 
   function handleSubmit(event) {
@@ -71,10 +70,10 @@ export default function EditSeriesPage({ series, setHasBeenEdited }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
-    patchSeries(seriesToEdit._id, formData, jwt)
-      .then((res) => {
+    patchNews(newsToEdit._id, formData, jwt)
+      .then(() => {
         setHasBeenEdited(true);
-        history.push('/posters');
+        history.push('/');
       })
       .catch((err) => {
         console.error(err);
@@ -88,7 +87,7 @@ export default function EditSeriesPage({ series, setHasBeenEdited }) {
   }
 }
 
-const EditSeriesPageStyled = styled.div`
+const EditNewsPageStyled = styled.div`
   overflow: auto;
   max-width: 600px;
   margin: 20px auto;
@@ -112,6 +111,14 @@ const LabelStyled = styled.label`
 `;
 
 const InputStyled = styled.input`
+  padding: 5px;
+`;
+
+const TextareaStyled = styled.textarea`
+  display: block;
+  overflow: auto;
+  resize: none;
+  min-height: 150px;
   padding: 5px;
 `;
 

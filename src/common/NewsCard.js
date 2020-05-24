@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/macro';
 import Linkify from 'react-linkify';
+import UserContext from '../userContext';
+import { Link } from 'react-router-dom';
 
 export default function NewsCard({ news }) {
+  const { user } = useContext(UserContext);
+  const loggedIn = Object.keys(user).length !== 0;
+
   return (
     <NewsCardStyled>
       <NewsImageStyled src={process.env.PUBLIC_URL + news.imageUrl} />
@@ -27,6 +32,7 @@ export default function NewsCard({ news }) {
           {news.text}
         </Linkify>
       </NewsTextStyled>
+      {loggedIn && <EditLinkStyled to={'/intern/editNews/' + news._id}>Bearbeiten</EditLinkStyled>}
     </NewsCardStyled>
   );
 }
@@ -64,4 +70,11 @@ const NewsTextStyled = styled.p`
   padding: 20px;
   background-color: white;
   white-space: pre-line;
+`;
+
+const EditLinkStyled = styled(Link)`
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  text-align: right;
 `;
