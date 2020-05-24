@@ -1,4 +1,7 @@
 const multer = require('multer');
+const {
+  replaceUmlautsAndSpecialCharacters,
+} = require('../utils/stringMethods');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -7,7 +10,7 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     cb(
       null,
-      req.body.title.toLowerCase().replace(/[^a-z^A-Z^0-9]+/g, '_') +
+      replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase()) +
         '_' +
         req.body.day +
         '.' +

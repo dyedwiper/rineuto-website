@@ -56,6 +56,16 @@ export function getNews() {
   return fetch('api/news').then(handleError);
 }
 
+export function postNews(data, token) {
+  return fetch('/api/news', {
+    method: 'POST',
+    body: data,
+    headers: {
+      'auth-token': token,
+    },
+  }).then(handleError);
+}
+
 export function postLoginUser(data) {
   return fetch('/api/users/login', {
     method: 'POST',

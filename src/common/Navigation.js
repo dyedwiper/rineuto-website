@@ -34,6 +34,12 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
         <>
           <HorizontalLineStyled />
           <NavLinkStyled
+            to="/intern/addNews"
+            onClick={() => setIsNavOpen(false)}
+          >
+            Neue News
+          </NavLinkStyled>
+          <NavLinkStyled
             to="/intern/addSeries"
             onClick={() => setIsNavOpen(false)}
           >
@@ -50,6 +56,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
           </NavLinkStyled>
         </>
       )}
+      <Cushion />
       <PerlLinkStyled target="_blank" href="https://youtu.be/hKBfQdKvyXc">
         <RedPerlStyled src={redPerlImage} />
       </PerlLinkStyled>
@@ -71,6 +78,7 @@ const NavigationStyled = styled.nav`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 20px;
+  overflow: auto;
   width: 100%;
   height: 100%;
   padding: 20px;
@@ -131,3 +139,7 @@ const PerlLinkStyled = styled.a`
 `;
 
 const RedPerlStyled = styled.img``;
+
+const Cushion = styled.div`
+  height: 30px;
+`;

@@ -17,6 +17,7 @@ import ScreeningPage from '../pages/ScreeningPage';
 import { getScreenings, getSeries } from '../utils/services';
 import NotFoundPage from './NotFoundPage';
 import PrivateRoute from './PrivateRoute';
+import AddNewsPage from '../pages/intern/AddNewsPage';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
@@ -102,6 +103,13 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         <Route exact path="/intern/login">
           <LoginPage />
         </Route>
+        <PrivateRoute
+          exact
+          path="/intern/addNews"
+          isLoadingUser={isLoadingUser}
+        >
+          <AddNewsPage />
+        </PrivateRoute>
         <PrivateRoute
           path="/intern/editScreening"
           isLoadingUser={isLoadingUser}

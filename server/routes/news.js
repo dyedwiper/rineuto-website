@@ -2,6 +2,7 @@ const router = require('express').Router();
 const News = require('../models/News');
 const authenticate = require('../middleware/authenticate');
 const { validateNews } = require('../middleware/validation');
+const { uploadNewsImage } = require('../middleware/uploadNewsImage');
 
 router.get('/', (req, res) => {
   News.find()
@@ -9,9 +10,18 @@ router.get('/', (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.post('/', authenticate, validateNews, (req, res) => {
+router.post('/', authenticate, uploadNewsImage, validateNews, (req, res) => {
   const date = Date.now();
-  const newNews = new News({ date, ...req.body });
+  let newNews;
+  if (req.file) {
+    newNews = new News({
+      date,
+      ...req.body,
+      imageUrl: req.file.path.slice(req.file.path.indexOf('/news')),
+    });
+  } else {
+    newNews = new News({ date, ...req.body });
+  }
   newNews
     .save()
     .then((newNews) => res.json(newNews))

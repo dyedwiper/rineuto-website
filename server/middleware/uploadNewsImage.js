@@ -5,13 +5,12 @@ const {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'server/public/posters/' + req.body.year);
+    cb(null, 'server/public/news');
   },
   filename: (req, file, cb) => {
     cb(
       null,
-      'rineuto_poster_' +
-        req.body.year +
+      req.body.date +
         '_' +
         replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase()) +
         '.' +
@@ -24,8 +23,8 @@ function fileFilter(req, file, cb) {
   if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
     return cb(new Error('mimetype not allowed'), false);
   }
-  if (!req.body.year) {
-    return cb(new Error('year must not be empty'), false);
+  if (!req.body.date) {
+    return cb(new Error('date must not be empty'), false);
   }
   if (!req.body.title) {
     return cb(new Error('title must not be empty'), false);
@@ -33,7 +32,7 @@ function fileFilter(req, file, cb) {
   cb(null, true);
 }
 
-function uploadPoster(req, res, next) {
+function uploadNewsImage(req, res, next) {
   const upload = multer({
     limits: { fileSize: 1024 * 1024 * 3 },
     fileFilter: fileFilter,
@@ -48,4 +47,4 @@ function uploadPoster(req, res, next) {
   });
 }
 
-module.exports.uploadPoster = uploadPoster;
+module.exports.uploadNewsImage = uploadNewsImage;
