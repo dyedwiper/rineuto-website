@@ -4,7 +4,7 @@ import { postScreening } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import { useHistory } from 'react-router-dom';
 
-export default function AddScreeningPage({ series }) {
+export default function AddScreeningPage({ series, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -86,6 +86,7 @@ export default function AddScreeningPage({ series }) {
     const jwt = getFromStorage('rineuto-token');
     postScreening(formData, jwt)
       .then((res) => {
+        setEditedObject({ added: 'screening' });
         history.push('/program');
       })
       .catch((err) => {

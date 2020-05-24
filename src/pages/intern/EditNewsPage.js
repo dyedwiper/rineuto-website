@@ -5,7 +5,7 @@ import { patchNews, deleteNews } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
-export default function EditNewsPage({ news, setNews, setEditedObject }) {
+export default function EditNewsPage({ news, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [newsToEdit, setNewsToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -112,9 +112,7 @@ export default function EditNewsPage({ news, setNews, setEditedObject }) {
     const jwt = getFromStorage('rineuto-token');
     deleteNews(newsToEdit._id, jwt)
       .then(() => {
-        news.splice(news.indexOf(newsToEdit), 1);
         setEditedObject({ deleted: 'news' });
-        setNews(news);
         history.push('/');
       })
       .catch((err) => console.error(err));

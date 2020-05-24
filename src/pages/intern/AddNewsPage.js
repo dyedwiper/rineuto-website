@@ -4,7 +4,7 @@ import { getFromStorage } from '../../utils/storage';
 import { useHistory } from 'react-router-dom';
 import { postNews } from '../../utils/services';
 
-export default function AddNewsPage() {
+export default function AddNewsPage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -49,6 +49,7 @@ export default function AddNewsPage() {
     const jwt = getFromStorage('rineuto-token');
     postNews(formData, jwt)
       .then(() => {
+        setEditedObject({ added: 'news' });
         history.push('/');
       })
       .catch((err) => {

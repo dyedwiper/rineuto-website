@@ -60,7 +60,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         setIsLoadingScreenings(false);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [editedObject]);
 
   useEffect(() => {
     getSeries()
@@ -69,7 +69,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         setIsLoadingSeries(false);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [editedObject]);
 
   useEffect(() => {
     getNews()
@@ -83,7 +83,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         setIsLoadingNews(false);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [editedObject]);
 
   if (isLoadingScreenings || isLoadingSeries || isLoadingNews) {
     return <LoadingPage />;
@@ -117,22 +117,22 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <LoginPage />
         </Route>
         <PrivateRoute path="/intern/editNews" isLoadingUser={isLoadingUser}>
-          <EditNewsPage news={news} setEditedObject={setEditedObject} setNews={setNews} />
+          <EditNewsPage news={news} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addNews" isLoadingUser={isLoadingUser}>
-          <AddNewsPage />
+          <AddNewsPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
           <EditScreeningPage screenings={screenings} series={series} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
-          <AddScreeningPage series={series} />
+          <AddScreeningPage series={series} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editSeries" isLoadingUser={isLoadingUser}>
           <EditSeriesPage series={series} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addSeries" isLoadingUser={isLoadingUser}>
-          <AddSeriesPage />
+          <AddSeriesPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <Route path="/logout">
           <Redirect exact to="/" />

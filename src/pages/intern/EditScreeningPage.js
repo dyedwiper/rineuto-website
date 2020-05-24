@@ -92,7 +92,9 @@ export default function EditScreeningPage({ screenings, series, setEditedObject 
             {series
               .sort((a, b) => b.year - a.year || b.month - a.month)
               .map((series) => (
-                <option value={series._id}>{series.title}</option>
+                <option key={series._id} value={series._id}>
+                  {series.title}
+                </option>
               ))}
           </SelectStyled>
         </LabelStyled>

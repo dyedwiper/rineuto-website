@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { getFromStorage } from '../../utils/storage';
 import { postSeries } from '../../utils/services';
 
-export default function AddSeriesPage() {
+export default function AddSeriesPage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -49,6 +49,7 @@ export default function AddSeriesPage() {
     const jwt = getFromStorage('rineuto-token');
     postSeries(formData, jwt)
       .then((res) => {
+        setEditedObject({ added: 'series' });
         history.push('/posters');
       })
       .catch((err) => {
