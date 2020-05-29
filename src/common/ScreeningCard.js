@@ -11,9 +11,7 @@ export default function ScreeningCard({ screening }) {
         <FilmStillStyled src={process.env.PUBLIC_URL + screening.imageUrl} />
         <ScreeningTitleStyled>{screening.title}</ScreeningTitleStyled>
       </LinkStyled>
-      <ScreeningSeriesStyled>
-        Filmreihe: {screening.series ? screening.series.title : ''}
-      </ScreeningSeriesStyled>
+      <ScreeningSerialStyled>Filmreihe: {screening.serial ? screening.serial.title : ''}</ScreeningSerialStyled>
     </ScreeningCardStyled>
   );
 }
@@ -43,7 +41,7 @@ const ScreeningTitleStyled = styled.h2`
   color: black;
 `;
 
-const ScreeningSeriesStyled = styled.div`
+const ScreeningSerialStyled = styled.div`
   padding: 10px;
   background-color: black;
   color: white;

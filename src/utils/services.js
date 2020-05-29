@@ -37,12 +37,12 @@ export function deleteScreening(id, token) {
   }).then(handleError);
 }
 
-export function getSeries() {
-  return fetch('/api/series').then(handleError);
+export function getSerials() {
+  return fetch('/api/serials').then(handleError);
 }
 
-export function postSeries(data, token) {
-  return fetch('/api/series', {
+export function postSerial(data, token) {
+  return fetch('/api/serials', {
     method: 'POST',
     body: data,
     headers: {
@@ -51,8 +51,8 @@ export function postSeries(data, token) {
   }).then(handleError);
 }
 
-export function patchSeries(id, data, token) {
-  return fetch('/api/series/' + id, {
+export function patchSerial(id, data, token) {
+  return fetch('/api/serials/' + id, {
     method: 'PATCH',
     body: data,
     headers: {
@@ -61,8 +61,8 @@ export function patchSeries(id, data, token) {
   }).then(handleError);
 }
 
-export function deleteSeries(id, token) {
-  return fetch('/api/series/' + id, {
+export function deleteSerial(id, token) {
+  return fetch('/api/serials/' + id, {
     method: 'DELETE',
     headers: {
       'auth-token': token,

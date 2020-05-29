@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { patchSeries, deleteSeries } from '../../utils/services';
+import DeletePrompt from '../../common/DeletePrompt';
+import { deleteSerial, patchSerial } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
-import DeletePrompt from '../../common/DeletePrompt';
 
-export default function EditSeriesPage({ series, setEditedObject }) {
+export default function EditSerialPage({ serials, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
-  const [seriesToEdit, setSeriesToEdit] = useState({});
+  const [serialToEdit, setSerialToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
@@ -16,20 +16,20 @@ export default function EditSeriesPage({ series, setEditedObject }) {
   let history = useHistory();
 
   useEffect(() => {
-    const seriesId = window.location.pathname.slice(-24);
-    const selectedSeries = series.find((screening) => screening._id === seriesId);
-    if (!selectedSeries) {
+    const serialId = window.location.pathname.slice(-24);
+    const selectedSerial = serials.find((serial) => serial._id === serialId);
+    if (!selectedSerial) {
       setIsInvalidId(true);
     }
-    setSeriesToEdit(selectedSeries);
+    setSerialToEdit(selectedSerial);
     setIsLoading(false);
-  }, [series]);
+  }, [serials]);
 
   useEffect(() => {
     if (!isInvalidId) {
-      document.title = seriesToEdit.title + ' - edit | Rineuto Lichtspiele';
+      document.title = serialToEdit.title + ' - edit | Rineuto Lichtspiele';
     }
-  }, [seriesToEdit, isInvalidId]);
+  }, [serialToEdit, isInvalidId]);
 
   if (isLoading) {
     return <LoadingPage />;
@@ -40,27 +40,27 @@ export default function EditSeriesPage({ series, setEditedObject }) {
   }
 
   return (
-    <EditSeriesPageStyled>
+    <EditSerialPageStyled>
       <HeadlineStyled>Filmreihe bearbeiten</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Reihentitel
-          <InputStyled name="title" defaultValue={seriesToEdit.title} />
+          <InputStyled name="title" defaultValue={serialToEdit.title} />
         </LabelStyled>
         <LabelStyled>
           Jahr der ersten Vorstellung (vierstellig)
-          <InputStyled name="year" defaultValue={seriesToEdit.year} />
+          <InputStyled name="year" defaultValue={serialToEdit.year} />
         </LabelStyled>
         <LabelStyled>
           Monat der ersten Vorstellung
-          <InputStyled name="month" defaultValue={seriesToEdit.month} />
+          <InputStyled name="month" defaultValue={serialToEdit.month} />
         </LabelStyled>
         <LabelStyled>
           Poster
           <InputStyled type="file" name="image" />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled type="button" onClick={() => history.push('/posters/' + seriesToEdit.year)}>
+        <ButtonStyled type="button" onClick={() => history.push('/posters/' + serialToEdit.year)}>
           Abbrechen
         </ButtonStyled>
         <ButtonStyled>Änderungen speichern</ButtonStyled>
@@ -75,7 +75,7 @@ export default function EditSeriesPage({ series, setEditedObject }) {
           />
         )}
       </FormStyled>
-    </EditSeriesPageStyled>
+    </EditSerialPageStyled>
   );
 
   function handleSubmit(event) {
@@ -83,10 +83,10 @@ export default function EditSeriesPage({ series, setEditedObject }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
-    patchSeries(seriesToEdit._id, formData, jwt)
+    patchSerial(serialToEdit._id, formData, jwt)
       .then((res) => {
-        setEditedObject(seriesToEdit);
-        history.push('/posters/' + seriesToEdit.year);
+        setEditedObject(serialToEdit);
+        history.push('/posters/' + serialToEdit.year);
       })
       .catch((err) => {
         console.error(err);
@@ -102,16 +102,16 @@ export default function EditSeriesPage({ series, setEditedObject }) {
   function handleDelete() {
     setShowDeletePrompt(false);
     const jwt = getFromStorage('rineuto-token');
-    deleteSeries(seriesToEdit._id, jwt)
+    deleteSerial(serialToEdit._id, jwt)
       .then(() => {
-        setEditedObject({ deleted: 'series' });
+        setEditedObject({ deleted: 'serial' });
         history.push('/posters');
       })
       .catch((err) => console.error(err));
   }
 }
 
-const EditSeriesPageStyled = styled.div`
+const EditSerialPageStyled = styled.div`
   overflow: auto;
   max-width: 600px;
   margin: 20px auto;

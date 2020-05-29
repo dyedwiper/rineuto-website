@@ -33,22 +33,13 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
       {loggedIn && (
         <>
           <HorizontalLineStyled />
-          <NavLinkStyled
-            to="/intern/addNews"
-            onClick={() => setIsNavOpen(false)}
-          >
+          <NavLinkStyled to="/intern/addNews" onClick={() => setIsNavOpen(false)}>
             Neue News
           </NavLinkStyled>
-          <NavLinkStyled
-            to="/intern/addSeries"
-            onClick={() => setIsNavOpen(false)}
-          >
+          <NavLinkStyled to="/intern/addSerial" onClick={() => setIsNavOpen(false)}>
             Neue Reihe
           </NavLinkStyled>
-          <NavLinkStyled
-            to="/intern/addScreening"
-            onClick={() => setIsNavOpen(false)}
-          >
+          <NavLinkStyled to="/intern/addScreening" onClick={() => setIsNavOpen(false)}>
             Neuer Film
           </NavLinkStyled>
           <NavLinkStyled exact to="/logout" onClick={handleLogout}>
@@ -84,8 +75,7 @@ const NavigationStyled = styled.nav`
   padding: 20px;
   background-image: url(${greenPerlImage});
   filter: ${(props) => (props.isNavOpen ? 'none' : 'blur(4px)')};
-  transform: ${(props) =>
-    props.isNavOpen ? 'translateX(0)' : 'translateX(101%)'};
+  transform: ${(props) => (props.isNavOpen ? 'translateX(0)' : 'translateX(101%)')};
   transition: all 2.3s linear;
 
   @media (min-width: 900px) {

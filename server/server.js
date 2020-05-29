@@ -15,7 +15,7 @@ app.set('json spaces', 2);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/screenings', require('./routes/screenings'));
-app.use('/api/series', require('./routes/series'));
+app.use('/api/serials', require('./routes/serials'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/news', require('./routes/news'));
 

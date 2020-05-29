@@ -5,27 +5,27 @@ import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import HomePage from '../pages/HomePage';
 import ImprintPage from '../pages/ImprintPage';
+import AddNewsPage from '../pages/intern/AddNewsPage';
 import AddScreeningPage from '../pages/intern/AddScreeningPage';
-import AddSeriesPage from '../pages/intern/AddSeriesPage';
+import AddSerialPage from '../pages/intern/AddSerialPage';
+import EditNewsPage from '../pages/intern/EditNewsPage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
-import EditSeriesPage from '../pages/intern/EditSeriesPage';
+import EditSerialPage from '../pages/intern/EditSerialPage';
 import LoadingPage from '../pages/LoadingPage';
 import LoginPage from '../pages/LoginPage';
+import NotFoundPage from '../pages/NotFoundPage';
 import PosterPage from '../pages/PosterPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
-import { getScreenings, getSeries, getNews } from '../utils/services';
-import NotFoundPage from '../pages/NotFoundPage';
+import { getNews, getScreenings, getSerials } from '../utils/services';
 import PrivateRoute from './PrivateRoute';
-import AddNewsPage from '../pages/intern/AddNewsPage';
-import EditNewsPage from '../pages/intern/EditNewsPage';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
-  const [series, setSeries] = useState([]);
+  const [serials, setSerials] = useState([]);
   const [news, setNews] = useState([]);
   const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
-  const [isLoadingSeries, setIsLoadingSeries] = useState(true);
+  const [isLoadingSerials, setIsLoadingSerials] = useState(true);
   const [isLoadingNews, setIsLoadingNews] = useState(true);
   const [editedObject, setEditedObject] = useState({});
 
@@ -63,10 +63,10 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   }, [editedObject]);
 
   useEffect(() => {
-    getSeries()
-      .then((series) => {
-        setSeries(series);
-        setIsLoadingSeries(false);
+    getSerials()
+      .then((serials) => {
+        setSerials(serials);
+        setIsLoadingSerials(false);
       })
       .catch((err) => console.error(err));
   }, [editedObject]);
@@ -85,7 +85,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
       .catch((err) => console.error(err));
   }, [editedObject]);
 
-  if (isLoadingScreenings || isLoadingSeries || isLoadingNews) {
+  if (isLoadingScreenings || isLoadingSerials || isLoadingNews) {
     return <LoadingPage />;
   }
 
@@ -105,7 +105,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <ArchivePage screenings={screenings} />
         </Route>
         <Route path="/posters">
-          <PosterPage series={series} editedObject={editedObject} />
+          <PosterPage serials={serials} editedObject={editedObject} />
         </Route>
         <Route path="/about">
           <AboutPage />
@@ -123,16 +123,16 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <AddNewsPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
-          <EditScreeningPage screenings={screenings} series={series} setEditedObject={setEditedObject} />
+          <EditScreeningPage screenings={screenings} serials={serials} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
-          <AddScreeningPage series={series} setEditedObject={setEditedObject} />
+          <AddScreeningPage serials={serials} setEditedObject={setEditedObject} />
         </PrivateRoute>
-        <PrivateRoute path="/intern/editSeries" isLoadingUser={isLoadingUser}>
-          <EditSeriesPage series={series} setEditedObject={setEditedObject} />
+        <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
+          <EditSerialPage serials={serials} setEditedObject={setEditedObject} />
         </PrivateRoute>
-        <PrivateRoute exact path="/intern/addSeries" isLoadingUser={isLoadingUser}>
-          <AddSeriesPage setEditedObject={setEditedObject} />
+        <PrivateRoute exact path="/intern/addSerial" isLoadingUser={isLoadingUser}>
+          <AddSerialPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <Route path="/logout">
           <Redirect exact to="/" />

@@ -1,49 +1,49 @@
 const router = require('express').Router();
-const Series = require('../models/Series');
+const Serial = require('../models/Serial');
 const authenticate = require('../middleware/authenticate');
-const { validateSeries } = require('../middleware/validation');
+const { validateSerial } = require('../middleware/validation');
 const { uploadPoster } = require('../middleware/uploadPoster');
 
 router.get('/', (req, res) => {
-  Series.find()
-    .then((series) => res.json(series))
+  Serial.find()
+    .then((serials) => res.json(serials))
     .catch((err) => res.status(400).json(err));
 });
 
-router.post('/', authenticate, uploadPoster, validateSeries, (req, res) => {
-  let newSeries;
+router.post('/', authenticate, uploadPoster, validateSerial, (req, res) => {
+  let newSerial;
   if (req.file) {
-    newSeries = new Series({
+    newSerial = new Serial({
       ...req.body,
       imageUrl: req.file.path.slice(req.file.path.indexOf('/posters')),
     });
   } else {
-    newSeries = new Series(req.body);
+    newSerial = new Serial(req.body);
   }
-  newSeries
+  newSerial
     .save()
-    .then((series) => res.json(series))
+    .then((serial) => res.json(serial))
     .catch((err) => res.status(400).json(err));
 });
 
-router.patch('/:id', authenticate, uploadPoster, validateSeries, (req, res) => {
-  let seriesToUpdate;
+router.patch('/:id', authenticate, uploadPoster, validateSerial, (req, res) => {
+  let serialToUpdate;
   if (req.file) {
-    seriesToUpdate = {
+    serialToUpdate = {
       ...req.body,
       imageUrl: req.file.path.slice(req.file.path.indexOf('/posters')),
     };
   } else {
-    seriesToUpdate = req.body;
+    serialToUpdate = req.body;
   }
-  Series.findByIdAndUpdate(req.params.id, seriesToUpdate)
+  Serial.findByIdAndUpdate(req.params.id, serialToUpdate)
     .then(() => res.json('updated successfully'))
     .catch((err) => res.status(400).json(err));
 });
 
 router.delete('/:id', authenticate, (req, res) => {
-  Series.findByIdAndDelete(req.params.id)
-    .then((deletedSeries) => res.json('Deleted ' + deletedSeries.title))
+  Serial.findByIdAndDelete(req.params.id)
+    .then((deletedSerial) => res.json('Deleted ' + deletedSerial.title))
     .catch((err) => res.status(400).json(err));
 });
 

@@ -4,7 +4,7 @@ import { postScreening } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import { useHistory } from 'react-router-dom';
 
-export default function AddScreeningPage({ series, setEditedObject }) {
+export default function AddScreeningPage({ serials, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -59,13 +59,13 @@ export default function AddScreeningPage({ series, setEditedObject }) {
         </LabelStyled>
         <LabelStyled>
           Filmreihe
-          <SelectStyled name="series">
+          <SelectStyled name="serial">
             <option value="000000000000000000000000">-- Film ohne Reihe --</option>
-            {series
+            {serials
               .sort((a, b) => b.year - a.year || b.month - a.month)
-              .map((series) => (
-                <option key={series._id} value={series._id}>
-                  {series.title}
+              .map((serial) => (
+                <option key={serial._id} value={serial._id}>
+                  {serial.title}
                 </option>
               ))}
           </SelectStyled>

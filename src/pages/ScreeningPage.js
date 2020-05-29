@@ -57,9 +57,9 @@ export default function ScreeningPage({ screenings, editedObject }) {
       </FilmInfoStyled>
       <FilmDirectorStyled>{'Regie: ' + selectedScreening.director}</FilmDirectorStyled>
       <FilmSynopsisStyled>{selectedScreening.synopsis}</FilmSynopsisStyled>
-      <ScreeningSeriesStyled>
-        Filmreihe: {selectedScreening.series ? selectedScreening.series.title : ''}
-      </ScreeningSeriesStyled>
+      <ScreeningSerialStyled>
+        Filmreihe: {selectedScreening.serial ? selectedScreening.serial.title : ''}
+      </ScreeningSerialStyled>
       {loggedIn && <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>Bearbeiten</EditLinkStyled>}
     </ScreeningPageStyled>
   );
@@ -125,7 +125,7 @@ const FilmSynopsisStyled = styled.p`
   white-space: pre-line;
 `;
 
-const ScreeningSeriesStyled = styled.div`
+const ScreeningSerialStyled = styled.div`
   padding: 10px;
   background-color: black;
   color: white;

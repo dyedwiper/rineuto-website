@@ -4,23 +4,23 @@ import whitePerlImage from '../assets/perls/whitePerl.png';
 import { Link } from 'react-router-dom';
 import UserContext from '../userContext';
 
-export default function PostersList({ series, selectedYear, editedObject }) {
+export default function PostersList({ serials, selectedYear, editedObject }) {
   const { user } = useContext(UserContext);
   const loggedIn = Object.keys(user).length !== 0;
 
   return (
     <PosterListStyled>
-      {series
+      {serials
         .sort((a, b) => a.month - b.month)
-        .map((series) => (
-          <PosterItemStyled key={series._id}>
-            <a href={process.env.PUBLIC_URL + series.imageUrl}>
-              <PosterStyled src={process.env.PUBLIC_URL + series.imageUrl} />
+        .map((serial) => (
+          <PosterItemStyled key={serial._id}>
+            <a href={process.env.PUBLIC_URL + serial.imageUrl}>
+              <PosterStyled src={process.env.PUBLIC_URL + serial.imageUrl} />
             </a>
             {loggedIn && (
               <EditContainerStyled>
-                {series._id === editedObject._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
-                <EditLinkStyled to={'/intern/editSeries/' + series._id}>Bearbeiten</EditLinkStyled>
+                {serial._id === editedObject._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
+                <EditLinkStyled to={'/intern/editSerial/' + serial._id}>Bearbeiten</EditLinkStyled>
               </EditContainerStyled>
             )}
           </PosterItemStyled>

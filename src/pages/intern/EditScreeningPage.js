@@ -6,7 +6,7 @@ import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 import DeletePrompt from '../../common/DeletePrompt';
 
-export default function EditScreeningPage({ screenings, series, setEditedObject }) {
+export default function EditScreeningPage({ screenings, serials, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [screeningToEdit, setScreeningToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -89,13 +89,13 @@ export default function EditScreeningPage({ screenings, series, setEditedObject 
         </LabelStyled>
         <LabelStyled>
           Filmreihe
-          <SelectStyled name="series">
+          <SelectStyled name="serial">
             <option value="000000000000000000000000">-- Film ohne Reihe --</option>
-            {series
+            {serials
               .sort((a, b) => b.year - a.year || b.month - a.month)
-              .map((series) => (
-                <option key={series._id} value={series._id}>
-                  {series.title}
+              .map((serial) => (
+                <option key={serial._id} value={serial._id}>
+                  {serial.title}
                 </option>
               ))}
           </SelectStyled>

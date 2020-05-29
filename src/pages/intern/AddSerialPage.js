@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
 import { getFromStorage } from '../../utils/storage';
-import { postSeries } from '../../utils/services';
+import { postSerial } from '../../utils/services';
 
-export default function AddSeriesPage({ setEditedObject }) {
+export default function AddSerialPage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -14,7 +14,7 @@ export default function AddSeriesPage({ setEditedObject }) {
   }, []);
 
   return (
-    <AddSeriesPageStyled>
+    <AddSerialPageStyled>
       <HeadlineStyled>Neue Filmreihe anlegen</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
@@ -39,7 +39,7 @@ export default function AddSeriesPage({ setEditedObject }) {
         </ButtonStyled>
         <ButtonStyled>Filmreihe anlegen</ButtonStyled>
       </FormStyled>
-    </AddSeriesPageStyled>
+    </AddSerialPageStyled>
   );
 
   function handleSubmit(event) {
@@ -47,9 +47,9 @@ export default function AddSeriesPage({ setEditedObject }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
-    postSeries(formData, jwt)
+    postSerial(formData, jwt)
       .then((res) => {
-        setEditedObject({ added: 'series' });
+        setEditedObject({ added: 'serial' });
         history.push('/posters');
       })
       .catch((err) => {
@@ -64,7 +64,7 @@ export default function AddSeriesPage({ setEditedObject }) {
   }
 }
 
-const AddSeriesPageStyled = styled.div`
+const AddSerialPageStyled = styled.div`
   overflow: auto;
   max-width: 600px;
   margin: 20px auto;
