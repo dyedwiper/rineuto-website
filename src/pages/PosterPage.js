@@ -38,6 +38,7 @@ export default function PosterPage({ series, editedObject }) {
         setSelectedYear={setSelectedYear}
         pagePath={history.location.pathname.split('/', 2).join('/') + '/'}
       />
+      {editedObject.deleted === 'series' && <EditNoteStyled>Filmreihe gelöscht</EditNoteStyled>}
       <PostersList
         // eslint-disable-next-line eqeqeq
         series={series.filter((series) => series.year == selectedYear)}
@@ -48,3 +49,11 @@ export default function PosterPage({ series, editedObject }) {
 }
 
 const PosterPageStyled = styled.div``;
+
+const EditNoteStyled = styled.div`
+  margin: 20px;
+  color: green;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+`;

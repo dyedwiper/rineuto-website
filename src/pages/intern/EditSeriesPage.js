@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { patchSeries } from '../../utils/services';
+import { patchSeries, deleteSeries } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
+import DeletePrompt from '../../common/DeletePrompt';
 
 export default function EditSeriesPage({ series, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [seriesToEdit, setSeriesToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
+  const [showDeletePrompt, setShowDeletePrompt] = useState(false);
 
   let history = useHistory();
 
@@ -62,6 +64,16 @@ export default function EditSeriesPage({ series, setEditedObject }) {
           Abbrechen
         </ButtonStyled>
         <ButtonStyled>Änderungen speichern</ButtonStyled>
+        <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
+          Diese Filmreihe löschen
+        </ButtonStyled>
+        {showDeletePrompt && (
+          <DeletePrompt
+            handleDelete={handleDelete}
+            setShowDeletePrompt={setShowDeletePrompt}
+            setEditedObject={setEditedObject}
+          />
+        )}
       </FormStyled>
     </EditSeriesPageStyled>
   );
@@ -85,6 +97,17 @@ export default function EditSeriesPage({ series, setEditedObject }) {
           setValidationError(err.multerError);
         }
       });
+  }
+
+  function handleDelete() {
+    setShowDeletePrompt(false);
+    const jwt = getFromStorage('rineuto-token');
+    deleteSeries(seriesToEdit._id, jwt)
+      .then(() => {
+        setEditedObject({ deleted: 'series' });
+        history.push('/posters');
+      })
+      .catch((err) => console.error(err));
   }
 }
 

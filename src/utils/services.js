@@ -61,6 +61,15 @@ export function patchSeries(id, data, token) {
   }).then(handleError);
 }
 
+export function deleteSeries(id, token) {
+  return fetch('/api/series/' + id, {
+    method: 'DELETE',
+    headers: {
+      'auth-token': token,
+    },
+  }).then(handleError);
+}
+
 export function getNews() {
   return fetch('/api/news').then(handleError);
 }

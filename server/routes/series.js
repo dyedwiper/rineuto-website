@@ -41,4 +41,10 @@ router.patch('/:id', authenticate, uploadPoster, validateSeries, (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
+router.delete('/:id', authenticate, (req, res) => {
+  Series.findByIdAndDelete(req.params.id)
+    .then((deletedSeries) => res.json('Deleted ' + deletedSeries.title))
+    .catch((err) => res.status(400).json(err));
+});
+
 module.exports = router;
