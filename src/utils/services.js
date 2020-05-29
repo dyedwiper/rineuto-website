@@ -29,7 +29,7 @@ export function patchScreening(id, data, token) {
 }
 
 export function getSeries() {
-  return fetch('/api/series/').then(handleError);
+  return fetch('/api/series').then(handleError);
 }
 
 export function postSeries(data, token) {

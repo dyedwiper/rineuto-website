@@ -15,7 +15,7 @@ import PosterPage from '../pages/PosterPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
 import { getScreenings, getSeries, getNews } from '../utils/services';
-import NotFoundPage from './NotFoundPage';
+import NotFoundPage from '../pages/NotFoundPage';
 import PrivateRoute from './PrivateRoute';
 import AddNewsPage from '../pages/intern/AddNewsPage';
 import EditNewsPage from '../pages/intern/EditNewsPage';
