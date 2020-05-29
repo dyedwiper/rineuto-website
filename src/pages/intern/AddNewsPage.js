@@ -34,10 +34,10 @@ export default function AddNewsPage({ setEditedObject }) {
           <TextareaStyled name="text" />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
+        <ButtonStyled>News anlegen</ButtonStyled>
         <ButtonStyled type="button" onClick={() => history.push('/')}>
           Abbrechen
         </ButtonStyled>
-        <ButtonStyled>News anlegen</ButtonStyled>
       </FormStyled>
     </AddNewsPageStyled>
   );

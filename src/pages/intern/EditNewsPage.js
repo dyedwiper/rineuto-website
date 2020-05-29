@@ -59,9 +59,6 @@ export default function EditNewsPage({ news, setEditedObject }) {
           <TextareaStyled name="text" defaultValue={newsToEdit.text} />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled type="button" onClick={() => history.push('/')}>
-          Abbrechen
-        </ButtonStyled>
         <ButtonStyled>Änderungen speichern</ButtonStyled>
         <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
           Diese News löschen
@@ -73,6 +70,9 @@ export default function EditNewsPage({ news, setEditedObject }) {
             setEditedObject={setEditedObject}
           />
         )}
+        <ButtonStyled type="button" onClick={() => history.push('/')}>
+          Abbrechen
+        </ButtonStyled>
       </FormStyled>
     </EditNewsPageStyled>
   );

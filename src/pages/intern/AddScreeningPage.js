@@ -71,10 +71,10 @@ export default function AddScreeningPage({ serials, setEditedObject }) {
           </SelectStyled>
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
+        <ButtonStyled>Vorführung anlegen</ButtonStyled>
         <ButtonStyled type="button" onClick={() => history.push('/')}>
           Abbrechen
         </ButtonStyled>
-        <ButtonStyled>Vorführung anlegen</ButtonStyled>
       </FormStyled>
     </AddScreeningPageStyled>
   );

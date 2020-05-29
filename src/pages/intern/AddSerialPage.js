@@ -34,10 +34,10 @@ export default function AddSerialPage({ setEditedObject }) {
           <InputStyled type="file" name="image" />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
+        <ButtonStyled>Filmreihe anlegen</ButtonStyled>
         <ButtonStyled type="button" onClick={() => history.push('/')}>
           Abbrechen
         </ButtonStyled>
-        <ButtonStyled>Filmreihe anlegen</ButtonStyled>
       </FormStyled>
     </AddSerialPageStyled>
   );

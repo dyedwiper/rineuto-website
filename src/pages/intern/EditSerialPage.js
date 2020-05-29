@@ -60,9 +60,6 @@ export default function EditSerialPage({ serials, setEditedObject }) {
           <InputStyled type="file" name="image" />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled type="button" onClick={() => history.push('/posters/' + serialToEdit.year)}>
-          Abbrechen
-        </ButtonStyled>
         <ButtonStyled>Änderungen speichern</ButtonStyled>
         <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
           Diese Filmreihe löschen
@@ -74,6 +71,9 @@ export default function EditSerialPage({ serials, setEditedObject }) {
             setEditedObject={setEditedObject}
           />
         )}
+        <ButtonStyled type="button" onClick={() => history.push('/posters/' + serialToEdit.year)}>
+          Abbrechen
+        </ButtonStyled>
       </FormStyled>
     </EditSerialPageStyled>
   );
