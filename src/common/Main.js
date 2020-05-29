@@ -96,7 +96,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
           <HomePage news={news} editedObject={editedObject} />
         </Route>
         <Route path="/program">
-          <ProgramPage screenings={screenings} />
+          <ProgramPage screenings={screenings} editedObject={editedObject} />
         </Route>
         <Route path="/screening">
           <ScreeningPage screenings={screenings} editedObject={editedObject} />

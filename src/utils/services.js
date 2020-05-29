@@ -28,6 +28,15 @@ export function patchScreening(id, data, token) {
   }).then(handleError);
 }
 
+export function deleteScreening(id, token) {
+  return fetch('/api/screenings/' + id, {
+    method: 'DELETE',
+    headers: {
+      'auth-token': token,
+    },
+  }).then(handleError);
+}
+
 export function getSeries() {
   return fetch('/api/series').then(handleError);
 }

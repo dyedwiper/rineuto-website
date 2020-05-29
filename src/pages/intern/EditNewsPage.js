@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import { patchNews, deleteNews } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
+import DeletePrompt from '../../common/DeletePrompt';
 
 export default function EditNewsPage({ news, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
@@ -66,21 +67,11 @@ export default function EditNewsPage({ news, setEditedObject }) {
           Diese News löschen
         </ButtonStyled>
         {showDeletePrompt && (
-          <DeletePromptStyled>
-            Wirklich?
-            <DeletePromptButtonStyled
-              type="button"
-              onClick={() => {
-                setShowDeletePrompt(false);
-                setEditedObject({});
-              }}
-            >
-              Nein
-            </DeletePromptButtonStyled>
-            <DeletePromptButtonStyled type="button" onClick={handleDelete}>
-              Ja
-            </DeletePromptButtonStyled>
-          </DeletePromptStyled>
+          <DeletePrompt
+            handleDelete={handleDelete}
+            setShowDeletePrompt={setShowDeletePrompt}
+            setEditedObject={setEditedObject}
+          />
         )}
       </FormStyled>
     </EditNewsPageStyled>
@@ -162,14 +153,4 @@ const ButtonStyled = styled.button`
 const ErrorMessageStyled = styled.span`
   color: red;
   font-size: 1.5em;
-`;
-
-const DeletePromptStyled = styled.div`
-  justify-self: center;
-`;
-
-const DeletePromptButtonStyled = styled.button`
-  width: 50px;
-  margin: 0 10px;
-  padding: 5px;
 `;

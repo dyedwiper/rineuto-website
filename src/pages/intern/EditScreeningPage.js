@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { patchScreening } from '../../utils/services';
+import { patchScreening, deleteScreening } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
+import DeletePrompt from '../../common/DeletePrompt';
 
 export default function EditScreeningPage({ screenings, series, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [screeningToEdit, setScreeningToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
+  const [showDeletePrompt, setShowDeletePrompt] = useState(false);
 
   let history = useHistory();
 
@@ -103,6 +105,16 @@ export default function EditScreeningPage({ screenings, series, setEditedObject 
           Abbrechen
         </ButtonStyled>
         <ButtonStyled>Änderungen speichern</ButtonStyled>
+        <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
+          Diese Vorfürhung löschen
+        </ButtonStyled>
+        {showDeletePrompt && (
+          <DeletePrompt
+            handleDelete={handleDelete}
+            setShowDeletePrompt={setShowDeletePrompt}
+            setEditedObject={setEditedObject}
+          />
+        )}
       </FormStyled>
     </EditScreeningPageStyled>
   );
@@ -126,6 +138,17 @@ export default function EditScreeningPage({ screenings, series, setEditedObject 
           setValidationError(err.multerError);
         }
       });
+  }
+
+  function handleDelete() {
+    setShowDeletePrompt(false);
+    const jwt = getFromStorage('rineuto-token');
+    deleteScreening(screeningToEdit._id, jwt)
+      .then(() => {
+        setEditedObject({ deleted: 'screening' });
+        history.push('/program');
+      })
+      .catch((err) => console.error(err));
   }
 }
 
