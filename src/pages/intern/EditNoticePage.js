@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { patchNews, deleteNews } from '../../utils/services';
+import DeletePrompt from '../../common/DeletePrompt';
+import { deleteNotice, patchNotice } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
-import DeletePrompt from '../../common/DeletePrompt';
 
-export default function EditNewsPage({ news, setEditedObject }) {
+export default function EditNoticePage({ notices, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
-  const [newsToEdit, setNewsToEdit] = useState({});
+  const [noticeToEdit, setNoticeToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
@@ -16,20 +16,20 @@ export default function EditNewsPage({ news, setEditedObject }) {
   let history = useHistory();
 
   useEffect(() => {
-    const newsId = window.location.pathname.slice(-24);
-    const selectedNews = news.find((news) => news._id === newsId);
-    if (!selectedNews) {
+    const noticeId = window.location.pathname.slice(-24);
+    const selectedNotice = notices.find((notice) => notice._id === noticeId);
+    if (!selectedNotice) {
       setIsInvalidId(true);
     }
-    setNewsToEdit(selectedNews);
+    setNoticeToEdit(selectedNotice);
     setIsLoading(false);
-  }, [news]);
+  }, [notices]);
 
   useEffect(() => {
     if (!isInvalidId) {
-      document.title = newsToEdit.title + ' - edit | Rineuto Lichtspiele';
+      document.title = noticeToEdit.title + ' - edit | Rineuto Lichtspiele';
     }
-  }, [newsToEdit, isInvalidId]);
+  }, [noticeToEdit, isInvalidId]);
 
   if (isLoading) {
     return <LoadingPage />;
@@ -39,16 +39,16 @@ export default function EditNewsPage({ news, setEditedObject }) {
     return <Redirect to="/404" />;
   }
   return (
-    <EditNewsPageStyled>
+    <EditNoticePageStyled>
       <HeadlineStyled>News bearbeiten</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Schlagzeile
-          <InputStyled name="title" defaultValue={newsToEdit.title} />
+          <InputStyled name="title" defaultValue={noticeToEdit.title} />
         </LabelStyled>
         <LabelStyled>
           Datum
-          <InputStyled type="date" name="date" defaultValue={newsToEdit.date.toISOString().slice(0, 10)} />
+          <InputStyled type="date" name="date" defaultValue={noticeToEdit.date.toISOString().slice(0, 10)} />
         </LabelStyled>
         <LabelStyled>
           Bild
@@ -56,7 +56,7 @@ export default function EditNewsPage({ news, setEditedObject }) {
         </LabelStyled>
         <LabelStyled>
           Text
-          <TextareaStyled name="text" defaultValue={newsToEdit.text} />
+          <TextareaStyled name="text" defaultValue={noticeToEdit.text} />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         <ButtonStyled>Änderungen speichern</ButtonStyled>
@@ -74,7 +74,7 @@ export default function EditNewsPage({ news, setEditedObject }) {
           Abbrechen
         </ButtonStyled>
       </FormStyled>
-    </EditNewsPageStyled>
+    </EditNoticePageStyled>
   );
 
   function handleSubmit(event) {
@@ -82,9 +82,9 @@ export default function EditNewsPage({ news, setEditedObject }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
-    patchNews(newsToEdit._id, formData, jwt)
+    patchNotice(noticeToEdit._id, formData, jwt)
       .then(() => {
-        setEditedObject(newsToEdit);
+        setEditedObject(noticeToEdit);
         history.push('/');
       })
       .catch((err) => {
@@ -101,16 +101,16 @@ export default function EditNewsPage({ news, setEditedObject }) {
   function handleDelete() {
     setShowDeletePrompt(false);
     const jwt = getFromStorage('rineuto-token');
-    deleteNews(newsToEdit._id, jwt)
+    deleteNotice(noticeToEdit._id, jwt)
       .then(() => {
-        setEditedObject({ deleted: 'news' });
+        setEditedObject({ deleted: 'notice' });
         history.push('/');
       })
       .catch((err) => console.error(err));
   }
 }
 
-const EditNewsPageStyled = styled.div`
+const EditNoticePageStyled = styled.div`
   overflow: auto;
   max-width: 600px;
   margin: 20px auto;

@@ -1,25 +1,26 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import NewsCard from '../common/NewsCard';
+import NoticeCard from '../common/NoticeCard';
 
-export default function HomePage({ news, editedObject }) {
+export default function HomePage({ notices, editedObject }) {
   return (
-    <WelcomePageStyled>
+    <HomePageStyled>
       <SubHeadlineStyled>Newsreel</SubHeadlineStyled>
-      {editedObject.deleted === 'news' && <EditNoteStyled>News gelöscht</EditNoteStyled>}
-      <NewsListStyled>
-        {news
+      {editedObject.added === 'notice' && <EditNoteStyled>News hinzugefügt</EditNoteStyled>}
+      {editedObject.deleted === 'notice' && <EditNoteStyled>News gelöscht</EditNoteStyled>}
+      <NoticesListStyled>
+        {notices
           .sort((a, b) => b.date - a.date)
-          .map((singleNews) => (
-            <NewsCard key={singleNews._id} news={singleNews} editedObject={editedObject} />
+          .map((notice) => (
+            <NoticeCard key={notice._id} notice={notice} editedObject={editedObject} />
           ))}
-      </NewsListStyled>
+      </NoticesListStyled>
       <Cushion />
-    </WelcomePageStyled>
+    </HomePageStyled>
   );
 }
 
-const WelcomePageStyled = styled.div`
+const HomePageStyled = styled.div`
   overflow: auto;
 `;
 
@@ -37,7 +38,7 @@ const EditNoteStyled = styled.div`
   text-align: center;
 `;
 
-const NewsListStyled = styled.ul`
+const NoticesListStyled = styled.ul`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 50px;

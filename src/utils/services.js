@@ -70,12 +70,12 @@ export function deleteSerial(id, token) {
   }).then(handleError);
 }
 
-export function getNews() {
-  return fetch('/api/news').then(handleError);
+export function getNotices() {
+  return fetch('/api/notices').then(handleError);
 }
 
-export function postNews(data, token) {
-  return fetch('/api/news', {
+export function postNotice(data, token) {
+  return fetch('/api/notices', {
     method: 'POST',
     body: data,
     headers: {
@@ -84,8 +84,8 @@ export function postNews(data, token) {
   }).then(handleError);
 }
 
-export function patchNews(id, data, token) {
-  return fetch('/api/news/' + id, {
+export function patchNotice(id, data, token) {
+  return fetch('/api/notices/' + id, {
     method: 'PATCH',
     body: data,
     headers: {
@@ -94,8 +94,8 @@ export function patchNews(id, data, token) {
   }).then(handleError);
 }
 
-export function deleteNews(id, token) {
-  return fetch('/api/news/' + id, {
+export function deleteNotice(id, token) {
+  return fetch('/api/notices/' + id, {
     method: 'DELETE',
     headers: {
       'auth-token': token,

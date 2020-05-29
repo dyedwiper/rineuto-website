@@ -1,11 +1,9 @@
 const multer = require('multer');
-const {
-  replaceUmlautsAndSpecialCharacters,
-} = require('../utils/stringMethods');
+const { replaceUmlautsAndSpecialCharacters } = require('../utils/stringMethods');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'server/public/news');
+    cb(null, 'server/public/notices');
   },
   filename: (req, file, cb) => {
     cb(
@@ -32,7 +30,7 @@ function fileFilter(req, file, cb) {
   cb(null, true);
 }
 
-function uploadNewsImage(req, res, next) {
+function uploadNoticeImage(req, res, next) {
   const upload = multer({
     limits: { fileSize: 1024 * 1024 * 3 },
     fileFilter: fileFilter,
@@ -47,4 +45,4 @@ function uploadNewsImage(req, res, next) {
   });
 }
 
-module.exports.uploadNewsImage = uploadNewsImage;
+module.exports.uploadNoticeImage = uploadNoticeImage;

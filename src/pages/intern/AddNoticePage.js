@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components/macro';
-import { getFromStorage } from '../../utils/storage';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { postNews } from '../../utils/services';
+import styled from 'styled-components/macro';
+import { postNotice } from '../../utils/services';
+import { getFromStorage } from '../../utils/storage';
 
-export default function AddNewsPage({ setEditedObject }) {
+export default function AddNoticePage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -14,7 +14,7 @@ export default function AddNewsPage({ setEditedObject }) {
   }, []);
 
   return (
-    <AddNewsPageStyled>
+    <AddNoticePageStyled>
       <HeadlineStyled>Neue News anlegen</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
@@ -39,7 +39,7 @@ export default function AddNewsPage({ setEditedObject }) {
           Abbrechen
         </ButtonStyled>
       </FormStyled>
-    </AddNewsPageStyled>
+    </AddNoticePageStyled>
   );
 
   function handleSubmit(event) {
@@ -47,9 +47,9 @@ export default function AddNewsPage({ setEditedObject }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
-    postNews(formData, jwt)
+    postNotice(formData, jwt)
       .then(() => {
-        setEditedObject({ added: 'news' });
+        setEditedObject({ added: 'notice' });
         history.push('/');
       })
       .catch((err) => {
@@ -64,7 +64,7 @@ export default function AddNewsPage({ setEditedObject }) {
   }
 }
 
-const AddNewsPageStyled = styled.div`
+const AddNoticePageStyled = styled.div`
   overflow: auto;
   max-width: 600px;
   margin: 20px auto;

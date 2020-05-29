@@ -5,10 +5,10 @@ import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import HomePage from '../pages/HomePage';
 import ImprintPage from '../pages/ImprintPage';
-import AddNewsPage from '../pages/intern/AddNewsPage';
+import AddNoticePage from '../pages/intern/AddNoticePage';
 import AddScreeningPage from '../pages/intern/AddScreeningPage';
 import AddSerialPage from '../pages/intern/AddSerialPage';
-import EditNewsPage from '../pages/intern/EditNewsPage';
+import EditNoticePage from '../pages/intern/EditNoticePage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
 import LoadingPage from '../pages/LoadingPage';
@@ -17,16 +17,16 @@ import NotFoundPage from '../pages/NotFoundPage';
 import PosterPage from '../pages/PosterPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
-import { getNews, getScreenings, getSerials } from '../utils/services';
+import { getNotices, getScreenings, getSerials } from '../utils/services';
 import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
   const [serials, setSerials] = useState([]);
-  const [news, setNews] = useState([]);
+  const [notices, setNotices] = useState([]);
   const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
   const [isLoadingSerials, setIsLoadingSerials] = useState(true);
-  const [isLoadingNews, setIsLoadingNews] = useState(true);
+  const [isLoadingNotice, setIsLoadingNotices] = useState(true);
   const [editedObject, setEditedObject] = useState({});
 
   const history = useHistory();
@@ -72,20 +72,20 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   }, [editedObject]);
 
   useEffect(() => {
-    getNews()
-      .then((news) => {
-        const newsFormatted = news.map((newsItem) => {
-          const textFormatted = newsItem.text.replace(/\\n/g, '\n');
-          const dateFormatted = new Date(newsItem.date);
-          return { ...newsItem, text: textFormatted, date: dateFormatted };
+    getNotices()
+      .then((notices) => {
+        const noticesFormatted = notices.map((notice) => {
+          const textFormatted = notice.text.replace(/\\n/g, '\n');
+          const dateFormatted = new Date(notice.date);
+          return { ...notice, text: textFormatted, date: dateFormatted };
         });
-        setNews(newsFormatted);
-        setIsLoadingNews(false);
+        setNotices(noticesFormatted);
+        setIsLoadingNotices(false);
       })
       .catch((err) => console.error(err));
   }, [editedObject]);
 
-  if (isLoadingScreenings || isLoadingSerials || isLoadingNews) {
+  if (isLoadingScreenings || isLoadingSerials || isLoadingNotice) {
     return <LoadingPage />;
   }
 
@@ -93,7 +93,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
     <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen()}>
       <Switch>
         <Route exact path="/">
-          <HomePage news={news} editedObject={editedObject} />
+          <HomePage notices={notices} editedObject={editedObject} />
         </Route>
         <Route path="/program">
           <ProgramPage screenings={screenings} editedObject={editedObject} />
@@ -116,11 +116,11 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         <Route exact path="/intern/login">
           <LoginPage />
         </Route>
-        <PrivateRoute path="/intern/editNews" isLoadingUser={isLoadingUser}>
-          <EditNewsPage news={news} setEditedObject={setEditedObject} />
+        <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
+          <EditNoticePage notices={notices} setEditedObject={setEditedObject} />
         </PrivateRoute>
-        <PrivateRoute exact path="/intern/addNews" isLoadingUser={isLoadingUser}>
-          <AddNewsPage setEditedObject={setEditedObject} />
+        <PrivateRoute exact path="/intern/addNotice" isLoadingUser={isLoadingUser}>
+          <AddNoticePage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
           <EditScreeningPage screenings={screenings} serials={serials} setEditedObject={setEditedObject} />

@@ -4,24 +4,24 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import UserContext from '../userContext';
 
-export default function NewsCard({ news, editedObject }) {
+export default function NoticeCard({ notice, editedObject }) {
   const { user } = useContext(UserContext);
   const loggedIn = Object.keys(user).length !== 0;
 
   return (
-    <NewsCardStyled>
-      <NewsImageStyled src={process.env.PUBLIC_URL + news.imageUrl} />
-      <NewsTitleRowStyled>
-        <NewsTitleStyled>{news.title}</NewsTitleStyled>
-        <NewsDateStyled>
-          {news.date.toLocaleDateString('de-DE', {
+    <NoticeCardStyled>
+      <NoticeImageStyled src={process.env.PUBLIC_URL + notice.imageUrl} />
+      <NoticeTitleRowStyled>
+        <NoticeTitleStyled>{notice.title}</NoticeTitleStyled>
+        <NoticeDateStyled>
+          {notice.date.toLocaleDateString('de-DE', {
             day: '2-digit',
             month: '2-digit',
             year: 'numeric',
           })}
-        </NewsDateStyled>
-      </NewsTitleRowStyled>
-      <NewsTextStyled>
+        </NoticeDateStyled>
+      </NoticeTitleRowStyled>
+      <NoticeTextStyled>
         <Linkify
           componentDecorator={(decoratedHref, decoratedText, key) => (
             <a target="blank" href={decoratedHref} key={key}>
@@ -29,39 +29,39 @@ export default function NewsCard({ news, editedObject }) {
             </a>
           )}
         >
-          {news.text}
+          {notice.text}
         </Linkify>
-      </NewsTextStyled>
+      </NoticeTextStyled>
       {loggedIn && (
         <EditContainerStyled>
-          {editedObject._id === news._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
-          <EditLinkStyled to={'/intern/editNews/' + news._id}>Bearbeiten</EditLinkStyled>
+          {editedObject._id === notice._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
+          <EditLinkStyled to={'/intern/editNotice/' + notice._id}>Bearbeiten</EditLinkStyled>
         </EditContainerStyled>
       )}
-    </NewsCardStyled>
+    </NoticeCardStyled>
   );
 }
 
-const NewsCardStyled = styled.li`
+const NoticeCardStyled = styled.li`
   display: grid;
 `;
 
-const NewsImageStyled = styled.img`
+const NoticeImageStyled = styled.img`
   width: 100%;
 `;
 
-const NewsTitleRowStyled = styled.div`
+const NoticeTitleRowStyled = styled.div`
   position: relative;
 `;
 
-const NewsTitleStyled = styled.h2`
+const NoticeTitleStyled = styled.h2`
   margin: 0;
   padding: 20px;
   padding-bottom: 10px;
   background-color: white;
 `;
 
-const NewsDateStyled = styled.div`
+const NoticeDateStyled = styled.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -70,7 +70,7 @@ const NewsDateStyled = styled.div`
   background-color: black;
 `;
 
-const NewsTextStyled = styled.p`
+const NoticeTextStyled = styled.p`
   margin: 0;
   padding: 20px;
   background-color: white;

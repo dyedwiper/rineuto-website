@@ -60,14 +60,14 @@ function validateSerial(req, res, next) {
   next();
 }
 
-function validateNews(req, res, next) {
-  const newsSchema = Joi.object({
+function validateNotice(req, res, next) {
+  const noticeSchema = Joi.object({
     title: Joi.string().max(50),
     date: Joi.date(),
     text: Joi.string().max(10000),
     imageUrl: Joi.string().max(200),
   });
-  const { error } = newsSchema.validate(req.body);
+  const { error } = noticeSchema.validate(req.body);
   if (error) {
     return res.status(400).json({ joiError: error.details[0].message });
   }
@@ -78,4 +78,4 @@ module.exports.validateUser = validateUser;
 module.exports.validateLogin = validateLogin;
 module.exports.validateScreening = validateScreening;
 module.exports.validateSerial = validateSerial;
-module.exports.validateNews = validateNews;
+module.exports.validateNotice = validateNotice;

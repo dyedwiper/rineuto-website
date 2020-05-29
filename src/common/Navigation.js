@@ -33,7 +33,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
       {loggedIn && (
         <>
           <HorizontalLineStyled />
-          <NavLinkStyled to="/intern/addNews" onClick={() => setIsNavOpen(false)}>
+          <NavLinkStyled to="/intern/addNotice" onClick={() => setIsNavOpen(false)}>
             Neue News
           </NavLinkStyled>
           <NavLinkStyled to="/intern/addSerial" onClick={() => setIsNavOpen(false)}>

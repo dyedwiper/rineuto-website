@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/screenings', require('./routes/screenings'));
 app.use('/api/serials', require('./routes/serials'));
 app.use('/api/users', require('./routes/users'));
-app.use('/api/news', require('./routes/news'));
+app.use('/api/notices', require('./routes/notices'));
 
 mongoose.connect(
   process.env.DB_CONNECT,
