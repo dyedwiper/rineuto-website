@@ -1,11 +1,14 @@
 const multer = require('multer');
-const {
-  replaceUmlautsAndSpecialCharacters,
-} = require('../utils/stringMethods');
+const fs = require('fs');
+const { replaceUmlautsAndSpecialCharacters } = require('../utils/stringMethods');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'server/public/posters/' + req.body.year);
+    const dir = 'server/public/posters/' + req.body.year;
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    cb(null, dir);
   },
   filename: (req, file, cb) => {
     cb(
