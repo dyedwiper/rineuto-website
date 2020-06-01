@@ -10,6 +10,7 @@ export default function ProgramPage({ screenings, editedObject }) {
   return (
     <ProgramPageStyled>
       <SubHeadlineStyled>Unsere nächsten Filmperlen</SubHeadlineStyled>
+      {editedObject.added === 'screening' && <EditNoteStyled>Vorführung hinzugefügt</EditNoteStyled>}
       {editedObject.deleted === 'screening' && <EditNoteStyled>Vorführung gelöscht</EditNoteStyled>}
       <ScreeningsList
         screenings={screenings.filter((screening) => screening.date >= Date.now()).sort((a, b) => a.date - b.date)}

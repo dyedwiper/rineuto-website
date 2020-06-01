@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import NoticeCard from '../common/NoticeCard';
 
 export default function HomePage({ notices, editedObject }) {
+  useEffect(() => {
+    document.title = 'Rineuto Lichtspiele';
+  }, []);
+
   return (
     <HomePageStyled>
       <SubHeadlineStyled>Newsreel</SubHeadlineStyled>

@@ -4,10 +4,6 @@ export function getScreenings() {
   return fetch('/api/screenings').then(handleError);
 }
 
-export function getSingleScreening(id) {
-  return fetch('/api/screenings/' + id).then(handleError);
-}
-
 export function postScreening(data, token) {
   return fetch('/api/screenings', {
     method: 'POST',

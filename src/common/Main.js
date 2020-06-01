@@ -90,7 +90,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   }
 
   return (
-    <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen()}>
+    <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
       <Switch>
         <Route exact path="/">
           <HomePage notices={notices} editedObject={editedObject} />

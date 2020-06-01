@@ -21,9 +21,6 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', authenticate, uploadFilmstill, validateScreening, formatDate, (req, res) => {
-  if (!req.body.serial) {
-    req.body.serial = null;
-  }
   let newScreening;
   if (req.file) {
     newScreening = new Screening({
