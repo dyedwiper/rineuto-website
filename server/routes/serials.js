@@ -45,9 +45,11 @@ router.patch('/:id', authenticate, uploadPoster, validateSerial, (req, res) => {
 router.delete('/:id', authenticate, (req, res) => {
   Serial.findByIdAndDelete(req.params.id)
     .then((deletedSerial) => {
-      fs.unlink('server/public' + deletedSerial.imageUrl, (err) => {
-        if (err) throw err;
-      });
+      if (deletedSerial.imageUrl) {
+        fs.unlink('server/public' + deletedSerial.imageUrl, (err) => {
+          if (err) throw err;
+        });
+      }
       res.json('Deleted ' + deletedSerial.title);
     })
     .catch((err) => res.status(400).json(err));

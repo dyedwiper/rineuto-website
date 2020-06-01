@@ -47,9 +47,11 @@ router.patch('/:id', authenticate, uploadNoticeImage, validateNotice, (req, res)
 router.delete('/:id', authenticate, (req, res) => {
   Notice.findByIdAndDelete(req.params.id)
     .then((deletedNotice) => {
-      fs.unlink('server/public' + deletedNotice.imageUrl, (err) => {
-        if (err) throw err;
-      });
+      if (deletedNotice.imageUrl) {
+        fs.unlink('server/public' + deletedNotice.imageUrl, (err) => {
+          if (err) throw err;
+        });
+      }
       res.json('Deleted ' + deletedNotice.title);
     })
     .catch((err) => res.status(400).json(err));

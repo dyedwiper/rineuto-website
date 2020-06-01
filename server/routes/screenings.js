@@ -57,9 +57,11 @@ router.patch('/:id', authenticate, uploadFilmstill, validateScreening, formatDat
 router.delete('/:id', authenticate, (req, res) => {
   Screening.findByIdAndDelete(req.params.id)
     .then((deletedScreening) => {
-      fs.unlink('server/public' + deletedScreening.imageUrl, (err) => {
-        if (err) throw err;
-      });
+      if (deletedScreening.imageUrl) {
+        fs.unlink('server/public' + deletedScreening.imageUrl, (err) => {
+          if (err) throw err;
+        });
+      }
       res.json('Deleted ' + deletedScreening.title);
     })
     .catch((err) => res.status(400).json(err));
