@@ -5,12 +5,11 @@ import YearNavigation from '../common/YearNavigation';
 import { useHistory } from 'react-router-dom';
 
 export default function PosterPage({ serials, editedObject }) {
-  const startYear = 2018;
   const currentYear = new Date().getFullYear();
-  const hithertoYears = [];
-  for (let year = startYear; year <= currentYear; year++) {
-    hithertoYears.push(year);
-  }
+  const allYears = serials
+    .map((serial) => serial.year)
+    .filter((value, index, self) => self.indexOf(value) === index)
+    .sort((a, b) => a - b);
 
   let history = useHistory();
 
@@ -34,7 +33,7 @@ export default function PosterPage({ serials, editedObject }) {
   return (
     <PosterPageStyled>
       <YearNavigation
-        hithertoYears={hithertoYears}
+        years={allYears}
         setSelectedYear={setSelectedYear}
         pagePath={history.location.pathname.split('/', 2).join('/') + '/'}
       />
