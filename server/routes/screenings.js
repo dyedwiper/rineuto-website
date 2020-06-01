@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const fs = require('fs');
 const Screening = require('../models/Screening');
 const authenticate = require('../middleware/authenticate');
 const { validateScreening } = require('../middleware/validation');
@@ -55,7 +56,12 @@ router.patch('/:id', authenticate, uploadFilmstill, validateScreening, formatDat
 
 router.delete('/:id', authenticate, (req, res) => {
   Screening.findByIdAndDelete(req.params.id)
-    .then((deletedScreening) => res.json('Deleted ' + deletedScreening.title))
+    .then((deletedScreening) => {
+      fs.unlink('server/public' + deletedScreening.imageUrl, (err) => {
+        if (err) throw err;
+      });
+      res.json('Deleted ' + deletedScreening.title);
+    })
     .catch((err) => res.status(400).json(err));
 });
 

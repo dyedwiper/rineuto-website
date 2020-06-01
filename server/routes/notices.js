@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const fs = require('fs');
 const Notice = require('../models/Notice');
 const authenticate = require('../middleware/authenticate');
 const { validateNotice } = require('../middleware/validation');
@@ -45,7 +46,12 @@ router.patch('/:id', authenticate, uploadNoticeImage, validateNotice, (req, res)
 
 router.delete('/:id', authenticate, (req, res) => {
   Notice.findByIdAndDelete(req.params.id)
-    .then((deletedNotice) => res.json('Deleted ' + deletedNotice.title))
+    .then((deletedNotice) => {
+      fs.unlink('server/public' + deletedNotice.imageUrl, (err) => {
+        if (err) throw err;
+      });
+      res.json('Deleted ' + deletedNotice.title);
+    })
     .catch((err) => res.status(400).json(err));
 });
 
