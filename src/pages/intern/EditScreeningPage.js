@@ -89,7 +89,10 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
         </LabelStyled>
         <LabelStyled>
           Filmreihe
-          <SelectStyled name="serial" defaultValue={screeningToEdit.serial._id}>
+          <SelectStyled
+            name="serial"
+            defaultValue={screeningToEdit.serial ? screeningToEdit.serial._id : '000000000000000000000000'}
+          >
             <option value="000000000000000000000000">-- Film ohne Reihe --</option>
             {serials
               .sort((a, b) => b.year - a.year || b.month - a.month)
