@@ -11,8 +11,7 @@ const screeningSchema = new Schema({
   year: { type: Number },
   version: { type: String },
   synopsis: { type: String },
-  series: { type: Schema.Types.ObjectId, ref: 'Series' },
-  links: { type: [String] },
+  serial: { type: Schema.Types.ObjectId, ref: 'Serial' },
 });
 
 const Screening = mongoose.model('Screening', screeningSchema);

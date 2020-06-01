@@ -3,28 +3,40 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
-import InternPage from '../pages/InternPage';
+import HomePage from '../pages/HomePage';
+import ImprintPage from '../pages/ImprintPage';
+import AddNoticePage from '../pages/intern/AddNoticePage';
+import AddScreeningPage from '../pages/intern/AddScreeningPage';
+import AddSerialPage from '../pages/intern/AddSerialPage';
+import EditNoticePage from '../pages/intern/EditNoticePage';
+import EditScreeningPage from '../pages/intern/EditScreeningPage';
+import EditSerialPage from '../pages/intern/EditSerialPage';
+import LoadingPage from '../pages/LoadingPage';
 import LoginPage from '../pages/LoginPage';
+import NotFoundPage from '../pages/NotFoundPage';
+import PosterPage from '../pages/PosterPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
+import { getNotices, getScreenings, getSerials } from '../utils/services';
 import PrivateRoute from './PrivateRoute';
-import NotFoundPage from './NotFoundPage';
-import ImprintPage from '../pages/ImprintPage';
-import PosterPage from '../pages/PosterPage';
-import HomePage from '../pages/HomePage';
-import LoadingPage from '../pages/LoadingPage';
-import { getScreenings } from '../utils/services';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
+  const [serials, setSerials] = useState([]);
+  const [notices, setNotices] = useState([]);
   const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
+  const [isLoadingSerials, setIsLoadingSerials] = useState(true);
+  const [isLoadingNotice, setIsLoadingNotices] = useState(true);
+  const [editedObject, setEditedObject] = useState({});
 
   const history = useHistory();
   const mainElement = useRef(null);
 
   useEffect(() => {
     const unlisten = history.listen(() => {
-      mainElement.current.scrollTop = 0;
+      if (mainElement.current) {
+        mainElement.current.scrollTop = 0;
+      }
     });
     return unlisten;
   }, [history]);
@@ -34,39 +46,66 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
       .then((screenings) => {
         const screeningsFormatted = screenings.map((screening) => {
           const dateFormatted = new Date(screening.date);
-          return { ...screening, date: dateFormatted };
+          let synopsisFormatted = '';
+          if (screening.synopsis) {
+            synopsisFormatted = screening.synopsis.replace(/\\n/g, '\n');
+          }
+          return {
+            ...screening,
+            date: dateFormatted,
+            synopsis: synopsisFormatted,
+          };
         });
         setScreenings(screeningsFormatted);
         setIsLoadingScreenings(false);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [editedObject]);
 
-  if (isLoadingScreenings) {
+  useEffect(() => {
+    getSerials()
+      .then((serials) => {
+        setSerials(serials);
+        setIsLoadingSerials(false);
+      })
+      .catch((err) => console.error(err));
+  }, [editedObject]);
+
+  useEffect(() => {
+    getNotices()
+      .then((notices) => {
+        const noticesFormatted = notices.map((notice) => {
+          const textFormatted = notice.text.replace(/\\n/g, '\n');
+          const dateFormatted = new Date(notice.date);
+          return { ...notice, text: textFormatted, date: dateFormatted };
+        });
+        setNotices(noticesFormatted);
+        setIsLoadingNotices(false);
+      })
+      .catch((err) => console.error(err));
+  }, [editedObject]);
+
+  if (isLoadingScreenings || isLoadingSerials || isLoadingNotice) {
     return <LoadingPage />;
   }
 
   return (
-    <MainStyled
-      ref={mainElement}
-      isNavOpen={isNavOpen}
-      onClick={() => setIsNavOpen()}
-    >
+    <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
       <Switch>
         <Route exact path="/">
-          <HomePage />
+          <HomePage notices={notices} editedObject={editedObject} />
         </Route>
         <Route path="/program">
-          <ProgramPage screenings={screenings} />
+          <ProgramPage screenings={screenings} editedObject={editedObject} />
         </Route>
         <Route path="/screening">
-          <ScreeningPage screenings={screenings} />
+          <ScreeningPage screenings={screenings} editedObject={editedObject} />
         </Route>
         <Route path="/archive">
           <ArchivePage screenings={screenings} />
         </Route>
         <Route path="/posters">
-          <PosterPage />
+          <PosterPage serials={serials} editedObject={editedObject} />
         </Route>
         <Route path="/about">
           <AboutPage />
@@ -77,8 +116,23 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
         <Route exact path="/intern/login">
           <LoginPage />
         </Route>
-        <PrivateRoute exact path="/intern" isLoadingUser={isLoadingUser}>
-          <InternPage />
+        <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
+          <EditNoticePage notices={notices} setEditedObject={setEditedObject} />
+        </PrivateRoute>
+        <PrivateRoute exact path="/intern/addNotice" isLoadingUser={isLoadingUser}>
+          <AddNoticePage setEditedObject={setEditedObject} />
+        </PrivateRoute>
+        <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
+          <EditScreeningPage screenings={screenings} serials={serials} setEditedObject={setEditedObject} />
+        </PrivateRoute>
+        <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
+          <AddScreeningPage serials={serials} setEditedObject={setEditedObject} />
+        </PrivateRoute>
+        <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
+          <EditSerialPage serials={serials} setEditedObject={setEditedObject} />
+        </PrivateRoute>
+        <PrivateRoute exact path="/intern/addSerial" isLoadingUser={isLoadingUser}>
+          <AddSerialPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <Route path="/logout">
           <Redirect exact to="/" />

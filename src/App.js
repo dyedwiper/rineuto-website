@@ -11,7 +11,6 @@ import { getFromStorage } from './utils/storage';
 
 export default function App() {
   const [user, setUser] = useState({});
-
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -19,7 +18,6 @@ export default function App() {
     const token = getFromStorage('rineuto-token');
     getUser(token)
       .then((user) => {
-        console.log('getUser called');
         setUser(user);
       })
       .then(() => {
@@ -37,11 +35,7 @@ export default function App() {
         <AppStyled>
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-          <Main
-            isNavOpen={isNavOpen}
-            setIsNavOpen={setIsNavOpen}
-            isLoadingUser={isLoadingUser}
-          />
+          <Main isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} isLoadingUser={isLoadingUser} />
         </AppStyled>
       </UserContext.Provider>
     </Router>

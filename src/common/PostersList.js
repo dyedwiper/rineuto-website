@@ -1,36 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/macro';
 import whitePerlImage from '../assets/perls/whitePerl.png';
-import { getSeries } from '../utils/services';
-import LoadingPage from '../pages/LoadingPage';
+import { Link } from 'react-router-dom';
+import UserContext from '../userContext';
 
-export default function PostersList({ selectedYear }) {
-  const [series, setSeries] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if (!selectedYear || isNaN(selectedYear)) return;
-    getSeries(selectedYear)
-      .then((series) => {
-        setSeries(series);
-        setIsLoading(false);
-      })
-      .catch((err) => console.error(err));
-  }, [selectedYear]);
-
-  if (isLoading) {
-    return <LoadingPage />;
-  }
+export default function PostersList({ serials, selectedYear, editedObject }) {
+  const { user } = useContext(UserContext);
+  const loggedIn = Object.keys(user).length !== 0;
 
   return (
     <PosterListStyled>
-      {series
+      {serials
         .sort((a, b) => a.month - b.month)
-        .map((series) => (
-          <PosterItemStyled key={series._id}>
-            <a href={process.env.PUBLIC_URL + series.posterUrl}>
-              <PosterStyled src={process.env.PUBLIC_URL + series.posterUrl} />
+        .map((serial) => (
+          <PosterItemStyled key={serial._id}>
+            <a href={process.env.PUBLIC_URL + serial.imageUrl}>
+              <PosterStyled src={process.env.PUBLIC_URL + serial.imageUrl} />
             </a>
+            {loggedIn && (
+              <EditContainerStyled>
+                {serial._id === editedObject._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
+                <EditLinkStyled to={'/intern/editSerial/' + serial._id}>Bearbeiten</EditLinkStyled>
+              </EditContainerStyled>
+            )}
           </PosterItemStyled>
         ))}
     </PosterListStyled>
@@ -60,4 +52,22 @@ const PosterItemStyled = styled.li`
 
 const PosterStyled = styled.img`
   width: 280px;
+`;
+
+const EditContainerStyled = styled.div`
+  padding-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+
+const EditNoteStyled = styled.span`
+  color: green;
+  font-size: 1.3em;
+`;
+
+const EditLinkStyled = styled(Link)`
+  grid-column-start: 2;
+  justify-self: right;
+  color: black;
+  font-size: 1.3em;
 `;

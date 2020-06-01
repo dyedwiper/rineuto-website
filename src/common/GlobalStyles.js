@@ -9,7 +9,7 @@ export default createGlobalStyle`
   body {
     margin: 0;
     background-image: url(${twinCurtainImage});
-    background-size: 100%;
+    background-size: cover;
     background-color: black;
     font-family: 'Linux Libertine G', serif;
     font-size: 16px;
@@ -21,5 +21,9 @@ export default createGlobalStyle`
     font-size: 1em;
     -webkit-appearance: none;
     -moz-appearance: none;
+  }
+
+  button {
+    cursor: pointer;
   }
 `;

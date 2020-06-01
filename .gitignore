@@ -24,6 +24,7 @@ yarn-error.log*
 
 #environment
 .env
+.env.staging
 
-#image uploads
-/public/filmstills
+#static files
+/server/public

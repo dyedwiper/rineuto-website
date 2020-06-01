@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { postScreening } from '../utils/services';
-import { getFromStorage } from '../utils/storage';
+import { postScreening } from '../../utils/services';
+import { getFromStorage } from '../../utils/storage';
+import { useHistory } from 'react-router-dom';
 
-export default function InternPage() {
+export default function AddScreeningPage({ serials, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
 
+  let history = useHistory();
+
+  useEffect(() => {
+    document.title = ' Vorführung anlegen | Rineuto Lichtspiele';
+  }, []);
+
   return (
-    <InternPageStyled>
-      <HeadlineStyled>Neues Screening anlegen</HeadlineStyled>
+    <AddScreeningPageStyled>
+      <HeadlineStyled>Neue Vorführung anlegen</HeadlineStyled>
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Filmtitel
@@ -52,16 +59,24 @@ export default function InternPage() {
         </LabelStyled>
         <LabelStyled>
           Filmreihe
-          <InputStyled name="series" />
-        </LabelStyled>
-        <LabelStyled>
-          Links
-          <InputStyled name="links" />
+          <SelectStyled name="serial">
+            <option value="000000000000000000000000">-- Film ohne Reihe --</option>
+            {serials
+              .sort((a, b) => b.year - a.year || b.month - a.month)
+              .map((serial) => (
+                <option key={serial._id} value={serial._id}>
+                  {serial.title}
+                </option>
+              ))}
+          </SelectStyled>
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled>Senden</ButtonStyled>
+        <ButtonStyled>Vorführung anlegen</ButtonStyled>
+        <ButtonStyled type="button" onClick={() => history.push('/')}>
+          Abbrechen
+        </ButtonStyled>
       </FormStyled>
-    </InternPageStyled>
+    </AddScreeningPageStyled>
   );
 
   function handleSubmit(event) {
@@ -70,17 +85,23 @@ export default function InternPage() {
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
     postScreening(formData, jwt)
-      .then((res) => console.log(res))
+      .then((res) => {
+        setEditedObject({ added: 'screening' });
+        history.push('/program');
+      })
       .catch((err) => {
         console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
         }
+        if (err.hasOwnProperty('multerError')) {
+          setValidationError(err.multerError);
+        }
       });
   }
 }
 
-const InternPageStyled = styled.div`
+const AddScreeningPageStyled = styled.div`
   overflow: auto;
   max-width: 600px;
   margin: 20px auto;
@@ -115,12 +136,16 @@ const TextareaStyled = styled.textarea`
   padding: 5px;
 `;
 
+const SelectStyled = styled.select`
+  padding: 5px;
+`;
+
 const ButtonStyled = styled.button`
   justify-self: center;
-  width: min-content;
   padding: 5px;
 `;
 
 const ErrorMessageStyled = styled.span`
   color: red;
+  font-size: 1.5em;
 `;

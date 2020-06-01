@@ -1,47 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
-import NewsCard from '../common/NewsCard';
-import { getNews } from '../utils/services';
-import LoadingPage from './LoadingPage';
+import NoticeCard from '../common/NoticeCard';
 
-export default function HomePage() {
-  const [news, setNews] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
+export default function HomePage({ notices, editedObject }) {
   useEffect(() => {
-    getNews()
-      .then((news) => {
-        const newsFormatted = news.map((newsItem) => {
-          const textFormatted = newsItem.text.replace(/\\n/g, '\n');
-          const dateFormatted = new Date(newsItem.date);
-          return { ...newsItem, text: textFormatted, date: dateFormatted };
-        });
-        setNews(newsFormatted);
-        setIsLoading(false);
-      })
-      .catch((err) => console.error(err));
+    document.title = 'Rineuto Lichtspiele';
   }, []);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-
   return (
-    <WelcomePageStyled>
+    <HomePageStyled>
       <SubHeadlineStyled>Newsreel</SubHeadlineStyled>
-      <NewsListStyled>
-        {news
+      {editedObject.added === 'notice' && <EditNoteStyled>News hinzugefügt</EditNoteStyled>}
+      {editedObject.deleted === 'notice' && <EditNoteStyled>News gelöscht</EditNoteStyled>}
+      <NoticesListStyled>
+        {notices
           .sort((a, b) => b.date - a.date)
-          .map((singleNews) => (
-            <NewsCard key={singleNews._id} news={singleNews} />
+          .map((notice) => (
+            <NoticeCard key={notice._id} notice={notice} editedObject={editedObject} />
           ))}
-      </NewsListStyled>
+      </NoticesListStyled>
       <Cushion />
-    </WelcomePageStyled>
+    </HomePageStyled>
   );
 }
 
-const WelcomePageStyled = styled.div`
+const HomePageStyled = styled.div`
   overflow: auto;
 `;
 
@@ -51,7 +34,15 @@ const SubHeadlineStyled = styled.h2`
   color: white;
 `;
 
-const NewsListStyled = styled.ul`
+const EditNoteStyled = styled.div`
+  margin: 20px;
+  color: green;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+`;
+
+const NoticesListStyled = styled.ul`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 50px;

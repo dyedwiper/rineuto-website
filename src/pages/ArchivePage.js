@@ -37,8 +37,7 @@ export default function ArchivePage({ screenings }) {
       screenings.filter(
         (screening) =>
           // eslint-disable-next-line eqeqeq
-          screening.date.getFullYear() == selectedYear &&
-          screening.date < Date.now()
+          screening.date.getFullYear() == selectedYear && screening.date < Date.now()
       )
     );
   }, [screenings, selectedYear]);
@@ -46,14 +45,12 @@ export default function ArchivePage({ screenings }) {
   return (
     <ArchivePageStyled>
       <YearNavigation
-        hithertoYears={hithertoYears}
+        years={hithertoYears}
         setSelectedYear={setSelectedYear}
         pagePath={history.location.pathname.split('/', 2).join('/') + '/'}
       />
       <SubHeadlineStyled>Vergangene Filmperlen</SubHeadlineStyled>
-      <ScreeningsList
-        screenings={filteredScreenings.sort((a, b) => b.date - a.date)}
-      />
+      <ScreeningsList screenings={filteredScreenings.sort((a, b) => b.date - a.date)} />
     </ArchivePageStyled>
   );
 }

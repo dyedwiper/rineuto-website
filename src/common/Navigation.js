@@ -33,14 +33,21 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
       {loggedIn && (
         <>
           <HorizontalLineStyled />
-          <NavLinkStyled to="/intern" onClick={() => setIsNavOpen(false)}>
-            Intern
+          <NavLinkStyled to="/intern/addNotice" onClick={() => setIsNavOpen(false)}>
+            Neue News
+          </NavLinkStyled>
+          <NavLinkStyled to="/intern/addSerial" onClick={() => setIsNavOpen(false)}>
+            Neue Reihe
+          </NavLinkStyled>
+          <NavLinkStyled to="/intern/addScreening" onClick={() => setIsNavOpen(false)}>
+            Neuer Film
           </NavLinkStyled>
           <NavLinkStyled exact to="/logout" onClick={handleLogout}>
             Logout
           </NavLinkStyled>
         </>
       )}
+      <Cushion />
       <PerlLinkStyled target="_blank" href="https://youtu.be/hKBfQdKvyXc">
         <RedPerlStyled src={redPerlImage} />
       </PerlLinkStyled>
@@ -62,13 +69,13 @@ const NavigationStyled = styled.nav`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 20px;
+  overflow: auto;
   width: 100%;
   height: 100%;
   padding: 20px;
   background-image: url(${greenPerlImage});
   filter: ${(props) => (props.isNavOpen ? 'none' : 'blur(4px)')};
-  transform: ${(props) =>
-    props.isNavOpen ? 'translateX(0)' : 'translateX(101%)'};
+  transform: ${(props) => (props.isNavOpen ? 'translateX(0)' : 'translateX(101%)')};
   transition: all 2.3s linear;
 
   @media (min-width: 900px) {
@@ -122,3 +129,7 @@ const PerlLinkStyled = styled.a`
 `;
 
 const RedPerlStyled = styled.img``;
+
+const Cushion = styled.div`
+  height: 30px;
+`;
