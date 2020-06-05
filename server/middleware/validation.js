@@ -74,8 +74,21 @@ function validateNotice(req, res, next) {
   next();
 }
 
+function validateQuote(req, res, next) {
+  const quoteSchema = Joi.object({
+    text: Joi.string().max(2000),
+    author: Joi.string().max(100),
+  });
+  const { error } = quoteSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ joiError: error.details[0].message });
+  }
+  next();
+}
+
 module.exports.validateUser = validateUser;
 module.exports.validateLogin = validateLogin;
 module.exports.validateScreening = validateScreening;
 module.exports.validateSerial = validateSerial;
 module.exports.validateNotice = validateNotice;
+module.exports.validateQuote = validateQuote;

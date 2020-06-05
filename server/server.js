@@ -18,6 +18,7 @@ app.use('/api/screenings', require('./routes/screenings'));
 app.use('/api/serials', require('./routes/serials'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/notices', require('./routes/notices'));
+app.use('/api/quotes', require('./routes/quotes'));
 
 mongoose.connect(
   process.env.DB_CONNECT,
