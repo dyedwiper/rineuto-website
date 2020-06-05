@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
+import QuotePerl from '../common/QuotePerl';
 
 export default function AboutPage() {
   useEffect(() => {
@@ -24,21 +25,14 @@ export default function AboutPage() {
           </span>
         ))}
       </AboutTextStyled>
-      <AboutQuotesStyled>
-        {aboutQuotes.split('\n').map((part, index) => (
-          <span key={index}>
-            {part}
-            <br />
-            <br />
-          </span>
-        ))}
-      </AboutQuotesStyled>
+      <QuotePerlsContainerStyled>
+        <QuotePerl top="100px" left="200px"></QuotePerl>
+      </QuotePerlsContainerStyled>
     </AboutPageStyled>
   );
 }
 
 const AboutPageStyled = styled.div`
-  overflow: auto;
   padding: 10px 20px;
 `;
 
@@ -55,10 +49,7 @@ const AboutTextStyled = styled.p`
   background-color: white;
 `;
 
-const AboutQuotesStyled = styled.p`
-  margin: 0 auto;
-  max-width: 600px;
-  padding: 10px;
-  background-color: black;
-  color: white;
+const QuotePerlsContainerStyled = styled.div`
+  position: relative;
+  height: 500px;
 `;
