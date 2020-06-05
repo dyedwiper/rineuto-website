@@ -99,6 +99,10 @@ export function deleteNotice(id, token) {
   }).then(handleError);
 }
 
+export function getQuotes() {
+  return fetch('/api/quotes').then(handleError);
+}
+
 export function postLoginUser(data) {
   return fetch('/api/users/login', {
     method: 'POST',

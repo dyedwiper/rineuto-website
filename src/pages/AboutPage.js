@@ -1,8 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import QuotePerl from '../common/QuotePerl';
+import { getQuotes } from '../utils/services';
 
 export default function AboutPage() {
+  const [quotes, setQuotes] = useState([]);
+
+  useEffect(() => {
+    getQuotes()
+      .then((quotes) => setQuotes(quotes))
+      .catch((err) => console.error(err));
+  }, []);
+
   useEffect(() => {
     document.title = 'Über uns | Rineuto Lichtspiele';
   }, []);
@@ -23,7 +32,7 @@ export default function AboutPage() {
         ))}
       </AboutTextStyled>
       <QuotePerlsContainerStyled>
-        <QuotePerl top="100px" left="200px"></QuotePerl>
+        <QuotePerl quote={quotes[0]} top="100px" left="200px"></QuotePerl>
       </QuotePerlsContainerStyled>
     </AboutPageStyled>
   );

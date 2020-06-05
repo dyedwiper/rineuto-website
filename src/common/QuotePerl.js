@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import redPerlImage from '../assets/perls/redPerl.png';
 
-export default function QuotePerl({ top, left }) {
+export default function QuotePerl({ quote, top, left }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <QuotePerlStyled top={top} left={left} isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
       {isOpen && (
-        <QuoteTextStyled>
-          "Ein guter Film hat kein Genre, genausowenig wie das echte Leben. In einem Moment ist es eine Komödie, im
-          nächsten eine Tragödie."
-        </QuoteTextStyled>
+        <>
+          <QuoteTextStyled>{quote.text}</QuoteTextStyled>
+          <QuoteAuthorStyled>{quote.author}</QuoteAuthorStyled>
+        </>
       )}
     </QuotePerlStyled>
   );
@@ -29,3 +29,5 @@ const QuotePerlStyled = styled.div`
 `;
 
 const QuoteTextStyled = styled.p``;
+
+const QuoteAuthorStyled = styled.span``;
