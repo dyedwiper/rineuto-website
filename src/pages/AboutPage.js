@@ -42,6 +42,8 @@ export default function AboutPage() {
       </AboutTextStyled>
       <QuotePerlsContainerStyled>
         <QuotePerl quote={quotes[0]} top="100px" left="200px"></QuotePerl>
+        <QuotePerl quote={quotes[1]} top="200px" left="400px"></QuotePerl>
+        <QuotePerl quote={quotes[2]} top="240px" left="300px"></QuotePerl>
       </QuotePerlsContainerStyled>
     </AboutPageStyled>
   );
