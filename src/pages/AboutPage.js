@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import QuotePerl from '../common/QuotePerl';
 import { getQuotes } from '../utils/services';
+import LoadingPage from './LoadingPage';
 
 export default function AboutPage() {
   const [quotes, setQuotes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getQuotes()
-      .then((quotes) => setQuotes(quotes))
+      .then((quotes) => {
+        setQuotes(quotes);
+        setIsLoading(false);
+      })
       .catch((err) => console.error(err));
   }, []);
 
@@ -18,6 +23,10 @@ export default function AboutPage() {
 
   const aboutText =
     'Wir veranstalten etwa alle zwei Wochen einen Filmabend in der Mokrystr. 1. \n In unseren Filmreihen widmen wir uns über je zwei Monate einem Thema oder einer Person. \n Nach den Filmen diskutieren wir häufig noch ein Weilchen über die Eindrücke und manchmal gibt es ein kurzes filmhistorisches Referat. \n Der Eintritt ist frei. Kühle Getränke gibt es an der Bar. Für beides nehmen wir gerne Spenden entgegen.';
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <AboutPageStyled>
@@ -39,10 +48,11 @@ export default function AboutPage() {
 }
 
 const AboutPageStyled = styled.div`
-  padding: 10px 20px;
+  padding: 20px;
 `;
 
 const SubHeadlineStyled = styled.h2`
+  height: 40px;
   margin: 10px 0;
   color: white;
   text-align: center;
@@ -50,6 +60,7 @@ const SubHeadlineStyled = styled.h2`
 
 const AboutTextStyled = styled.p`
   margin: 0 auto;
+  height: 200px;
   max-width: 600px;
   padding: 10px;
   background-color: white;
