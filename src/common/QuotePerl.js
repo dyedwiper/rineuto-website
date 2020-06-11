@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/macro';
 import { choosePerlColor } from '../utils/quotePerlUtils';
 
-export default function QuotePerl({ quote, container }) {
+export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumberOfOpenPerls }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showQuote, setShowQuote] = useState(false);
   const [isInForeground, setIsInForeground] = useState(false);
@@ -19,6 +19,14 @@ export default function QuotePerl({ quote, container }) {
     choosePerlColor(perl, textColor);
     setIsChoosingColor(false);
   }, []);
+
+  useEffect(() => {
+    if (!numberOfOpenPerls) {
+      setShowQuote(false);
+      setTimeout(() => setIsOpen(false), 1000);
+      setTimeout(() => setIsInForeground(false), 2000);
+    }
+  }, [numberOfOpenPerls]);
 
   useEffect(() => {
     if (!isChoosingColor) {
@@ -71,6 +79,7 @@ export default function QuotePerl({ quote, container }) {
   function handlePerlClick() {
     if (!isOpen) {
       setIsOpen(true);
+      setNumberOfOpenPerls(numberOfOpenPerls + 1);
       setIsInForeground(true);
       setTimeout(() => setShowQuote(true), 1000);
     }
@@ -78,6 +87,7 @@ export default function QuotePerl({ quote, container }) {
 
   function handleCloseClick() {
     setShowQuote(false);
+    setNumberOfOpenPerls(numberOfOpenPerls - 1);
     setTimeout(() => setIsOpen(false), 1000);
     setTimeout(() => setIsInForeground(false), 2000);
   }

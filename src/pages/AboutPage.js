@@ -7,6 +7,7 @@ import LoadingPage from './LoadingPage';
 export default function AboutPage() {
   const [quotes, setQuotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [numberOfOpenPerls, setNumberOfOpenPerls] = useState(0);
 
   const quoteContainer = useRef(null);
 
@@ -42,13 +43,25 @@ export default function AboutPage() {
           </span>
         ))}
       </AboutTextStyled>
-      <QuotePerlsContainerStyled ref={quoteContainer}>
+      <QuotePerlsContainerStyled ref={quoteContainer} onClick={handleClick}>
         {quotes.map((quote) => (
-          <QuotePerl key={quote._id} container={quoteContainer} quote={quote} />
+          <QuotePerl
+            key={quote._id}
+            container={quoteContainer}
+            quote={quote}
+            numberOfOpenPerls={numberOfOpenPerls}
+            setNumberOfOpenPerls={setNumberOfOpenPerls}
+          />
         ))}
       </QuotePerlsContainerStyled>
     </AboutPageStyled>
   );
+
+  function handleClick(event) {
+    if (!event.target.className.startsWith('Quote') && numberOfOpenPerls) {
+      setNumberOfOpenPerls(0);
+    }
+  }
 }
 
 const AboutPageStyled = styled.div`
