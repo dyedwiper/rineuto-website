@@ -21,19 +21,20 @@ import olivePerlImage from '../assets/perls/olivePerl.png';
 import orangePerlImage from '../assets/perls/orangePerl.png';
 import pinkPerlImage from '../assets/perls/pinkPerl.png';
 import purplePerlImage from '../assets/perls/purplePerl.png';
+import redPerlImage from '../assets/perls/redPerl.png';
 import skinPerlImage from '../assets/perls/skinPerl.png';
 import whitePerlImage from '../assets/perls/whitePerl.png';
 import yellowPerlImage from '../assets/perls/yellowPerl.png';
-import redPerlImage from '../assets/perls/redPerl.png';
-import LoadingPage from '../pages/LoadingPage';
 
-export default function QuotePerl({ quote, top, left, perlColor, textColor }) {
+export default function QuotePerl({ quote, index, container, perlColor, textColor }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showQuote, setShowQuote] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isChoosingColor, setIsChoosingColor] = useState(true);
+  const [isCalculatingPosition, setIsCalculatingPosition] = useState(true);
 
   const pseudoQuote = useRef(null);
   const quoteHeight = useRef(null);
+  const quotePosition = useRef(null);
   const perl = useRef(null);
 
   useEffect(() => {
@@ -62,25 +63,33 @@ export default function QuotePerl({ quote, top, left, perlColor, textColor }) {
     if (perlColor === 'skin') perl.current = skinPerlImage;
     if (perlColor === 'white') perl.current = whitePerlImage;
     if (perlColor === 'yellow') perl.current = yellowPerlImage;
-    setIsLoading(false);
+    setIsChoosingColor(false);
   }, [perlColor]);
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isChoosingColor) {
       const pseudoHeight = pseudoQuote.current.offsetHeight;
       const actualHeight = pseudoHeight % 20 === 0 ? pseudoHeight : pseudoHeight - (pseudoHeight % 20) + 20;
       quoteHeight.current = actualHeight;
     }
-  }, [isLoading]);
+  }, [isChoosingColor]);
 
-  if (isLoading) {
-    return <LoadingPage />;
+  useEffect(() => {
+    const containerWidth = container.current.offsetWidth;
+    const left = Math.floor(Math.random() * Math.floor(containerWidth / 20)) * 20;
+    const top = Math.floor(Math.random() * Math.floor(20)) * 20;
+    quotePosition.current = { top: top + 'px', left: left + 'px' };
+    setIsCalculatingPosition(false);
+  }, [container]);
+
+  if (isChoosingColor || isCalculatingPosition) {
+    return <></>;
   }
 
   return (
     <QuotePerlStyled
-      top={top}
-      left={left}
+      top={quotePosition.current.top}
+      left={quotePosition.current.left}
       quoteHeight={quoteHeight.current}
       isOpen={isOpen}
       onClick={handlePerlClick}
@@ -121,7 +130,7 @@ const QuotePerlStyled = styled.div`
   left: ${(props) => props.left};
   z-index: ${(props) => (props.isOpen ? '99' : 'auto')};
   overflow: hidden;
-  width: ${(props) => (props.isOpen ? '300px' : '20px')};
+  width: ${(props) => (props.isOpen ? '200px' : '20px')};
   height: ${(props) => (props.isOpen ? props.quoteHeight + 'px' : '20px')};
   margin-bottom: ${(props) => (props.isOpen ? '40px' : '0')};
   padding: 10px;
@@ -130,6 +139,10 @@ const QuotePerlStyled = styled.div`
   cursor: ${(props) => (props.isOpen ? 'auto' : 'pointer')};
 
   transition: width 1s linear, height 1s linear;
+
+  @media (min-width: 900px) {
+    width: ${(props) => (props.isOpen ? '300px' : '20px')};
+  }
 `;
 
 const QuoteDisplayContainerStyled = styled.div`
@@ -157,6 +170,10 @@ const QuoteAuthorStyled = styled.span``;
 const PseudoQuoteStyled = styled.div`
   position: absolute;
   left: 10000px;
-  width: 300px;
+  width: 200px;
   padding: 10px;
+
+  @media (min-width: 900px) {
+    width: 300px;
+  }
 `;

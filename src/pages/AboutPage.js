@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components/macro';
 import QuotePerl from '../common/QuotePerl';
 import { getQuotes } from '../utils/services';
@@ -7,6 +7,8 @@ import LoadingPage from './LoadingPage';
 export default function AboutPage() {
   const [quotes, setQuotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const quoteContainer = useRef(null);
 
   useEffect(() => {
     getQuotes()
@@ -40,10 +42,17 @@ export default function AboutPage() {
           </span>
         ))}
       </AboutTextStyled>
-      <QuotePerlsContainerStyled>
-        <QuotePerl quote={quotes[0]} top="100px" left="200px" perlColor="adobe" textColor="white"></QuotePerl>
-        <QuotePerl quote={quotes[1]} top="200px" left="400px" perlColor="chamois" textColor="black"></QuotePerl>
-        <QuotePerl quote={quotes[2]} top="240px" left="300px" perlColor="darkRed" textColor="white"></QuotePerl>
+      <QuotePerlsContainerStyled ref={quoteContainer}>
+        {quotes.map((quote, index) => (
+          <QuotePerl
+            key={quote._id}
+            container={quoteContainer}
+            quote={quote}
+            index={index}
+            perlColor="adobe"
+            textColor="white"
+          />
+        ))}
       </QuotePerlsContainerStyled>
     </AboutPageStyled>
   );
@@ -62,10 +71,13 @@ const SubHeadlineStyled = styled.h2`
 
 const AboutTextStyled = styled.p`
   margin: 0 auto;
-  height: 200px;
   max-width: 600px;
   padding: 10px;
   background-color: white;
+
+  @media (min-width: 900px) {
+    height: 200px;
+  }
 `;
 
 const QuotePerlsContainerStyled = styled.div`
