@@ -26,7 +26,7 @@ import skinPerlImage from '../assets/perls/skinPerl.png';
 import whitePerlImage from '../assets/perls/whitePerl.png';
 import yellowPerlImage from '../assets/perls/yellowPerl.png';
 
-export default function QuotePerl({ quote, index, container, perlColor, textColor }) {
+export default function QuotePerl({ quote, index, container }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showQuote, setShowQuote] = useState(false);
   const [isChoosingColor, setIsChoosingColor] = useState(true);
@@ -35,36 +35,98 @@ export default function QuotePerl({ quote, index, container, perlColor, textColo
   const pseudoQuote = useRef(null);
   const quoteHeight = useRef(null);
   const quotePosition = useRef(null);
+  const textColor = useRef(null);
   const perl = useRef(null);
 
   useEffect(() => {
-    if (perlColor === 'adobe') perl.current = adobePerlImage;
-    if (perlColor === 'babyBlue') perl.current = babyBluePerlImage;
-    if (perlColor === 'black') perl.current = blackPerlImage;
-    if (perlColor === 'blue') perl.current = bluePerlImage;
-    if (perlColor === 'chamois') perl.current = chamoisPerlImage;
-    if (perlColor === 'darkBlue') perl.current = darkBluePerlImage;
-    if (perlColor === 'darkGreen') perl.current = darkGreenPerlImage;
-    if (perlColor === 'darkRed') perl.current = darkRedPerlImage;
-    if (perlColor === 'flieder') perl.current = fliederPerlImage;
-    if (perlColor === 'green') perl.current = greenPerlImage;
-    if (perlColor === 'greyLightBrown') perl.current = greyLightBrownPerlImage;
-    if (perlColor === 'grey') perl.current = greyPerlImage;
-    if (perlColor === 'lightGreen') perl.current = lightGreenPerlImage;
-    if (perlColor === 'lightGrey') perl.current = lightGreyPerlImage;
-    if (perlColor === 'lightOrange') perl.current = lightOrangePerlImage;
-    if (perlColor === 'lightYellow') perl.current = lightYellowPerlImage;
-    if (perlColor === 'mandarine') perl.current = mandarinePerlImage;
-    if (perlColor === 'olive') perl.current = olivePerlImage;
-    if (perlColor === 'orange') perl.current = orangePerlImage;
-    if (perlColor === 'pink') perl.current = pinkPerlImage;
-    if (perlColor === 'purple') perl.current = purplePerlImage;
-    if (perlColor === 'red') perl.current = redPerlImage;
-    if (perlColor === 'skin') perl.current = skinPerlImage;
-    if (perlColor === 'white') perl.current = whitePerlImage;
-    if (perlColor === 'yellow') perl.current = yellowPerlImage;
+    const randomInt = getRandomInt(25);
+    textColor.current = 'white';
+    switch (randomInt) {
+      case 0:
+        perl.current = adobePerlImage;
+        break;
+      case 1:
+        perl.current = babyBluePerlImage;
+        break;
+      case 2:
+        perl.current = blackPerlImage;
+        break;
+      case 3:
+        perl.current = bluePerlImage;
+        break;
+      case 4:
+        perl.current = chamoisPerlImage;
+        textColor.current = 'black';
+        break;
+      case 5:
+        perl.current = darkBluePerlImage;
+        break;
+      case 6:
+        perl.current = darkGreenPerlImage;
+        break;
+      case 7:
+        perl.current = darkRedPerlImage;
+        break;
+      case 8:
+        perl.current = fliederPerlImage;
+        break;
+      case 9:
+        perl.current = greenPerlImage;
+        break;
+      case 10:
+        perl.current = greyLightBrownPerlImage;
+        break;
+      case 11:
+        perl.current = greyPerlImage;
+        break;
+      case 12:
+        perl.current = lightGreenPerlImage;
+        break;
+      case 13:
+        perl.current = lightGreyPerlImage;
+        textColor.current = 'black';
+        break;
+      case 14:
+        perl.current = lightOrangePerlImage;
+        textColor.current = 'black';
+        break;
+      case 15:
+        perl.current = lightYellowPerlImage;
+        textColor.current = 'black';
+        break;
+      case 16:
+        perl.current = mandarinePerlImage;
+        break;
+      case 17:
+        perl.current = olivePerlImage;
+        break;
+      case 18:
+        perl.current = orangePerlImage;
+        break;
+      case 19:
+        perl.current = pinkPerlImage;
+        break;
+      case 20:
+        perl.current = purplePerlImage;
+        break;
+      case 21:
+        perl.current = redPerlImage;
+        break;
+      case 22:
+        perl.current = skinPerlImage;
+        textColor.current = 'black';
+        break;
+      case 23:
+        perl.current = whitePerlImage;
+        textColor.current = 'black';
+        break;
+      default:
+        perl.current = yellowPerlImage;
+        textColor.current = 'black';
+        break;
+    }
     setIsChoosingColor(false);
-  }, [perlColor]);
+  }, []);
 
   useEffect(() => {
     if (!isChoosingColor) {
@@ -76,8 +138,8 @@ export default function QuotePerl({ quote, index, container, perlColor, textColo
 
   useEffect(() => {
     const containerWidth = container.current.offsetWidth;
-    const left = Math.floor(Math.random() * Math.floor(containerWidth / 20)) * 20;
-    const top = Math.floor(Math.random() * Math.floor(20)) * 20;
+    const left = Math.max(40, getRandomInt(containerWidth / 20) * 20 - 20);
+    const top = getRandomInt(20) * 20 + 40;
     quotePosition.current = { top: top + 'px', left: left + 'px' };
     setIsCalculatingPosition(false);
   }, [container]);
@@ -94,7 +156,7 @@ export default function QuotePerl({ quote, index, container, perlColor, textColo
       isOpen={isOpen}
       onClick={handlePerlClick}
       perl={perl.current}
-      textColor={textColor}
+      textColor={textColor.current}
     >
       <QuoteDisplayContainerStyled isOpen={isOpen}>
         <QuoteOpacityContainerStyled showQuote={showQuote}>
@@ -121,6 +183,10 @@ export default function QuotePerl({ quote, index, container, perlColor, textColo
   function handleCloseClick() {
     setShowQuote(false);
     setTimeout(() => setIsOpen(false), 1000);
+  }
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
   }
 }
 
