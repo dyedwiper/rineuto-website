@@ -26,7 +26,7 @@ import skinPerlImage from '../assets/perls/skinPerl.png';
 import whitePerlImage from '../assets/perls/whitePerl.png';
 import yellowPerlImage from '../assets/perls/yellowPerl.png';
 
-export default function QuotePerl({ quote, index, container }) {
+export default function QuotePerl({ quote, container }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showQuote, setShowQuote] = useState(false);
   const [isChoosingColor, setIsChoosingColor] = useState(true);
@@ -47,6 +47,7 @@ export default function QuotePerl({ quote, index, container }) {
         break;
       case 1:
         perl.current = babyBluePerlImage;
+        textColor.current = 'black';
         break;
       case 2:
         perl.current = blackPerlImage;
@@ -140,7 +141,8 @@ export default function QuotePerl({ quote, index, container }) {
     const containerWidth = container.current.offsetWidth;
     const left = Math.max(40, getRandomInt(containerWidth / 20) * 20 - 20);
     const top = getRandomInt(20) * 20 + 40;
-    quotePosition.current = { top: top + 'px', left: left + 'px' };
+    const isOnRightSide = left > containerWidth / 2;
+    quotePosition.current = { top: top, left: left, isOnRightSide: isOnRightSide };
     setIsCalculatingPosition(false);
   }, [container]);
 
@@ -152,6 +154,7 @@ export default function QuotePerl({ quote, index, container }) {
     <QuotePerlStyled
       top={quotePosition.current.top}
       left={quotePosition.current.left}
+      isOnRightSide={quotePosition.current.isOnRightSide}
       quoteHeight={quoteHeight.current}
       isOpen={isOpen}
       onClick={handlePerlClick}
@@ -192,8 +195,9 @@ export default function QuotePerl({ quote, index, container }) {
 
 const QuotePerlStyled = styled.div`
   position: absolute;
-  top: ${(props) => props.top};
-  left: ${(props) => props.left};
+  top: ${(props) => props.top + 'px'};
+  left: ${(props) =>
+    props.isOpen ? (props.isOnRightSide ? props.left - 180 + 'px' : props.left + 'px') : props.left + 'px'};
   z-index: ${(props) => (props.isOpen ? '99' : 'auto')};
   overflow: hidden;
   width: ${(props) => (props.isOpen ? '200px' : '20px')};
@@ -204,9 +208,17 @@ const QuotePerlStyled = styled.div`
   color: ${(props) => props.textColor};
   cursor: ${(props) => (props.isOpen ? 'auto' : 'pointer')};
 
-  transition: width 1s linear, height 1s linear;
+  transition: width 1s linear, height 1s linear, left 1s linear;
+
+  @media (max-width: 400px) {
+    left: ${(props) =>
+      props.isOpen ? (props.isOnRightSide ? props.left - 140 + 'px' : props.left + 'px') : props.left + 'px'};
+    width: ${(props) => (props.isOpen ? '160px' : '20px')};
+  }
 
   @media (min-width: 900px) {
+    left: ${(props) =>
+      props.isOpen ? (props.isOnRightSide ? props.left - 280 + 'px' : props.left + 'px') : props.left + 'px'};
     width: ${(props) => (props.isOpen ? '300px' : '20px')};
   }
 `;
@@ -238,6 +250,10 @@ const PseudoQuoteStyled = styled.div`
   left: 10000px;
   width: 200px;
   padding: 10px;
+
+  @media (max-width: 400px) {
+    width: 160px;
+  }
 
   @media (min-width: 900px) {
     width: 300px;

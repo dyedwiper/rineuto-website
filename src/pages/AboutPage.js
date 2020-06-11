@@ -43,8 +43,8 @@ export default function AboutPage() {
         ))}
       </AboutTextStyled>
       <QuotePerlsContainerStyled ref={quoteContainer}>
-        {quotes.map((quote, index) => (
-          <QuotePerl key={quote._id} container={quoteContainer} quote={quote} index={index} />
+        {quotes.map((quote) => (
+          <QuotePerl key={quote._id} container={quoteContainer} quote={quote} />
         ))}
       </QuotePerlsContainerStyled>
     </AboutPageStyled>
