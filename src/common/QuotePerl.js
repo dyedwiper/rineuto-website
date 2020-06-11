@@ -78,30 +78,28 @@ export default function QuotePerl({ quote, top, left, perlColor, textColor }) {
   }
 
   return (
-    <>
-      <QuotePerlStyled
-        top={top}
-        left={left}
-        quoteHeight={quoteHeight.current}
-        isOpen={isOpen}
-        onClick={handlePerlClick}
-        perl={perl.current}
-        textColor={textColor}
-      >
-        <QuoteDisplayContainerStyled isOpen={isOpen}>
-          <QuoteOpacityContainerStyled showQuote={showQuote}>
-            <CloseButtonStyled onClick={handleCloseClick}>{'\u2716'}</CloseButtonStyled>
-            <QuoteTextStyled>{quote.text}</QuoteTextStyled>
-            <QuoteAuthorStyled>{quote.author}</QuoteAuthorStyled>
-          </QuoteOpacityContainerStyled>
-        </QuoteDisplayContainerStyled>
-      </QuotePerlStyled>
+    <QuotePerlStyled
+      top={top}
+      left={left}
+      quoteHeight={quoteHeight.current}
+      isOpen={isOpen}
+      onClick={handlePerlClick}
+      perl={perl.current}
+      textColor={textColor}
+    >
+      <QuoteDisplayContainerStyled isOpen={isOpen}>
+        <QuoteOpacityContainerStyled showQuote={showQuote}>
+          <CloseButtonStyled onClick={handleCloseClick}>{'\u2716'}</CloseButtonStyled>
+          <QuoteTextStyled>{quote.text}</QuoteTextStyled>
+          <QuoteAuthorStyled>{quote.author}</QuoteAuthorStyled>
+        </QuoteOpacityContainerStyled>
+      </QuoteDisplayContainerStyled>
       <PseudoQuoteStyled ref={pseudoQuote}>
         <CloseButtonStyled onClick={handleCloseClick}>{'\u2716'}</CloseButtonStyled>
         <QuoteTextStyled>{quote.text}</QuoteTextStyled>
         <QuoteAuthorStyled>{quote.author}</QuoteAuthorStyled>
       </PseudoQuoteStyled>
-    </>
+    </QuotePerlStyled>
   );
 
   function handlePerlClick() {
@@ -122,6 +120,7 @@ const QuotePerlStyled = styled.div`
   top: ${(props) => props.top};
   left: ${(props) => props.left};
   z-index: ${(props) => (props.isOpen ? '99' : 'auto')};
+  overflow: hidden;
   width: ${(props) => (props.isOpen ? '300px' : '20px')};
   height: ${(props) => (props.isOpen ? props.quoteHeight + 'px' : '20px')};
   margin-bottom: ${(props) => (props.isOpen ? '40px' : '0')};
