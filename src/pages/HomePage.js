@@ -9,7 +9,7 @@ export default function HomePage({ notices, editedObject }) {
 
   return (
     <HomePageStyled>
-      <SubHeadlineStyled>Newsreel</SubHeadlineStyled>
+      <SubHeadlineStyled>Neutigkeiten</SubHeadlineStyled>
       {editedObject.added === 'notice' && <EditNoteStyled>News hinzugefügt</EditNoteStyled>}
       {editedObject.deleted === 'notice' && <EditNoteStyled>News gelöscht</EditNoteStyled>}
       <NoticesListStyled>
