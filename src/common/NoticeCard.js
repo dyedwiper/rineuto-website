@@ -56,8 +56,7 @@ const NoticeTitleRowStyled = styled.div`
 
 const NoticeTitleStyled = styled.h2`
   margin: 0;
-  padding: 20px;
-  padding-bottom: 10px;
+  padding: 40px 20px 10px 20px;
   background-color: white;
 `;
 

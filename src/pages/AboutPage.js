@@ -82,7 +82,7 @@ const AboutTextStyled = styled.p`
   background-color: white;
 
   @media (min-width: 900px) {
-    height: 200px;
+    height: 220px;
   }
 `;
 
