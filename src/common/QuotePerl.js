@@ -4,8 +4,6 @@ import { choosePerlColor } from '../utils/quotePerlUtils';
 
 export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumberOfOpenPerls }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [showQuote, setShowQuote] = useState(false);
-  const [isInForeground, setIsInForeground] = useState(false);
   const [isChoosingColor, setIsChoosingColor] = useState(true);
   const [isCalculatingPosition, setIsCalculatingPosition] = useState(true);
 
@@ -22,9 +20,7 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
 
   useEffect(() => {
     if (!numberOfOpenPerls) {
-      setShowQuote(false);
-      setTimeout(() => setIsOpen(false), 1000);
-      setTimeout(() => setIsInForeground(false), 2000);
+      setIsOpen(false);
     }
   }, [numberOfOpenPerls]);
 
@@ -56,13 +52,12 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
       isOnRightSide={quotePosition.current.isOnRightSide}
       quoteHeight={quoteHeight.current}
       isOpen={isOpen}
-      isInForeground={isInForeground}
       onClick={handlePerlClick}
       perl={perl.current}
       textColor={textColor.current}
     >
       <QuoteDisplayContainerStyled isOpen={isOpen}>
-        <QuoteOpacityContainerStyled showQuote={showQuote}>
+        <QuoteOpacityContainerStyled isOpen={isOpen}>
           <CloseButtonStyled onClick={handleCloseClick}>{'\u2716'}</CloseButtonStyled>
           <QuoteTextStyled>{quote.text}</QuoteTextStyled>
           <QuoteAuthorStyled>{quote.author}</QuoteAuthorStyled>
@@ -80,16 +75,12 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
     if (!isOpen) {
       setIsOpen(true);
       setNumberOfOpenPerls(numberOfOpenPerls + 1);
-      setIsInForeground(true);
-      setTimeout(() => setShowQuote(true), 1000);
     }
   }
 
   function handleCloseClick() {
-    setShowQuote(false);
     setNumberOfOpenPerls(numberOfOpenPerls - 1);
-    setTimeout(() => setIsOpen(false), 1000);
-    setTimeout(() => setIsInForeground(false), 2000);
+    setIsOpen(false);
   }
 
   function getRandomInt(max) {
@@ -102,7 +93,7 @@ const QuotePerlStyled = styled.div`
   top: ${(props) => props.top + 'px'};
   left: ${(props) =>
     props.isOpen ? (props.isOnRightSide ? props.left - 180 + 'px' : props.left + 'px') : props.left + 'px'};
-  z-index: ${(props) => (props.isInForeground ? '99' : 'auto')};
+  z-index: ${(props) => (props.isOpen ? '99' : '0')};
   overflow: hidden;
   width: ${(props) => (props.isOpen ? '200px' : '20px')};
   height: ${(props) => (props.isOpen ? props.quoteHeight + 'px' : '20px')};
@@ -113,6 +104,10 @@ const QuotePerlStyled = styled.div`
   cursor: ${(props) => (props.isOpen ? 'auto' : 'pointer')};
 
   transition: width 1s linear, height 1s linear, left 1s linear;
+  transition: ${(props) =>
+    props.isOpen
+      ? 'width 1s linear, height 1s linear, left 1s linear'
+      : 'width 1s linear 1s, height 1s linear 1s, left 1s linear 1s, z-index 2s linear 2s'};
 
   @media (max-width: 400px) {
     left: ${(props) =>
@@ -128,12 +123,14 @@ const QuotePerlStyled = styled.div`
 `;
 
 const QuoteDisplayContainerStyled = styled.div`
-  display: ${(props) => (props.isOpen ? 'block' : 'none')};
+  visibility: ${(props) => (props.isOpen ? 'visible' : 'hidden')};
+  transition-delay: ${(props) => (props.isOpen ? '0s' : '1s')};
+  transition-property: visibility;
 `;
 
 const QuoteOpacityContainerStyled = styled.div`
-  opacity: ${(props) => (props.showQuote ? '1' : '0')};
-  transition: opacity 1s linear;
+  opacity: ${(props) => (props.isOpen ? '1' : '0')};
+  transition: ${(props) => (props.isOpen ? 'opacity 1s linear 1s' : 'opacity 1s linear')};
 `;
 
 const CloseButtonStyled = styled.div`
