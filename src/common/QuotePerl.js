@@ -6,6 +6,7 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
   const [isOpen, setIsOpen] = useState(false);
   const [isChoosingColor, setIsChoosingColor] = useState(true);
   const [isCalculatingPosition, setIsCalculatingPosition] = useState(true);
+  const [zIndex, setZIndex] = useState(0);
 
   const pseudoQuote = useRef(null);
   const quoteHeight = useRef(null);
@@ -17,6 +18,13 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
     choosePerlColor(perl, textColor);
     setIsChoosingColor(false);
   }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      setZIndex(numberOfOpenPerls);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
   useEffect(() => {
     if (!numberOfOpenPerls) {
@@ -55,6 +63,7 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
       onClick={handlePerlClick}
       perl={perl.current}
       textColor={textColor.current}
+      zIndex={zIndex}
     >
       <QuoteDisplayContainerStyled isOpen={isOpen}>
         <QuoteOpacityContainerStyled isOpen={isOpen}>
@@ -93,7 +102,7 @@ const QuotePerlStyled = styled.div`
   top: ${(props) => props.top + 'px'};
   left: ${(props) =>
     props.isOpen ? (props.isOnRightSide ? props.left - 180 + 'px' : props.left + 'px') : props.left + 'px'};
-  z-index: ${(props) => (props.isOpen ? '99' : '0')};
+  z-index: ${(props) => (props.isOpen ? props.zIndex : '0')};
   overflow: hidden;
   width: ${(props) => (props.isOpen ? '200px' : '20px')};
   height: ${(props) => (props.isOpen ? props.quoteHeight + 'px' : '20px')};
@@ -107,7 +116,7 @@ const QuotePerlStyled = styled.div`
   transition: ${(props) =>
     props.isOpen
       ? 'width 1s linear, height 1s linear, left 1s linear'
-      : 'width 1s linear 1s, height 1s linear 1s, left 1s linear 1s, z-index 2s linear 2s'};
+      : 'width 1s linear 1s, height 1s linear 1s, left 1s linear 1s, z-index 0s linear 2s'};
 
   @media (max-width: 400px) {
     left: ${(props) =>
