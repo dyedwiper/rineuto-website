@@ -68,7 +68,7 @@ export default function AboutPage() {
   );
 
   function handleClick(event) {
-    if (!event.target.className.startsWith('Quote') && numberOfOpenPerls) {
+    if (!event.target.className.startsWith('Quote')) {
       setNumberOfOpenPerls(0);
     }
   }

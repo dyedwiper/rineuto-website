@@ -20,19 +20,6 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
   }, []);
 
   useEffect(() => {
-    if (isOpen) {
-      setZIndex(numberOfOpenPerls);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!numberOfOpenPerls) {
-      setIsOpen(false);
-    }
-  }, [numberOfOpenPerls]);
-
-  useEffect(() => {
     if (!isChoosingColor) {
       const pseudoHeight = pseudoQuote.current.offsetHeight;
       const actualHeight = pseudoHeight % 20 === 0 ? pseudoHeight : pseudoHeight - (pseudoHeight % 20) + 20;
@@ -48,6 +35,19 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
     quotePosition.current = { top: top, left: left, isOnRightSide: isOnRightSide };
     setIsCalculatingPosition(false);
   }, [container]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setZIndex(numberOfOpenPerls);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!numberOfOpenPerls) {
+      setIsOpen(false);
+    }
+  }, [numberOfOpenPerls]);
 
   if (isChoosingColor || isCalculatingPosition) {
     return <></>;
@@ -65,13 +65,13 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
       textColor={textColor.current}
       zIndex={zIndex}
     >
-      <QuoteDisplayContainerStyled isOpen={isOpen}>
+      <QuoteVisibilityContainerStyled isOpen={isOpen}>
         <QuoteOpacityContainerStyled isOpen={isOpen}>
           <CloseButtonStyled onClick={handleCloseClick}>{'\u2716'}</CloseButtonStyled>
           <QuoteTextStyled>{quote.text}</QuoteTextStyled>
           <QuoteAuthorStyled>{quote.author}</QuoteAuthorStyled>
         </QuoteOpacityContainerStyled>
-      </QuoteDisplayContainerStyled>
+      </QuoteVisibilityContainerStyled>
       <PseudoQuoteStyled ref={pseudoQuote}>
         <CloseButtonStyled onClick={handleCloseClick}>{'\u2716'}</CloseButtonStyled>
         <QuoteTextStyled>{quote.text}</QuoteTextStyled>
@@ -112,7 +112,6 @@ const QuotePerlStyled = styled.div`
   color: ${(props) => props.textColor};
   cursor: ${(props) => (props.isOpen ? 'auto' : 'pointer')};
 
-  transition: width 1s linear, height 1s linear, left 1s linear;
   transition: ${(props) =>
     props.isOpen
       ? 'width 1s linear, height 1s linear, left 1s linear'
@@ -131,7 +130,7 @@ const QuotePerlStyled = styled.div`
   }
 `;
 
-const QuoteDisplayContainerStyled = styled.div`
+const QuoteVisibilityContainerStyled = styled.div`
   visibility: ${(props) => (props.isOpen ? 'visible' : 'hidden')};
   transition-delay: ${(props) => (props.isOpen ? '0s' : '1s')};
   transition-property: visibility;
