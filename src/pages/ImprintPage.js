@@ -12,7 +12,12 @@ export default function ImprintPage() {
       <div>Mokrystraße 1</div>
       <div>21107 Hamburg</div>
       <br />
-      <div>kontakt.mokryhuetten@posteo.de</div>
+      <div>max_becker(ät)posteo.de</div>
+      <br />
+      <FacebookLinkStyled href="https://www.facebook.com/rineuto" target="_blank" rel="noopener noreferrer">
+        Facebook
+      </FacebookLinkStyled>
+      <br />
       <br />
       <div>Jugendschutzbeauftragter: Fabian Schauren </div>
       <div>(jugendschutz@kommunale-kinos.de)</div>
@@ -29,4 +34,8 @@ const ImprintPageStyled = styled.div`
     padding: 40px;
     font-size: 1.5em;
   }
+`;
+
+const FacebookLinkStyled = styled.a`
+  color: white;
 `;

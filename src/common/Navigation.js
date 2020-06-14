@@ -28,7 +28,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
         Über uns
       </NavLinkStyled>
       <NavLinkStyled to="/imprint" onClick={() => setIsNavOpen(false)}>
-        Impressum
+        Kontakt
       </NavLinkStyled>
       {loggedIn && (
         <>
