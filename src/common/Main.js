@@ -148,7 +148,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen }) {
 
 const MainStyled = styled.main`
   overflow: auto;
-  filter: ${(props) => (props.isNavOpen ? 'blur(4px)' : 'none')};
+  filter: ${(props) => (props.isNavOpen ? 'blur(1px)' : 'none')};
 
   transition: filter 2.3s linear;
 
