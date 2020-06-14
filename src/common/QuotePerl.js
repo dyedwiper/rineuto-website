@@ -43,7 +43,7 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
   useEffect(() => {
     const containerWidth = container.current.offsetWidth;
     const left = Math.max(40, getRandomInt(containerWidth / 20) * 20 - 20);
-    const top = getRandomInt(20) * 20 + 40;
+    const top = getRandomInt(10) * 20 + 40;
     const isOnRightSide = left > containerWidth / 2;
     quotePosition.current = { top: top, left: left, isOnRightSide: isOnRightSide };
     setIsCalculatingPosition(false);
