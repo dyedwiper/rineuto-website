@@ -24,10 +24,7 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
         <RedPerlStyled src={redPerlImage} />
       </PerlLinkStyled>
       <PerlMenuLabelStyled isNavOpen={isNavOpen}>
-        <CheckboxStyled
-          type="checkbox"
-          onChange={() => setIsNavOpen(!isNavOpen)}
-        ></CheckboxStyled>
+        <CheckboxStyled type="checkbox" onChange={() => setIsNavOpen(!isNavOpen)}></CheckboxStyled>
       </PerlMenuLabelStyled>
     </HeaderStyled>
   );
@@ -86,14 +83,11 @@ const PerlMenuLabelStyled = styled.label`
   right: ${(window.innerWidth % 20 === 0 ? 20 : window.innerWidth % 20) + 'px'};
   width: 20px;
   height: 20px;
-  background-image: ${(props) =>
-    props.isNavOpen ? `url(${redPerlImage})` : `url(${darkGreenPerlImage})`};
+  background-image: ${(props) => (props.isNavOpen ? `url(${redPerlImage})` : `url(${darkGreenPerlImage})`)};
   background-color: ${(props) => (props.isNavOpen ? 'red' : 'green')};
 
   @media (min-width: 600px) {
-    right: ${(window.innerWidth % 20 === 0
-      ? 40
-      : (window.innerWidth % 20) + 20) + 'px'};
+    right: ${(window.innerWidth % 20 === 0 ? 40 : (window.innerWidth % 20) + 20) + 'px'};
   }
 
   @media (min-width: 900px) {

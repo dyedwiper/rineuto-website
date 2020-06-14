@@ -1,64 +1,105 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components/macro';
+import QuotePerl from '../common/QuotePerl';
+import { getQuotes } from '../utils/services';
+import LoadingPage from './LoadingPage';
 
 export default function AboutPage() {
+  const [quotes, setQuotes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [numberOfOpenPerls, setNumberOfOpenPerls] = useState(0);
+  const [aboutTextHeight, setAboutTextHeight] = useState(0);
+
+  const quoteContainer = useRef(null);
+  const aboutTextParagraph = useRef(null);
+
+  useEffect(() => {
+    getQuotes()
+      .then((quotes) => {
+        setQuotes(quotes);
+        setIsLoading(false);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setAboutTextHeight(aboutTextParagraph.current.offsetHeight);
+    }
+  }, [isLoading]);
+
   useEffect(() => {
     document.title = 'Über uns | Rineuto Lichtspiele';
   }, []);
 
   const aboutText =
-    'Wir veranstalten etwa alle zwei Wochen einen Filmabend in der Mokrystr. 1. \n In unseren Filmreihen widmen wir uns über je zwei Monate einem Thema oder einer Person. \n Nach den Filmen diskutieren wir häufig noch ein Weilchen über die Eindrücke und manchmal gibt es ein kurzes filmhistorisches Referat. \n Der Eintritt ist frei. Kühle Getränke gibt es an der Bar. Für beides nehmen wir gerne Spenden entgegen.';
+    'Jeden paarten Dienstag zeigen wir einen Film in der Mokry zu freiem Eintritt bei gern entgegen genommenen Spenden. \n Etwa eine Stunde vor Filmbeginn gibt es gewöhnlich eine vegane Speisung, auch KüFA genannt. \n Noch sorgfältiger als die Zutaten wählen wir die Filme aus. Ein Rezept gibt es nicht, aber Gedankenperlen, die uns leiten.';
 
-  const aboutQuotes =
-    'Den Anspruch an unsere Filmauswahl formulieren wir in drei Zitaten: \n "Ein guter Film hat kein Genre, genausowenig wie das echte Leben. In einem Moment ist es eine Komödie, im nächsten eine Tragödie." - Paul Verhoeven \n "Was mich an Filmen oder an jeder Form von Kunst berührt, ist dieser unauslöschliche Rest von Geheimnis und von Dingen, die sich unserer Wahrnehmung entziehen." - Mia Hansen-Løve \n "Ich habe noch nie einen explodierenden Hubschrauber gesehen. Ich habe noch nie jemanden gesehen, der jemand anderem eine Kugel in den Kopf jagt. Warum sollte ich also Filme darüber machen? Aber ich habe Leute gesehen, die sich selbst zerstört haben, ich habe Leute aufgeben sehen, ich habe Leute gesehen, die sich hinter politischen Ideen, hinter Drogen, hinter der sexuellen Revolution, hinter Faschismus, hinter Heuchelei versteckt haben, und ich habe alle diese Dinge selber gemacht. Darum kann ich sie verstehen. Was wir sagen, ist behutsam gemeint. Es ist Behutsamkeit. Wir haben Probleme, schlimme Probleme, aber unsere Probleme sind menschliche Probleme." - John Cassavetes';
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <AboutPageStyled>
       <SubHeadlineStyled>Über uns</SubHeadlineStyled>
-      <AboutTextStyled>
-        {aboutText.split('\n').map((part, index) => (
-          <span key={index}>
-            {part}
-            <br />
-            <br />
-          </span>
+      <AboutTextContainerStyled aboutTextHeight={aboutTextHeight}>
+        <AboutTextStyled ref={aboutTextParagraph}>
+          {aboutText.split('\n').map((part, index) => (
+            <span key={index}>
+              {part}
+              <br />
+              <br />
+            </span>
+          ))}
+        </AboutTextStyled>
+      </AboutTextContainerStyled>
+      <QuotePerlsContainerStyled ref={quoteContainer} onClick={handleClick}>
+        {quotes.map((quote) => (
+          <QuotePerl
+            key={quote._id}
+            container={quoteContainer}
+            quote={quote}
+            numberOfOpenPerls={numberOfOpenPerls}
+            setNumberOfOpenPerls={setNumberOfOpenPerls}
+          />
         ))}
-      </AboutTextStyled>
-      <AboutQuotesStyled>
-        {aboutQuotes.split('\n').map((part, index) => (
-          <span key={index}>
-            {part}
-            <br />
-            <br />
-          </span>
-        ))}
-      </AboutQuotesStyled>
+      </QuotePerlsContainerStyled>
     </AboutPageStyled>
   );
+
+  function handleClick(event) {
+    if (!event.target.className.startsWith('Quote')) {
+      setNumberOfOpenPerls(0);
+    }
+  }
 }
 
 const AboutPageStyled = styled.div`
-  overflow: auto;
-  padding: 10px 20px;
+  padding: 20px;
 `;
 
 const SubHeadlineStyled = styled.h2`
+  height: 40px;
   margin: 10px 0;
   color: white;
   text-align: center;
 `;
 
-const AboutTextStyled = styled.p`
+const AboutTextContainerStyled = styled.div`
   margin: 0 auto;
   max-width: 600px;
+  height: ${(props) =>
+    (props.aboutTextHeight % 20 === 0
+      ? props.aboutTextHeight
+      : props.aboutTextHeight + 20 - (props.aboutTextHeight % 20)) + 'px'};
   padding: 10px;
-  background-color: white;
 `;
 
-const AboutQuotesStyled = styled.p`
-  margin: 0 auto;
-  max-width: 600px;
-  padding: 10px;
-  background-color: black;
+const AboutTextStyled = styled.p`
   color: white;
+`;
+
+const QuotePerlsContainerStyled = styled.div`
+  position: relative;
+  height: 250px;
 `;
