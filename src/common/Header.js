@@ -20,7 +20,7 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
   return (
     <HeaderStyled>
       <TitleStyled onClick={handleTitleClick}>{title}</TitleStyled>
-      <PerlLinkStyled target="_blank" href="https://youtu.be/hKBfQdKvyXc">
+      <PerlLinkStyled target="_blank" rel="noopener noreferrer" href="https://youtu.be/hKBfQdKvyXc">
         <RedPerlStyled src={redPerlImage} />
       </PerlLinkStyled>
       <PerlMenuLabelStyled isNavOpen={isNavOpen}>
