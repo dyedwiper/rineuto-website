@@ -14,7 +14,13 @@ export default function ImprintPage() {
       <div>21107 Hamburg</div>
       <div>kontakt.mokryhuetten(ät)posteo.de</div>
       <br />
-      <MapImageStyled src={mapImage} />
+      <a
+        href="https://www.openstreetmap.de/karte.html?zoom=19&lat=53.51843&lon=9.98398&layers=B000TT"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <MapImageStyled src={mapImage} />
+      </a>
       <br />
       <br />
       <div>Programmierung und Gestaltung:</div>
@@ -43,8 +49,8 @@ const ImprintPageStyled = styled.div`
 `;
 
 const MapImageStyled = styled.img`
-  /* margin: 40px; */
   max-width: 600px;
+  width: 100%;
 `;
 
 const FacebookLinkStyled = styled.a`
