@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
+import mapImage from '../assets/karte.png';
 
 export default function ImprintPage() {
   useEffect(() => {
@@ -11,11 +12,16 @@ export default function ImprintPage() {
       <div>Mokryhütten e.V.</div>
       <div>Mokrystraße 1</div>
       <div>21107 Hamburg</div>
+      <div>kontakt.mokryhuetten(ät)posteo.de</div>
       <br />
+      <MapImageStyled src={mapImage} />
+      <br />
+      <br />
+      <div>Programmierung und Gestaltung:</div>
       <div>max_becker(ät)posteo.de</div>
       <br />
       <FacebookLinkStyled href="https://www.facebook.com/rineuto" target="_blank" rel="noopener noreferrer">
-        Facebook
+        Rineuto on facebook
       </FacebookLinkStyled>
       <br />
       <br />
@@ -34,6 +40,11 @@ const ImprintPageStyled = styled.div`
     padding: 40px;
     font-size: 1.5em;
   }
+`;
+
+const MapImageStyled = styled.img`
+  /* margin: 40px; */
+  max-width: 600px;
 `;
 
 const FacebookLinkStyled = styled.a`
