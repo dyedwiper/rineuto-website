@@ -29,6 +29,7 @@
   "scripts": {
     "start": "run-p server dev",
     "server": "nodemon server/server.js",
+    "prodserver": "env NODE_ENV=production nodemon server/server.js",
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "build:staging": "env-cmd -f .env.staging npm run build",

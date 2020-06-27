@@ -10,9 +10,18 @@ const port = process.env.PORT || 3333;
 dotenv.config();
 
 app.use(express.json());
-app.use(cors());
 app.set('json spaces', 2);
+
+app.use(cors());
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'build')));
+  app.get(/^(?!\/api)/, (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+}
 
 app.use('/api/screenings', require('./routes/screenings'));
 app.use('/api/serials', require('./routes/serials'));
