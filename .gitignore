@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/client/node_modules
 /.pnp
 .pnp.js
 
@@ -9,8 +10,7 @@
 /coverage
 
 # production
-/build
-/server/build
+/client/build
 
 # misc
 .DS_Store
@@ -25,7 +25,6 @@ yarn-error.log*
 
 #environment
 .env
-.env.staging
 
 #static files
 /server/public
