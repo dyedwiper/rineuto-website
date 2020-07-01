@@ -3,8 +3,8 @@ const fs = require('fs');
 const Notice = require('../models/Notice');
 const authenticate = require('../middleware/authenticate');
 const { validateNotice } = require('../middleware/validation');
-const { uploadNoticeImage, dataUri } = require('../middleware/uploadNoticeImage');
-const { cloudinaryUploader, cloudinaryConfig } = require('../config/cloudinaryConfig');
+const { readFile } = require('../middleware/readFileWithMulter');
+const { uploadToCloudinary } = require('../middleware/uploadToCloudinary');
 
 router.get('/', (req, res) => {
   Notice.find()
@@ -12,31 +12,14 @@ router.get('/', (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.post('/', authenticate, uploadNoticeImage, cloudinaryConfig, validateNotice, (req, res) => {
-  console.log(req.file);
-  if (req.file) {
-    const file = dataUri(req).content;
-    return cloudinaryUploader
-      .upload(file)
-      .then((result) => {
-        const image = result.url;
-        return res.json({
-          message: 'uploaded to cloudinary',
-          data: image,
-        });
-      })
-      .catch((err) => {
-        res.json({ message: 'something went wrong', data: { err } });
-      });
-  }
-
+router.post('/', authenticate, readFile, uploadToCloudinary, validateNotice, (req, res) => {
   const date = Date.now();
   let newNotice;
   if (req.file) {
     newNotice = new Notice({
       date,
       ...req.body,
-      imageUrl: req.file.path.slice(req.file.path.indexOf('/notices')),
+      imageUrl: req.file.path,
     });
   } else {
     newNotice = new Notice({ date, ...req.body });
@@ -47,7 +30,7 @@ router.post('/', authenticate, uploadNoticeImage, cloudinaryConfig, validateNoti
     .catch((err) => res.status(400).json(err));
 });
 
-router.patch('/:id', authenticate, uploadNoticeImage, validateNotice, (req, res) => {
+router.patch('/:id', authenticate, readFile, uploadToCloudinary, validateNotice, (req, res) => {
   let noticeToUpdate;
   if (req.file) {
     noticeToUpdate = {
