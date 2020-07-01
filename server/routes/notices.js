@@ -3,7 +3,8 @@ const fs = require('fs');
 const Notice = require('../models/Notice');
 const authenticate = require('../middleware/authenticate');
 const { validateNotice } = require('../middleware/validation');
-const { uploadNoticeImage } = require('../middleware/uploadNoticeImage');
+const { uploadNoticeImage, dataUri } = require('../middleware/uploadNoticeImage');
+const { cloudinaryUploader, cloudinaryConfig } = require('../config/cloudinaryConfig');
 
 router.get('/', (req, res) => {
   Notice.find()
@@ -11,7 +12,24 @@ router.get('/', (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.post('/', authenticate, uploadNoticeImage, validateNotice, (req, res) => {
+router.post('/', authenticate, uploadNoticeImage, cloudinaryConfig, validateNotice, (req, res) => {
+  console.log(req.file);
+  if (req.file) {
+    const file = dataUri(req).content;
+    return cloudinaryUploader
+      .upload(file)
+      .then((result) => {
+        const image = result.url;
+        return res.json({
+          message: 'uploaded to cloudinary',
+          data: image,
+        });
+      })
+      .catch((err) => {
+        res.json({ message: 'something went wrong', data: { err } });
+      });
+  }
+
   const date = Date.now();
   let newNotice;
   if (req.file) {
