@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import { postNotice } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 
-export default function AddNoticePage({ setEditedObject }) {
+export default function AddNoticePage({ setEditedObject, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -44,15 +44,18 @@ export default function AddNoticePage({ setEditedObject }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
     postNotice(formData, jwt)
       .then(() => {
         setEditedObject({ added: 'notice' });
+        setIsWaiting(false);
         history.push('/');
       })
       .catch((err) => {
+        setIsWaiting(false);
         console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);

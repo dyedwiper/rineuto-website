@@ -6,7 +6,7 @@ import { deleteNotice, patchNotice } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
-export default function EditNoticePage({ notices, setEditedObject }) {
+export default function EditNoticePage({ notices, setEditedObject, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
   const [noticeToEdit, setNoticeToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -79,15 +79,18 @@ export default function EditNoticePage({ notices, setEditedObject }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
     patchNotice(noticeToEdit._id, formData, jwt)
       .then(() => {
         setEditedObject(noticeToEdit);
+        setIsWaiting(false);
         history.push('/');
       })
       .catch((err) => {
+        setIsWaiting(false);
         console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
@@ -100,13 +103,18 @@ export default function EditNoticePage({ notices, setEditedObject }) {
 
   function handleDelete() {
     setShowDeletePrompt(false);
+    setIsWaiting(true);
     const jwt = getFromStorage('rineuto-token');
     deleteNotice(noticeToEdit._id, jwt)
       .then(() => {
+        setIsWaiting(false);
         setEditedObject({ deleted: 'notice' });
         history.push('/');
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setIsWaiting(false);
+        console.error(err);
+      });
   }
 }
 

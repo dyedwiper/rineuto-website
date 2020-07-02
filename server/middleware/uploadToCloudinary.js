@@ -10,6 +10,9 @@ function parseFileBuffer(req) {
 }
 
 function uploadToCloudinary(req, res, next) {
+  if (!req.file) {
+    return next();
+  }
   config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -18,7 +21,7 @@ function uploadToCloudinary(req, res, next) {
   const file = parser.format(path.extname(req.file.originalname).toString(), req.file.buffer).content;
   uploader
     .upload(file, {
-      folder: 'rineuto/' + req.originalUrl.slice(5),
+      folder: 'rineuto/' + req.baseUrl.slice(5),
       public_id: req.body.date + '_' + replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase()),
     })
     .then((result) => {
@@ -26,7 +29,7 @@ function uploadToCloudinary(req, res, next) {
       next();
     })
     .catch((err) => {
-      res.json({ message: 'something went wrong', data: { err } });
+      res.status(400).json({ cloudinaryError: err.message });
     });
 }
 

@@ -8,11 +8,13 @@ import Navigation from './common/Navigation';
 import UserContext from './userContext';
 import { getUser } from './utils/services';
 import { getFromStorage } from './utils/storage';
+import { OverlayStyled } from './common/styledElements';
 
 export default function App() {
   const [user, setUser] = useState({});
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(false);
 
   useEffect(() => {
     const token = getFromStorage('rineuto-token');
@@ -33,9 +35,15 @@ export default function App() {
     <Router>
       <UserContext.Provider value={{ user, setUser }}>
         <AppStyled>
+          {isWaiting && <OverlayStyled />}
           <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-          <Main isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} isLoadingUser={isLoadingUser} />
+          <Main
+            isNavOpen={isNavOpen}
+            setIsNavOpen={setIsNavOpen}
+            isLoadingUser={isLoadingUser}
+            setIsWaiting={setIsWaiting}
+          />
         </AppStyled>
       </UserContext.Provider>
     </Router>

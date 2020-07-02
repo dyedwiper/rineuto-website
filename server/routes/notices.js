@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const fs = require('fs');
 const Notice = require('../models/Notice');
 const authenticate = require('../middleware/authenticate');
 const { validateNotice } = require('../middleware/validation');
@@ -35,7 +34,7 @@ router.patch('/:id', authenticate, readFile, uploadToCloudinary, validateNotice,
   if (req.file) {
     noticeToUpdate = {
       ...req.body,
-      imageUrl: req.file.path.slice(req.file.path.indexOf('/notices')),
+      imageUrl: req.file.path,
     };
   } else {
     noticeToUpdate = req.body;
@@ -47,14 +46,7 @@ router.patch('/:id', authenticate, readFile, uploadToCloudinary, validateNotice,
 
 router.delete('/:id', authenticate, (req, res) => {
   Notice.findByIdAndDelete(req.params.id)
-    .then((deletedNotice) => {
-      if (deletedNotice.imageUrl) {
-        fs.unlink('server/public' + deletedNotice.imageUrl, (err) => {
-          if (err) throw err;
-        });
-      }
-      res.json('Deleted ' + deletedNotice.title);
-    })
+    .then((deletedNotice) => res.json('Deleted ' + deletedNotice.title))
     .catch((err) => res.status(400).json(err));
 });
 
