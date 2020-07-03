@@ -4,7 +4,7 @@ import { postScreening } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import { useHistory } from 'react-router-dom';
 
-export default function AddScreeningPage({ serials, setEditedObject }) {
+export default function AddScreeningPage({ serials, setEditedObject, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -34,7 +34,7 @@ export default function AddScreeningPage({ serials, setEditedObject }) {
           <InputStyled name="director" />
         </LabelStyled>
         <LabelStyled>
-          Bild
+          Bild (max. 1 MB)
           <InputStyled type="file" name="image" />
         </LabelStyled>
         <LabelStyled>
@@ -81,15 +81,18 @@ export default function AddScreeningPage({ serials, setEditedObject }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
     postScreening(formData, jwt)
       .then((res) => {
+        setIsWaiting(false);
         setEditedObject({ added: 'screening' });
         history.push('/program');
       })
       .catch((err) => {
+        setIsWaiting(false);
         console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);

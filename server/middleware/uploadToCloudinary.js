@@ -5,10 +5,6 @@ const { replaceUmlautsAndSpecialCharacters } = require('../utils/stringMethods')
 
 const parser = new DatauriParser();
 
-function parseFileBuffer(req) {
-  return parser.format(path.extname(req.file.originalname).toString(), req.file.buffer);
-}
-
 function uploadToCloudinary(req, res, next) {
   if (!req.file) {
     return next();
@@ -21,8 +17,7 @@ function uploadToCloudinary(req, res, next) {
   const file = parser.format(path.extname(req.file.originalname).toString(), req.file.buffer).content;
   uploader
     .upload(file, {
-      folder: 'rineuto/' + req.baseUrl.slice(5),
-      public_id: req.body.date + '_' + replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase()),
+      public_id: computeCloudinaryPublicId(req),
     })
     .then((result) => {
       req.file.path = result.url;
@@ -33,5 +28,24 @@ function uploadToCloudinary(req, res, next) {
     });
 }
 
+function computeCloudinaryPublicId(req) {
+  let cloudinaryPublicId;
+  if (req.baseUrl.includes('notices')) {
+    cloudinaryPublicId =
+      'rineuto/notices/' + req.body.date + '_' + replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
+  } else if (req.baseUrl.includes('serials')) {
+    cloudinaryPublicId =
+      'rineuto/serials/' + req.body.year + '/' + replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
+  } else {
+    cloudinaryPublicId =
+      'rineuto/screenings/' +
+      req.body.day.slice(0, 4) +
+      '/' +
+      replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase()) +
+      '_' +
+      req.body.day;
+  }
+  return cloudinaryPublicId;
+}
+
 module.exports.uploadToCloudinary = uploadToCloudinary;
-module.exports.parseFileBuffer = parseFileBuffer;

@@ -6,7 +6,7 @@ import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 import DeletePrompt from '../../common/DeletePrompt';
 
-export default function EditScreeningPage({ screenings, serials, setEditedObject }) {
+export default function EditScreeningPage({ screenings, serials, setEditedObject, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
   const [screeningToEdit, setScreeningToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -64,7 +64,7 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
           <InputStyled name="director" defaultValue={screeningToEdit.director} />
         </LabelStyled>
         <LabelStyled>
-          Bild
+          Bild (max. 1 MB)
           <InputStyled type="file" name="image" />
         </LabelStyled>
         <LabelStyled>
@@ -124,15 +124,18 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
 
   function handleSubmit(event) {
     event.preventDefault();
+    setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
     patchScreening(screeningToEdit._id, formData, jwt)
       .then(() => {
+        setIsWaiting(false);
         setEditedObject(screeningToEdit);
         history.push('/screening/' + screeningToEdit._id);
       })
       .catch((err) => {
+        setIsWaiting(false);
         console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
@@ -144,14 +147,19 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
   }
 
   function handleDelete() {
+    setIsWaiting(true);
     setShowDeletePrompt(false);
     const jwt = getFromStorage('rineuto-token');
     deleteScreening(screeningToEdit._id, jwt)
       .then(() => {
+        setIsWaiting(false);
         setEditedObject({ deleted: 'screening' });
         history.push('/program');
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setIsWaiting(false);
+        console.error(err);
+      });
   }
 }
 

@@ -6,7 +6,7 @@ import { deleteSerial, patchSerial } from '../../utils/services';
 import { getFromStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
-export default function EditSerialPage({ serials, setEditedObject }) {
+export default function EditSerialPage({ serials, setEditedObject, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
   const [serialToEdit, setSerialToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -56,7 +56,7 @@ export default function EditSerialPage({ serials, setEditedObject }) {
           <InputStyled name="month" defaultValue={serialToEdit.month} />
         </LabelStyled>
         <LabelStyled>
-          Poster
+          Poster (max. 1 MB)
           <InputStyled type="file" name="image" />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
@@ -80,15 +80,18 @@ export default function EditSerialPage({ serials, setEditedObject }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
     patchSerial(serialToEdit._id, formData, jwt)
       .then((res) => {
+        setIsWaiting(false);
         setEditedObject(serialToEdit);
         history.push('/posters/' + serialToEdit.year);
       })
       .catch((err) => {
+        setIsWaiting(false);
         console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
@@ -100,14 +103,19 @@ export default function EditSerialPage({ serials, setEditedObject }) {
   }
 
   function handleDelete() {
+    setIsWaiting(true);
     setShowDeletePrompt(false);
     const jwt = getFromStorage('rineuto-token');
     deleteSerial(serialToEdit._id, jwt)
       .then(() => {
+        setIsWaiting(false);
         setEditedObject({ deleted: 'serial' });
         history.push('/posters');
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setIsWaiting(false);
+        console.error(err);
+      });
   }
 }
 

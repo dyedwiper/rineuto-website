@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Notice = require('../models/Notice');
 const authenticate = require('../middleware/authenticate');
 const { validateNotice } = require('../middleware/validation');
-const { readFile } = require('../middleware/readFileWithMulter');
+const { readFileWithMulter } = require('../middleware/readFileWithMulter');
 const { uploadToCloudinary } = require('../middleware/uploadToCloudinary');
 
 router.get('/', (req, res) => {
@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.post('/', authenticate, readFile, uploadToCloudinary, validateNotice, (req, res) => {
+router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateNotice, (req, res) => {
   const date = Date.now();
   let newNotice;
   if (req.file) {
@@ -29,7 +29,7 @@ router.post('/', authenticate, readFile, uploadToCloudinary, validateNotice, (re
     .catch((err) => res.status(400).json(err));
 });
 
-router.patch('/:id', authenticate, readFile, uploadToCloudinary, validateNotice, (req, res) => {
+router.patch('/:id', authenticate, readFileWithMulter, uploadToCloudinary, validateNotice, (req, res) => {
   let noticeToUpdate;
   if (req.file) {
     noticeToUpdate = {

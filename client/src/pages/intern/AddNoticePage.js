@@ -26,7 +26,7 @@ export default function AddNoticePage({ setEditedObject, setIsWaiting }) {
           <InputStyled type="date" name="date" defaultValue={new Date().toISOString().slice(0, 10)} />
         </LabelStyled>
         <LabelStyled>
-          Bild
+          Bild (max. 1 MB)
           <InputStyled type="file" name="image" />
         </LabelStyled>
         <LabelStyled>

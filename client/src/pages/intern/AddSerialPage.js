@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { getFromStorage } from '../../utils/storage';
 import { postSerial } from '../../utils/services';
 
-export default function AddSerialPage({ setEditedObject }) {
+export default function AddSerialPage({ setEditedObject, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -26,11 +26,11 @@ export default function AddSerialPage({ setEditedObject }) {
           <InputStyled name="year" />
         </LabelStyled>
         <LabelStyled>
-          Monat der ersten Vorstellung (zweistellige Zahl)
+          Monat der ersten Vorstellung
           <InputStyled name="month" />
         </LabelStyled>
         <LabelStyled>
-          Poster
+          Poster (max. 1 MB)
           <InputStyled type="file" name="image" />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
@@ -44,15 +44,18 @@ export default function AddSerialPage({ setEditedObject }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
     const jwt = getFromStorage('rineuto-token');
     postSerial(formData, jwt)
       .then((res) => {
+        setIsWaiting(false);
         setEditedObject({ added: 'serial' });
         history.push('/posters');
       })
       .catch((err) => {
+        setIsWaiting(false);
         console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
