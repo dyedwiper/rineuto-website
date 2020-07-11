@@ -12,7 +12,13 @@ export default function ImprintPage() {
       <div>Mokryhütten e.V.</div>
       <div>Mokrystraße 1</div>
       <div>21107 Hamburg</div>
-      <div>kontakt.mokryhuetten(ät)posteo.de</div>
+      <div>rineuto(ät)posteo.de</div>
+      <br />
+      <FacebookLinkStyled href="https://www.facebook.com/rineuto" target="_blank" rel="noopener noreferrer">
+        Rineuto on facebook
+      </FacebookLinkStyled>
+      <br />
+      <br />
       <br />
       <a
         href="https://www.openstreetmap.de/karte.html?zoom=19&lat=53.51843&lon=9.98398&layers=B000TT"
@@ -21,14 +27,6 @@ export default function ImprintPage() {
       >
         <MapImageStyled src={mapImage} />
       </a>
-      <br />
-      <br />
-      <div>Programmierung und Gestaltung:</div>
-      <div>max_becker(ät)posteo.de</div>
-      <br />
-      <FacebookLinkStyled href="https://www.facebook.com/rineuto" target="_blank" rel="noopener noreferrer">
-        Rineuto on facebook
-      </FacebookLinkStyled>
       <br />
       <br />
       <div>Jugendschutzbeauftragter: Fabian Schauren </div>
