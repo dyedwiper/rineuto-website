@@ -113,7 +113,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen, setIsWait
         <Route path="/imprint">
           <ImprintPage />
         </Route>
-        <Route exact path="/intern/login">
+        <Route exact path="/login">
           <LoginPage />
         </Route>
         <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
