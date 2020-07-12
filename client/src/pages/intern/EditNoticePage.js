@@ -133,6 +133,7 @@ const HeadlineStyled = styled.h2`
 const FormStyled = styled.form`
   display: grid;
   grid-gap: 15px;
+  max-width: 100%;
 `;
 
 const LabelStyled = styled.label`
