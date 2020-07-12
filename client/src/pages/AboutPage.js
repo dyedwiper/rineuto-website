@@ -33,7 +33,7 @@ export default function AboutPage() {
   }, []);
 
   const aboutText =
-    'Jeden paarten Dienstag zeigen wir einen Film in der Mokry zu freiem Eintritt bei gern entgegengenommenen Spenden. \n Etwa eine Stunde vor Filmbeginn gibt es gewöhnlich eine vegane Speisung, auch KüFA genannt. \n Noch sorgfältiger als die Zutaten wählen wir die Filme aus. Ein Rezept gibt es nicht, aber Gedankenperlen, die uns leiten.';
+    'Jeden paarten Dienstag zeigen wir einen Film in der Mokry in Hamburg-Wilhelmsburg zu freiem Eintritt bei gern entgegengenommenen Spenden. \n Etwa eine Stunde vor Filmbeginn gibt es gewöhnlich eine vegane Speisung, auch KüFA genannt. \n Noch sorgfältiger als die Zutaten wählen wir die Filme aus. Ein Rezept gibt es nicht, aber Gedankenperlen, die uns leiten.';
 
   if (isLoading) {
     return <LoadingPage />;
