@@ -82,12 +82,14 @@ const HeadlineStyled = styled.h2`
 const FormStyled = styled.form`
   display: grid;
   grid-gap: 15px;
+  max-width: 100%;
 `;
 
 const LabelStyled = styled.label`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 5px;
+  max-width: 100%;
 `;
 
 const InputStyled = styled.input`

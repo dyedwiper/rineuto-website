@@ -21,6 +21,7 @@ export default createGlobalStyle`
     font-size: 1em;
     -webkit-appearance: none;
     -moz-appearance: none;
+    max-width: 100%;
     border-radius: 5px;
   }
 
