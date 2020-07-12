@@ -21,9 +21,11 @@ export default createGlobalStyle`
     font-size: 1em;
     -webkit-appearance: none;
     -moz-appearance: none;
+    border-radius: 5px;
   }
 
   button {
+    background-color: white;
     cursor: pointer;
   }
 `;

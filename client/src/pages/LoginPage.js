@@ -75,6 +75,7 @@ const LabelStyled = styled.label`
 `;
 
 const InputStyled = styled.input`
+  min-width: 240px;
   padding: 5px;
 `;
 
@@ -82,6 +83,8 @@ const ButtonStyled = styled.button`
   justify-self: center;
   width: min-content;
   padding: 5px 20px;
+  background-color: white;
+  border-radius: 3px;
 `;
 
 const ImageStyled = styled.img`
