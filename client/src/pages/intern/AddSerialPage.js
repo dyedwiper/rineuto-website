@@ -90,13 +90,10 @@ const LabelStyled = styled.label`
   grid-gap: 5px;
 `;
 
-const InputStyled = styled.input`
-  padding: 5px;
-`;
+const InputStyled = styled.input``;
 
 const ButtonStyled = styled.button`
   justify-self: center;
-  padding: 5px;
 `;
 
 const ErrorMessageStyled = styled.span`

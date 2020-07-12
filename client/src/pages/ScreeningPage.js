@@ -87,6 +87,7 @@ const BackButtonStyled = styled.button`
   right: 20px;
   width: 60px;
   height: 20px;
+  padding: 0 5px;
   background-color: white;
 
   @media (min-width: 900px) {

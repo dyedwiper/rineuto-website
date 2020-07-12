@@ -21,8 +21,13 @@ export default createGlobalStyle`
     font-size: 1em;
     -webkit-appearance: none;
     -moz-appearance: none;
-    max-width: 100%;
     border-radius: 5px;
+    padding: 5px;
+  }
+
+  input {
+    /* Fix for iPhone because inputs are somehow too wide elsewise */
+    width: 100%;
   }
 
   button {

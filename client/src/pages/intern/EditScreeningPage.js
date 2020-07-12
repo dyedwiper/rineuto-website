@@ -186,16 +186,13 @@ const LabelStyled = styled.label`
   grid-gap: 5px;
 `;
 
-const InputStyled = styled.input`
-  padding: 5px;
-`;
+const InputStyled = styled.input``;
 
 const TextareaStyled = styled.textarea`
   display: block;
   overflow: auto;
   resize: none;
   min-height: 150px;
-  padding: 5px;
 `;
 
 const SelectStyled = styled.select`
@@ -204,7 +201,6 @@ const SelectStyled = styled.select`
 
 const ButtonStyled = styled.button`
   justify-self: center;
-  padding: 5px;
 `;
 
 const ErrorMessageStyled = styled.span`

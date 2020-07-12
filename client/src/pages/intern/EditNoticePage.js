@@ -133,7 +133,6 @@ const HeadlineStyled = styled.h2`
 const FormStyled = styled.form`
   display: grid;
   grid-gap: 15px;
-  max-width: 100%;
 `;
 
 const LabelStyled = styled.label`
@@ -142,21 +141,17 @@ const LabelStyled = styled.label`
   grid-gap: 5px;
 `;
 
-const InputStyled = styled.input`
-  padding: 5px;
-`;
+const InputStyled = styled.input``;
 
 const TextareaStyled = styled.textarea`
   display: block;
   overflow: auto;
   resize: none;
   min-height: 150px;
-  padding: 5px;
 `;
 
 const ButtonStyled = styled.button`
   justify-self: center;
-  padding: 5px;
 `;
 
 const ErrorMessageStyled = styled.span`
