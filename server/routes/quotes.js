@@ -17,4 +17,16 @@ router.post('/', authenticate, validateQuote, (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
+router.patch('/:id', authenticate, validateQuote, (req, res) => {
+  Quote.findByIdAndUpdate(req.params.id, req.body)
+    .then(() => res.json('updated successfully'))
+    .catch((err) => res.status(400).json(err));
+});
+
+router.delete('/:id', authenticate, (req, res) => {
+  Quote.findByIdAndDelete(req.params.id)
+    .then(() => res.json('deleted succesfully'))
+    .catch((err) => res.status(400).json(err));
+});
+
 module.exports = router;
