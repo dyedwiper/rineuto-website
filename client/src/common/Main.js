@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import HomePage from '../pages/HomePage';
-import ImprintPage from '../pages/ImprintPage';
+import ImprintPage from '../pages/ContactPage';
 import AddNoticePage from '../pages/intern/AddNoticePage';
 import AddScreeningPage from '../pages/intern/AddScreeningPage';
 import AddSerialPage from '../pages/intern/AddSerialPage';
@@ -110,7 +110,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen, setIsWait
         <Route path="/about">
           <AboutPage />
         </Route>
-        <Route path="/imprint">
+        <Route path="/contact">
           <ImprintPage />
         </Route>
         <Route exact path="/login">

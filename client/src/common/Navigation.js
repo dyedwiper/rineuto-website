@@ -30,7 +30,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
         <NavLinkStyled to="/about" onClick={() => setIsNavOpen(false)}>
           Über uns
         </NavLinkStyled>
-        <NavLinkStyled to="/imprint" onClick={() => setIsNavOpen(false)}>
+        <NavLinkStyled to="/contact" onClick={() => setIsNavOpen(false)}>
           Kontakt
         </NavLinkStyled>
         {loggedIn && (
