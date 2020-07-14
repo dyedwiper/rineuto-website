@@ -32,28 +32,37 @@ export default function AboutPage() {
     document.title = 'Über uns | Rineuto Lichtspiele';
   }, []);
 
-  const aboutText =
-    'Jeden paarten Dienstag zeigen wir einen Film in der Mokry in Hamburg-Wilhelmsburg zu freiem Eintritt bei gern entgegengenommenen Spenden. \n Etwa eine Stunde vor Filmbeginn gibt es gewöhnlich eine vegane Speisung, auch KüFA genannt. \n Noch sorgfältiger als die Zutaten wählen wir die Filme aus. Ein Rezept gibt es nicht, aber Gedankenperlen, die uns leiten.';
-
   if (isLoading) {
     return <LoadingPage />;
   }
 
   return (
-    <AboutPageStyled>
-      <SubHeadlineStyled>Über uns</SubHeadlineStyled>
+    <AboutPageStyled onClick={handleClick}>
       <AboutTextContainerStyled aboutTextHeight={aboutTextHeight}>
         <AboutTextStyled ref={aboutTextParagraph}>
-          {aboutText.split('\n').map((part, index) => (
-            <span key={index}>
-              {part}
-              <br />
-              <br />
-            </span>
-          ))}
+          <div>Kino auf der Insel ohne Kino</div>
+          <br />
+          <div>
+            Ufa
+            <FootnoteLinkStyled href="#aboutFootnotes">
+              <sup>1</sup>&nbsp;
+            </FootnoteLinkStyled>
+            im Fluss ohne Ufer
+          </div>
+          <br />
+          <div>
+            Bilder fließen in uns wie Getränke von der Bar, nähren uns wie vegane Speisen von der Küfa
+            <FootnoteLinkStyled href="#aboutFootnotes">
+              <sup>2</sup>&nbsp;
+            </FootnoteLinkStyled>
+            , bilden Inseln im Meer der Bilder.
+          </div>
+          <br />
+          <div>Jeden paarten Dienstag in der Mokry in Hamburg-Wilhelmsburg.</div>
+          <br />
         </AboutTextStyled>
       </AboutTextContainerStyled>
-      <QuotePerlsContainerStyled ref={quoteContainer} onClick={handleClick}>
+      <QuotePerlsContainerStyled ref={quoteContainer}>
         {quotes.map((quote) => (
           <QuotePerl
             key={quote._id}
@@ -64,6 +73,11 @@ export default function AboutPage() {
           />
         ))}
       </QuotePerlsContainerStyled>
+      <FootnotesStyled id="aboutFootnotes">
+        <sup>1</sup> Unkommerzielle film abende
+        <br />
+        <sup>2</sup> Kulinarische überreste fancy angerichtet - circa eine Stunde vor Filmbeginn
+      </FootnotesStyled>
     </AboutPageStyled>
   );
 
@@ -78,13 +92,6 @@ const AboutPageStyled = styled.div`
   padding: 20px;
 `;
 
-const SubHeadlineStyled = styled.h2`
-  height: 40px;
-  margin: 10px 0;
-  color: white;
-  text-align: center;
-`;
-
 const AboutTextContainerStyled = styled.div`
   margin: 0 auto;
   max-width: 600px;
@@ -92,14 +99,27 @@ const AboutTextContainerStyled = styled.div`
     (props.aboutTextHeight % 20 === 0
       ? props.aboutTextHeight
       : props.aboutTextHeight + 20 - (props.aboutTextHeight % 20)) + 'px'};
-  padding: 10px;
+  padding: 10px 0;
 `;
 
 const AboutTextStyled = styled.p`
   color: white;
+  font-size: 1.5em;
+`;
+
+const FootnoteLinkStyled = styled.a`
+  color: white;
+  text-decoration: none;
 `;
 
 const QuotePerlsContainerStyled = styled.div`
   position: relative;
   height: 250px;
+  margin-top: 20px;
+`;
+
+const FootnotesStyled = styled.div`
+  margin: 40px auto;
+  max-width: 600px;
+  color: white;
 `;

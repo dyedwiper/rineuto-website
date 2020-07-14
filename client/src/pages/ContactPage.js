@@ -10,7 +10,7 @@ export default function ImprintPage() {
   return (
     <ImprintPageStyled>
       <div>Mokryhütten e.V.</div>
-      <div>Mokrystraße 1</div>
+      <div>Mokrystraße 1 (neben den alten Rialto Lichtspielen)</div>
       <div>21107 Hamburg</div>
       <div>rineuto(ät)posteo.de</div>
       <br />
