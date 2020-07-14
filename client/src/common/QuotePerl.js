@@ -19,7 +19,7 @@ import redPerlImage from '../assets/perls/redPerl.png';
 import whitePerlImage from '../assets/perls/whitePerl.png';
 import yellowPerlImage from '../assets/perls/yellowPerl.png';
 
-export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumberOfOpenPerls }) {
+export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumberOfOpenPerls, setContainerHeight }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isChoosingColor, setIsChoosingColor] = useState(true);
   const [isCalculatingPosition, setIsCalculatingPosition] = useState(true);
@@ -49,10 +49,17 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
     const containerWidth = container.current.offsetWidth;
     const left = Math.max(40, getRandomInt(containerWidth / 20) * 20 - 20);
     const top = getRandomInt(10) * 20 + 40;
-    const isOnRightSide = left > containerWidth / 2;
+    const isOnRightSide = left > containerWidth / 2 - 20;
     quotePosition.current = { top: top, left: left, isOnRightSide: isOnRightSide };
     setIsCalculatingPosition(false);
-  }, [container]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (isOpen && container.current.offsetHeight < quotePosition.current.top + quoteHeight.current) {
+      setContainerHeight(quotePosition.current.top + quoteHeight.current);
+    }
+  }, [isOpen, container, setContainerHeight]);
 
   useEffect(() => {
     if (isOpen) {

@@ -9,6 +9,7 @@ export default function AboutPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [numberOfOpenPerls, setNumberOfOpenPerls] = useState(0);
   const [aboutTextHeight, setAboutTextHeight] = useState(0);
+  const [quoteContainerHeight, setQuoteContainerHeight] = useState(250);
 
   const quoteContainer = useRef(null);
   const aboutTextParagraph = useRef(null);
@@ -62,11 +63,16 @@ export default function AboutPage() {
           <br />
         </AboutTextStyled>
       </AboutTextContainerStyled>
-      <QuotePerlsContainerStyled ref={quoteContainer}>
+      <QuotePerlsContainerStyled
+        quoteContainerHeight={quoteContainerHeight}
+        numberOfOpenPerls={numberOfOpenPerls}
+        ref={quoteContainer}
+      >
         {quotes.map((quote) => (
           <QuotePerl
             key={quote._id}
             container={quoteContainer}
+            setContainerHeight={setQuoteContainerHeight}
             quote={quote}
             numberOfOpenPerls={numberOfOpenPerls}
             setNumberOfOpenPerls={setNumberOfOpenPerls}
@@ -84,6 +90,7 @@ export default function AboutPage() {
   function handleClick(event) {
     if (!event.target.className.startsWith('Quote')) {
       setNumberOfOpenPerls(0);
+      setQuoteContainerHeight(250);
     }
   }
 }
@@ -102,7 +109,7 @@ const AboutTextContainerStyled = styled.div`
   padding: 10px 0;
 `;
 
-const AboutTextStyled = styled.p`
+const AboutTextStyled = styled.div`
   color: white;
   font-size: 1.5em;
 `;
@@ -114,8 +121,11 @@ const FootnoteLinkStyled = styled.a`
 
 const QuotePerlsContainerStyled = styled.div`
   position: relative;
-  height: 250px;
+  height: ${(props) => props.quoteContainerHeight + 'px'};
+  min-height: 250px;
   margin-top: 20px;
+
+  transition: ${(props) => (props.numberOfOpenPerls === 0 ? 'height 1s linear 1s' : 'height 1s linear')};
 `;
 
 const FootnotesStyled = styled.div`
