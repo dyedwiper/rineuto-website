@@ -7,12 +7,12 @@ import LoadingPage from './LoadingPage';
 export default function AboutPage() {
   const [quotes, setQuotes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [numberOfOpenPerls, setNumberOfOpenPerls] = useState(0);
   const [aboutTextHeight, setAboutTextHeight] = useState(0);
-  const [quoteContainerHeight, setQuoteContainerHeight] = useState(250);
+  const [openPerls, setOpenPerls] = useState([]);
 
   const quoteContainer = useRef(null);
   const aboutTextParagraph = useRef(null);
+  const numberOfOpenPerlsBefore = useRef(null);
 
   useEffect(() => {
     getQuotes()
@@ -22,6 +22,10 @@ export default function AboutPage() {
       })
       .catch((err) => console.error(err));
   }, []);
+
+  useEffect(() => {
+    numberOfOpenPerlsBefore.current = openPerls.length;
+  }, [openPerls]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -64,18 +68,17 @@ export default function AboutPage() {
         </AboutTextStyled>
       </AboutTextContainerStyled>
       <QuotePerlsContainerStyled
-        quoteContainerHeight={quoteContainerHeight}
-        numberOfOpenPerls={numberOfOpenPerls}
+        openPerls={openPerls.map((perl) => perl.height)}
+        numberOfOpenPerlsBefore={numberOfOpenPerlsBefore.current}
         ref={quoteContainer}
       >
         {quotes.map((quote) => (
           <QuotePerl
             key={quote._id}
             container={quoteContainer}
-            setContainerHeight={setQuoteContainerHeight}
             quote={quote}
-            numberOfOpenPerls={numberOfOpenPerls}
-            setNumberOfOpenPerls={setNumberOfOpenPerls}
+            openPerls={openPerls}
+            setOpenPerls={setOpenPerls}
           />
         ))}
       </QuotePerlsContainerStyled>
@@ -89,8 +92,7 @@ export default function AboutPage() {
 
   function handleClick(event) {
     if (!event.target.className.startsWith('Quote')) {
-      setNumberOfOpenPerls(0);
-      setQuoteContainerHeight(250);
+      setOpenPerls([]);
     }
   }
 }
@@ -121,11 +123,11 @@ const FootnoteLinkStyled = styled.a`
 
 const QuotePerlsContainerStyled = styled.div`
   position: relative;
-  height: ${(props) => props.quoteContainerHeight + 'px'};
-  min-height: 250px;
+  height: ${(props) => Math.max(250, ...props.openPerls) + 'px'};
   margin-top: 20px;
 
-  transition: ${(props) => (props.numberOfOpenPerls === 0 ? 'height 1s linear 1s' : 'height 1s linear')};
+  transition: ${(props) =>
+    props.openPerls.length < props.numberOfOpenPerlsBefore ? 'height 1s linear 1s' : 'height 1s linear'};
 `;
 
 const FootnotesStyled = styled.div`

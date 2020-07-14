@@ -19,7 +19,7 @@ import redPerlImage from '../assets/perls/redPerl.png';
 import whitePerlImage from '../assets/perls/whitePerl.png';
 import yellowPerlImage from '../assets/perls/yellowPerl.png';
 
-export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumberOfOpenPerls, setContainerHeight }) {
+export default function QuotePerl({ quote, container, openPerls, setOpenPerls }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isChoosingColor, setIsChoosingColor] = useState(true);
   const [isCalculatingPosition, setIsCalculatingPosition] = useState(true);
@@ -56,23 +56,17 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
   }, []);
 
   useEffect(() => {
-    if (isOpen && container.current.offsetHeight < quotePosition.current.top + quoteHeight.current) {
-      setContainerHeight(quotePosition.current.top + quoteHeight.current);
-    }
-  }, [isOpen, container, setContainerHeight]);
-
-  useEffect(() => {
     if (isOpen) {
-      setZIndex(numberOfOpenPerls);
+      setZIndex(openPerls.length);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   useEffect(() => {
-    if (!numberOfOpenPerls) {
+    if (!openPerls.length) {
       setIsOpen(false);
     }
-  }, [numberOfOpenPerls]);
+  }, [openPerls]);
 
   if (isChoosingColor || isCalculatingPosition) {
     return <></>;
@@ -108,12 +102,12 @@ export default function QuotePerl({ quote, container, numberOfOpenPerls, setNumb
   function handlePerlClick() {
     if (!isOpen) {
       setIsOpen(true);
-      setNumberOfOpenPerls(numberOfOpenPerls + 1);
+      setOpenPerls([...openPerls, { id: quote._id, height: quotePosition.current.top + quoteHeight.current }]);
     }
   }
 
   function handleCloseClick() {
-    setNumberOfOpenPerls(numberOfOpenPerls - 1);
+    setOpenPerls(openPerls.filter((perl) => perl.id !== quote._id));
     setIsOpen(false);
   }
 
