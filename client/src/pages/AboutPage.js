@@ -63,7 +63,13 @@ export default function AboutPage() {
             , bilden Inseln im Meer der Bilder.
           </div>
           <br />
-          <div>Jeden paarten Dienstag in der Mokry in Hamburg-Wilhelmsburg.</div>
+          <div>
+            Jeden paarten Dienstag in der{' '}
+            <MokryLinkStyled href="http://mokrymokry.blogsport.eu/" target="_blank" rel="noopener noreferrer">
+              Mokry
+            </MokryLinkStyled>{' '}
+            in Hamburg-Wilhelmsburg.
+          </div>
           <br />
         </AboutTextStyled>
       </AboutTextContainerStyled>
@@ -83,9 +89,9 @@ export default function AboutPage() {
         ))}
       </QuotePerlsContainerStyled>
       <FootnotesStyled id="aboutFootnotes">
-        <sup>1</sup> Unkommerzielle film abende
+        <sup>1</sup> Unkommerzielle film abende - Eintritt frei bei gern entgegengenommenen Spenden
         <br />
-        <sup>2</sup> Kulinarische überreste fancy angerichtet - circa eine Stunde vor Filmbeginn
+        <sup>2</sup> Kulinarische überreste fantasielos angerichtet - circa eine Stunde vor Filmbeginn
       </FootnotesStyled>
     </AboutPageStyled>
   );
@@ -119,6 +125,10 @@ const AboutTextStyled = styled.div`
 const FootnoteLinkStyled = styled.a`
   color: white;
   text-decoration: none;
+`;
+
+const MokryLinkStyled = styled.a`
+  color: white;
 `;
 
 const QuotePerlsContainerStyled = styled.div`

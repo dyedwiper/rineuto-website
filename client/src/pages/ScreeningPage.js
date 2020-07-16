@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
+import Linkify from 'react-linkify';
 import styled from 'styled-components/macro';
 import DateRibbon from '../common/DateRibbon';
 import UserContext from '../userContext';
@@ -56,7 +57,17 @@ export default function ScreeningPage({ screenings, editedObject }) {
           selectedScreening.version}
       </FilmInfoStyled>
       <FilmDirectorStyled>{'Regie: ' + selectedScreening.director}</FilmDirectorStyled>
-      <FilmSynopsisStyled>{selectedScreening.synopsis}</FilmSynopsisStyled>
+      <FilmSynopsisStyled>
+        <Linkify
+          componentDecorator={(decoratedHref, decoratedText, key) => (
+            <a target="blank" href={decoratedHref} key={key}>
+              {decoratedText}
+            </a>
+          )}
+        >
+          {selectedScreening.synopsis}
+        </Linkify>
+      </FilmSynopsisStyled>
       <ScreeningSerialStyled>
         Filmreihe: {selectedScreening.serial ? selectedScreening.serial.title : ''}
       </ScreeningSerialStyled>

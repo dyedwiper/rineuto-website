@@ -5,15 +5,15 @@ import YearNavigation from '../common/YearNavigation';
 import { useHistory } from 'react-router-dom';
 
 export default function PosterPage({ serials, editedObject }) {
-  const currentYear = new Date().getFullYear();
   const allYears = serials
     .map((serial) => serial.year)
     .filter((value, index, self) => self.indexOf(value) === index)
     .sort((a, b) => a - b);
+  const latestYear = allYears[allYears.length - 1];
 
   let history = useHistory();
 
-  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedYear, setSelectedYear] = useState(latestYear);
 
   useEffect(() => {
     document.title = 'Plakate | Rineuto Lichtspiele';
@@ -22,13 +22,13 @@ export default function PosterPage({ serials, editedObject }) {
   useEffect(() => {
     let yearFromPath = window.location.pathname.slice(9);
     if (!yearFromPath) {
-      history.push('/posters/' + currentYear);
+      history.push('/posters/' + latestYear);
     }
     if (yearFromPath.endsWith('/')) {
       yearFromPath = yearFromPath.slice(0, -1);
     }
     setSelectedYear(yearFromPath);
-  }, [currentYear, history, history.location.pathname]);
+  }, [latestYear, history, history.location.pathname]);
 
   return (
     <PosterPageStyled>
