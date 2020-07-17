@@ -8,7 +8,6 @@ import Navigation from './common/Navigation';
 import UserContext from './userContext';
 import { getUser } from './utils/services';
 import { getFromStorage } from './utils/storage';
-import { OverlayStyled } from './common/styledElements';
 
 export default function App() {
   const [user, setUser] = useState({});
@@ -67,4 +66,15 @@ const AppStyled = styled.div`
   @media (min-width: 900px) {
     grid-template-columns: 240px auto;
   }
+`;
+
+const OverlayStyled = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  opacity: 0;
+  cursor: wait;
 `;

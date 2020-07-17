@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import greenPerlImage from '../assets/perls/darkGreenPerl.png';
-import redPerlImage from '../assets/perls/redPerl.png';
+import favicon from '../assets/favicon.png';
 import rightCurtainImage from '../assets/rightCurtain.jpg';
 import leftCurtainImage from '../assets/leftCurtain.jpg';
 import UserContext from '../userContext';
@@ -51,11 +51,13 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
           </>
         )}
         <Cushion />
-        <PerlLinkStyled target="_blank" href="https://youtu.be/hKBfQdKvyXc">
-          <RedPerlStyled src={redPerlImage} />
-        </PerlLinkStyled>
       </NavigationStyled>
-      <LeftCurtainStyled isNavOpen={isNavOpen} />
+      <LeftCurtainStyled isNavOpen={isNavOpen}>
+        <PerlLinkStyled target="_blank" href="https://youtu.be/hKBfQdKvyXc">
+          <PerlStyled src={favicon} />
+          <PerlStyled src={favicon} />
+        </PerlLinkStyled>
+      </LeftCurtainStyled>
     </>
   );
 
@@ -127,7 +129,7 @@ const HorizontalLineStyled = styled.hr`
 const PerlLinkStyled = styled.a`
   position: absolute;
   left: 20px;
-  bottom: 20px;
+  top: 20px;
   height: 20px;
 
   @media (min-width: 900px) {
@@ -135,7 +137,10 @@ const PerlLinkStyled = styled.a`
   }
 `;
 
-const RedPerlStyled = styled.img``;
+const PerlStyled = styled.img`
+  height: 20px;
+  width: 20px;
+`;
 
 const Cushion = styled.div`
   height: 30px;
