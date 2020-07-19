@@ -130,7 +130,6 @@ const FilmDirectorStyled = styled.div`
 
 const FilmSynopsisStyled = styled.p`
   overflow: auto;
-  overflow-wrap: break-word;
   margin: 0;
   padding: 10px;
   background-color: white;

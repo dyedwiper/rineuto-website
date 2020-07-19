@@ -52,6 +52,7 @@ const NoticeImageStyled = styled.img`
 
 const NoticeTitleRowStyled = styled.div`
   position: relative;
+  overflow: auto;
 `;
 
 const NoticeTitleStyled = styled.h2`
@@ -70,6 +71,7 @@ const NoticeDateStyled = styled.div`
 `;
 
 const NoticeTextStyled = styled.p`
+  overflow: auto;
   margin: 0;
   padding: 20px;
   background-color: white;

@@ -13,6 +13,7 @@ export default createGlobalStyle`
     background-color: black;
     font-family: 'Linux Libertine G', 'Times New Roman', 'Times', serif;
     font-size: 16px;
+    overflow-wrap: break-word;
   }
 
   input, button, textarea {
