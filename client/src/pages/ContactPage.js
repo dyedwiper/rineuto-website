@@ -5,7 +5,7 @@ import lightGreyPerlImage from '../assets/perls/lightGreyPerl.png';
 
 export default function ImprintPage() {
   useEffect(() => {
-    document.title = 'Impressum | Rineuto Lichtspiele';
+    document.title = 'Kontakt | Rineuto Lichtspiele';
   }, []);
 
   return (

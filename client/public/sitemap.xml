@@ -5,19 +5,19 @@
       <loc>http://www.rineuto.de/</loc>
       <lastmod>2020-07-19</lastmod>
       <changefreq>weekly</changefreq>
-      <priority>0.8</priority>
+      <priority>0.9</priority>
    </url>
    <url>
       <loc>http://www.rineuto.de/program</loc>
       <lastmod>2020-07-19</lastmod>
       <changefreq>weekly</changefreq>
-      <priority>0.7</priority>
+      <priority>0.6</priority>
    </url>
    <url>
       <loc>http://www.rineuto.de/archive</loc>
       <lastmod>2020-07-19</lastmod>
       <changefreq>weekly</changefreq>
-      <priority>0.6</priority>
+      <priority>0.4</priority>
    </url>
    <url>
       <loc>http://www.rineuto.de/posters</loc>
@@ -29,12 +29,12 @@
       <loc>http://www.rineuto.de/about</loc>
       <lastmod>2020-07-19</lastmod>
       <changefreq>yearly</changefreq>
-      <priority>0.9</priority>
+      <priority>0.8</priority>
    </url>
    <url>
       <loc>http://www.rineuto.de/contact</loc>
       <lastmod>2020-07-19</lastmod>
       <changefreq>yearly</changefreq>
-      <priority>0.9</priority>
+      <priority>0.8</priority>
    </url>
 </urlset> 
