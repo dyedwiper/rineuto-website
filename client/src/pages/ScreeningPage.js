@@ -45,7 +45,7 @@ export default function ScreeningPage({ screenings, editedObject }) {
       {editedObject._id === selectedScreening._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
       <BackButtonStyled onClick={history.goBack}>Zurück</BackButtonStyled>
       <DateRibbon date={selectedScreening.date} />
-      <FilmStillStyled src={process.env.PUBLIC_URL + selectedScreening.imageUrl} />
+      <FilmStillStyled src={selectedScreening.imageUrl} />
       <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
       <FilmInfoStyled>
         {selectedScreening.country +

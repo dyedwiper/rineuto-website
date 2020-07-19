@@ -35,7 +35,11 @@ function computeCloudinaryPublicId(req) {
       'rineuto/notices/' + req.body.date + '_' + replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
   } else if (req.baseUrl.includes('serials')) {
     cloudinaryPublicId =
-      'rineuto/serials/' + req.body.year + '/' + replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
+      'rineuto/serials/' +
+      req.body.year +
+      '/' +
+      'rineuto_plakat_' +
+      replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
   } else {
     cloudinaryPublicId =
       'rineuto/screenings/' +

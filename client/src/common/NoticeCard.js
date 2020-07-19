@@ -10,7 +10,7 @@ export default function NoticeCard({ notice, editedObject }) {
 
   return (
     <NoticeCardStyled>
-      <NoticeImageStyled src={process.env.PUBLIC_URL + notice.imageUrl} />
+      <NoticeImageStyled src={notice.imageUrl} />
       <NoticeTitleRowStyled>
         <NoticeTitleStyled>{notice.title}</NoticeTitleStyled>
         <NoticeDateStyled>
