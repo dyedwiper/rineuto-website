@@ -92,7 +92,7 @@ export default function QuotePerl({ quote, container, openPerls, setOpenPerls })
         </QuoteOpacityContainerStyled>
       </QuoteVisibilityContainerStyled>
       <PseudoQuoteStyled ref={pseudoQuote}>
-        <CloseButtonStyled onClick={handleCloseClick}>{'\u2716'}</CloseButtonStyled>
+        <CloseButtonStyled>{'\u2716'}</CloseButtonStyled>
         <QuoteTextStyled>{quote.text}</QuoteTextStyled>
         <QuoteAuthorStyled>{quote.author}</QuoteAuthorStyled>
       </PseudoQuoteStyled>

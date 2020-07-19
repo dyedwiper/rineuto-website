@@ -11,7 +11,7 @@ export default createGlobalStyle`
     background-image: url(${twinCurtainImage});
     background-size: cover;
     background-color: black;
-    font-family: 'Linux Libertine G', serif;
+    font-family: 'Linux Libertine G', 'Times New Roman', 'Times', serif;
     font-size: 16px;
   }
 
