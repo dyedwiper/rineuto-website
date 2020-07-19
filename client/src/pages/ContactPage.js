@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import mapImage from '../assets/karte.png';
+import lightGreyPerlImage from '../assets/perls/lightGreyPerl.png';
 
 export default function ImprintPage() {
   useEffect(() => {
@@ -31,12 +32,22 @@ export default function ImprintPage() {
       <br />
       <br />
       <div>Jugendschutzbeauftragter: Fabian Schauren </div>
-      <div>(jugendschutz@kommunale-kinos.de)</div>
+      <div>(jugendschutz(ät)kommunale-kinos.de)</div>
+      <PerlLinkStyled target="_blank" rel="noopener noreferrer" href="https://youtu.be/fMkuQTVlFic">
+        <Perl1Styled src={lightGreyPerlImage} />
+        <Perl2Styled src={lightGreyPerlImage} />
+        <Perl3Styled src={lightGreyPerlImage} />
+        <Perl4Styled src={lightGreyPerlImage} />
+        <Perl5Styled src={lightGreyPerlImage} />
+        <Perl6Styled src={lightGreyPerlImage} />
+        <Perl7Styled src={lightGreyPerlImage} />
+      </PerlLinkStyled>
     </ImprintPageStyled>
   );
 }
 
 const ImprintPageStyled = styled.div`
+  position: relative;
   padding: 20px;
   color: white;
   font-size: 1.2em;
@@ -54,4 +65,42 @@ const MapImageStyled = styled.img`
 
 const FacebookLinkStyled = styled.a`
   color: white;
+`;
+
+const PerlLinkStyled = styled.a`
+  position: absolute;
+  top: 120px;
+  left: 240px;
+  display: grid;
+  grid-template-areas:
+    '. one .'
+    'two three four'
+    'five six seven';
+
+  @media (min-width: 900px) {
+    top: 180px;
+    left: 400px;
+  }
+`;
+
+const Perl1Styled = styled.img`
+  grid-area: one;
+`;
+const Perl2Styled = styled.img`
+  grid-area: two;
+`;
+const Perl3Styled = styled.img`
+  grid-area: three;
+`;
+const Perl4Styled = styled.img`
+  grid-area: four;
+`;
+const Perl5Styled = styled.img`
+  grid-area: five;
+`;
+const Perl6Styled = styled.img`
+  grid-area: six;
+`;
+const Perl7Styled = styled.img`
+  grid-area: seven;
 `;
