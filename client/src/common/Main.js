@@ -96,13 +96,16 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen, setIsWait
           <HomePage notices={notices} editedObject={editedObject} />
         </Route>
         <Route path="/program">
-          <ProgramPage screenings={screenings} editedObject={editedObject} />
+          <ProgramPage
+            screenings={screenings.filter((screening) => screening.date >= Date.now())}
+            editedObject={editedObject}
+          />
         </Route>
         <Route path="/screening">
           <ScreeningPage screenings={screenings} editedObject={editedObject} />
         </Route>
         <Route path="/archive">
-          <ArchivePage screenings={screenings} />
+          <ArchivePage screenings={screenings.filter((screening) => screening.date < Date.now())} />
         </Route>
         <Route path="/posters">
           <PosterPage serials={serials} editedObject={editedObject} />

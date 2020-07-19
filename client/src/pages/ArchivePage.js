@@ -5,16 +5,15 @@ import ScreeningsList from '../common/ScreeningsList';
 import YearNavigation from '../common/YearNavigation';
 
 export default function ArchivePage({ screenings }) {
-  const startYear = 2018;
-  const currentYear = new Date().getFullYear();
-  const hithertoYears = [];
-  for (let year = startYear; year <= currentYear; year++) {
-    hithertoYears.push(year);
-  }
+  const allYears = screenings
+    .map((screening) => screening.date.getFullYear())
+    .filter((value, index, self) => self.indexOf(value) === index)
+    .sort((a, b) => a - b);
+  const latestYear = allYears[allYears.length - 1];
 
   let history = useHistory();
 
-  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedYear, setSelectedYear] = useState(latestYear);
   const [filteredScreenings, setFilteredScreenings] = useState([]);
 
   useEffect(() => {
@@ -24,13 +23,13 @@ export default function ArchivePage({ screenings }) {
   useEffect(() => {
     let yearFromPath = window.location.pathname.slice(9);
     if (!yearFromPath) {
-      history.push('/archive/' + currentYear);
+      history.push('/archive/' + latestYear);
     }
     if (yearFromPath.endsWith('/')) {
       yearFromPath = yearFromPath.slice(0, -1);
     }
     setSelectedYear(yearFromPath);
-  }, [currentYear, history, history.location.pathname]);
+  }, [latestYear, history, history.location.pathname]);
 
   useEffect(() => {
     setFilteredScreenings(
@@ -45,7 +44,7 @@ export default function ArchivePage({ screenings }) {
   return (
     <ArchivePageStyled>
       <YearNavigation
-        years={hithertoYears}
+        years={allYears}
         setSelectedYear={setSelectedYear}
         pagePath={history.location.pathname.split('/', 2).join('/') + '/'}
       />

@@ -13,7 +13,7 @@ export default function ProgramPage({ screenings, editedObject }) {
       {editedObject.added === 'screening' && <EditNoteStyled>Vorführung hinzugefügt</EditNoteStyled>}
       {editedObject.deleted === 'screening' && <EditNoteStyled>Vorführung gelöscht</EditNoteStyled>}
       <ScreeningsList
-        screenings={screenings.filter((screening) => screening.date >= Date.now()).sort((a, b) => a.date - b.date)}
+        screenings={screenings.sort((a, b) => a.date - b.date)}
       />
     </ProgramPageStyled>
   );
