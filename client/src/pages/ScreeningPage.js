@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import Linkify from 'react-linkify';
+import MetaTags from 'react-meta-tags';
 import styled from 'styled-components/macro';
 import DateRibbon from '../common/DateRibbon';
 import UserContext from '../userContext';
@@ -26,18 +27,6 @@ export default function ScreeningPage({ screenings, editedObject }) {
     setIsLoading(false);
   }, [screenings]);
 
-  useEffect(() => {
-    if (!isInvalidId) {
-      document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
-      document.querySelector('meta[property="og:title"]').setAttribute('content', selectedScreening.title);
-      document.querySelector('meta[property="og:image"]').setAttribute('content', selectedScreening.imageUrl);
-      document
-        .querySelector('meta[property="og:url"]')
-        .setAttribute('content', 'http://www.rineuto.de/screening/' + selectedScreening._id);
-      document.querySelector('meta[property="og:description"]').setAttribute('content', selectedScreening.synopsis);
-    }
-  }, [selectedScreening, isInvalidId]);
-
   if (isLoading) {
     return <LoadingPage />;
   }
@@ -48,6 +37,17 @@ export default function ScreeningPage({ screenings, editedObject }) {
 
   return (
     <ScreeningPageStyled>
+      <MetaTags>
+        <title>{selectedScreening.title + ' | Rineuto Lichtspiele'}</title>
+        <meta property="og:title" content={selectedScreening.title} />
+        <meta name="twitter:title" content={selectedScreening.title} />
+        <meta name="description" content={selectedScreening.synopsis} />
+        <meta property="og:description" content={selectedScreening.synopsis} />
+        <meta name="twitter:description" content={selectedScreening.synopsis} />
+        <meta property="og:image" content={selectedScreening.imageUrl} />
+        <meta name="twitter:image" content={selectedScreening.imageUrl} />
+        <meta property="og:url" content={'http://www.rineuto.de/screening/' + selectedScreening._id} />
+      </MetaTags>
       {editedObject._id === selectedScreening._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
       <BackButtonStyled onClick={history.goBack}>Zurück</BackButtonStyled>
       <DateRibbon date={selectedScreening.date} />
