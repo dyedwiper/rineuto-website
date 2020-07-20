@@ -20,6 +20,12 @@
       <priority>0.4</priority>
    </url>
    <url>
+      <loc>http://www.rineuto.de/screening</loc>
+      <lastmod>2020-07-19</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.5</priority>
+   </url>
+   <url>
       <loc>http://www.rineuto.de/posters</loc>
       <lastmod>2020-07-19</lastmod>
       <changefreq>monthly</changefreq>

@@ -29,6 +29,12 @@ export default function ScreeningPage({ screenings, editedObject }) {
   useEffect(() => {
     if (!isInvalidId) {
       document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
+      document.querySelector('meta[property="og:title"]').setAttribute('content', selectedScreening.title);
+      document.querySelector('meta[property="og:image"]').setAttribute('content', selectedScreening.imageUrl);
+      document
+        .querySelector('meta[property="og:url"]')
+        .setAttribute('content', 'http://www.rineuto.de/screening/' + selectedScreening._id);
+      document.querySelector('meta[property="og:description"]').setAttribute('content', selectedScreening.synopsis);
     }
   }, [selectedScreening, isInvalidId]);
 
