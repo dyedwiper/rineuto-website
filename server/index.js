@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
+const sendJustMetaTags = require('./middleware/sendJustMetaTags');
 
 const port = process.env.PORT || 3333;
 
@@ -14,13 +15,9 @@ app.set('json spaces', 2);
 
 app.use(cors());
 
-app.use('/api/screenings', require('./routes/screenings'));
-app.use('/api/serials', require('./routes/serials'));
-app.use('/api/users', require('./routes/users'));
-app.use('/api/notices', require('./routes/notices'));
-app.use('/api/quotes', require('./routes/quotes'));
-
-app.use(express.static(path.join(__dirname, 'public')));
+app.get('/screening/*', sendJustMetaTags, (req, res) => {
+  console.log('here');
+});
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
@@ -28,6 +25,14 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
   });
 }
+
+app.use('/api/screenings', require('./routes/screenings'));
+app.use('/api/serials', require('./routes/serials'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/notices', require('./routes/notices'));
+app.use('/api/quotes', require('./routes/quotes'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.connect(
   process.env.MONGODB_URI,
