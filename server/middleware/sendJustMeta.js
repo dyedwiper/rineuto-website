@@ -2,12 +2,12 @@ const Screening = require('../models/Screening');
 
 function sendJustMeta(req, res, next) {
   const userAgent = req.get('user-agent');
-  // if (userAgent && userAgent.includes('facebookexternalhit')) {
-  if (req.path.startsWith('/screening')) {
-    const screeningId = req.path.slice(-24);
-    Screening.findById(screeningId)
-      .then((screening) => {
-        res.send(`
+  if (userAgent && userAgent.includes('facebookexternalhit')) {
+    if (req.path.startsWith('/screening')) {
+      const screeningId = req.path.slice(-24);
+      Screening.findById(screeningId)
+        .then((screening) => {
+          res.send(`
             <!DOCTYPE html>
             <html>
               <head>
@@ -21,25 +21,24 @@ function sendJustMeta(req, res, next) {
               </head>
             </html>
           `);
-      })
-      .catch((err) => res.status(400).json(err));
-  }
-  // } else if (userAgent && userAgent.includes('Twitterbot')) {
-  //   if (req.path.startsWith('/screening')) {
-  //     const screeningId = req.path.slice(-24);
-  //     Screening.findById(screeningId)
-  //       .then((screening) => {
-  //         res.send(`
-  //           <meta name="twitter:card" content="summary_large_image" />
-  //           <meta name="twitter:title" content="${screening.title}">
-  //           <meta name="twitter:description" content="${screening.synopsis}" />
-  //           <meta name="twitter:image" content="${screening.imageUrl}">
-  //         `);
-  //       })
-  //       .catch((err) => res.status(400).json(err));
-  //   }
-  // }
-  else {
+        })
+        .catch((err) => res.status(400).json(err));
+    }
+  } else if (userAgent && userAgent.includes('Twitterbot')) {
+    if (req.path.startsWith('/screening')) {
+      const screeningId = req.path.slice(-24);
+      Screening.findById(screeningId)
+        .then((screening) => {
+          res.send(`
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content="${screening.title}">
+            <meta name="twitter:description" content="${screening.synopsis}" />
+            <meta name="twitter:image" content="${screening.imageUrl}">
+          `);
+        })
+        .catch((err) => res.status(400).json(err));
+    }
+  } else {
     next();
   }
 }
