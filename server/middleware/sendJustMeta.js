@@ -8,18 +8,13 @@ function sendJustMeta(req, res, next) {
       Screening.findById(screeningId)
         .then((screening) => {
           res.send(`
-            <!DOCTYPE html>
-            <html>
-              <head>
-                <meta property="og:title" content="${screening.title}">
-                <meta property="og:image" content="${screening.imageUrl}">
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://www.rineuto.de" />
-                <meta property="og:site_name" content="Rineuto Lichtspiele" />
-                <meta property="og:description" content="${screening.synopsis}" />
-                <meta property="og:locale" content="de_DE" />
-              </head>
-            </html>
+            <meta property="og:title" content="${screening.title}">
+            <meta property="og:image" content="${screening.imageUrl}">
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="https://www.rineuto.de" />
+            <meta property="og:site_name" content="Rineuto Lichtspiele" />
+            <meta property="og:description" content="${screening.synopsis}" />
+            <meta property="og:locale" content="de_DE" />
           `);
         })
         .catch((err) => res.status(400).json(err));
