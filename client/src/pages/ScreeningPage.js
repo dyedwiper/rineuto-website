@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
 import Linkify from 'react-linkify';
-import MetaTags from 'react-meta-tags';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import DateRibbon from '../common/DateRibbon';
 import UserContext from '../userContext';
@@ -16,6 +15,10 @@ export default function ScreeningPage({ screenings, editedObject }) {
   const loggedIn = Object.keys(user).length !== 0;
 
   let history = useHistory();
+
+  useEffect(() => {
+    document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
+  }, [selectedScreening]);
 
   useEffect(() => {
     const screeningId = window.location.pathname.slice(-24);
@@ -37,17 +40,6 @@ export default function ScreeningPage({ screenings, editedObject }) {
 
   return (
     <ScreeningPageStyled>
-      <MetaTags>
-        <title>{selectedScreening.title + ' | Rineuto Lichtspiele'}</title>
-        <meta property="og:title" content={selectedScreening.title} />
-        <meta name="twitter:title" content={selectedScreening.title} />
-        <meta name="description" content={selectedScreening.synopsis} />
-        <meta property="og:description" content={selectedScreening.synopsis} />
-        <meta name="twitter:description" content={selectedScreening.synopsis} />
-        <meta property="og:image" content={selectedScreening.imageUrl} />
-        <meta name="twitter:image" content={selectedScreening.imageUrl} />
-        <meta property="og:url" content={'http://www.rineuto.de/screening/' + selectedScreening._id} />
-      </MetaTags>
       {editedObject._id === selectedScreening._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
       <BackButtonStyled onClick={history.goBack}>Zurück</BackButtonStyled>
       <DateRibbon date={selectedScreening.date} />
