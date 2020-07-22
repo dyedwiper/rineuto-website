@@ -8,6 +8,7 @@ function sendJustMeta(req, res, next) {
     Screening.findById(screeningId)
       .then((screening) => {
         res.send(`
+            <!DOCTYPE html>
             <html>
               <head>
                 <meta property="og:title" content="${screening.title}">
