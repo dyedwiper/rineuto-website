@@ -4,7 +4,7 @@ function sendJustMeta(req, res, next) {
   const userAgent = req.get('user-agent');
   if (userAgent && userAgent.includes('facebookexternalhit')) {
     if (req.path.startsWith('/screening')) {
-      const screeningId = req.path.slice(-24);
+      const screeningId = req.path.slice(req.path.indexOf('screening') + 10, req.path.indexOf('screening') + 34);
       Screening.findById(screeningId)
         .then((screening) => {
           res.send(`
@@ -18,10 +18,12 @@ function sendJustMeta(req, res, next) {
           `);
         })
         .catch((err) => res.status(400).json(err));
+    } else {
+      next();
     }
   } else if (userAgent && userAgent.includes('Twitterbot')) {
     if (req.path.startsWith('/screening')) {
-      const screeningId = req.path.slice(-24);
+      const screeningId = req.path.slice(req.path.indexOf('screening') + 10, req.path.indexOf('screening') + 34);
       Screening.findById(screeningId)
         .then((screening) => {
           res.send(`
@@ -32,6 +34,8 @@ function sendJustMeta(req, res, next) {
           `);
         })
         .catch((err) => res.status(400).json(err));
+    } else {
+      next();
     }
   } else {
     next();
