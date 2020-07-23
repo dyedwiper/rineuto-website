@@ -4,7 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
-const sendJustMeta = require('./middleware/sendJustMeta');
+const sendJustMetaToCrawlers = require('./middleware/sendJustMeta');
 
 const port = process.env.PORT || 3333;
 
@@ -15,11 +15,9 @@ app.set('json spaces', 2);
 
 app.use(cors());
 
-app.use(sendJustMeta);
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
-  app.get(/^(?!\/api)/, (req, res) => {
+  app.get(/^(?!\/api)/, sendJustMetaToCrawlers, (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
   });
 }
