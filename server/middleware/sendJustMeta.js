@@ -11,7 +11,7 @@ function sendJustMeta(req, res, next) {
             <meta property="og:title" content="${screening.title}">
             <meta property="og:image" content="${screening.imageUrl}">
             <meta property="og:type" content="website" />
-            <meta property="og:url" content="https://www.rineuto.de" />
+            <meta property="og:url" content="https://www.rineuto.de/screening/${screeningId}" />
             <meta property="og:site_name" content="Rineuto Lichtspiele" />
             <meta property="og:description" content="${screening.synopsis}" />
             <meta property="og:locale" content="de_DE" />
