@@ -1,12 +1,16 @@
 const Screening = require('../models/Screening');
+const { json } = require('express');
 
 function sendJustMeta(req, res, next) {
-  const userAgent = req.get('user-agent');
+  const userAgent = req.header('user-agent');
   if (userAgent && userAgent.includes('facebookexternalhit')) {
     if (req.path.startsWith('/screening')) {
       const screeningId = req.path.slice(req.path.indexOf('screening') + 10, req.path.indexOf('screening') + 34);
       Screening.findById(screeningId)
         .then((screening) => {
+          if (!screening) {
+            return res.status(404).json('screening not found');
+          }
           res.send(`
             <meta property="og:title" content="${screening.title} | Rineuto Lichtspiele">
             <meta property="og:image" content="${screening.imageUrl}">
@@ -76,6 +80,9 @@ function sendJustMeta(req, res, next) {
       const screeningId = req.path.slice(req.path.indexOf('screening') + 10, req.path.indexOf('screening') + 34);
       Screening.findById(screeningId)
         .then((screening) => {
+          if (!screening) {
+            return res.status(404).json('screening not found');
+          }
           res.send(`
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content="${screening.title}">
