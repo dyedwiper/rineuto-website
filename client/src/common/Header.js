@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import styled from 'styled-components/macro';
 import whitePerlImage from '../assets/perls/whitePerl.png';
 import redPerlImage from '../assets/perls/redPerl.png';
-import favicon from '../assets/favicon.png';
+import glubsch from '../assets/glubsch.png';
 import darkGreenPerlImage from '../assets/perls/darkGreenPerl.png';
 
 export default function Header({ isNavOpen, setIsNavOpen }) {
@@ -22,8 +22,8 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
     <HeaderStyled>
       <TitleStyled onClick={handleTitleClick}>{title}</TitleStyled>
       <PerlLinkStyled target="_blank" rel="noopener noreferrer" href="https://youtu.be/hKBfQdKvyXc">
-        <PerlStyled src={favicon} />
-        <PerlStyled src={favicon} />
+        <PerlStyled src={glubsch} />
+        <PerlStyled src={glubsch} />
       </PerlLinkStyled>
       <PerlMenuLabelStyled isNavOpen={isNavOpen}>
         <CheckboxStyled type="checkbox" onChange={() => setIsNavOpen(!isNavOpen)}></CheckboxStyled>
@@ -76,6 +76,7 @@ const PerlLinkStyled = styled.a`
 const PerlStyled = styled.img`
   width: 20px;
   height: 20px;
+  transform: scaleX(-1);
 `;
 
 const CheckboxStyled = styled.input`
