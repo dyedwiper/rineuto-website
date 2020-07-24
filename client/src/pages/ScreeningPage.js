@@ -42,49 +42,49 @@ export default function ScreeningPage({ screenings, editedObject }) {
     <ScreeningPageStyled>
       {editedObject._id === selectedScreening._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
       <BackButtonStyled onClick={history.goBack}>Zurück</BackButtonStyled>
-      <DateRibbon date={selectedScreening.date} />
-      <FilmStillStyled src={selectedScreening.imageUrl} />
-      <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
-      <FilmInfoStyled>
-        {selectedScreening.country +
-          ' ' +
-          selectedScreening.year +
-          ' | ' +
-          selectedScreening.length +
-          ' Min | ' +
-          selectedScreening.version}
-      </FilmInfoStyled>
-      <FilmDirectorStyled>{'Regie: ' + selectedScreening.director}</FilmDirectorStyled>
-      <FilmSynopsisStyled>
-        <Linkify
-          componentDecorator={(decoratedHref, decoratedText, key) => (
-            <a target="blank" href={decoratedHref} key={key}>
-              {decoratedText}
-            </a>
-          )}
-        >
-          {selectedScreening.synopsis}
-        </Linkify>
-      </FilmSynopsisStyled>
-      <ScreeningSerialStyled>
-        Filmreihe: {selectedScreening.serial ? selectedScreening.serial.title : ''}
-      </ScreeningSerialStyled>
-      {loggedIn && <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>Bearbeiten</EditLinkStyled>}
+      <ScreeningInfoContainerStyled>
+        <DateRibbon date={selectedScreening.date} />
+        <FilmStillStyled src={selectedScreening.imageUrl} />
+        <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
+        <FilmInfoStyled>
+          {selectedScreening.country +
+            ' ' +
+            selectedScreening.year +
+            ' | ' +
+            selectedScreening.length +
+            ' Min | ' +
+            selectedScreening.version}
+        </FilmInfoStyled>
+        <FilmDirectorStyled>{'Regie: ' + selectedScreening.director}</FilmDirectorStyled>
+        <FilmSynopsisStyled>
+          <Linkify
+            componentDecorator={(decoratedHref, decoratedText, key) => (
+              <a target="blank" href={decoratedHref} key={key}>
+                {decoratedText}
+              </a>
+            )}
+          >
+            {selectedScreening.synopsis}
+          </Linkify>
+        </FilmSynopsisStyled>
+        <ScreeningSerialStyled>
+          Filmreihe: {selectedScreening.serial ? selectedScreening.serial.title : ''}
+        </ScreeningSerialStyled>
+        {loggedIn && <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>Bearbeiten</EditLinkStyled>}
+      </ScreeningInfoContainerStyled>
     </ScreeningPageStyled>
   );
 }
 
 const ScreeningPageStyled = styled.article`
   position: relative;
-  display: grid;
-  grid-auto-rows: min-content;
   margin: 0 auto;
   max-width: 600px;
   padding: 60px 20px;
 `;
 
 const EditNoteStyled = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: 60px;
   color: green;
   font-size: 1.5em;
   font-weight: bold;
@@ -99,9 +99,16 @@ const BackButtonStyled = styled.button`
   padding: 0 5px;
   background-color: white;
 
-  @media (min-width: 900px) {
+  /* @media (min-width: 900px) {
     display: none;
-  }
+  } */
+`;
+
+const ScreeningInfoContainerStyled = styled.div`
+  position: relative;
+  display: grid;
+  grid-auto-rows: min-content;
+  margin-top: 20px;
 `;
 
 const FilmStillStyled = styled.img`

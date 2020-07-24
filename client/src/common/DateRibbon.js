@@ -35,6 +35,8 @@ export default function DateRibbon({ date }) {
 }
 
 const DateRibbonStyled = styled.div`
+  position: absolute;
+  top: -24px;
   transform: skew(0deg, -13deg);
   width: min-content;
   font-size: 1.5em;

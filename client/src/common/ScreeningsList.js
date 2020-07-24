@@ -6,11 +6,7 @@ export default function ScreeningsList({ screenings, setSelectedScreening }) {
   return (
     <ScreeningsListStyled>
       {screenings.map((screening) => (
-        <ScreeningCard
-          key={screening._id}
-          screening={screening}
-          setSelectedScreening={setSelectedScreening}
-        />
+        <ScreeningCard key={screening._id} screening={screening} setSelectedScreening={setSelectedScreening} />
       ))}
       <Cushion />
     </ScreeningsListStyled>

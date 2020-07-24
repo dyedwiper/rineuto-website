@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import ScreeningsList from '../common/ScreeningsList';
 import YearNavigation from '../common/YearNavigation';
+import hal9000 from '../assets/hal9000.png';
 
 export default function ArchivePage({ screenings }) {
   const allYears = screenings
@@ -50,6 +51,9 @@ export default function ArchivePage({ screenings }) {
       />
       <SubHeadlineStyled>Vergangene Filmperlen</SubHeadlineStyled>
       <ScreeningsList screenings={filteredScreenings.sort((a, b) => b.date - a.date)} />
+      <PerlLinkStyled href="https://www.youtube.com/watch?v=4VyUMIZr1PU" target="_blank" rel="noopener noreferrer">
+        <HalImageStyled src={hal9000} />
+      </PerlLinkStyled>
     </ArchivePageStyled>
   );
 }
@@ -63,3 +67,18 @@ const SubHeadlineStyled = styled.h2`
   text-align: center;
   color: white;
 `;
+
+const PerlLinkStyled = styled.a`
+  position: absolute;
+  top: 360px;
+  left: 260px;
+  z-index: 1;
+  height: 20px;
+  width: 20px;
+
+  @media (min-width: 900px) {
+    left: 700px;
+  }
+`;
+
+const HalImageStyled = styled.img``;

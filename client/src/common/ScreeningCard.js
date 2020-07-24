@@ -17,7 +17,11 @@ export default function ScreeningCard({ screening }) {
 }
 
 const ScreeningCardStyled = styled.li`
+  position: relative;
+  z-index: 2;
   display: grid;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const LinkStyled = styled(Link)`

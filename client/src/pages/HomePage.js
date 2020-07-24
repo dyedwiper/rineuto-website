@@ -1,10 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 import NoticeCard from '../common/NoticeCard';
+import lightBrownPerlImage from '../assets/perls/lightBrownPerl.png';
 
 export default function HomePage({ notices, editedObject }) {
+  const windowHeight = useRef(null);
+
   useEffect(() => {
     document.title = 'Rineuto Lichtspiele';
+    windowHeight.current = window.innerHeight;
   }, []);
 
   return (
@@ -20,6 +24,14 @@ export default function HomePage({ notices, editedObject }) {
           ))}
       </NoticesListStyled>
       <Cushion />
+      <PerlLinkStyled
+        windowHeight={windowHeight.current}
+        href="https://www.youtube.com/watch?v=Wf8294AR8mE"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <PerlImageStyled src={lightBrownPerlImage} />
+      </PerlLinkStyled>
     </HomePageStyled>
   );
 }
@@ -56,3 +68,17 @@ const NoticesListStyled = styled.ul`
 const Cushion = styled.div`
   height: 30px;
 `;
+
+const PerlLinkStyled = styled.a`
+  position: absolute;
+  bottom: ${(props) => (props.windowHeight % 20 === 0 ? '20px' : 20 + (props.windowHeight % 20) + 'px')};
+  left: 200px;
+  height: 20px;
+  width: 20px;
+
+  @media (min-width: 900px) {
+    left: 500px;
+  }
+`;
+
+const PerlImageStyled = styled.img``;
