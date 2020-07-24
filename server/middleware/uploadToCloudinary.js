@@ -16,11 +16,9 @@ function uploadToCloudinary(req, res, next) {
   });
   const file = parser.format(path.extname(req.file.originalname).toString(), req.file.buffer).content;
   uploader
-    .upload(file, {
-      public_id: computeCloudinaryPublicId(req),
-    })
+    .upload(file, { public_id: computeCloudinaryPublicId(req) })
     .then((result) => {
-      req.file.path = result.url;
+      req.file.path = result.secure_url;
       next();
     })
     .catch((err) => {
