@@ -37,7 +37,7 @@ router.post('/create', authenticate, authorize, validateUser, (req, res) => {
           const newUser = new User({
             username: req.body.username,
             password: hashedPassword,
-            admin: req.body.admin,
+            isAdmin: req.body.isAdmin,
           });
           newUser
             .save()

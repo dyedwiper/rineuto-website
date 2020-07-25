@@ -5,7 +5,7 @@ function validateUser(req, res, next) {
     username: Joi.string().min(4).max(20).required(),
     password: Joi.string().min(8).max(40).required(),
     repeat_password: Joi.ref('password'),
-    admin: Joi.boolean(),
+    isAdmin: Joi.boolean(),
   }).with('password', 'repeat_password');
   const { error } = userSchema.validate(req.body);
   if (error) {
