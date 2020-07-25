@@ -6,6 +6,7 @@ const serialSchema = new Schema({
   year: { type: Number, required: true },
   month: { type: Number, required: true },
   imageUrl: { type: String },
+  altText: { type: String },
 });
 
 const Serial = mongoose.model('Serial', serialSchema);

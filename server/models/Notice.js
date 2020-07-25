@@ -5,6 +5,7 @@ const noticeSchema = new Schema({
   title: { type: String, required: true },
   date: { type: Date, required: true },
   imageUrl: { type: String },
+  altText: {type: String},
   text: { type: String, required: true },
 });
 

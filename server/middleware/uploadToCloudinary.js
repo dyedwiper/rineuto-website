@@ -16,9 +16,9 @@ function uploadToCloudinary(req, res, next) {
   });
   const file = parser.format(path.extname(req.file.originalname).toString(), req.file.buffer).content;
   uploader
-    .upload(file, { public_id: computeCloudinaryPublicId(req) })
+    .upload(file, { public_id: computeCloudinaryPublicId(req, res) })
     .then((result) => {
-      req.file.path = result.secure_url;
+      req.body.imageUrl = result.secure_url;
       next();
     })
     .catch((err) => {
@@ -26,12 +26,18 @@ function uploadToCloudinary(req, res, next) {
     });
 }
 
-function computeCloudinaryPublicId(req) {
+function computeCloudinaryPublicId(req, res) {
   let cloudinaryPublicId;
   if (req.baseUrl.includes('notices')) {
+    if (!req.body.title || !req.body.date) {
+      return res.status(400).json({ cloudinaryError: 'title and date must not be empty' });
+    }
     cloudinaryPublicId =
       'rineuto/notices/' + req.body.date + '_' + replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
   } else if (req.baseUrl.includes('serials')) {
+    if (!req.body.title || !req.body.year) {
+      return res.status(400).json({ cloudinaryError: 'title and year must not be empty' });
+    }
     cloudinaryPublicId =
       'rineuto/serials/' +
       req.body.year +
@@ -39,6 +45,9 @@ function computeCloudinaryPublicId(req) {
       'rineuto_plakat_' +
       replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
   } else {
+    if (!req.body.title || !req.body.day) {
+      return res.status(400).json({ cloudinaryError: 'title and day must not be empty' });
+    }
     cloudinaryPublicId =
       'rineuto/screenings/' +
       req.body.day.slice(0, 4) +

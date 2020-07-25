@@ -21,16 +21,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateScreening, formatDate, (req, res) => {
-  let newScreening;
-  if (req.file) {
-    newScreening = new Screening({
-      ...req.body,
-      imageUrl: req.file.path,
-    });
-  } else {
-    newScreening = new Screening(req.body);
-  }
-  newScreening
+  new Screening(req.body)
     .save()
     .then((newScreening) => res.json(newScreening))
     .catch((err) => res.status(400).json(err));
@@ -44,16 +35,7 @@ router.patch(
   validateScreening,
   formatDate,
   (req, res) => {
-    let screeningToUpdate;
-    if (req.file) {
-      screeningToUpdate = {
-        ...req.body,
-        imageUrl: req.file.path,
-      };
-    } else {
-      screeningToUpdate = req.body;
-    }
-    Screening.findByIdAndUpdate(req.params.id, screeningToUpdate)
+    Screening.findByIdAndUpdate(req.params.id, req.body)
       .then(() => res.json('updated successfully'))
       .catch((err) => res.status(400).json(err));
   }

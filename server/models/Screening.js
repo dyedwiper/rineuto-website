@@ -6,6 +6,7 @@ const screeningSchema = new Schema({
   date: { type: Date },
   director: { type: String },
   imageUrl: { type: String },
+  altText: { type: String },
   length: { type: Number },
   country: { type: String },
   year: { type: Number },

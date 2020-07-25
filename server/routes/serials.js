@@ -12,32 +12,14 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateSerial, (req, res) => {
-  let newSerial;
-  if (req.file) {
-    newSerial = new Serial({
-      ...req.body,
-      imageUrl: req.file.path,
-    });
-  } else {
-    newSerial = new Serial(req.body);
-  }
-  newSerial
+  new Serial(req.body)
     .save()
     .then((serial) => res.json(serial))
     .catch((err) => res.status(400).json(err));
 });
 
 router.patch('/:id', authenticate, readFileWithMulter, uploadToCloudinary, validateSerial, (req, res) => {
-  let serialToUpdate;
-  if (req.file) {
-    serialToUpdate = {
-      ...req.body,
-      imageUrl: req.file.path,
-    };
-  } else {
-    serialToUpdate = req.body;
-  }
-  Serial.findByIdAndUpdate(req.params.id, serialToUpdate)
+  Serial.findByIdAndUpdate(req.params.id, req.body)
     .then(() => res.json('updated successfully'))
     .catch((err) => res.status(400).json(err));
 });

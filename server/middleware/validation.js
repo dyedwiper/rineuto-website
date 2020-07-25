@@ -32,6 +32,8 @@ function validateScreening(req, res, next) {
     day: Joi.date().format('YYYY-MM-DD'),
     time: Joi.string().pattern(/([0-1]\d|[2][0-3]):([0-5]\d)/),
     director: Joi.string().allow('').max(50),
+    imageUrl: Joi.string().allow('').max(300),
+    altText: Joi.string().allow('').max(300),
     length: Joi.number().integer().positive().max(1440),
     country: Joi.string().allow('').max(50),
     year: Joi.number().integer().positive().min(1890).max(10000),
@@ -51,7 +53,8 @@ function validateSerial(req, res, next) {
     title: Joi.string().max(50),
     year: Joi.number().min(2018).max(10000),
     month: Joi.number().min(1).max(12),
-    imageUrl: Joi.string().max(200),
+    imageUrl: Joi.string().max(300),
+    altText: Joi.string().allow('').max(300),
   });
   const { error } = serialSchema.validate(req.body);
   if (error) {
@@ -64,8 +67,9 @@ function validateNotice(req, res, next) {
   const noticeSchema = Joi.object({
     title: Joi.string().max(50),
     date: Joi.date(),
-    text: Joi.string().max(10000),
-    imageUrl: Joi.string().max(200),
+    text: Joi.string().allow('').max(10000),
+    imageUrl: Joi.string().allow('').max(300),
+    altText: Joi.string().allow('').max(300),
   });
   const { error } = noticeSchema.validate(req.body);
   if (error) {

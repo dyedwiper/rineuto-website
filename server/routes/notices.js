@@ -13,33 +13,14 @@ router.get('/', (req, res) => {
 
 router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateNotice, (req, res) => {
   const date = Date.now();
-  let newNotice;
-  if (req.file) {
-    newNotice = new Notice({
-      date,
-      ...req.body,
-      imageUrl: req.file.path,
-    });
-  } else {
-    newNotice = new Notice({ date, ...req.body });
-  }
-  newNotice
+  new Notice({ date, ...req.body })
     .save()
     .then((newNotice) => res.json(newNotice))
     .catch((err) => res.status(400).json(err));
 });
 
 router.patch('/:id', authenticate, readFileWithMulter, uploadToCloudinary, validateNotice, (req, res) => {
-  let noticeToUpdate;
-  if (req.file) {
-    noticeToUpdate = {
-      ...req.body,
-      imageUrl: req.file.path,
-    };
-  } else {
-    noticeToUpdate = req.body;
-  }
-  Notice.findByIdAndUpdate(req.params.id, noticeToUpdate)
+  Notice.findByIdAndUpdate(req.params.id, req.body)
     .then(() => res.json('updated successfully'))
     .catch((err) => res.status(400).json(err));
 });
