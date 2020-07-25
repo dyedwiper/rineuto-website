@@ -6,7 +6,7 @@ import Header from './common/Header';
 import Main from './common/Main';
 import Navigation from './common/Navigation';
 import UserContext from './userContext';
-import { getUser } from './utils/services';
+import { authenticateUser } from './utils/services';
 import { getFromStorage } from './utils/storage';
 
 export default function App() {
@@ -17,7 +17,7 @@ export default function App() {
 
   useEffect(() => {
     const token = getFromStorage('rineuto-token');
-    getUser(token)
+    authenticateUser(token)
       .then((user) => {
         setUser(user);
       })
@@ -25,7 +25,6 @@ export default function App() {
         setIsLoadingUser(false);
       })
       .catch((err) => {
-        console.error(err);
         setIsLoadingUser(false);
       });
   }, []);

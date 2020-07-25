@@ -113,7 +113,7 @@ export function postLoginUser(data) {
   }).then(handleLogin);
 }
 
-export function getUser(token) {
+export function authenticateUser(token) {
   return fetch('/api/users/authenticate', {
     headers: { 'auth-token': token },
   }).then(handleError);
