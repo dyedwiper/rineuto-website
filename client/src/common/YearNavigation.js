@@ -41,4 +41,6 @@ const YearLinkStyled = styled(NavLink)`
   &.active {
     transform: skew(0deg, -13deg);
   }
+
+  transition: all 1s;
 `;

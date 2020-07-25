@@ -108,10 +108,6 @@ const NavLinkStyled = styled(NavLink)`
   font-size: 1.5em;
   font-weight: bold;
 
-  :hover {
-    text-decoration: underline;
-  }
-
   &.active {
     transform: skew(0deg, -13deg);
   }
@@ -120,6 +116,8 @@ const NavLinkStyled = styled(NavLink)`
     justify-self: left;
     font-size: 2em;
   }
+
+  transition: all 1s;
 `;
 
 const HorizontalLineStyled = styled.hr`
