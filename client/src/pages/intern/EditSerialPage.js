@@ -59,6 +59,15 @@ export default function EditSerialPage({ serials, setEditedObject, setIsWaiting 
           Poster (max. 1 MB)
           <InputStyled type="file" name="image" />
         </LabelStyled>
+        <LabelStyled>
+          <span>
+            Alternativtext{' '}
+            <LinkStyled target="_blank" rel="noopener noreferrer" href="https://de.wikipedia.org/wiki/Alt-Text">
+              (Wikipedia)
+            </LinkStyled>
+          </span>
+          <InputStyled name="altText" defaultValue={serialToEdit.altText} />
+        </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         <ButtonStyled>Änderungen speichern</ButtonStyled>
         <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
@@ -143,6 +152,10 @@ const LabelStyled = styled.label`
 `;
 
 const InputStyled = styled.input``;
+
+const LinkStyled = styled.a`
+  color: white;
+`;
 
 const ButtonStyled = styled.button`
   justify-self: center;

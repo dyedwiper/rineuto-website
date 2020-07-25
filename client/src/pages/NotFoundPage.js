@@ -9,7 +9,7 @@ export default function NotFoundPage() {
 
   return (
     <NotFoundPageStyled>
-      <IronsImageStyled src={ironsImage} />
+      <IronsImageStyled src={ironsImage} alt="Tom Waits while Jeremy Irons" />
       <NotFoundTextStyled>But you're gonna wait forever. There's nothing here.</NotFoundTextStyled>
     </NotFoundPageStyled>
   );

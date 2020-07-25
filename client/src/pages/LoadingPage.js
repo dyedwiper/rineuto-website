@@ -7,7 +7,10 @@ export default function LoadingPage() {
   return (
     <LoadingPageStyled>
       <WhiteCircleStyled>
-        <BlackPerlStyled src={blackPerlImage} alt="Loading" />
+        <BlackPerlStyled
+          src={blackPerlImage}
+          alt="Eine Perle rotiert im Kreis und zeigt an, dass ein Ladevorgang im Gang ist"
+        />
       </WhiteCircleStyled>
     </LoadingPageStyled>
   );

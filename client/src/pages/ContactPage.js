@@ -28,7 +28,7 @@ export default function ImprintPage() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <MapImageStyled src={mapImage} />
+        <MapImageStyled src={mapImage} alt="Karte von Hamburg-Wilhelmsburg" />
       </a>
       <br />
       <br />

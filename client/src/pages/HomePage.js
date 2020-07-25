@@ -30,7 +30,7 @@ export default function HomePage({ notices, editedObject }) {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <PerlImageStyled src={lightBrownPerlImage} />
+        <PerlImageStyled src={lightBrownPerlImage} alt="Eine hellbraune Bügelperle" />
       </PerlLinkStyled>
     </HomePageStyled>
   );

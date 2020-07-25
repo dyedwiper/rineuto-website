@@ -54,8 +54,8 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
       </NavigationStyled>
       <LeftCurtainStyled isNavOpen={isNavOpen}>
         <PerlLinkStyled target="_blank" href="https://youtu.be/hKBfQdKvyXc">
-          <PerlStyled src={favicon} />
-          <PerlStyled src={favicon} />
+          <PerlStyled src={favicon} alt="Zwei Perlen oder ein Auge" />
+          <PerlStyled src={favicon} alt="Zwei Perlen oder ein Auge" />
         </PerlLinkStyled>
       </LeftCurtainStyled>
     </>

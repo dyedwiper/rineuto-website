@@ -52,7 +52,7 @@ export default function ArchivePage({ screenings }) {
       <SubHeadlineStyled>Vergangene Filmperlen</SubHeadlineStyled>
       <ScreeningsList screenings={filteredScreenings.sort((a, b) => b.date - a.date)} />
       <PerlLinkStyled href="https://www.youtube.com/watch?v=4VyUMIZr1PU" target="_blank" rel="noopener noreferrer">
-        <HalImageStyled src={hal9000} />
+        <HalImageStyled src={hal9000} alt="HAL 9000" />
       </PerlLinkStyled>
     </ArchivePageStyled>
   );

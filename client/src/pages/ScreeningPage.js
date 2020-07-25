@@ -44,7 +44,7 @@ export default function ScreeningPage({ screenings, editedObject }) {
       <BackButtonStyled onClick={history.goBack}>Zurück</BackButtonStyled>
       <ScreeningInfoContainerStyled>
         <DateRibbon date={selectedScreening.date} />
-        <FilmStillStyled src={selectedScreening.imageUrl} />
+        <FilmStillStyled src={selectedScreening.imageUrl} alt={selectedScreening.altText} />
         <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
         <FilmInfoStyled>
           {selectedScreening.country +

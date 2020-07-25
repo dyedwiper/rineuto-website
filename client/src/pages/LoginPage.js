@@ -27,7 +27,7 @@ export default function LoginPage() {
         </LabelStyled>
         <ButtonStyled>Login</ButtonStyled>
       </LoginFormStyled>
-      {didLoginFail && <ImageStyled src={magicGif}></ImageStyled>}
+      {didLoginFail && <ImageStyled src={magicGif} alt="ah ah ah you didn't say the magic word"></ImageStyled>}
     </LoginPageStyled>
   );
 

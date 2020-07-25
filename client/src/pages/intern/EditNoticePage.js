@@ -55,6 +55,15 @@ export default function EditNoticePage({ notices, setEditedObject, setIsWaiting 
           <InputStyled type="file" name="image" />
         </LabelStyled>
         <LabelStyled>
+          <span>
+            Alternativtext{' '}
+            <LinkStyled target="_blank" rel="noopener noreferrer" href="https://de.wikipedia.org/wiki/Alt-Text">
+              (Wikipedia)
+            </LinkStyled>
+          </span>
+          <InputStyled name="altText" defaultValue={noticeToEdit.altText} />
+        </LabelStyled>
+        <LabelStyled>
           Text
           <TextareaStyled name="text" defaultValue={noticeToEdit.text} />
         </LabelStyled>
@@ -142,6 +151,10 @@ const LabelStyled = styled.label`
 `;
 
 const InputStyled = styled.input``;
+
+const LinkStyled = styled.a`
+  color: white;
+`;
 
 const TextareaStyled = styled.textarea`
   display: block;

@@ -10,7 +10,7 @@ export default function NoticeCard({ notice, editedObject }) {
 
   return (
     <NoticeCardStyled>
-      <NoticeImageStyled src={notice.imageUrl} />
+      <NoticeImageStyled src={notice.imageUrl} alt={notice.altText} />
       <NoticeTitleRowStyled>
         <NoticeTitleStyled>{notice.title}</NoticeTitleStyled>
         <NoticeDateStyled>
@@ -24,7 +24,7 @@ export default function NoticeCard({ notice, editedObject }) {
       <NoticeTextStyled>
         <Linkify
           componentDecorator={(decoratedHref, decoratedText, key) => (
-            <a target="blank" href={decoratedHref} key={key}>
+            <a target="_blank" rel="noopener noreferrer" href={decoratedHref} key={key}>
               {decoratedText}
             </a>
           )}

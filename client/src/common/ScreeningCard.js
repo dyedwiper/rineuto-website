@@ -8,7 +8,7 @@ export default function ScreeningCard({ screening }) {
     <ScreeningCardStyled>
       <DateRibbon date={screening.date} />
       <LinkStyled to={'/screening/' + screening._id}>
-        <FilmStillStyled src={screening.imageUrl} />
+        <FilmStillStyled src={screening.imageUrl} alt={screening.altText} />
         <ScreeningTitleStyled>{screening.title}</ScreeningTitleStyled>
       </LinkStyled>
       <ScreeningSerialStyled>Filmreihe: {screening.serial ? screening.serial.title : ''}</ScreeningSerialStyled>

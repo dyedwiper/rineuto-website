@@ -15,7 +15,7 @@ export default function PostersList({ serials, selectedYear, editedObject }) {
         .map((serial) => (
           <PosterItemStyled key={serial._id}>
             <a href={serial.imageUrl} target="_blank" rel="noopener noreferrer">
-              <PosterStyled src={serial.imageUrl} />
+              <PosterStyled src={serial.imageUrl} alt={serial.altText} />
             </a>
             {loggedIn && (
               <EditContainerStyled>
