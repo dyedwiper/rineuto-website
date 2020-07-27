@@ -22,7 +22,7 @@ function uploadToCloudinary(req, res, next) {
       next();
     })
     .catch((err) => {
-      res.status(400).json({ cloudinaryError: err.message });
+      res.status(500).json({ cloudinaryError: err.message });
     });
 }
 

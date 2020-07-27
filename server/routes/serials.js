@@ -8,14 +8,14 @@ const { uploadToCloudinary } = require('../middleware/uploadToCloudinary');
 router.get('/', (req, res) => {
   Serial.find()
     .then((serials) => res.json(serials))
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(500).json(err));
 });
 
 router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateSerial, (req, res) => {
   new Serial(req.body)
     .save()
     .then((serial) => res.json(serial))
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(500).json(err));
 });
 
 router.patch('/:id', authenticate, readFileWithMulter, uploadToCloudinary, validateSerial, (req, res) => {

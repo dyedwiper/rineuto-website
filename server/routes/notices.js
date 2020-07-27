@@ -8,7 +8,7 @@ const { uploadToCloudinary } = require('../middleware/uploadToCloudinary');
 router.get('/', (req, res) => {
   Notice.find()
     .then((notices) => res.json(notices))
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(500).json(err));
 });
 
 router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateNotice, (req, res) => {
@@ -16,7 +16,7 @@ router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateN
   new Notice({ date, ...req.body })
     .save()
     .then((newNotice) => res.json(newNotice))
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(500).json(err));
 });
 
 router.patch('/:id', authenticate, readFileWithMulter, uploadToCloudinary, validateNotice, (req, res) => {
