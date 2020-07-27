@@ -9,7 +9,7 @@ function validateUser(req, res, next) {
   }).with('password', 'repeat_password');
   const { error } = userSchema.validate(req.body);
   if (error) {
-    return res.status(400).json(error);
+    return res.status(400).json({ joiError: error.details[0].message });
   }
   next();
 }
@@ -21,7 +21,7 @@ function validateLogin(req, res, next) {
   });
   const { error } = loginSchema.validate(req.body);
   if (error) {
-    return res.status(400).json({ error: error.details[0].message });
+    return res.status(400).json({ joiError: error.details[0].message });
   }
   next();
 }

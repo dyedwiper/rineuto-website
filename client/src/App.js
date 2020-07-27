@@ -17,16 +17,18 @@ export default function App() {
 
   useEffect(() => {
     const token = getFromStorage('rineuto-token');
-    authenticateUser(token)
-      .then((user) => {
-        setUser(user);
-      })
-      .then(() => {
-        setIsLoadingUser(false);
-      })
-      .catch((err) => {
-        setIsLoadingUser(false);
-      });
+    if (token) {
+      authenticateUser(token)
+        .then((user) => {
+          setUser(user);
+        })
+        .then(() => {
+          setIsLoadingUser(false);
+        })
+        .catch((err) => {
+          setIsLoadingUser(false);
+        });
+    }
   }, []);
 
   return (
