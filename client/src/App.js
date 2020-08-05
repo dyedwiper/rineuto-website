@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import leftCurtainImage from './assets/leftCurtain.jpg';
 import blackPerlImage from './assets/perls/blackPerl.png';
+import rightCurtainImage from './assets/rightCurtain.jpg';
 import Header from './common/Header';
 import Main from './common/Main';
 import Navigation from './common/Navigation';
@@ -12,8 +14,15 @@ import { getFromStorage } from './utils/storage';
 export default function App() {
   const [user, setUser] = useState({});
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  const [isLoadingContent, setIsLoadingContent] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => setScreenWidth(document.body.clientWidth));
+    setScreenWidth(document.body.clientWidth);
+  }, [isLoadingContent]);
 
   useEffect(() => {
     const token = getFromStorage('rineuto-token');
@@ -36,14 +45,19 @@ export default function App() {
       <UserContext.Provider value={{ user, setUser }}>
         <AppStyled>
           {isWaiting && <OverlayStyled />}
-          <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-          <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-          <Main
-            isNavOpen={isNavOpen}
-            setIsNavOpen={setIsNavOpen}
-            isLoadingUser={isLoadingUser}
-            setIsWaiting={setIsWaiting}
-          />
+          <LeftCurtainStyled src={leftCurtainImage} screenWidth={screenWidth} />
+          <ScreenStyled>
+            <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+            <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+            <Main
+              isNavOpen={isNavOpen}
+              setIsNavOpen={setIsNavOpen}
+              isLoadingUser={isLoadingUser}
+              setIsLoadingContent={setIsLoadingContent}
+              setIsWaiting={setIsWaiting}
+            />
+          </ScreenStyled>
+          <RightCurtainStyled src={rightCurtainImage} screenWidth={screenWidth} />
         </AppStyled>
       </UserContext.Provider>
     </Router>
@@ -56,16 +70,47 @@ const AppStyled = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
-  max-width: 1020px;
-  height: 100%;
+`;
+
+const ScreenStyled = styled.div`
+  position: relative;
   display: grid;
   grid-template-rows: 60px auto;
+  height: 100%;
+  max-width: 1020px;
   margin: auto;
   background-image: url(${blackPerlImage});
-  background-color: black;
 
   @media (min-width: 900px) {
     grid-template-columns: 240px auto;
+  }
+`;
+
+const LeftCurtainStyled = styled.img`
+  display: none;
+
+  @media (min-width: 900px) {
+    display: block;
+    position: fixed;
+    right: ${(props) => 510 + props.screenWidth / 2 + 'px'};
+    top: -10%;
+    z-index: 10;
+    height: 120%;
+    box-shadow: 15px 0 20px black;
+  }
+`;
+
+const RightCurtainStyled = styled.img`
+  display: none;
+
+  @media (min-width: 900px) {
+    display: block;
+    position: fixed;
+    left: ${(props) => 510 + props.screenWidth / 2 + 'px'};
+    top: -10%;
+    z-index: 10;
+    height: 120%;
+    box-shadow: -15px 0 20px black;
   }
 `;
 

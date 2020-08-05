@@ -3,8 +3,8 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
-import HomePage from '../pages/HomePage';
 import ImprintPage from '../pages/ContactPage';
+import HomePage from '../pages/HomePage';
 import AddNoticePage from '../pages/intern/AddNoticePage';
 import AddScreeningPage from '../pages/intern/AddScreeningPage';
 import AddSerialPage from '../pages/intern/AddSerialPage';
@@ -20,7 +20,7 @@ import ScreeningPage from '../pages/ScreeningPage';
 import { getNotices, getScreenings, getSerials } from '../utils/services';
 import PrivateRoute from './PrivateRoute';
 
-export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen, setIsWaiting }) {
+export default function Main({ isNavOpen, isLoadingUser, setIsLoadingContent, setIsNavOpen, setIsWaiting }) {
   const [screenings, setScreenings] = useState([]);
   const [serials, setSerials] = useState([]);
   const [notices, setNotices] = useState([]);
@@ -84,6 +84,10 @@ export default function Main({ isNavOpen, isLoadingUser, setIsNavOpen, setIsWait
       })
       .catch((err) => console.error(err));
   }, [editedObject]);
+
+  useEffect(() => {
+    setIsLoadingContent(isLoadingScreenings || isLoadingSerials || isLoadingNotice);
+  }, [setIsLoadingContent, isLoadingScreenings, isLoadingSerials, isLoadingNotice]);
 
   if (isLoadingScreenings || isLoadingSerials || isLoadingNotice) {
     return <LoadingPage />;

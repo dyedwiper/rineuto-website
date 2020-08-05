@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components/macro';
-import twinCurtainImage from '../assets/twinCurtain.jpg';
 
 export default createGlobalStyle`
   * {
@@ -8,12 +7,10 @@ export default createGlobalStyle`
  
   body {
     margin: 0;
-    background-image: url(${twinCurtainImage});
-    background-size: cover;
-    background-color: black;
     font-family: 'Linux Libertine G', 'Times New Roman', 'Times', serif;
     font-size: 16px;
     overflow-wrap: break-word;
+    background-color: black;
   }
 
   input, button, textarea {

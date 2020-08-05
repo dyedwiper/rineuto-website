@@ -82,11 +82,13 @@ const NavigationStyled = styled.nav`
   padding: 20px;
   background-image: url(${rightCurtainImage});
   background-size: cover;
-  transform: ${(props) => (props.isNavOpen ? 'translateX(0)' : 'translateX(101%)')};
+  box-shadow: -15px 0 20px black;
+  transform: ${(props) => (props.isNavOpen ? 'translateX(0)' : 'translateX(120%)')};
   transition: all 2.3s linear;
 
   @media (min-width: 900px) {
     position: static;
+    z-index: 0;
     grid-column-start: 1;
     display: grid;
     grid-auto-rows: min-content;
@@ -96,6 +98,7 @@ const NavigationStyled = styled.nav`
     padding: 20px 20px;
     background-image: url(${greenPerlImage});
     background-size: auto;
+    box-shadow: none;
     transform: translateX(0);
   }
 `;
@@ -153,7 +156,8 @@ const LeftCurtainStyled = styled.div`
   height: 100%;
   background-image: url(${leftCurtainImage});
   background-size: cover;
-  transform: ${(props) => (props.isNavOpen ? 'translateX(0)' : 'translateX(-101%)')};
+  box-shadow: 15px 0 20px black;
+  transform: ${(props) => (props.isNavOpen ? 'translateX(0)' : 'translateX(-120%)')};
   transition: all 2.3s linear;
 
   @media (min-width: 900px) {
