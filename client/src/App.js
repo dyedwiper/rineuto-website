@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import leftCurtainImage from './assets/leftCurtain.jpg';
 import blackPerlImage from './assets/perls/blackPerl.png';
 import rightCurtainImage from './assets/rightCurtain.jpg';
 import Header from './common/Header';
@@ -10,6 +9,7 @@ import Navigation from './common/Navigation';
 import UserContext from './userContext';
 import { authenticateUser } from './utils/services';
 import { getFromStorage } from './utils/storage';
+import LeftCurtain from './common/LeftCurtain';
 
 export default function App() {
   const [user, setUser] = useState({});
@@ -18,6 +18,7 @@ export default function App() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
   const [screenWidth, setScreenWidth] = useState(0);
+  const [isGrabbing, setIsGrabbing] = useState(false);
 
   useEffect(() => {
     window.addEventListener('resize', () => setScreenWidth(document.body.clientWidth));
@@ -45,8 +46,8 @@ export default function App() {
       <UserContext.Provider value={{ user, setUser }}>
         <AppStyled>
           {isWaiting && <OverlayStyled />}
-          <LeftCurtainStyled src={leftCurtainImage} screenWidth={screenWidth} />
-          <ScreenStyled>
+          <LeftCurtain screenWidth={screenWidth} isGrabbing={isGrabbing} setIsGrabbing={setIsGrabbing} />
+          <ScreenStyled isGrabbing={isGrabbing}>
             <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
             <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
             <Main
@@ -80,23 +81,11 @@ const ScreenStyled = styled.div`
   max-width: 1020px;
   margin: auto;
   background-image: url(${blackPerlImage});
+  cursor: ${(props) => (props.isGrabbing ? 'grabbing' : 'auto')};
+  pointer-events: ${(props) => (props.isGrabbing ? 'none' : 'auto')};
 
   @media (min-width: 900px) {
     grid-template-columns: 240px auto;
-  }
-`;
-
-const LeftCurtainStyled = styled.img`
-  display: none;
-
-  @media (min-width: 900px) {
-    display: block;
-    position: fixed;
-    right: ${(props) => 510 + props.screenWidth / 2 + 'px'};
-    top: -10%;
-    z-index: 10;
-    height: 120%;
-    box-shadow: 15px 0 20px black;
   }
 `;
 
