@@ -6,17 +6,17 @@ import blackLogdeImage from '../assets/blackLodge.png';
 
 export default function LeftCurtain({ screenWidth, side }) {
   const [isGrabbing, setIsGrabbing] = useState(false);
-  const [drag, setDrag] = useState(0);
 
   const mouseStart = useRef(null);
+  const curtain = useRef(null);
 
   return (
     <>
       <CurtainStyled
+        ref={curtain}
         screenWidth={screenWidth}
         side={side}
         isGrabbing={isGrabbing}
-        drag={drag}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={stopDragging}
@@ -35,16 +35,16 @@ export default function LeftCurtain({ screenWidth, side }) {
     if (isGrabbing) {
       let mouseDragOffset = event.clientX - mouseStart.current;
       if ((side === 'left' && mouseDragOffset <= 0) || (side === 'right' && mouseDragOffset >= 0)) {
-        setDrag(mouseDragOffset);
+        curtain.current.style.transform = 'translateX(' + mouseDragOffset + 'px)';
       } else {
-        setDrag(mouseDragOffset / 2);
+        curtain.current.style.transform = 'translateX(' + mouseDragOffset / 2 + 'px)';
       }
     }
   }
 
   function stopDragging() {
     setIsGrabbing(false);
-    setDrag(0);
+    curtain.current.style.transform = 'translateX(0)';
   }
 }
 
@@ -64,7 +64,7 @@ const CurtainStyled = styled.div`
     background-size: contain;
     box-shadow: ${(props) => (props.side === 'left' ? '15px' : '-15px')} 0 20px black;
     cursor: ${(props) => (props.isGrabbing ? 'grabbing' : 'grab')};
-    transform: translateX(${(props) => props.drag + 'px'});
+    transform: translateX(0);
     transition: transform 1s linear;
   }
 `;

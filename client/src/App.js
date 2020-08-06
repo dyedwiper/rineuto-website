@@ -8,8 +8,7 @@ import Navigation from './common/Navigation';
 import UserContext from './userContext';
 import { authenticateUser } from './utils/services';
 import { getFromStorage } from './utils/storage';
-import LeftCurtain from './common/LeftCurtain';
-import RightCurtain from './common/RightCurtain';
+import Curtain from './common/Curtain';
 
 export default function App() {
   const [user, setUser] = useState({});
@@ -45,7 +44,7 @@ export default function App() {
       <UserContext.Provider value={{ user, setUser }}>
         <AppStyled>
           {isWaiting && <OverlayStyled />}
-          <LeftCurtain screenWidth={screenWidth} />
+          <Curtain screenWidth={screenWidth} side="left" />
           <ScreenStyled>
             <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
             <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
@@ -57,7 +56,7 @@ export default function App() {
               setIsWaiting={setIsWaiting}
             />
           </ScreenStyled>
-          <RightCurtain screenWidth={screenWidth} />
+          <Curtain screenWidth={screenWidth} side="right" />
         </AppStyled>
       </UserContext.Provider>
     </Router>
