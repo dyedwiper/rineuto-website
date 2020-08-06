@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components/macro';
-import leftCurtainImage from '../assets/leftCurtain.jpg';
+import rightCurtainImage from '../assets/rightCurtain.jpg';
 import blackLogdeImage from '../assets/blackLodge.png';
 
-export default function LeftCurtain({ screenWidth }) {
+export default function RightCurtain({ screenWidth }) {
   const [isGrabbing, setIsGrabbing] = useState(false);
   const [drag, setDrag] = useState(0);
 
@@ -11,7 +11,7 @@ export default function LeftCurtain({ screenWidth }) {
 
   return (
     <>
-      <LeftCurtainStyled
+      <RightCurtainStyled
         screenWidth={screenWidth}
         isGrabbing={isGrabbing}
         drag={drag}
@@ -32,7 +32,7 @@ export default function LeftCurtain({ screenWidth }) {
   function handleMouseMove(event) {
     if (isGrabbing) {
       const mouseDragOffset = event.clientX - mouseStart.current;
-      if (mouseDragOffset <= 0) {
+      if (mouseDragOffset >= 0) {
         setDrag(mouseDragOffset);
       } else {
         setDrag(mouseDragOffset / 2);
@@ -46,20 +46,20 @@ export default function LeftCurtain({ screenWidth }) {
   }
 }
 
-const LeftCurtainStyled = styled.div`
+const RightCurtainStyled = styled.div`
   display: none;
 
   @media (min-width: 900px) {
     display: block;
     position: fixed;
-    right: ${(props) => 510 + props.screenWidth / 2 + 'px'};
+    left: ${(props) => 510 + props.screenWidth / 2 + 'px'};
     top: -10%;
     z-index: 10;
     height: 120%;
     width: 100vh;
-    background-image: url(${leftCurtainImage});
+    background-image: url(${rightCurtainImage});
     background-size: contain;
-    box-shadow: 15px 0 20px black;
+    box-shadow: -15px 0 20px black;
     cursor: ${(props) => (props.isGrabbing ? 'grabbing' : 'grab')};
     transform: translateX(${(props) => props.drag + 'px'});
     transition: transform 1s linear;
@@ -73,11 +73,11 @@ const BlackLodgeStyled = styled.div`
     display: block;
     position: fixed;
     top: 0;
-    right: ${(props) => 510 + props.screenWidth / 2 + 'px'};
+    left: ${(props) => 510 + props.screenWidth / 2 + 'px'};
     height: 100%;
     width: 100vh;
     background-image: url(${blackLogdeImage});
     background-size: 600px 1200px;
-    background-position: top right;
+    background-position: top left;
   }
 `;
