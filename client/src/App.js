@@ -17,6 +17,7 @@ export default function App() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
   const [screenWidth, setScreenWidth] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     window.addEventListener('resize', () => setScreenWidth(document.body.clientWidth));
@@ -42,9 +43,9 @@ export default function App() {
   return (
     <Router>
       <UserContext.Provider value={{ user, setUser }}>
-        <AppStyled>
+        <AppStyled isDragging={isDragging}>
           {isWaiting && <OverlayStyled />}
-          <Curtain screenWidth={screenWidth} side="left" />
+          <Curtain screenWidth={screenWidth} side="left" isDragging={isDragging} setIsDragging={setIsDragging} />
           <ScreenStyled>
             <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
             <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
@@ -56,7 +57,7 @@ export default function App() {
               setIsWaiting={setIsWaiting}
             />
           </ScreenStyled>
-          <Curtain screenWidth={screenWidth} side="right" />
+          <Curtain screenWidth={screenWidth} side="right" isDragging={isDragging} setIsDragging={setIsDragging} />
         </AppStyled>
       </UserContext.Provider>
     </Router>
@@ -69,6 +70,7 @@ const AppStyled = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
+  user-select: ${(props) => (props.isDragging ? 'none' : 'initial')};
 `;
 
 const ScreenStyled = styled.div`

@@ -1,12 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components/macro';
+import blackLogdeImage from '../assets/blackLodge.png';
 import leftCurtainImage from '../assets/leftCurtain.jpg';
 import rightCurtainImage from '../assets/rightCurtain.jpg';
-import blackLogdeImage from '../assets/blackLodge.png';
 
-export default function LeftCurtain({ screenWidth, side }) {
-  const [isGrabbing, setIsGrabbing] = useState(false);
-
+export default function LeftCurtain({ screenWidth, side, isDragging, setIsDragging }) {
   const mouseStart = useRef(null);
   const curtain = useRef(null);
 
@@ -16,7 +14,7 @@ export default function LeftCurtain({ screenWidth, side }) {
         ref={curtain}
         screenWidth={screenWidth}
         side={side}
-        isGrabbing={isGrabbing}
+        isDragging={isDragging}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={stopDragging}
@@ -28,11 +26,11 @@ export default function LeftCurtain({ screenWidth, side }) {
 
   function handleMouseDown(event) {
     mouseStart.current = event.clientX;
-    setIsGrabbing(true);
+    setIsDragging(true);
   }
 
   function handleMouseMove(event) {
-    if (isGrabbing) {
+    if (isDragging) {
       let mouseDragOffset = event.clientX - mouseStart.current;
       if ((side === 'left' && mouseDragOffset <= 0) || (side === 'right' && mouseDragOffset >= 0)) {
         curtain.current.style.transform = 'translateX(' + mouseDragOffset + 'px)';
@@ -43,8 +41,8 @@ export default function LeftCurtain({ screenWidth, side }) {
   }
 
   function stopDragging() {
-    setIsGrabbing(false);
     curtain.current.style.transform = 'translateX(0)';
+    setIsDragging(false);
   }
 }
 
@@ -63,7 +61,7 @@ const CurtainStyled = styled.div`
     background-image: ${(props) => (props.side === 'left' ? `url(${leftCurtainImage})` : `url(${rightCurtainImage})`)};
     background-size: contain;
     box-shadow: ${(props) => (props.side === 'left' ? '15px' : '-15px')} 0 20px black;
-    cursor: ${(props) => (props.isGrabbing ? 'grabbing' : 'grab')};
+    cursor: ${(props) => (props.isDragging ? 'grabbing' : 'grab')};
     transform: translateX(0);
     transition: transform 1s linear;
   }
