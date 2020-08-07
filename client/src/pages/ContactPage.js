@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import mapImage from '../assets/karte.png';
 import lightGreyPerlImage from '../assets/perls/lightGreyPerl.png';
 
-export default function ImprintPage() {
+export default function ContactPage() {
   useEffect(() => {
     document.title = 'Kontakt | Rineuto Lichtspiele';
   }, []);

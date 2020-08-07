@@ -13,7 +13,7 @@ export default function PostersList({ serials, selectedYear, editedObject }) {
       {serials
         .sort((a, b) => a.month - b.month)
         .map((serial) => (
-          <PosterItemStyled key={serial._id}>
+          <PosterCardStyled key={serial._id}>
             <a href={serial.imageUrl} target="_blank" rel="noopener noreferrer">
               <PosterStyled src={serial.imageUrl} alt={serial.altText} />
             </a>
@@ -23,7 +23,7 @@ export default function PostersList({ serials, selectedYear, editedObject }) {
                 <EditLinkStyled to={'/intern/editSerial/' + serial._id}>Bearbeiten</EditLinkStyled>
               </EditContainerStyled>
             )}
-          </PosterItemStyled>
+          </PosterCardStyled>
         ))}
     </PosterListStyled>
   );
@@ -44,7 +44,9 @@ const PosterListStyled = styled.ul`
   }
 `;
 
-const PosterItemStyled = styled.li`
+const PosterCardStyled = styled.li`
+  position: relative;
+  z-index: 2;
   width: 320px;
   padding: 20px;
   background-image: url(${whitePerlImage});

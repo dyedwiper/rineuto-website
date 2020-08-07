@@ -3,7 +3,7 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
-import ImprintPage from '../pages/ContactPage';
+import ContactPage from '../pages/ContactPage';
 import HomePage from '../pages/HomePage';
 import AddNoticePage from '../pages/intern/AddNoticePage';
 import AddScreeningPage from '../pages/intern/AddScreeningPage';
@@ -118,7 +118,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingContent, se
           <AboutPage />
         </Route>
         <Route path="/contact">
-          <ImprintPage />
+          <ContactPage />
         </Route>
         <Route exact path="/login">
           <LoginPage />

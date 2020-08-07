@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import PostersList from '../common/PostersList';
 import YearNavigation from '../common/YearNavigation';
 import { useHistory } from 'react-router-dom';
+import eightBall from '../assets/eightBall.png';
 
 export default function PosterPage({ serials, editedObject }) {
   const allYears = serials
@@ -44,6 +45,9 @@ export default function PosterPage({ serials, editedObject }) {
         serials={serials.filter((serial) => serial.year == selectedYear)}
         editedObject={editedObject}
       />
+      <PerlLinkStyled href="https://www.youtube.com/watch?v=fsAE2jFPqLw" target="_blank" rel="noopener noreferrer">
+        <EightBallImageStyled src={eightBall} alt="Ein 8 ball" />
+      </PerlLinkStyled>
     </PosterPageStyled>
   );
 }
@@ -56,4 +60,20 @@ const EditNoteStyled = styled.div`
   font-size: 1.5em;
   font-weight: bold;
   text-align: center;
+`;
+
+const PerlLinkStyled = styled.a`
+  position: absolute;
+  top: 300px;
+  left: 160px;
+  z-index: 1;
+
+  @media (min-width: 900px) {
+    left: 400px;
+  }
+`;
+
+const EightBallImageStyled = styled.img`
+  height: 20px;
+  width: 20px;
 `;
