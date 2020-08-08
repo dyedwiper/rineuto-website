@@ -1,9 +1,8 @@
 const Screening = require('../models/Screening');
-const { json } = require('express');
 
 function sendJustMeta(req, res, next) {
   const userAgent = req.header('user-agent');
-  if (userAgent && userAgent.includes('facebookexternalhit')) {
+  if (userAgent && (userAgent.includes('facebookexternalhit') || userAgent.includes('TelegramBot'))) {
     if (req.path.startsWith('/screening')) {
       const screeningId = req.path.slice(req.path.indexOf('screening') + 10, req.path.indexOf('screening') + 34);
       Screening.findById(screeningId)
