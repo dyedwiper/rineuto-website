@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import blackLogdeImage from '../assets/blackLodge.png';
 import leftCurtainImage from '../assets/leftCurtain.jpg';
 import rightCurtainImage from '../assets/rightCurtain.jpg';
+import goldBallImage from '../assets/goldBall.png';
 
 export default function LeftCurtain({ screenWidth, side, isDragging, setIsDragging }) {
   const mouseStart = useRef(null);
@@ -20,7 +21,16 @@ export default function LeftCurtain({ screenWidth, side, isDragging, setIsDraggi
         onMouseUp={stopDragging}
         onMouseLeave={stopDragging}
       />
-      <BlackLodgeStyled screenWidth={screenWidth} side={side} />
+      <BlackLodgeStyled screenWidth={screenWidth} side={side}>
+        <PerlLinkStyled
+          side={side}
+          href="https://www.youtube.com/watch?v=ZkbDN5u4r8o"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <GoldBallImageStyled src={goldBallImage} alt="Eine goldene Kugel" />
+        </PerlLinkStyled>
+      </BlackLodgeStyled>
     </>
   );
 
@@ -63,7 +73,7 @@ const CurtainStyled = styled.div`
     box-shadow: ${(props) => (props.side === 'left' ? '15px' : '-15px')} 0 20px black;
     cursor: ${(props) => (props.isDragging ? 'grabbing' : 'grab')};
     transform: translateX(0);
-    transition: transform 1s linear;
+    transition: transform 1.5s linear;
   }
 `;
 
@@ -82,4 +92,17 @@ const BlackLodgeStyled = styled.div`
     background-size: 600px 1200px;
     background-position: top ${(props) => (props.side === 'left' ? 'right' : 'left')};
   }
+`;
+
+const PerlLinkStyled = styled.a`
+  position: absolute;
+  top: 280px;
+  right: 80px;
+  z-index: 1;
+  display: ${(props) => (props.side === 'right' ? 'none' : 'block')};
+`;
+
+const GoldBallImageStyled = styled.img`
+  height: 20px;
+  width: 20px;
 `;
