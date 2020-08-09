@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { postScreening } from '../../utils/services';
-import { getFromStorage } from '../../utils/storage';
+import { getFromLocalStorage } from '../../utils/storage';
 import { useHistory } from 'react-router-dom';
 
 export default function AddScreeningPage({ serials, setEditedObject, setIsWaiting }) {
@@ -93,7 +93,7 @@ export default function AddScreeningPage({ serials, setEditedObject, setIsWaitin
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromStorage('rineuto-token');
+    const jwt = getFromLocalStorage('rineuto-token');
     postScreening(formData, jwt)
       .then((res) => {
         setIsWaiting(false);

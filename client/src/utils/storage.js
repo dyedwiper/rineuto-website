@@ -1,4 +1,4 @@
-export function getFromStorage(key) {
+export function getFromLocalStorage(key) {
   if (!key) {
     return null;
   }
@@ -9,6 +9,10 @@ export function getFromStorage(key) {
   }
 }
 
-export function setToStorage(key, value) {
+export function setToLocalStorage(key, value) {
   localStorage.setItem(key, value);
+}
+
+export function removeFromLocalStorage(key) {
+  localStorage.removeItem(key);
 }

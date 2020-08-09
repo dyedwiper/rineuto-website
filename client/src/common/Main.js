@@ -20,7 +20,14 @@ import ScreeningPage from '../pages/ScreeningPage';
 import { getNotices, getScreenings, getSerials } from '../utils/services';
 import PrivateRoute from './PrivateRoute';
 
-export default function Main({ isNavOpen, isLoadingUser, setIsLoadingContent, setIsNavOpen, setIsWaiting }) {
+export default function Main({
+  isNavOpen,
+  isLoadingUser,
+  setIsLoadingUser,
+  setIsLoadingContent,
+  setIsNavOpen,
+  setIsWaiting,
+}) {
   const [screenings, setScreenings] = useState([]);
   const [serials, setSerials] = useState([]);
   const [notices, setNotices] = useState([]);
@@ -121,7 +128,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingContent, se
           <ContactPage />
         </Route>
         <Route exact path="/login">
-          <LoginPage />
+          <LoginPage setIsLoadingUser={setIsLoadingUser} />
         </Route>
         <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
           <EditNoticePage notices={notices} setEditedObject={setEditedObject} setIsWaiting={setIsWaiting} />

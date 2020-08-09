@@ -3,7 +3,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import DeletePrompt from '../../common/DeletePrompt';
 import { deleteNotice, patchNotice } from '../../utils/services';
-import { getFromStorage } from '../../utils/storage';
+import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
 export default function EditNoticePage({ notices, setEditedObject, setIsWaiting }) {
@@ -91,7 +91,7 @@ export default function EditNoticePage({ notices, setEditedObject, setIsWaiting 
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromStorage('rineuto-token');
+    const jwt = getFromLocalStorage('rineuto-token');
     patchNotice(noticeToEdit._id, formData, jwt)
       .then(() => {
         setEditedObject(noticeToEdit);
@@ -113,7 +113,7 @@ export default function EditNoticePage({ notices, setEditedObject, setIsWaiting 
   function handleDelete() {
     setShowDeletePrompt(false);
     setIsWaiting(true);
-    const jwt = getFromStorage('rineuto-token');
+    const jwt = getFromLocalStorage('rineuto-token');
     deleteNotice(noticeToEdit._id, jwt)
       .then(() => {
         setIsWaiting(false);

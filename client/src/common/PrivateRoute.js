@@ -14,5 +14,6 @@ export default function PrivateRoute({ children, isLoadingUser }) {
       </Route>
     );
   }
+
   return <Route>{loggedIn ? children : <Redirect to="/login" />}</Route>;
 }

@@ -1,4 +1,4 @@
-import { setToStorage } from '../utils/storage';
+import { setToLocalStorage } from '../utils/storage';
 
 export function getScreenings() {
   return fetch('/api/screenings').then(handleError);
@@ -136,6 +136,6 @@ function handleLogin(res) {
       throw err;
     });
   }
-  setToStorage('rineuto-token', res.headers.get('auth-token'));
+  setToLocalStorage('rineuto-token', res.headers.get('auth-token'));
   return json;
 }

@@ -1,17 +1,20 @@
-import React, { useState, useContext, useEffect } from 'react';
-import styled from 'styled-components/macro';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { postLoginUser } from '../utils/services';
+import styled from 'styled-components/macro';
 import magicGif from '../assets/ahahah.gif';
 import UserContext from '../userContext';
+import { postLoginUser } from '../utils/services';
 
-export default function LoginPage() {
+export default function LoginPage({ setIsLoadingUser }) {
   const [didLoginFail, setDidLoginFail] = useState(false);
   let history = useHistory();
   const { setUser } = useContext(UserContext);
 
+  const nameInput = useRef(null);
+
   useEffect(() => {
     document.title = 'Login | Rineuto Lichtspiele';
+    nameInput.current.focus();
   }, []);
 
   return (
@@ -19,7 +22,7 @@ export default function LoginPage() {
       <LoginFormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Name
-          <InputStyled name="username" />
+          <InputStyled ref={nameInput} name="username" />
         </LabelStyled>
         <LabelStyled>
           Passwort
@@ -36,18 +39,17 @@ export default function LoginPage() {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const loginData = Object.fromEntries(formData);
-    const nameInput = form.elements.username;
     postLoginUser(loginData)
       .then((user) => {
-        console.log('user', user);
         setUser(user);
+        setIsLoadingUser(false);
         setDidLoginFail(false);
         history.push('/');
       })
       .catch((err) => {
         console.error(err);
         form.reset();
-        nameInput.focus();
+        nameInput.current.focus();
         setDidLoginFail(true);
       });
   }

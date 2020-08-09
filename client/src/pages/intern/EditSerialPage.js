@@ -3,7 +3,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import DeletePrompt from '../../common/DeletePrompt';
 import { deleteSerial, patchSerial } from '../../utils/services';
-import { getFromStorage } from '../../utils/storage';
+import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
 export default function EditSerialPage({ serials, setEditedObject, setIsWaiting }) {
@@ -92,7 +92,7 @@ export default function EditSerialPage({ serials, setEditedObject, setIsWaiting 
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromStorage('rineuto-token');
+    const jwt = getFromLocalStorage('rineuto-token');
     patchSerial(serialToEdit._id, formData, jwt)
       .then((res) => {
         setIsWaiting(false);
@@ -114,7 +114,7 @@ export default function EditSerialPage({ serials, setEditedObject, setIsWaiting 
   function handleDelete() {
     setIsWaiting(true);
     setShowDeletePrompt(false);
-    const jwt = getFromStorage('rineuto-token');
+    const jwt = getFromLocalStorage('rineuto-token');
     deleteSerial(serialToEdit._id, jwt)
       .then(() => {
         setIsWaiting(false);

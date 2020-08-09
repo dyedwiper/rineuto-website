@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { patchScreening, deleteScreening } from '../../utils/services';
-import { getFromStorage } from '../../utils/storage';
+import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 import DeletePrompt from '../../common/DeletePrompt';
 
@@ -136,7 +136,7 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromStorage('rineuto-token');
+    const jwt = getFromLocalStorage('rineuto-token');
     patchScreening(screeningToEdit._id, formData, jwt)
       .then(() => {
         setIsWaiting(false);
@@ -158,7 +158,7 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
   function handleDelete() {
     setIsWaiting(true);
     setShowDeletePrompt(false);
-    const jwt = getFromStorage('rineuto-token');
+    const jwt = getFromLocalStorage('rineuto-token');
     deleteScreening(screeningToEdit._id, jwt)
       .then(() => {
         setIsWaiting(false);

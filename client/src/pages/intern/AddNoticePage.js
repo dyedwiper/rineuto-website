@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { postNotice } from '../../utils/services';
-import { getFromStorage } from '../../utils/storage';
+import { getFromLocalStorage } from '../../utils/storage';
 
 export default function AddNoticePage({ setEditedObject, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
@@ -56,7 +56,7 @@ export default function AddNoticePage({ setEditedObject, setIsWaiting }) {
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromStorage('rineuto-token');
+    const jwt = getFromLocalStorage('rineuto-token');
     postNotice(formData, jwt)
       .then(() => {
         setEditedObject({ added: 'notice' });

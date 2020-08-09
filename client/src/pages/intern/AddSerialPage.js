@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
-import { getFromStorage } from '../../utils/storage';
+import { getFromLocalStorage } from '../../utils/storage';
 import { postSerial } from '../../utils/services';
 
 export default function AddSerialPage({ setEditedObject, setIsWaiting }) {
@@ -56,7 +56,7 @@ export default function AddSerialPage({ setEditedObject, setIsWaiting }) {
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromStorage('rineuto-token');
+    const jwt = getFromLocalStorage('rineuto-token');
     postSerial(formData, jwt)
       .then((res) => {
         setIsWaiting(false);

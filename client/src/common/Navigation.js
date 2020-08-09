@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import greenPerlImage from '../assets/perls/darkGreenPerl.png';
 import favicon from '../assets/favicon.png';
-import rightCurtainImage from '../assets/rightCurtain.jpg';
 import leftCurtainImage from '../assets/leftCurtain.jpg';
+import greenPerlImage from '../assets/perls/darkGreenPerl.png';
+import rightCurtainImage from '../assets/rightCurtain.jpg';
 import UserContext from '../userContext';
-import { setToStorage } from '../utils/storage';
+import { removeFromLocalStorage } from '../utils/storage';
 
 export default function Navigation({ isNavOpen, setIsNavOpen }) {
   const { user, setUser } = useContext(UserContext);
@@ -62,7 +62,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
   );
 
   function handleLogout() {
-    setToStorage('rineuto-token', null);
+    removeFromLocalStorage('rineuto-token');
     setUser({});
     setIsNavOpen(false);
   }

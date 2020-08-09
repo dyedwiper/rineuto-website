@@ -7,7 +7,7 @@ import Main from './common/Main';
 import Navigation from './common/Navigation';
 import UserContext from './userContext';
 import { authenticateUser } from './utils/services';
-import { getFromStorage } from './utils/storage';
+import { getFromLocalStorage } from './utils/storage';
 import Curtain from './common/Curtain';
 
 export default function App() {
@@ -25,7 +25,7 @@ export default function App() {
   }, [isLoadingContent]);
 
   useEffect(() => {
-    const token = getFromStorage('rineuto-token');
+    const token = getFromLocalStorage('rineuto-token');
     if (token) {
       authenticateUser(token)
         .then((user) => {
@@ -34,7 +34,8 @@ export default function App() {
         .then(() => {
           setIsLoadingUser(false);
         })
-        .catch(() => {
+        .catch((err) => {
+          console.error(err);
           setIsLoadingUser(false);
         });
     }
@@ -53,6 +54,7 @@ export default function App() {
               isNavOpen={isNavOpen}
               setIsNavOpen={setIsNavOpen}
               isLoadingUser={isLoadingUser}
+              setIsLoadingUser={setIsLoadingUser}
               setIsLoadingContent={setIsLoadingContent}
               setIsWaiting={setIsWaiting}
             />
