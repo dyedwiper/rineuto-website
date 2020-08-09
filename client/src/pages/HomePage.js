@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 import NoticeCard from '../common/NoticeCard';
-import lightBrownPerlImage from '../assets/perls/lightBrownPerl.png';
+import jeverFunImage from '../assets/jeverFun.png';
 
 export default function HomePage({ notices, editedObject }) {
   const windowHeight = useRef(null);
@@ -30,7 +30,7 @@ export default function HomePage({ notices, editedObject }) {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <PerlImageStyled src={lightBrownPerlImage} alt="Eine hellbraune Bügelperle" />
+        <PerlImageStyled src={jeverFunImage} alt="Eine hellbraune Bügelperle" />
       </PerlLinkStyled>
     </HomePageStyled>
   );
@@ -71,7 +71,7 @@ const Cushion = styled.div`
 
 const PerlLinkStyled = styled.a`
   position: absolute;
-  bottom: ${(props) => (props.windowHeight % 20 === 0 ? '20px' : 20 + (props.windowHeight % 20) + 'px')};
+  bottom: ${(props) => (props.windowHeight % 20 === 0 ? '0' : (props.windowHeight % 20) + 'px')};
   left: 200px;
   height: 20px;
   width: 20px;
@@ -81,4 +81,7 @@ const PerlLinkStyled = styled.a`
   }
 `;
 
-const PerlImageStyled = styled.img``;
+const PerlImageStyled = styled.img`
+  height: 20px;
+  width: 20px;
+`;
