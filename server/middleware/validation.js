@@ -29,8 +29,10 @@ function validateLogin(req, res, next) {
 function validateScreening(req, res, next) {
   const screeningSchema = Joi.object({
     title: Joi.string().max(50),
-    day: Joi.date().format('YYYY-MM-DD'),
-    time: Joi.string().pattern(/([0-1]\d|[2][0-3]):([0-5]\d)/),
+    day: Joi.date().format('YYYY-MM-DD').required(),
+    time: Joi.string()
+      .pattern(/([0-1]\d|[2][0-3]):([0-5]\d)/)
+      .required(),
     director: Joi.string().allow('').max(50),
     imageUrl: Joi.string().allow('').max(300),
     altText: Joi.string().allow('').max(300),
@@ -53,7 +55,7 @@ function validateSerial(req, res, next) {
     title: Joi.string().max(50),
     year: Joi.number().min(2018).max(10000),
     month: Joi.number().min(1).max(12),
-    imageUrl: Joi.string().max(300),
+    imageUrl: Joi.string().allow('').max(300),
     altText: Joi.string().allow('').max(300),
   });
   const { error } = serialSchema.validate(req.body);
