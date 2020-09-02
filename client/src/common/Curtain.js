@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components/macro';
 import blackLogdeImage from '../assets/blackLodge.png';
-import leftCurtainImage from '../assets/leftCurtain.jpg';
-import rightCurtainImage from '../assets/rightCurtain.jpg';
 import goldBallImage from '../assets/goldBall.png';
+import leftCurtainImage from '../assets/leftCurtain.jpg';
+import radImage from '../assets/rad.png';
+import rightCurtainImage from '../assets/rightCurtain.jpg';
 
 export default function LeftCurtain({ screenWidth, side, isDragging, setIsDragging }) {
   const mouseStart = useRef(null);
@@ -22,14 +23,19 @@ export default function LeftCurtain({ screenWidth, side, isDragging, setIsDraggi
         onMouseLeave={stopDragging}
       />
       <BlackLodgeStyled screenWidth={screenWidth} side={side}>
-        <PerlLinkStyled
+        <GoldenBallLinkStyled
           side={side}
           href="https://www.youtube.com/watch?v=ZkbDN5u4r8o"
           target="_blank"
           rel="noopener noreferrer"
         >
           <GoldBallImageStyled src={goldBallImage} alt="Eine goldene Kugel" />
-        </PerlLinkStyled>
+        </GoldenBallLinkStyled>
+        {window.location.pathname.includes('5f10d590bc13b800178e3a9c') && (
+          <BikeLinkStyled side={side} href="https://youtu.be/N70pChTGtNM" target="_blank" rel="noopener noreferrer">
+            <BikeImageStyled src={radImage} alt="Das Rad eines Fahrrades" />
+          </BikeLinkStyled>
+        )}
       </BlackLodgeStyled>
     </>
   );
@@ -94,15 +100,28 @@ const BlackLodgeStyled = styled.div`
   }
 `;
 
-const PerlLinkStyled = styled.a`
+const GoldenBallLinkStyled = styled.a`
   position: absolute;
   top: 280px;
   right: 80px;
   z-index: 1;
-  display: ${(props) => (props.side === 'right' ? 'none' : 'block')};
+  display: ${(props) => (props.side === 'left' ? 'block' : 'none')};
 `;
 
 const GoldBallImageStyled = styled.img`
+  height: 20px;
+  width: 20px;
+`;
+
+const BikeLinkStyled = styled.a`
+  position: absolute;
+  top: 520px;
+  left: 40px;
+  z-index: 1;
+  display: ${(props) => (props.side === 'right' ? 'block' : 'none')};
+`;
+
+const BikeImageStyled = styled.img`
   height: 20px;
   width: 20px;
 `;
