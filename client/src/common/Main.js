@@ -26,6 +26,7 @@ export default function Main({
   setIsLoadingUser,
   setIsLoadingContent,
   setIsNavOpen,
+  isWaiting,
   setIsWaiting,
 }) {
   const [screenings, setScreenings] = useState([]);
@@ -134,7 +135,7 @@ export default function Main({
           <EditNoticePage notices={notices} setEditedObject={setEditedObject} setIsWaiting={setIsWaiting} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addNotice" isLoadingUser={isLoadingUser}>
-          <AddNoticePage setEditedObject={setEditedObject} setIsWaiting={setIsWaiting} />
+          <AddNoticePage setEditedObject={setEditedObject} isWaiting={isWaiting} setIsWaiting={setIsWaiting} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
           <EditScreeningPage

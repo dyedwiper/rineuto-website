@@ -73,6 +73,7 @@ const PerlLinkStyled = styled.a`
   position: absolute;
   bottom: ${(props) => (props.windowHeight % 20 === 0 ? '0' : (props.windowHeight % 20) + 'px')};
   left: 200px;
+  z-index: 1;
   height: 20px;
   width: 20px;
 

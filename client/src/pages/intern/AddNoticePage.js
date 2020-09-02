@@ -3,8 +3,9 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { postNotice } from '../../utils/services';
 import { getFromLocalStorage } from '../../utils/storage';
+import { WaitNoteStyled } from '../../common/styledElements';
 
-export default function AddNoticePage({ setEditedObject, setIsWaiting }) {
+export default function AddNoticePage({ setEditedObject, isWaiting, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -43,10 +44,16 @@ export default function AddNoticePage({ setEditedObject, setIsWaiting }) {
           <TextareaStyled name="text" />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled>News anlegen</ButtonStyled>
-        <ButtonStyled type="button" onClick={() => history.push('/')}>
-          Abbrechen
-        </ButtonStyled>
+        {isWaiting ? (
+          <WaitNoteStyled>Bitte warten</WaitNoteStyled>
+        ) : (
+          <>
+            <ButtonStyled>News anlegen</ButtonStyled>
+            <ButtonStyled type="button" onClick={() => history.push('/')}>
+              Abbrechen
+            </ButtonStyled>
+          </>
+        )}
       </FormStyled>
     </AddNoticePageStyled>
   );
@@ -77,10 +84,10 @@ export default function AddNoticePage({ setEditedObject, setIsWaiting }) {
 }
 
 const AddNoticePageStyled = styled.div`
-  overflow: auto;
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
+  padding-bottom: 40px;
   color: white;
 `;
 

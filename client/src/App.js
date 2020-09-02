@@ -56,6 +56,7 @@ export default function App() {
               isLoadingUser={isLoadingUser}
               setIsLoadingUser={setIsLoadingUser}
               setIsLoadingContent={setIsLoadingContent}
+              isWaiting={isWaiting}
               setIsWaiting={setIsWaiting}
             />
           </ScreenStyled>

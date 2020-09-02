@@ -43,6 +43,7 @@ export default function NoticeCard({ notice, editedObject }) {
 }
 
 const NoticeCardStyled = styled.li`
+  position: relative;
   z-index: 2;
   display: grid;
 `;
