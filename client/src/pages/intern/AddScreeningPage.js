@@ -3,8 +3,9 @@ import styled from 'styled-components/macro';
 import { postScreening } from '../../utils/services';
 import { getFromLocalStorage } from '../../utils/storage';
 import { useHistory } from 'react-router-dom';
+import { WaitNoteStyled } from '../../common/styledElements';
 
-export default function AddScreeningPage({ serials, setEditedObject, setIsWaiting }) {
+export default function AddScreeningPage({ serials, setEditedObject, isWaiting, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -80,10 +81,16 @@ export default function AddScreeningPage({ serials, setEditedObject, setIsWaitin
           </SelectStyled>
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled>Vorführung anlegen</ButtonStyled>
-        <ButtonStyled type="button" onClick={() => history.push('/')}>
-          Abbrechen
-        </ButtonStyled>
+        {isWaiting ? (
+          <WaitNoteStyled>Bitte warten</WaitNoteStyled>
+        ) : (
+          <>
+            <ButtonStyled>Vorführung anlegen</ButtonStyled>
+            <ButtonStyled type="button" onClick={() => history.push('/')}>
+              Abbrechen
+            </ButtonStyled>
+          </>
+        )}
       </FormStyled>
     </AddScreeningPageStyled>
   );
@@ -118,6 +125,7 @@ const AddScreeningPageStyled = styled.div`
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
+  padding-bottom: 40px;
   color: white;
 `;
 

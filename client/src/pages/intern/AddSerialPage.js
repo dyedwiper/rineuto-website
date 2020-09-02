@@ -3,8 +3,9 @@ import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
 import { getFromLocalStorage } from '../../utils/storage';
 import { postSerial } from '../../utils/services';
+import { WaitNoteStyled } from '../../common/styledElements';
 
-export default function AddSerialPage({ setEditedObject, setIsWaiting }) {
+export default function AddSerialPage({ setEditedObject, isWaiting, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
 
   let history = useHistory();
@@ -43,10 +44,16 @@ export default function AddSerialPage({ setEditedObject, setIsWaiting }) {
           <InputStyled name="altText" />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled>Filmreihe anlegen</ButtonStyled>
-        <ButtonStyled type="button" onClick={() => history.push('/')}>
-          Abbrechen
-        </ButtonStyled>
+        {isWaiting ? (
+          <WaitNoteStyled>Bitte warten</WaitNoteStyled>
+        ) : (
+          <>
+            <ButtonStyled>Filmreihe anlegen</ButtonStyled>
+            <ButtonStyled type="button" onClick={() => history.push('/')}>
+              Abbrechen
+            </ButtonStyled>
+          </>
+        )}
       </FormStyled>
     </AddSerialPageStyled>
   );
@@ -81,6 +88,7 @@ const AddSerialPageStyled = styled.div`
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
+  padding-bottom: 40px;
   color: white;
 `;
 

@@ -5,8 +5,9 @@ import { patchScreening, deleteScreening } from '../../utils/services';
 import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 import DeletePrompt from '../../common/DeletePrompt';
+import { WaitNoteStyled } from '../../common/styledElements';
 
-export default function EditScreeningPage({ screenings, serials, setEditedObject, setIsWaiting }) {
+export default function EditScreeningPage({ screenings, serials, setEditedObject, isWaiting, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
   const [screeningToEdit, setScreeningToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -113,20 +114,26 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
           </SelectStyled>
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled>Änderungen speichern</ButtonStyled>
-        <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
-          Diese Vorfürhung löschen
-        </ButtonStyled>
-        {showDeletePrompt && (
-          <DeletePrompt
-            handleDelete={handleDelete}
-            setShowDeletePrompt={setShowDeletePrompt}
-            setEditedObject={setEditedObject}
-          />
+        {isWaiting ? (
+          <WaitNoteStyled>Bitte warten</WaitNoteStyled>
+        ) : (
+          <>
+            <ButtonStyled>Änderungen speichern</ButtonStyled>
+            <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
+              Diese Vorfürhung löschen
+            </ButtonStyled>
+            {showDeletePrompt && (
+              <DeletePrompt
+                handleDelete={handleDelete}
+                setShowDeletePrompt={setShowDeletePrompt}
+                setEditedObject={setEditedObject}
+              />
+            )}
+            <ButtonStyled type="button" onClick={() => history.push('/screening/' + screeningToEdit._id)}>
+              Abbrechen
+            </ButtonStyled>
+          </>
         )}
-        <ButtonStyled type="button" onClick={() => history.push('/screening/' + screeningToEdit._id)}>
-          Abbrechen
-        </ButtonStyled>
       </FormStyled>
     </EditScreeningPageStyled>
   );
@@ -177,6 +184,7 @@ const EditScreeningPageStyled = styled.div`
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
+  padding-bottom: 40px;
   color: white;
 `;
 

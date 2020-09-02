@@ -132,7 +132,12 @@ export default function Main({
           <LoginPage setIsLoadingUser={setIsLoadingUser} />
         </Route>
         <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
-          <EditNoticePage notices={notices} setEditedObject={setEditedObject} setIsWaiting={setIsWaiting} />
+          <EditNoticePage
+            notices={notices}
+            setEditedObject={setEditedObject}
+            isWaiting={isWaiting}
+            setIsWaiting={setIsWaiting}
+          />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addNotice" isLoadingUser={isLoadingUser}>
           <AddNoticePage setEditedObject={setEditedObject} isWaiting={isWaiting} setIsWaiting={setIsWaiting} />
@@ -142,17 +147,28 @@ export default function Main({
             screenings={screenings}
             serials={serials}
             setEditedObject={setEditedObject}
+            isWaiting={isWaiting}
             setIsWaiting={setIsWaiting}
           />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
-          <AddScreeningPage serials={serials} setEditedObject={setEditedObject} setIsWaiting={setIsWaiting} />
+          <AddScreeningPage
+            serials={serials}
+            setEditedObject={setEditedObject}
+            isWaiting={isWaiting}
+            setIsWaiting={setIsWaiting}
+          />
         </PrivateRoute>
         <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
-          <EditSerialPage serials={serials} setEditedObject={setEditedObject} setIsWaiting={setIsWaiting} />
+          <EditSerialPage
+            serials={serials}
+            setEditedObject={setEditedObject}
+            isWaiting={isWaiting}
+            setIsWaiting={setIsWaiting}
+          />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addSerial" isLoadingUser={isLoadingUser}>
-          <AddSerialPage setEditedObject={setEditedObject} setIsWaiting={setIsWaiting} />
+          <AddSerialPage setEditedObject={setEditedObject} isWaiting={isWaiting} setIsWaiting={setIsWaiting} />
         </PrivateRoute>
         <Route path="/logout">
           <Redirect exact to="/" />

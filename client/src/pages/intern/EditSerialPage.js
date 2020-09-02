@@ -5,8 +5,9 @@ import DeletePrompt from '../../common/DeletePrompt';
 import { deleteSerial, patchSerial } from '../../utils/services';
 import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
+import { WaitNoteStyled } from '../../common/styledElements';
 
-export default function EditSerialPage({ serials, setEditedObject, setIsWaiting }) {
+export default function EditSerialPage({ serials, setEditedObject, isWaiting, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
   const [serialToEdit, setSerialToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -69,20 +70,26 @@ export default function EditSerialPage({ serials, setEditedObject, setIsWaiting 
           <InputStyled name="altText" defaultValue={serialToEdit.altText} />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled>Änderungen speichern</ButtonStyled>
-        <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
-          Diese Filmreihe löschen
-        </ButtonStyled>
-        {showDeletePrompt && (
-          <DeletePrompt
-            handleDelete={handleDelete}
-            setShowDeletePrompt={setShowDeletePrompt}
-            setEditedObject={setEditedObject}
-          />
+        {isWaiting ? (
+          <WaitNoteStyled>Bitte warten</WaitNoteStyled>
+        ) : (
+          <>
+            <ButtonStyled>Änderungen speichern</ButtonStyled>
+            <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
+              Diese Filmreihe löschen
+            </ButtonStyled>
+            {showDeletePrompt && (
+              <DeletePrompt
+                handleDelete={handleDelete}
+                setShowDeletePrompt={setShowDeletePrompt}
+                setEditedObject={setEditedObject}
+              />
+            )}
+            <ButtonStyled type="button" onClick={() => history.push('/posters/' + serialToEdit.year)}>
+              Abbrechen
+            </ButtonStyled>
+          </>
         )}
-        <ButtonStyled type="button" onClick={() => history.push('/posters/' + serialToEdit.year)}>
-          Abbrechen
-        </ButtonStyled>
       </FormStyled>
     </EditSerialPageStyled>
   );
@@ -133,6 +140,7 @@ const EditSerialPageStyled = styled.div`
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
+  padding-bottom: 40px;
   color: white;
 `;
 

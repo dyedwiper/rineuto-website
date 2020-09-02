@@ -5,8 +5,9 @@ import DeletePrompt from '../../common/DeletePrompt';
 import { deleteNotice, patchNotice } from '../../utils/services';
 import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
+import { WaitNoteStyled } from '../../common/styledElements';
 
-export default function EditNoticePage({ notices, setEditedObject, setIsWaiting }) {
+export default function EditNoticePage({ notices, setEditedObject, isWaiting, setIsWaiting }) {
   const [validationError, setValidationError] = useState('');
   const [noticeToEdit, setNoticeToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -68,20 +69,26 @@ export default function EditNoticePage({ notices, setEditedObject, setIsWaiting 
           <TextareaStyled name="text" defaultValue={noticeToEdit.text} />
         </LabelStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
-        <ButtonStyled>Änderungen speichern</ButtonStyled>
-        <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
-          Diese News löschen
-        </ButtonStyled>
-        {showDeletePrompt && (
-          <DeletePrompt
-            handleDelete={handleDelete}
-            setShowDeletePrompt={setShowDeletePrompt}
-            setEditedObject={setEditedObject}
-          />
+        {isWaiting ? (
+          <WaitNoteStyled>Bitte warten</WaitNoteStyled>
+        ) : (
+          <>
+            <ButtonStyled>Änderungen speichern</ButtonStyled>
+            <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
+              Diese News löschen
+            </ButtonStyled>
+            {showDeletePrompt && (
+              <DeletePrompt
+                handleDelete={handleDelete}
+                setShowDeletePrompt={setShowDeletePrompt}
+                setEditedObject={setEditedObject}
+              />
+            )}
+            <ButtonStyled type="button" onClick={() => history.push('/')}>
+              Abbrechen
+            </ButtonStyled>
+          </>
         )}
-        <ButtonStyled type="button" onClick={() => history.push('/')}>
-          Abbrechen
-        </ButtonStyled>
       </FormStyled>
     </EditNoticePageStyled>
   );
@@ -132,6 +139,7 @@ const EditNoticePageStyled = styled.div`
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
+  padding-bottom: 40px;
   color: white;
 `;
 
