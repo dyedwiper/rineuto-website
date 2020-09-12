@@ -36,9 +36,7 @@ export default function NoticePage({ notices, editedObject }) {
   );
 }
 
-const NoticePageStyled = styled.div`
-  overflow: auto;
-`;
+const NoticePageStyled = styled.div``;
 
 const SubHeadlineStyled = styled.h2`
   margin: 20px 0 0 0;
@@ -58,7 +56,6 @@ const NoticesListStyled = styled.ul`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 50px;
-  overflow: auto;
   margin: 0 auto;
   max-width: 600px;
   padding: 30px 20px;

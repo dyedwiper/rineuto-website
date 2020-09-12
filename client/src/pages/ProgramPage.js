@@ -12,16 +12,12 @@ export default function ProgramPage({ screenings, editedObject }) {
       <SubHeadlineStyled>Unsere nächsten Filmperlen</SubHeadlineStyled>
       {editedObject.added === 'screening' && <EditNoteStyled>Vorführung hinzugefügt</EditNoteStyled>}
       {editedObject.deleted === 'screening' && <EditNoteStyled>Vorführung gelöscht</EditNoteStyled>}
-      <ScreeningsList
-        screenings={screenings.sort((a, b) => a.date - b.date)}
-      />
+      <ScreeningsList screenings={screenings.sort((a, b) => a.date - b.date)} />
     </ProgramPageStyled>
   );
 }
 
-const ProgramPageStyled = styled.div`
-  overflow: auto;
-`;
+const ProgramPageStyled = styled.div``;
 
 const SubHeadlineStyled = styled.h2`
   margin: 20px 0;

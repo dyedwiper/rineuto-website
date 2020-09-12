@@ -17,7 +17,6 @@ const ScreeningsListStyled = styled.ul`
   display: grid;
   grid-auto-rows: min-content;
   grid-gap: 50px;
-  overflow: auto;
   margin: 0 auto;
   max-width: 600px;
   padding: 30px 20px;

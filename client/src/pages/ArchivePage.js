@@ -58,9 +58,7 @@ export default function ArchivePage({ screenings }) {
   );
 }
 
-const ArchivePageStyled = styled.div`
-  overflow: auto;
-`;
+const ArchivePageStyled = styled.div``;
 
 const SubHeadlineStyled = styled.h2`
   margin: 20px 0;
