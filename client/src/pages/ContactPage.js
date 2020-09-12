@@ -9,7 +9,7 @@ export default function ContactPage() {
   }, []);
 
   return (
-    <ImprintPageStyled>
+    <ContactPageStyled>
       <div>Mokryhütten e.V.</div>
       <div>Mokrystraße 1</div>
       <div>(neben den alten Rialto Lichtspielen)</div>
@@ -425,11 +425,11 @@ export default function ContactPage() {
         <Perl6Styled src={lightGreyPerlImage} />
         <Perl7Styled src={lightGreyPerlImage} />
       </PerlLinkStyled>
-    </ImprintPageStyled>
+    </ContactPageStyled>
   );
 }
 
-const ImprintPageStyled = styled.div`
+const ContactPageStyled = styled.div`
   position: relative;
   padding: 20px;
   color: white;

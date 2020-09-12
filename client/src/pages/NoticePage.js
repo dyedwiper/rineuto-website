@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import NoticeCard from '../common/NoticeCard';
 import jeverFunImage from '../assets/jeverFun.png';
 
-export default function HomePage({ notices, editedObject }) {
+export default function NoticePage({ notices, editedObject }) {
   const windowHeight = useRef(null);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function HomePage({ notices, editedObject }) {
   }, []);
 
   return (
-    <HomePageStyled>
+    <NoticePageStyled>
       <SubHeadlineStyled>Neutigkeiten</SubHeadlineStyled>
       {editedObject.added === 'notice' && <EditNoteStyled>News hinzugefügt</EditNoteStyled>}
       {editedObject.deleted === 'notice' && <EditNoteStyled>News gelöscht</EditNoteStyled>}
@@ -32,11 +32,11 @@ export default function HomePage({ notices, editedObject }) {
       >
         <PerlImageStyled src={jeverFunImage} alt="Eine hellbraune Bügelperle" />
       </PerlLinkStyled>
-    </HomePageStyled>
+    </NoticePageStyled>
   );
 }
 
-const HomePageStyled = styled.div`
+const NoticePageStyled = styled.div`
   overflow: auto;
 `;
 

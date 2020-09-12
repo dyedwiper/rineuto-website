@@ -4,7 +4,6 @@ import styled from 'styled-components/macro';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import ContactPage from '../pages/ContactPage';
-import HomePage from '../pages/HomePage';
 import AddNoticePage from '../pages/intern/AddNoticePage';
 import AddScreeningPage from '../pages/intern/AddScreeningPage';
 import AddSerialPage from '../pages/intern/AddSerialPage';
@@ -14,6 +13,7 @@ import EditSerialPage from '../pages/intern/EditSerialPage';
 import LoadingPage from '../pages/LoadingPage';
 import LoginPage from '../pages/LoginPage';
 import NotFoundPage from '../pages/NotFoundPage';
+import NoticePage from '../pages/NoticePage';
 import PosterPage from '../pages/PosterPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
@@ -105,7 +105,7 @@ export default function Main({
     <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
       <Switch>
         <Route exact path="/">
-          <HomePage notices={notices} editedObject={editedObject} />
+          <NoticePage notices={notices} editedObject={editedObject} />
         </Route>
         <Route path="/program">
           <ProgramPage
