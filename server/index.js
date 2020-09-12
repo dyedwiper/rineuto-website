@@ -21,7 +21,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
   });
 }
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/screenings', require('./routes/screenings'));
 app.use('/api/serials', require('./routes/serials'));

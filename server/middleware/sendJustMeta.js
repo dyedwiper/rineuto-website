@@ -20,7 +20,7 @@ function sendJustMeta(req, res, next) {
             <meta property="og:locale" content="de_DE" />
           `);
         })
-        .catch((err) => res.status(400).json(err));
+        .catch((err) => res.status(500).json(err));
     } else if (req.path.startsWith('/program')) {
       res.send(`
         <meta property="og:title" content="Programm | Rineuto Lichtspiele">
@@ -89,7 +89,7 @@ function sendJustMeta(req, res, next) {
             <meta name="twitter:image" content="${screening.imageUrl}">
           `);
         })
-        .catch((err) => res.status(400).json(err));
+        .catch((err) => res.status(500).json(err));
     } else if (req.path.startsWith('/program')) {
       res.send(`
         <meta name="twitter:card" content="summary_large_image" />
