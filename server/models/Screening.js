@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const screeningSchema = new Schema({
-  title: { type: String },
-  date: { type: Date },
+  title: { type: String, required: true },
+  date: { type: Date, required: true },
   director: { type: String },
   imageUrl: { type: String },
+  altText: { type: String },
   length: { type: Number },
   country: { type: String },
   year: { type: Number },

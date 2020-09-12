@@ -1,57 +1,32 @@
 const router = require('express').Router();
-const fs = require('fs');
 const Serial = require('../models/Serial');
 const authenticate = require('../middleware/authenticate');
 const { validateSerial } = require('../middleware/validation');
-const { uploadPoster } = require('../middleware/uploadPoster');
+const { readFileWithMulter } = require('../middleware/readFileWithMulter');
+const { uploadToCloudinary } = require('../middleware/uploadToCloudinary');
 
 router.get('/', (req, res) => {
   Serial.find()
     .then((serials) => res.json(serials))
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(500).json(err));
 });
 
-router.post('/', authenticate, uploadPoster, validateSerial, (req, res) => {
-  let newSerial;
-  if (req.file) {
-    newSerial = new Serial({
-      ...req.body,
-      imageUrl: req.file.path.slice(req.file.path.indexOf('/posters')),
-    });
-  } else {
-    newSerial = new Serial(req.body);
-  }
-  newSerial
+router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateSerial, (req, res) => {
+  new Serial(req.body)
     .save()
     .then((serial) => res.json(serial))
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(500).json(err));
 });
 
-router.patch('/:id', authenticate, uploadPoster, validateSerial, (req, res) => {
-  let serialToUpdate;
-  if (req.file) {
-    serialToUpdate = {
-      ...req.body,
-      imageUrl: req.file.path.slice(req.file.path.indexOf('/posters')),
-    };
-  } else {
-    serialToUpdate = req.body;
-  }
-  Serial.findByIdAndUpdate(req.params.id, serialToUpdate)
+router.patch('/:id', authenticate, readFileWithMulter, uploadToCloudinary, validateSerial, (req, res) => {
+  Serial.findByIdAndUpdate(req.params.id, req.body)
     .then(() => res.json('updated successfully'))
     .catch((err) => res.status(400).json(err));
 });
 
 router.delete('/:id', authenticate, (req, res) => {
   Serial.findByIdAndDelete(req.params.id)
-    .then((deletedSerial) => {
-      if (deletedSerial.imageUrl) {
-        fs.unlink('server/public' + deletedSerial.imageUrl, (err) => {
-          if (err) throw err;
-        });
-      }
-      res.json('Deleted ' + deletedSerial.title);
-    })
+    .then((deletedSerial) => res.json('Deleted ' + deletedSerial.title))
     .catch((err) => res.status(400).json(err));
 });
 

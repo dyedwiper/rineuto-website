@@ -5,7 +5,8 @@ const noticeSchema = new Schema({
   title: { type: String, required: true },
   date: { type: Date, required: true },
   imageUrl: { type: String },
-  text: { type: String, required: true },
+  altText: { type: String },
+  text: { type: String },
 });
 
 const Notice = mongoose.model('Notice', noticeSchema);

@@ -11,18 +11,18 @@ router.get('/', authenticate, authorize, (req, res) => {
     .then((users) => {
       res.json(users);
     })
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(500).json(err));
 });
 
 router.get('/authenticate', authenticate, (req, res) => {
   User.findById(req.user)
     .then((user) => {
       if (!user) {
-        return res.status(400).json({ error: 'No user for this token' });
+        return res.status(403).json({ error: 'No user for this token' });
       }
       res.json({ username: user.username });
     })
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(500).json(err));
 });
 
 router.post('/create', authenticate, authorize, validateUser, (req, res) => {
@@ -37,40 +37,43 @@ router.post('/create', authenticate, authorize, validateUser, (req, res) => {
           const newUser = new User({
             username: req.body.username,
             password: hashedPassword,
-            admin: req.body.admin,
+            isAdmin: req.body.isAdmin,
+            created: Date.now(),
           });
           newUser
             .save()
-            .then((newUser) =>
-              res.json({ success: 'user ' + newUser.username + ' registered' })
-            )
-            .catch((err) => res.status(400).json(err));
+            .then((newUser) => res.json({ success: 'user ' + newUser.username + ' registered' }))
+            .catch((err) => res.status(500).json(err));
         })
-        .catch((err) => res.status(400).json(err));
+        .catch((err) => res.status(500).json(err));
     })
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(500).json(err));
 });
 
 router.post('/login', validateLogin, (req, res) => {
   User.findOne({ username: req.body.username })
     .then((user) => {
       if (!user) {
-        return res.status(400).json({ error: 'username does not exist' });
+        return res.status(403).json({ error: 'incorrect login information' });
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res.status(400).json({ error: 'password is incorrect' });
+            return res.status(403).json({ error: 'incorrect login information' });
           }
           user.lastLogin = Date.now();
-          user.save();
-          const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-          res.set('auth-token', token).json({ username: user.username });
+          user
+            .save()
+            .then(() => {
+              const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+              res.set('auth-token', token).json({ username: user.username });
+            })
+            .catch((err) => res.status(500).json(err));
         })
-        .catch((err) => res.status(400).json(err));
+        .catch((err) => res.status(500).json(err));
     })
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => res.status(500).json(err));
 });
 
 module.exports = router;
