@@ -72,6 +72,8 @@ export default function AboutPage() {
             in Hamburg-Wilhelmsburg.
           </div>
           <br />
+          <br />
+          <div>Zitate sprechen lauter als Worte. Öffnen Sie bitte die Perlen, um mehr herauszufinden.</div>
         </AboutTextStyled>
       </AboutTextContainerStyled>
       <QuotePerlsContainerStyled
