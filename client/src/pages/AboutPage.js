@@ -73,7 +73,7 @@ export default function AboutPage() {
           </div>
           <br />
           <br />
-          <div>Zitate sprechen lauter als Worte. Öffnen Sie bitte die Perlen, um mehr herauszufinden.</div>
+          <div>Zitate sprechen lauter als Worte. Klicke auf die Perlen, um mehr herauszufinden.</div>
         </AboutTextStyled>
       </AboutTextContainerStyled>
       <QuotePerlsContainerStyled
