@@ -22,6 +22,9 @@ export default function App() {
   useEffect(() => {
     window.addEventListener('resize', () => setScreenWidth(document.body.clientWidth));
     setScreenWidth(document.body.clientWidth);
+    return () => {
+      window.removeEventListener('resize', () => setScreenWidth(document.body.clientWidth));
+    };
   }, [isLoadingContent]);
 
   useEffect(() => {
