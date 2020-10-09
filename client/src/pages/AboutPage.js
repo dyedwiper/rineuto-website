@@ -50,7 +50,7 @@ export default function AboutPage() {
           <br />
           <div>
             Ufa
-            <FootnoteLinkStyled href="#aboutFootnotes">
+            <FootnoteLinkStyled href="#foodnotes">
               <sup>1</sup>&nbsp;
             </FootnoteLinkStyled>
             im Fluss ohne Ufer.
@@ -58,7 +58,7 @@ export default function AboutPage() {
           <br />
           <div>
             Bilder fließen in uns wie Getränke von der Bar, nähren uns wie vegane Speisen von der Küfa
-            <FootnoteLinkStyled href="#aboutFootnotes">
+            <FootnoteLinkStyled href="#foodnotes">
               <sup>2</sup>&nbsp;
             </FootnoteLinkStyled>
             , bilden Inseln im Meer der Bilder.
@@ -91,7 +91,7 @@ export default function AboutPage() {
           />
         ))}
       </QuotePerlsContainerStyled>
-      <FootnotesStyled id="aboutFootnotes">
+      <FootnotesStyled id="foodnotes">
         <sup>1</sup> Unkommerzielle film abende - Eintritt frei bei gern entgegengenommenen Spenden
         <br />
         <sup>2</sup> Kulinarische überreste fantasielos angerichtet - circa eine Stunde vor Filmbeginn
