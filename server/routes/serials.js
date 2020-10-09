@@ -14,20 +14,20 @@ router.get('/', (req, res) => {
 router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateSerial, (req, res) => {
   new Serial(req.body)
     .save()
-    .then((serial) => res.json(serial))
+    .then(() => res.json('Created successfully'))
     .catch((err) => res.status(500).json(err));
 });
 
 router.patch('/:id', authenticate, readFileWithMulter, uploadToCloudinary, validateSerial, (req, res) => {
   Serial.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => res.json('updated successfully'))
-    .catch((err) => res.status(400).json(err));
+    .then(() => res.json('Updated successfully'))
+    .catch((err) => res.status(500).json(err));
 });
 
 router.delete('/:id', authenticate, (req, res) => {
   Serial.findByIdAndDelete(req.params.id)
-    .then((deletedSerial) => res.json('Deleted ' + deletedSerial.title))
-    .catch((err) => res.status(400).json(err));
+    .then(() => res.json('Deleted successfully'))
+    .catch((err) => res.status(500).json(err));
 });
 
 module.exports = router;

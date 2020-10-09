@@ -46,14 +46,14 @@ export default function AboutPage() {
     <AboutPageStyled onClick={handleClick}>
       <AboutTextContainerStyled aboutTextHeight={aboutTextHeight}>
         <AboutTextStyled ref={aboutTextParagraph}>
-          <div>Kino auf der Insel ohne Kino</div>
+          <div>Kino auf der Insel ohne Kino.</div>
           <br />
           <div>
             Ufa
             <FootnoteLinkStyled href="#aboutFootnotes">
               <sup>1</sup>&nbsp;
             </FootnoteLinkStyled>
-            im Fluss ohne Ufer
+            im Fluss ohne Ufer.
           </div>
           <br />
           <div>
@@ -73,7 +73,7 @@ export default function AboutPage() {
           </div>
           <br />
           <br />
-          <div>Zitate sprechen lauter als Worte. Klicke auf die Perlen, um mehr herauszufinden.</div>
+          <div>Zitate sprechen lauter als weitere Worte. Klicke auf die Perlen, um mehr herauszufinden.</div>
         </AboutTextStyled>
       </AboutTextContainerStyled>
       <QuotePerlsContainerStyled

@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import ContactPage from '../pages/ContactPage';
+import ErrorPage from '../pages/ErrorPage';
 import AddNoticePage from '../pages/intern/AddNoticePage';
 import AddScreeningPage from '../pages/intern/AddScreeningPage';
 import AddSerialPage from '../pages/intern/AddSerialPage';
@@ -35,6 +36,7 @@ export default function Main({
   const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
   const [isLoadingSerials, setIsLoadingSerials] = useState(true);
   const [isLoadingNotice, setIsLoadingNotices] = useState(true);
+  const [isError, setIsError] = useState(false);
   const [editedObject, setEditedObject] = useState({});
 
   const history = useHistory();
@@ -67,7 +69,7 @@ export default function Main({
         setScreenings(screeningsFormatted);
         setIsLoadingScreenings(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => setIsError(true));
   }, [editedObject]);
 
   useEffect(() => {
@@ -76,7 +78,7 @@ export default function Main({
         setSerials(serials);
         setIsLoadingSerials(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => setIsError(true));
   }, [editedObject]);
 
   useEffect(() => {
@@ -90,12 +92,16 @@ export default function Main({
         setNotices(noticesFormatted);
         setIsLoadingNotices(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => setIsError(true));
   }, [editedObject]);
 
   useEffect(() => {
     setIsLoadingContent(isLoadingScreenings || isLoadingSerials || isLoadingNotice);
   }, [setIsLoadingContent, isLoadingScreenings, isLoadingSerials, isLoadingNotice]);
+
+  if (isError) {
+    return <ErrorPage />;
+  }
 
   if (isLoadingScreenings || isLoadingSerials || isLoadingNotice) {
     return <LoadingPage />;

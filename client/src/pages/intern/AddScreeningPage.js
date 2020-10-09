@@ -102,7 +102,7 @@ export default function AddScreeningPage({ serials, setEditedObject, isWaiting, 
     const formData = new FormData(form);
     const jwt = getFromLocalStorage('rineuto-token');
     postScreening(formData, jwt)
-      .then((res) => {
+      .then(() => {
         setIsWaiting(false);
         setEditedObject({ added: 'screening' });
         history.push('/program');
