@@ -13,20 +13,20 @@ router.post('/', authenticate, validateQuote, (req, res) => {
   const newQuote = new Quote(req.body);
   newQuote
     .save()
-    .then((newQuote) => res.json(newQuote))
+    .then(() => res.json('Created successfully'))
     .catch((err) => res.status(500).json(err));
 });
 
 router.patch('/:id', authenticate, validateQuote, (req, res) => {
   Quote.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => res.json('updated successfully'))
-    .catch((err) => res.status(400).json(err));
+    .then(() => res.json('Updated successfully'))
+    .catch((err) => res.status(500).json(err));
 });
 
 router.delete('/:id', authenticate, (req, res) => {
   Quote.findByIdAndDelete(req.params.id)
-    .then(() => res.json('deleted succesfully'))
-    .catch((err) => res.status(400).json(err));
+    .then(() => res.json('Deleted succesfully'))
+    .catch((err) => res.status(500).json(err));
 });
 
 module.exports = router;

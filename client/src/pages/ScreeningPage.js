@@ -17,7 +17,9 @@ export default function ScreeningPage({ screenings, editedObject }) {
   let history = useHistory();
 
   useEffect(() => {
-    document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
+    if (selectedScreening) {
+      document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
+    }
   }, [selectedScreening]);
 
   useEffect(() => {

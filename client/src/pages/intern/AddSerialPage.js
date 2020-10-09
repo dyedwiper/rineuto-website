@@ -65,7 +65,7 @@ export default function AddSerialPage({ setEditedObject, isWaiting, setIsWaiting
     const formData = new FormData(form);
     const jwt = getFromLocalStorage('rineuto-token');
     postSerial(formData, jwt)
-      .then((res) => {
+      .then(() => {
         setIsWaiting(false);
         setEditedObject({ added: 'serial' });
         history.push('/posters');

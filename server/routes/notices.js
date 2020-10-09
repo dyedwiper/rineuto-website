@@ -15,20 +15,20 @@ router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateN
   const date = Date.now();
   new Notice({ date, ...req.body })
     .save()
-    .then((newNotice) => res.json(newNotice))
+    .then(() => res.json('Created successfully'))
     .catch((err) => res.status(500).json(err));
 });
 
 router.patch('/:id', authenticate, readFileWithMulter, uploadToCloudinary, validateNotice, (req, res) => {
   Notice.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => res.json('updated successfully'))
-    .catch((err) => res.status(400).json(err));
+    .then(() => res.json('Updated successfully'))
+    .catch((err) => res.status(500).json(err));
 });
 
 router.delete('/:id', authenticate, (req, res) => {
   Notice.findByIdAndDelete(req.params.id)
-    .then((deletedNotice) => res.json('Deleted ' + deletedNotice.title))
-    .catch((err) => res.status(400).json(err));
+    .then(() => res.json('Deleted succesfully'))
+    .catch((err) => res.status(500).json(err));
 });
 
 module.exports = router;

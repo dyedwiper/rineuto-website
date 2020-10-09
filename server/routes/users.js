@@ -8,9 +8,7 @@ const authorize = require('../middleware/authorize');
 
 router.get('/', authenticate, authorize, (req, res) => {
   User.find()
-    .then((users) => {
-      res.json(users);
-    })
+    .then((users) => res.json(users))
     .catch((err) => res.status(500).json(err));
 });
 
@@ -29,7 +27,7 @@ router.post('/create', authenticate, authorize, validateUser, (req, res) => {
   User.findOne({ username: req.body.username })
     .then((user) => {
       if (user) {
-        return res.status(400).json({ error: 'username already taken' });
+        return res.status(400).json({ error: 'Username already taken' });
       }
       bcrypt
         .hash(req.body.password, 10)
@@ -54,13 +52,13 @@ router.post('/login', validateLogin, (req, res) => {
   User.findOne({ username: req.body.username })
     .then((user) => {
       if (!user) {
-        return res.status(403).json({ error: 'incorrect login information' });
+        return res.status(403).json({ error: 'Incorrect login information' });
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res.status(403).json({ error: 'incorrect login information' });
+            return res.status(403).json({ error: 'Incorrect login information' });
           }
           user.lastLogin = Date.now();
           user
