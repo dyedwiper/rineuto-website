@@ -11,11 +11,11 @@ export default function ErrorPage() {
 }
 
 const ErrorPageStyled = styled.div`
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
   padding: 40px 20px;
 `;
 
 const OoopsImageStyled = styled.img`
-  width: 500px;
+  width: 100%;
 `;
