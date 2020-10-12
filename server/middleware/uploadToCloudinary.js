@@ -33,13 +33,18 @@ function computeCloudinaryPublicId(req, res) {
       return res.status(400).json({ cloudinaryError: 'title and date must not be empty' });
     }
     cloudinaryPublicId =
-      'rineuto/notices/' + req.body.date + '_' + replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
+      process.env.CLOUDINARY_BASE_FOLDER +
+      '/notices/' +
+      req.body.date +
+      '_' +
+      replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
   } else if (req.baseUrl.includes('serials')) {
     if (!req.body.title || !req.body.year) {
       return res.status(400).json({ cloudinaryError: 'title and year must not be empty' });
     }
     cloudinaryPublicId =
-      'rineuto/serials/' +
+      process.env.CLOUDINARY_BASE_FOLDER +
+      '/serials/' +
       req.body.year +
       '/' +
       'rineuto_plakat_' +
@@ -49,7 +54,8 @@ function computeCloudinaryPublicId(req, res) {
       return res.status(400).json({ cloudinaryError: 'title and day must not be empty' });
     }
     cloudinaryPublicId =
-      'rineuto/screenings/' +
+      process.env.CLOUDINARY_BASE_FOLDER +
+      '/screenings/' +
       req.body.day.slice(0, 4) +
       '/' +
       replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase()) +
