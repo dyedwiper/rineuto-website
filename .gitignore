@@ -12,6 +12,9 @@
 # production
 /client/build
 
+# eslint
+/client/.eslintcache
+
 # misc
 .DS_Store
 .env.local
@@ -25,6 +28,3 @@ yarn-error.log*
 
 #environment
 .env
-
-#static files
-/server/public
