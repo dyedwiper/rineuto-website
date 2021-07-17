@@ -98,6 +98,10 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
           <TextareaStyled name="synopsis" defaultValue={screeningToEdit.synopsis} />
         </LabelStyled>
         <LabelStyled>
+          Sonderbemerkung
+          <InputStyled name="special" defaultValue={screeningToEdit.special} />
+        </LabelStyled>
+        <LabelStyled>
           Filmreihe
           <SelectStyled
             name="serial"

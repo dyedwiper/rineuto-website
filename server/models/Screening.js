@@ -12,6 +12,7 @@ const screeningSchema = new Schema({
   year: { type: Number },
   version: { type: String },
   synopsis: { type: String },
+  special: { type: String },
   serial: { type: Schema.Types.ObjectId, ref: 'Serial' },
 });
 

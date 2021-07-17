@@ -47,6 +47,7 @@ export default function ScreeningPage({ screenings, editedObject }) {
       <ScreeningInfoContainerStyled>
         <DateRibbon date={selectedScreening.date} />
         <FilmStillStyled src={selectedScreening.imageUrl} alt={selectedScreening.altText} />
+        {selectedScreening.special && <SpecialStyled>{selectedScreening.special}</SpecialStyled>}
         <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
         <FilmInfoStyled>
           {selectedScreening.country +
@@ -116,6 +117,12 @@ const ScreeningTitleStyled = styled.h2`
   margin: 0;
   padding: 10px;
   background-color: white;
+`;
+
+const SpecialStyled = styled.div`
+  padding: 10px;
+  background-color: #ffee00;
+  font-weight: bold;
 `;
 
 const FilmInfoStyled = styled.div`

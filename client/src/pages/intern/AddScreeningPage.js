@@ -68,6 +68,10 @@ export default function AddScreeningPage({ serials, setEditedObject, isWaiting, 
           <TextareaStyled name="synopsis" />
         </LabelStyled>
         <LabelStyled>
+          Sonderbemerkung
+          <InputStyled name="special" />
+        </LabelStyled>
+        <LabelStyled>
           Filmreihe
           <SelectStyled name="serial">
             <option value="000000000000000000000000">-- Film ohne Reihe --</option>
