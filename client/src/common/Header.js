@@ -22,8 +22,7 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
     <HeaderStyled>
       <TitleStyled onClick={handleTitleClick}>{title}</TitleStyled>
       <PerlLinkStyled target="_blank" rel="noopener noreferrer" href="https://youtu.be/hKBfQdKvyXc">
-        <PerlStyled src={glubsch} alt="Glubschauge links" />
-        <PerlStyled src={glubsch} alt="Glubschauge rechts" />
+        <PerlStyled src={glubsch} alt="Glubschauge" />
       </PerlLinkStyled>
       <PerlMenuLabelStyled isNavOpen={isNavOpen}>
         <CheckboxStyled type="checkbox" onChange={() => setIsNavOpen(!isNavOpen)}></CheckboxStyled>
@@ -70,7 +69,7 @@ const TitleStyled = styled.h1`
 const PerlLinkStyled = styled.a`
   position: absolute;
   top: 20px;
-  left: 960px;
+  left: 980px;
 `;
 
 const PerlStyled = styled.img`
