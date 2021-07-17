@@ -114,12 +114,14 @@ const FilmStillStyled = styled.img`
 `;
 
 const ScreeningTitleStyled = styled.h2`
+  max-width: 560px;
   margin: 0;
   padding: 10px;
   background-color: white;
 `;
 
 const SpecialStyled = styled.div`
+  max-width: 560px;
   padding: 10px;
   background-color: #ffee00;
   font-weight: bold;
