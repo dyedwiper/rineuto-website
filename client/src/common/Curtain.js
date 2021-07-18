@@ -4,6 +4,8 @@ import blackLogdeImage from '../assets/blackLodge.png';
 import goldBallImage from '../assets/goldBall.png';
 import leftCurtainImage from '../assets/leftCurtain.jpg';
 import radImage from '../assets/rad.png';
+import cigaretteImage from '../assets/cigarette.png';
+import computerFreakImage from '../assets/computerfreak.png';
 import rightCurtainImage from '../assets/rightCurtain.jpg';
 
 export default function LeftCurtain({ screenWidth, side, isDragging, setIsDragging }) {
@@ -33,8 +35,28 @@ export default function LeftCurtain({ screenWidth, side, isDragging, setIsDraggi
         </GoldenBallLinkStyled>
         {window.location.pathname.includes('5f10d590bc13b800178e3a9c') && (
           <BikeLinkStyled side={side} href="https://youtu.be/N70pChTGtNM" target="_blank" rel="noopener noreferrer">
-            <BikeImageStyled src={radImage} alt="Das Rad eines Fahrrades" />
+            <CircleImageStyled src={radImage} alt="Das Rad eines Fahrrades" />
           </BikeLinkStyled>
+        )}
+        {window.location.pathname.includes('5f31b1ba433d7c00176b8487') && (
+          <CigaretteLinkStyled
+            side={side}
+            href="https://youtu.be/vzSjiDDtlIE"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <CircleImageStyled src={cigaretteImage} alt="Das glimmende Ende einer Zigarette" />
+          </CigaretteLinkStyled>
+        )}
+        {window.location.pathname.includes('5f31a3a4433d7c00176b847b') && (
+          <ComputerFreakLinkStyled
+            side={side}
+            href="https://youtu.be/bqEq16hduNI"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <CircleImageStyled src={computerFreakImage} alt="Eine leuchtende Kugel" />
+          </ComputerFreakLinkStyled>
         )}
       </BlackLodgeStyled>
     </>
@@ -121,7 +143,23 @@ const BikeLinkStyled = styled.a`
   display: ${(props) => (props.side === 'right' ? 'block' : 'none')};
 `;
 
-const BikeImageStyled = styled.img`
+const CigaretteLinkStyled = styled.a`
+  position: absolute;
+  top: 320px;
+  left: 20px;
+  z-index: 1;
+  display: ${(props) => (props.side === 'right' ? 'block' : 'none')};
+`;
+
+const ComputerFreakLinkStyled = styled.a`
+  position: absolute;
+  top: 160px;
+  left: 20px;
+  z-index: 1;
+  display: ${(props) => (props.side === 'right' ? 'block' : 'none')};
+`;
+
+const CircleImageStyled = styled.img`
   height: 20px;
   width: 20px;
 `;
