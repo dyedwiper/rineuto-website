@@ -38,7 +38,7 @@ function validateScreening(req, res, next) {
     altText: Joi.string().allow('').max(300),
     length: Joi.number().integer().positive().max(1440),
     country: Joi.string().allow('').max(50),
-    year: Joi.number().integer().positive().min(1890).max(10000),
+    year: Joi.string().allow('').max(20),
     version: Joi.string().allow('').max(50),
     synopsis: Joi.string().allow('').max(2000),
     special: Joi.string().allow('').max(100),

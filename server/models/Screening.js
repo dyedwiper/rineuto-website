@@ -9,7 +9,7 @@ const screeningSchema = new Schema({
   altText: { type: String },
   length: { type: Number },
   country: { type: String },
-  year: { type: Number },
+  year: { type: String },
   version: { type: String },
   synopsis: { type: String },
   special: { type: String },
