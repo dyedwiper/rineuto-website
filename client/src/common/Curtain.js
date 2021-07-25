@@ -7,6 +7,7 @@ import radImage from '../assets/rad.png';
 import cigaretteImage from '../assets/cigarette.png';
 import computerFreakImage from '../assets/computerfreak.png';
 import rightCurtainImage from '../assets/rightCurtain.jpg';
+import woodstockImage from '../assets/fisheye.png';
 
 export default function LeftCurtain({ screenWidth, side, isDragging, setIsDragging }) {
   const mouseStart = useRef(null);
@@ -57,6 +58,16 @@ export default function LeftCurtain({ screenWidth, side, isDragging, setIsDraggi
           >
             <CircleImageStyled src={computerFreakImage} alt="Eine leuchtende Kugel" />
           </ComputerFreakLinkStyled>
+        )}
+        {window.location.pathname.includes('60fd6aee9df807001789893c') && (
+          <WoodstockLinkStyled
+            side={side}
+            href="https://youtu.be/8qPUJhy0Dz4"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <CircleImageStyled src={woodstockImage} alt="Woodstock im Fischauge" />
+          </WoodstockLinkStyled>
         )}
       </BlackLodgeStyled>
     </>
@@ -155,6 +166,14 @@ const ComputerFreakLinkStyled = styled.a`
   position: absolute;
   top: 160px;
   left: 20px;
+  z-index: 1;
+  display: ${(props) => (props.side === 'right' ? 'block' : 'none')};
+`;
+
+const WoodstockLinkStyled = styled.a`
+  position: absolute;
+  top: 520px;
+  left: 40px;
   z-index: 1;
   display: ${(props) => (props.side === 'right' ? 'block' : 'none')};
 `;
