@@ -55,8 +55,8 @@ export default function ScreeningPage({ screenings, editedObject }) {
             selectedScreening.year +
             ' | ' +
             selectedScreening.length +
-            ' Min | ' +
-            selectedScreening.version}
+            ' Min' +
+            (selectedScreening.version && ' | ' + selectedScreening.version)}
         </FilmInfoStyled>
         <FilmDirectorStyled>{'Regie: ' + selectedScreening.director}</FilmDirectorStyled>
         <FilmSynopsisStyled>
