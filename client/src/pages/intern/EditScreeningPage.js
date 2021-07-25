@@ -57,7 +57,12 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
           <InputStyled
             type="time"
             name="time"
-            defaultValue={screeningToEdit.date.getHours() + ':' + screeningToEdit.date.getMinutes()}
+            defaultValue={
+              screeningToEdit.date.getHours() +
+              ':' +
+              (screeningToEdit.date.getMinutes() < 10 ? '0' : '') +
+              screeningToEdit.date.getMinutes()
+            }
           />
         </LabelStyled>
         <LabelStyled>
