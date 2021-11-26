@@ -57,10 +57,11 @@ const NoticeTitleRowStyled = styled.div`
   overflow: auto;
 `;
 
-const NoticeTitleStyled = styled.h2`
+const NoticeTitleStyled = styled.h3`
   margin: 0;
-  padding: 40px 20px 10px 20px;
+  padding: 40px 20px 0 20px;
   background-color: white;
+  font-size: 1.5rem;
 `;
 
 const NoticeDateStyled = styled.div`

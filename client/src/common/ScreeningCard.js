@@ -39,12 +39,13 @@ const FilmStillStyled = styled.img`
   width: 100%;
 `;
 
-const ScreeningTitleStyled = styled.h2`
+const ScreeningTitleStyled = styled.h3`
   max-width: 560px;
   margin: 0;
   padding: 10px;
   background-color: white;
   color: black;
+  font-size: 1.5rem;
 `;
 
 const SpecialStyled = styled.div`
