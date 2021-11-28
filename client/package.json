@@ -12,9 +12,7 @@
     "react-dom": "^16.13.1",
     "react-linkify": "^1.0.0-alpha",
     "react-router-dom": "^5.1.2",
-    "styled-components": "^4.4.1"
-  },
-  "devDependencies": {
+    "styled-components": "^4.4.1",
     "react-scripts": "^4.0.3"
   },
   "scripts": {
