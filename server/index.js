@@ -26,12 +26,8 @@ app.use('/api/notices', require('./routes/notices'));
 app.use('/api/quotes', require('./routes/quotes'));
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to db'))
   .catch((err) => console.error(err));
-mongoose.set('useFindAndModify', false);
 
 app.listen(port, () => console.log('Server ready on port ' + port));
