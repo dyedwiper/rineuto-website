@@ -6,7 +6,7 @@ router.post('/', (req, res) => {
     email: req.body.email,
     includeListIds: [Number(process.env.SENDINBLUE_LIST_ID)],
     templateId: Number(process.env.SENDINBLUE_TEMPLATE_ID),
-    redirectionUrl: 'https://rineuto.de',
+    redirectionUrl: 'https://rineuto.de/newsletter/confirmation',
   };
 
   const config = {

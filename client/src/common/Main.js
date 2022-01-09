@@ -13,6 +13,7 @@ import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
 import LoadingPage from '../pages/LoadingPage';
 import LoginPage from '../pages/LoginPage';
+import NewsletterConfirmationPage from '../pages/NewsletterConfirmationPage';
 import NewsletterPage from '../pages/NewsletterPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import NoticePage from '../pages/NoticePage';
@@ -140,6 +141,9 @@ export default function Main({
         </Route>
         <Route exact path="/newsletter">
           <NewsletterPage isWaiting={isWaiting} setIsWaiting={setIsWaiting} setIsError={setIsError} />
+        </Route>
+        <Route exact path="/newsletter/confirmation">
+          <NewsletterConfirmationPage />
         </Route>
         <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
           <EditNoticePage

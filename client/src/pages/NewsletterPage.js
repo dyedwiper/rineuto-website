@@ -16,11 +16,11 @@ export default function NewsletterPage({ isWaiting, setIsWaiting, setIsError }) 
     <NewsletterPageStyled>
       <HeadlineStyled>Newsletter</HeadlineStyled>
       <ExplanationStyled>
-        Wenn du hier deine E-Mail-Adresse einträgst, wirst du für immer mit den neutesten Neutigkeiten zu den Rineuto
-        Lichtspielen versorgt.
+        Wenn du hier deine E-Mail-Adresse einträgst, wirst du für immer (oder bis du dich abmeldest) mit den neutesten
+        Neutigkeiten zu den Rineuto Lichtspielen versorgt.
       </ExplanationStyled>
       {isSubmitted ? (
-        <SubmitMessageStyled>Du erhältst eine E-Mail, in der du die Anmeldung bestätigen musst.</SubmitMessageStyled>
+        <SubmitMessageStyled>Du erhältst eine E-Mail mit weiteren Instruktionen.</SubmitMessageStyled>
       ) : (
         <FormStyled onSubmit={handleSubmit}>
           <LabelStyled>

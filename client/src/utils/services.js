@@ -120,7 +120,6 @@ export function authenticateUser(token) {
 }
 
 export function postNewsletterContact(data) {
-  console.log(data);
   return fetch('/api/newsletter', {
     method: 'POST',
     body: JSON.stringify(data),
