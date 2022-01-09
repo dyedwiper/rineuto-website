@@ -46,8 +46,7 @@ export default function LoginPage({ setIsLoadingUser }) {
         setDidLoginFail(false);
         history.push('/');
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
         form.reset();
         nameInput.current.focus();
         setDidLoginFail(true);

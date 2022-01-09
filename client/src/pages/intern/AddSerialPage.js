@@ -72,7 +72,6 @@ export default function AddSerialPage({ setEditedObject, isWaiting, setIsWaiting
       })
       .catch((err) => {
         setIsWaiting(false);
-        console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
         }

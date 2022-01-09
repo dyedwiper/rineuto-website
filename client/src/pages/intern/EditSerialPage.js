@@ -108,7 +108,6 @@ export default function EditSerialPage({ serials, setEditedObject, isWaiting, se
       })
       .catch((err) => {
         setIsWaiting(false);
-        console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
         }
@@ -130,7 +129,6 @@ export default function EditSerialPage({ serials, setEditedObject, isWaiting, se
       })
       .catch((err) => {
         setIsWaiting(false);
-        console.error(err);
       });
   }
 }

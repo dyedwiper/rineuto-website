@@ -113,7 +113,6 @@ export default function AddScreeningPage({ serials, setEditedObject, isWaiting, 
       })
       .catch((err) => {
         setIsWaiting(false);
-        console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
         }
