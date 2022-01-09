@@ -34,7 +34,7 @@ const YearLinkStyled = styled(NavLink)`
   margin: 10px 10px;
   padding: auto;
   background-image: url(${whitePerlImage});
-  color: black;
+  color: var(--secondary-color);
   font-size: 1.5em;
   text-decoration: none;
 

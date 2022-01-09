@@ -63,7 +63,7 @@ const ArchivePageStyled = styled.div``;
 const SubHeadlineStyled = styled.h2`
   margin: 20px 0;
   text-align: center;
-  color: white;
+  color: var(--primary-color);
 `;
 
 const PerlLinkStyled = styled.a`

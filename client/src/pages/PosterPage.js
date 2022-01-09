@@ -56,7 +56,7 @@ const PosterPageStyled = styled.div``;
 
 const EditNoteStyled = styled.div`
   margin: 20px;
-  color: green;
+  color: var(--success-color);
   font-size: 1.5em;
   font-weight: bold;
   text-align: center;

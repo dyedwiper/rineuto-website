@@ -63,13 +63,13 @@ const EditContainerStyled = styled.div`
 `;
 
 const EditNoteStyled = styled.span`
-  color: green;
+  color: var(--success-color);
   font-size: 1.3em;
 `;
 
 const EditLinkStyled = styled(Link)`
   grid-column-start: 2;
   justify-self: right;
-  color: black;
+  color: var(--secondary-color);
   font-size: 1.3em;
 `;

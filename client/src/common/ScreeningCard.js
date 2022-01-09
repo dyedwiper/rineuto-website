@@ -27,7 +27,7 @@ const ScreeningCardStyled = styled.li`
 
 const LinkStyled = styled(Link)`
   display: grid;
-  color: black;
+  color: var(--secondary-color);
   text-decoration: none;
 
   :hover {
@@ -43,8 +43,8 @@ const ScreeningTitleStyled = styled.h3`
   max-width: 560px;
   margin: 0;
   padding: 10px;
-  background-color: white;
-  color: black;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
   font-size: 1.5rem;
 `;
 
@@ -57,6 +57,6 @@ const SpecialStyled = styled.div`
 
 const ScreeningSerialStyled = styled.div`
   padding: 10px;
-  background-color: black;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 `;

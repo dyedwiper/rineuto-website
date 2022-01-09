@@ -33,6 +33,9 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
         <NavLinkStyled to="/contact" onClick={() => setIsNavOpen(false)}>
           Kontakt
         </NavLinkStyled>
+        <NavLinkStyled to="/newsletter" onClick={() => setIsNavOpen(false)}>
+          Newsletter
+        </NavLinkStyled>
         {loggedIn && (
           <>
             <HorizontalLineStyled />
@@ -107,7 +110,7 @@ const NavLinkStyled = styled(NavLink)`
   justify-self: right;
   width: max-content;
   text-decoration: none;
-  color: white;
+  color: var(--primary-color);
   font-size: 1.5em;
   font-weight: bold;
 

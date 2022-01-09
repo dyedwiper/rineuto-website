@@ -432,7 +432,7 @@ export default function ContactPage() {
 const ContactPageStyled = styled.div`
   position: relative;
   padding: 20px;
-  color: white;
+  color: var(--primary-color);
   font-size: 1.2em;
 
   @media (min-width: 900px) {
@@ -447,7 +447,7 @@ const MapImageStyled = styled.img`
 `;
 
 const LinkStyled = styled.a`
-  color: white;
+  color: var(--primary-color);
 `;
 
 const PerlLinkStyled = styled.a`

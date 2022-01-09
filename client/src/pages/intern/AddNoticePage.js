@@ -72,7 +72,6 @@ export default function AddNoticePage({ setEditedObject, isWaiting, setIsWaiting
       })
       .catch((err) => {
         setIsWaiting(false);
-        console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
         }
@@ -88,7 +87,7 @@ const AddNoticePageStyled = styled.div`
   margin: 20px auto;
   padding: 20px;
   padding-bottom: 40px;
-  color: white;
+  color: var(--primary-color);
 `;
 
 const HeadlineStyled = styled.h2`
@@ -109,7 +108,7 @@ const LabelStyled = styled.label`
 const InputStyled = styled.input``;
 
 const LinkStyled = styled.a`
-  color: white;
+  color: var(--primary-color);
 `;
 
 const TextareaStyled = styled.textarea`
@@ -124,6 +123,6 @@ const ButtonStyled = styled.button`
 `;
 
 const ErrorMessageStyled = styled.span`
-  color: red;
+  color: var(--error-color);
   font-size: 1.5em;
 `;

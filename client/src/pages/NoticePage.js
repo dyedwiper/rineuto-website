@@ -41,12 +41,12 @@ const NoticePageStyled = styled.div``;
 const SubHeadlineStyled = styled.h2`
   margin: 20px 0 0 0;
   text-align: center;
-  color: white;
+  color: var(--primary-color);
 `;
 
 const EditNoteStyled = styled.div`
   margin: 20px;
-  color: green;
+  color: var(--success-color);
   font-size: 1.5em;
   font-weight: bold;
   text-align: center;
