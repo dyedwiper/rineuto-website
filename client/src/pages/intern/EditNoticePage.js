@@ -107,7 +107,6 @@ export default function EditNoticePage({ notices, setEditedObject, isWaiting, se
       })
       .catch((err) => {
         setIsWaiting(false);
-        console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
         }
@@ -129,7 +128,6 @@ export default function EditNoticePage({ notices, setEditedObject, isWaiting, se
       })
       .catch((err) => {
         setIsWaiting(false);
-        console.error(err);
       });
   }
 }

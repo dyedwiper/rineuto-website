@@ -37,8 +37,7 @@ export default function App() {
         .then(() => {
           setIsLoadingUser(false);
         })
-        .catch((err) => {
-          console.error(err);
+        .catch(() => {
           setIsLoadingUser(false);
         });
     }

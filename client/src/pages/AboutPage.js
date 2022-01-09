@@ -16,12 +16,10 @@ export default function AboutPage() {
   const numberOfOpenPerlsBefore = useRef(null);
 
   useEffect(() => {
-    getQuotes()
-      .then((quotes) => {
-        setQuotes(quotes);
-        setIsLoading(false);
-      })
-      .catch((err) => console.error(err));
+    getQuotes().then((quotes) => {
+      setQuotes(quotes);
+      setIsLoading(false);
+    });
   }, []);
 
   useEffect(() => {

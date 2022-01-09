@@ -161,7 +161,6 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
       })
       .catch((err) => {
         setIsWaiting(false);
-        console.error(err);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
         }
@@ -183,7 +182,6 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
       })
       .catch((err) => {
         setIsWaiting(false);
-        console.error(err);
       });
   }
 }
