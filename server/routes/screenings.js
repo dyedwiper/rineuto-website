@@ -5,19 +5,20 @@ const { validateScreening } = require('../middleware/validation');
 const formatDate = require('../middleware/formatDate');
 const { readFileWithMulter } = require('../middleware/readFileWithMulter');
 const { uploadToCloudinary } = require('../middleware/uploadToCloudinary');
+const { STANDARD_ERROR_MESSAGE, STANDARD_SUCCESS_MESSAGE } = require('../utils/constants');
 
 router.get('/', (req, res) => {
   Screening.find()
     .populate('serial')
     .then((screenings) => res.json(screenings))
-    .catch((err) => res.status(500).json(err));
+    .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
 });
 
 router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateScreening, formatDate, (req, res) => {
   new Screening(req.body)
     .save()
-    .then(() => res.json('Created successfully'))
-    .catch((err) => res.status(500).json(err));
+    .then((screening) => res.status(201).json(screening))
+    .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
 });
 
 router.patch(
@@ -29,15 +30,15 @@ router.patch(
   formatDate,
   (req, res) => {
     Screening.findByIdAndUpdate(req.params.id, req.body)
-      .then(() => res.json('Updated successfully'))
-      .catch((err) => res.status(500).json(err));
+      .then((screening) => res.json(screening))
+      .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
   }
 );
 
 router.delete('/:id', authenticate, (req, res) => {
   Screening.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Deleted successfully'))
-    .catch((err) => res.status(500).json(err));
+    .then(() => res.json(STANDARD_SUCCESS_MESSAGE))
+    .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
 });
 
 module.exports = router;

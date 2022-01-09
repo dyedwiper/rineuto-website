@@ -4,7 +4,7 @@ function authorize(req, res, next) {
   User.findById(req.user)
     .then((user) => {
       if (!user || !user.isAdmin) {
-        return res.status(403).json({ error: 'Not authorized' });
+        return res.status(403).json('Not authorized');
       }
       next();
     })

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const axios = require('axios');
+const { STANDARD_ERROR_MESSAGE, STANDARD_SUCCESS_MESSAGE } = require('../utils/constants');
 
 router.post('/', (req, res) => {
   const data = {
@@ -17,7 +18,7 @@ router.post('/', (req, res) => {
 
   axios
     .post(process.env.SENDINBLUE_URL, data, config)
-    .then(() => res.json('Contact added'))
+    .then(() => res.json(STANDARD_SUCCESS_MESSAGE))
     .catch((err) => {
       if (
         (err.response.data.code === 'invalid_parameter' && err.response.data.message.includes('email')) ||
@@ -25,7 +26,7 @@ router.post('/', (req, res) => {
       ) {
         return res.status(400).json('Invalid email address');
       }
-      res.status(500).json('An error occured');
+      res.status(500).json(STANDARD_ERROR_MESSAGE);
     });
 });
 
