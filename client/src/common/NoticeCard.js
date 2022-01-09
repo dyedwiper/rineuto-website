@@ -60,7 +60,7 @@ const NoticeTitleRowStyled = styled.div`
 const NoticeTitleStyled = styled.h3`
   margin: 0;
   padding: 40px 20px 0 20px;
-  background-color: white;
+  background-color: var(--primary-color);
   font-size: 1.5rem;
 `;
 
@@ -69,15 +69,15 @@ const NoticeDateStyled = styled.div`
   top: 0;
   right: 0;
   padding: 5px 20px;
-  color: white;
-  background-color: black;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
 `;
 
 const NoticeTextStyled = styled.p`
   overflow: auto;
   margin: 0;
   padding: 20px;
-  background-color: white;
+  background-color: var(--primary-color);
   white-space: pre-line;
 `;
 
@@ -85,7 +85,7 @@ const EditContainerStyled = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 10px 20px;
-  background-color: black;
+  background-color: var(--secondary-color);
 `;
 
 const EditNoteStyled = styled.span`
@@ -94,6 +94,6 @@ const EditNoteStyled = styled.span`
 
 const EditLinkStyled = styled(Link)`
   grid-column-start: 2;
-  color: white;
+  color: var(--primary-color);
   justify-self: right;
 `;

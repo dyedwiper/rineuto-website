@@ -12,7 +12,7 @@ export default function NewsletterConfirmationPage() {
 
 const NewsletterConfirmationPageStyled = styled.div`
   padding: 20px;
-  color: white;
+  color: var(--primary-color);
   text-align: center;
 `;
 

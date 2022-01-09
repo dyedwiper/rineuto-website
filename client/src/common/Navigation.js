@@ -110,7 +110,7 @@ const NavLinkStyled = styled(NavLink)`
   justify-self: right;
   width: max-content;
   text-decoration: none;
-  color: white;
+  color: var(--primary-color);
   font-size: 1.5em;
   font-weight: bold;
 

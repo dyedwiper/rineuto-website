@@ -117,7 +117,7 @@ const ScreeningTitleStyled = styled.h2`
   max-width: 560px;
   margin: 0;
   padding: 10px;
-  background-color: white;
+  background-color: var(--primary-color);
 `;
 
 const SpecialStyled = styled.div`
@@ -129,33 +129,33 @@ const SpecialStyled = styled.div`
 
 const FilmInfoStyled = styled.div`
   padding: 5px 10px 0 10px;
-  background-color: black;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 `;
 
 const FilmDirectorStyled = styled.div`
   padding: 0 10px 5px 10px;
-  background-color: black;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 `;
 
 const FilmSynopsisStyled = styled.p`
   overflow: auto;
   margin: 0;
   padding: 10px;
-  background-color: white;
+  background-color: var(--primary-color);
   white-space: pre-line;
 `;
 
 const ScreeningSerialStyled = styled.div`
   padding: 10px;
-  background-color: black;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 `;
 
 const EditLinkStyled = styled(Link)`
   padding: 10px;
-  background-color: white;
-  color: black;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
   text-align: right;
 `;

@@ -60,7 +60,7 @@ const NewsletterPageStyled = styled.div`
   max-width: 600px;
   margin: 40px auto;
   padding: 0 20px;
-  color: white;
+  color: var(--primary-color);
   text-align: center;
   font-size: 1.2em;
 `;

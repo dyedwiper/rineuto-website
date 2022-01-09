@@ -124,17 +124,17 @@ const AboutTextContainerStyled = styled.div`
 `;
 
 const AboutTextStyled = styled.div`
-  color: white;
+  color: var(--primary-color);
   font-size: 1.5em;
 `;
 
 const FootnoteLinkStyled = styled.a`
-  color: white;
+  color: var(--primary-color);
   text-decoration: none;
 `;
 
 const MokryLinkStyled = styled.a`
-  color: white;
+  color: var(--primary-color);
 `;
 
 const QuotePerlsContainerStyled = styled.div`
@@ -149,7 +149,7 @@ const QuotePerlsContainerStyled = styled.div`
 const FootnotesStyled = styled.div`
   margin: 40px auto 20px auto;
   max-width: 600px;
-  color: white;
+  color: var(--primary-color);
 `;
 
 const PerlLinkStyled = styled.a`

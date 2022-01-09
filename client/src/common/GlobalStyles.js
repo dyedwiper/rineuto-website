@@ -7,6 +7,7 @@ export default createGlobalStyle`
 
   :root{
       --primary-color: white;
+      --secondary-color: black;
       --success-color: chartreuse;
       --error-color: coral;
   }
@@ -16,7 +17,7 @@ export default createGlobalStyle`
     font-family: 'Linux Libertine G', 'Times New Roman', 'Times', serif;
     font-size: 16px;
     overflow-wrap: break-word;
-    background-color: black;
+    background-color: var(--secondary-color);
   }
 
   input, button, textarea {
@@ -35,7 +36,7 @@ export default createGlobalStyle`
   }
 
   button {
-    background-color: white;
+    background-color: var(--primary-color);
     cursor: pointer;
   }
 `;

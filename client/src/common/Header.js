@@ -49,7 +49,7 @@ const HeaderStyled = styled.header`
   grid-template-columns: max-content;
   align-items: center;
   background-image: url(${whitePerlImage});
-  background-color: white;
+  background-color: var(--primary-color);
 
   @media (min-width: 900px) {
     grid-column: 1 / 3;

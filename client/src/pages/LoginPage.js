@@ -61,7 +61,7 @@ const LoginPageStyled = styled.div`
   grid-gap: 40px;
   justify-items: center;
   padding: 40px 20px;
-  color: white;
+  color: var(--primary-color);
 `;
 
 const LoginFormStyled = styled.form`
@@ -85,7 +85,7 @@ const ButtonStyled = styled.button`
   justify-self: center;
   width: min-content;
   padding: 5px 20px;
-  background-color: white;
+  background-color: var(--primary-color);
   border-radius: 3px;
 `;
 

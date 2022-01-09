@@ -141,7 +141,7 @@ const EditSerialPageStyled = styled.div`
   margin: 20px auto;
   padding: 20px;
   padding-bottom: 40px;
-  color: white;
+  color: var(--primary-color);
 `;
 
 const HeadlineStyled = styled.h2`
@@ -162,7 +162,7 @@ const LabelStyled = styled.label`
 const InputStyled = styled.input``;
 
 const LinkStyled = styled.a`
-  color: white;
+  color: var(--primary-color);
 `;
 
 const ButtonStyled = styled.button`

@@ -19,7 +19,7 @@ const NotFoundPageStyled = styled.div`
   max-width: 600px;
   margin: 0 auto;
   padding: 40px 20px;
-  color: white;
+  color: var(--primary-color);
 `;
 
 const IronsImageStyled = styled.img`
