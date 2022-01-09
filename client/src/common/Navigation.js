@@ -33,6 +33,9 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
         <NavLinkStyled to="/contact" onClick={() => setIsNavOpen(false)}>
           Kontakt
         </NavLinkStyled>
+        <NavLinkStyled to="/newsletter" onClick={() => setIsNavOpen(false)}>
+          Newsletter
+        </NavLinkStyled>
         {loggedIn && (
           <>
             <HorizontalLineStyled />

@@ -24,6 +24,7 @@ app.use('/api/serials', require('./routes/serials'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/notices', require('./routes/notices'));
 app.use('/api/quotes', require('./routes/quotes'));
+app.use('/api/newsletter', require('./routes/newsletter'));
 
 mongoose
   .connect(process.env.MONGODB_URI)
