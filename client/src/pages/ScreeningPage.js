@@ -88,7 +88,7 @@ const ScreeningPageStyled = styled.article`
 
 const EditNoteStyled = styled.div`
   margin-bottom: 60px;
-  color: green;
+  color: var(--success-color);
   font-size: 1.5em;
   font-weight: bold;
 `;

@@ -72,7 +72,7 @@ const HeadlineStyled = styled.h2`
 const ExplanationStyled = styled.p``;
 
 const SubmitMessageStyled = styled.p`
-  color: chartreuse;
+  color: var(--success-color);
 `;
 
 const FormStyled = styled.form``;
@@ -92,5 +92,5 @@ const ButtonStyled = styled.button`
 `;
 
 const ErrorMessageStyled = styled.p`
-  color: coral;
+  color: var(--error-color);
 `;

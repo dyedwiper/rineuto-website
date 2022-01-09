@@ -4,6 +4,12 @@ export default createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+
+  :root{
+      --primary-color: white;
+      --success-color: chartreuse;
+      --error-color: coral;
+  }
  
   body {
     margin: 0;

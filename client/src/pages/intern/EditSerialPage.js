@@ -170,6 +170,6 @@ const ButtonStyled = styled.button`
 `;
 
 const ErrorMessageStyled = styled.span`
-  color: red;
+  color: var(--error-color);
   font-size: 1.5em;
 `;

@@ -46,7 +46,7 @@ const SubHeadlineStyled = styled.h2`
 
 const EditNoteStyled = styled.div`
   margin: 20px;
-  color: green;
+  color: var(--success-color);
   font-size: 1.5em;
   font-weight: bold;
   text-align: center;

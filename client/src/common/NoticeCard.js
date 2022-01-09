@@ -89,7 +89,7 @@ const EditContainerStyled = styled.div`
 `;
 
 const EditNoteStyled = styled.span`
-  color: green;
+  color: var(--success-color);
 `;
 
 const EditLinkStyled = styled(Link)`
