@@ -37,21 +37,20 @@ export default function NewsletterPage({ isWaiting, setIsWaiting, setIsError }) 
   function handleSubmit(event) {
     event.preventDefault();
     setIsWaiting(true);
+    setValidationError('');
     const data = { email: event.currentTarget.email.value };
     postNewsletterContact(data)
       .then(() => {
-        setValidationError('');
-        setIsWaiting(false);
         setIsSubmitted(true);
+        setIsWaiting(false);
       })
       .catch((err) => {
         if (err === 'Invalid email address') {
           setValidationError('Die angegebene E-Mail-Adresse ist nicht valide.');
-          setIsWaiting(false);
         } else {
           setIsError(true);
-          setIsWaiting(false);
         }
+        setIsWaiting(false);
       });
   }
 }

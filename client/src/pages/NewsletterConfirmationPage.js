@@ -19,6 +19,6 @@ const NewsletterConfirmationPageStyled = styled.div`
 const HeadlineStyled = styled.h2``;
 
 const SuccessMessageStyled = styled.p`
-  color: chartreuse;
+  color: var(--success-color);
   font-size: 1.2em;
 `;
