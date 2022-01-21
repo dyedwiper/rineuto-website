@@ -16,8 +16,8 @@ export default function NewsletterPage({ isWaiting, setIsWaiting, setIsError }) 
     <NewsletterPageStyled>
       <HeadlineStyled>Newsletter</HeadlineStyled>
       <ExplanationStyled>
-        Wenn du hier deine E-Mail-Adresse einträgst, wirst du für immer (oder bis du dich abmeldest) mit den neutesten
-        Neutigkeiten zu den Rineuto Lichtspielen versorgt.
+        Trage hier deine E-Mail-Adresse ein, um die Last, selbständig an unsere Vorführungen denken zu müssen, von
+        deinen Schultern zu nehmen.
       </ExplanationStyled>
       {isSubmitted ? (
         <SubmitMessageStyled>Du erhältst eine E-Mail mit weiteren Instruktionen.</SubmitMessageStyled>
