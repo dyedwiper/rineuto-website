@@ -1,13 +1,11 @@
 const multer = require('multer');
+const { STANDARD_ERROR_MESSAGE } = require('../utils/constants');
 
-const storage = multer.memoryStorage();
+const ERROR_MESSAGE_MIMETYPE = 'Nur die Dateiformate JPEG und PNG sind erlaubt.';
 
 function fileFilter(req, file, cb) {
   if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {
-    return cb(new Error('mimetype not allowed'), false);
-  }
-  if (!req.body.title) {
-    return cb(new Error('title must not be empty'), false);
+    return cb(new Error(ERROR_MESSAGE_MIMETYPE), false);
   }
   cb(null, true);
 }
@@ -16,11 +14,13 @@ function readFileWithMulter(req, res, next) {
   const upload = multer({
     limits: { fileSize: 1024 * 1024 * 1 },
     fileFilter: fileFilter,
-    storage: storage,
+    storage: multer.memoryStorage(),
   }).single('image');
   upload(req, res, function (err) {
-    if (err) {
-      return res.status(400).json({ multerError: err.message });
+    if (err && err.message === ERROR_MESSAGE_MIMETYPE) {
+      return res.status(422).json({ multerError: err.message });
+    } else if (err) {
+      return res.status(500).json(STANDARD_ERROR_MESSAGE);
     }
     next();
   });

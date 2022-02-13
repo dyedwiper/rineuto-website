@@ -2,6 +2,7 @@ const DatauriParser = require('datauri/parser');
 const path = require('path');
 const { config, uploader } = require('cloudinary').v2;
 const { replaceUmlautsAndSpecialCharacters } = require('../utils/stringMethods');
+const { STANDARD_ERROR_MESSAGE } = require('../utils/constants');
 
 const parser = new DatauriParser();
 
@@ -21,8 +22,8 @@ function uploadToCloudinary(req, res, next) {
       req.body.imageUrl = result.secure_url;
       next();
     })
-    .catch((err) => {
-      res.status(500).json({ cloudinaryError: err.message });
+    .catch(() => {
+      res.status(500).json(STANDARD_ERROR_MESSAGE);
     });
 }
 
@@ -30,7 +31,7 @@ function computeCloudinaryPublicId(req, res) {
   let cloudinaryPublicId;
   if (req.baseUrl.includes('notices')) {
     if (!req.body.title || !req.body.date) {
-      return res.status(400).json({ cloudinaryError: 'title and date must not be empty' });
+      return res.status(422).json({ cloudinaryError: 'Schlagzeile und Datum müssen angegeben sein.' });
     }
     cloudinaryPublicId =
       process.env.CLOUDINARY_BASE_FOLDER +
@@ -40,7 +41,7 @@ function computeCloudinaryPublicId(req, res) {
       replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
   } else if (req.baseUrl.includes('serials')) {
     if (!req.body.title || !req.body.year) {
-      return res.status(400).json({ cloudinaryError: 'title and year must not be empty' });
+      return res.status(422).json({ cloudinaryError: 'Reihentitel und Jahr müssen angegeben sein.' });
     }
     cloudinaryPublicId =
       process.env.CLOUDINARY_BASE_FOLDER +
@@ -51,7 +52,7 @@ function computeCloudinaryPublicId(req, res) {
       replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
   } else {
     if (!req.body.title || !req.body.day) {
-      return res.status(400).json({ cloudinaryError: 'title and day must not be empty' });
+      return res.status(422).json({ cloudinaryError: 'Filmtitel und Vorführdatum müssen angegeben sein.' });
     }
     cloudinaryPublicId =
       process.env.CLOUDINARY_BASE_FOLDER +

@@ -119,6 +119,9 @@ export default function AddScreeningPage({ serials, setEditedObject, isWaiting, 
         if (err.hasOwnProperty('multerError')) {
           setValidationError(err.multerError);
         }
+        if (err.hasOwnProperty('cloudinaryError')) {
+          setValidationError(err.cloudinaryError);
+        }
       });
   }
 }
