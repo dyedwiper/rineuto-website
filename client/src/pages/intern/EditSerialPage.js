@@ -114,6 +114,9 @@ export default function EditSerialPage({ serials, setEditedObject, isWaiting, se
         if (err.hasOwnProperty('multerError')) {
           setValidationError(err.multerError);
         }
+        if (err.hasOwnProperty('cloudinaryError')) {
+          setValidationError(err.cloudinaryError);
+        }
       });
   }
 

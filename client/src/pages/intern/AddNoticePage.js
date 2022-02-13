@@ -78,6 +78,9 @@ export default function AddNoticePage({ setEditedObject, isWaiting, setIsWaiting
         if (err.hasOwnProperty('multerError')) {
           setValidationError(err.multerError);
         }
+        if (err.hasOwnProperty('cloudinaryError')) {
+          setValidationError(err.cloudinaryError);
+        }
       });
   }
 }

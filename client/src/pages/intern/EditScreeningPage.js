@@ -167,6 +167,9 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
         if (err.hasOwnProperty('multerError')) {
           setValidationError(err.multerError);
         }
+        if (err.hasOwnProperty('cloudinaryError')) {
+          setValidationError(err.cloudinaryError);
+        }
       });
   }
 
@@ -233,4 +236,5 @@ const ButtonStyled = styled.button`
 
 const ErrorMessageStyled = styled.span`
   color: var(--error-color);
+  font-size: 1.5em;
 `;
