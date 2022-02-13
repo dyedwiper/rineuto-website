@@ -1,7 +1,7 @@
 const multer = require('multer');
 const { STANDARD_ERROR_MESSAGE } = require('../utils/constants');
 
-const ERROR_MESSAGE_MIMETYPE = 'mimetype not allowed';
+const ERROR_MESSAGE_MIMETYPE = 'Nur die Dateiformate JPEG und PNG sind erlaubt.';
 
 function fileFilter(req, file, cb) {
   if (file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/png') {

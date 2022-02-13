@@ -22,7 +22,7 @@ function uploadToCloudinary(req, res, next) {
       req.body.imageUrl = result.secure_url;
       next();
     })
-    .catch((err) => {
+    .catch(() => {
       res.status(500).json(STANDARD_ERROR_MESSAGE);
     });
 }
@@ -31,7 +31,7 @@ function computeCloudinaryPublicId(req, res) {
   let cloudinaryPublicId;
   if (req.baseUrl.includes('notices')) {
     if (!req.body.title || !req.body.date) {
-      return res.status(422).json({ cloudinaryError: 'title and date must not be empty' });
+      return res.status(422).json({ cloudinaryError: 'Schlagzeile und Datum müssen angegeben sein.' });
     }
     cloudinaryPublicId =
       process.env.CLOUDINARY_BASE_FOLDER +
@@ -41,7 +41,7 @@ function computeCloudinaryPublicId(req, res) {
       replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
   } else if (req.baseUrl.includes('serials')) {
     if (!req.body.title || !req.body.year) {
-      return res.status(422).json({ cloudinaryError: 'title and year must not be empty' });
+      return res.status(422).json({ cloudinaryError: 'Reihentitel und Jahr müssen angegeben sein.' });
     }
     cloudinaryPublicId =
       process.env.CLOUDINARY_BASE_FOLDER +
@@ -52,7 +52,7 @@ function computeCloudinaryPublicId(req, res) {
       replaceUmlautsAndSpecialCharacters(req.body.title.toLowerCase());
   } else {
     if (!req.body.title || !req.body.day) {
-      return res.status(422).json({ cloudinaryError: 'title and day must not be empty' });
+      return res.status(422).json({ cloudinaryError: 'Filmtitel und Vorführdatum müssen angegeben sein.' });
     }
     cloudinaryPublicId =
       process.env.CLOUDINARY_BASE_FOLDER +
