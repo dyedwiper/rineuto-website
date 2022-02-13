@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const { STANDARD_ERROR_MESSAGE } = require('../utils/constants');
 
 function authorize(req, res, next) {
   User.findById(req.user)
@@ -8,7 +9,7 @@ function authorize(req, res, next) {
       }
       next();
     })
-    .catch((err) => res.status(500).json(err));
+    .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
 }
 
 module.exports = authorize;
