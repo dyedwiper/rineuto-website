@@ -40,7 +40,7 @@ function validateScreening(req, res, next) {
     country: Joi.string().allow('').max(50),
     year: Joi.string().allow('').max(20),
     version: Joi.string().allow('').max(50),
-    synopsis: Joi.string().allow('').max(2000),
+    synopsis: Joi.string().allow('').max(10000),
     special: Joi.string().allow('').max(100),
     serial: Joi.string().allow('').max(50),
   });
