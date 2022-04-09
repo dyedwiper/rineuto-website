@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import NoticeCard from '../common/NoticeCard';
 import jeverFunImage from '../assets/jeverFun.png';
 
-export default function NoticePage({ notices, editedObject }) {
+export default function NoticesPage({ notices, editedObject }) {
   const windowHeight = useRef(null);
 
   useEffect(() => {
