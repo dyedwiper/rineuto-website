@@ -56,18 +56,7 @@ export default function Main({
   useEffect(() => {
     getScreenings()
       .then((screenings) => {
-        const screeningsFormatted = screenings.map((screening) => {
-          const dateFormatted = new Date(screening.date);
-          let synopsisFormatted = '';
-          if (screening.synopsis) {
-            synopsisFormatted = screening.synopsis.replace(/\\n/g, '\n');
-          }
-          return {
-            ...screening,
-            date: dateFormatted,
-            synopsis: synopsisFormatted,
-          };
-        });
+        const screeningsFormatted = formatScreenings(screenings);
         setScreenings(screeningsFormatted);
         setIsLoadingScreenings(false);
       })
@@ -86,11 +75,7 @@ export default function Main({
   useEffect(() => {
     getNotices()
       .then((notices) => {
-        const noticesFormatted = notices.map((notice) => {
-          const textFormatted = notice.text.replace(/\\n/g, '\n');
-          const dateFormatted = new Date(notice.date);
-          return { ...notice, text: textFormatted, date: dateFormatted };
-        });
+        const noticesFormatted = formatNotices(notices);
         setNotices(noticesFormatted);
         setIsLoadingNotices(false);
       })
@@ -194,6 +179,31 @@ export default function Main({
       </Switch>
     </MainStyled>
   );
+
+  function formatScreenings(screenings) {
+    const formattedScreenings = screenings.map((screening) => {
+      const dateFormatted = new Date(screening.date);
+      let synopsisFormatted = '';
+      if (screening.synopsis) {
+        synopsisFormatted = screening.synopsis.replace(/\\n/g, '\n');
+      }
+      return {
+        ...screening,
+        date: dateFormatted,
+        synopsis: synopsisFormatted,
+      };
+    });
+    return formattedScreenings;
+  }
+
+  function formatNotices(notices) {
+    const formattedNotices = notices.map((notice) => {
+      const textFormatted = notice.text.replace(/\\n/g, '\n');
+      const dateFormatted = new Date(notice.date);
+      return { ...notice, text: textFormatted, date: dateFormatted };
+    });
+    return formattedNotices;
+  }
 }
 
 const MainStyled = styled.main`
