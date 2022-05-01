@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import hal9000 from '../assets/hal9000.png';
 import ScreeningsList from '../common/ScreeningsList';
 import YearNavigation from '../common/YearNavigation';
-import hal9000 from '../assets/hal9000.png';
+import LoadingPage from './LoadingPage';
 
 export default function ArchivePage({ screenings }) {
-  const allYears = screenings
-    .map((screening) => screening.date.getFullYear())
-    .filter((value, index, self) => self.indexOf(value) === index)
-    .sort((a, b) => a - b);
-  const latestYear = allYears[allYears.length - 1];
-
-  let history = useHistory();
-
-  const [selectedYear, setSelectedYear] = useState(latestYear);
+  const [allYears, setAllYears] = useState();
+  const [selectedYear, setSelectedYear] = useState();
   const [filteredScreenings, setFilteredScreenings] = useState([]);
 
   useEffect(() => {
@@ -22,15 +15,12 @@ export default function ArchivePage({ screenings }) {
   }, []);
 
   useEffect(() => {
-    let yearFromPath = window.location.pathname.slice(9);
-    if (!yearFromPath) {
-      history.push('/archive/' + latestYear);
-    }
-    if (yearFromPath.endsWith('/')) {
-      yearFromPath = yearFromPath.slice(0, -1);
-    }
-    setSelectedYear(yearFromPath);
-  }, [latestYear, history, history.location.pathname]);
+    const years = screenings
+      .map((screening) => screening.date.getFullYear())
+      .filter((value, index, self) => self.indexOf(value) === index)
+      .sort((a, b) => a - b);
+    setAllYears(years);
+  }, [screenings]);
 
   useEffect(() => {
     setFilteredScreenings(
@@ -42,13 +32,11 @@ export default function ArchivePage({ screenings }) {
     );
   }, [screenings, selectedYear]);
 
+  if (!allYears) return <LoadingPage />;
+
   return (
     <ArchivePageStyled>
-      <YearNavigation
-        years={allYears}
-        setSelectedYear={setSelectedYear}
-        pagePath={history.location.pathname.split('/', 2).join('/') + '/'}
-      />
+      <YearNavigation years={allYears} setSelectedYear={setSelectedYear} pagePath={'/archive/'} />
       <SubHeadlineStyled>Vergangene Filmperlen</SubHeadlineStyled>
       <ScreeningsList screenings={filteredScreenings.sort((a, b) => b.date - a.date)} />
       <PerlLinkStyled href="https://www.youtube.com/watch?v=4VyUMIZr1PU" target="_blank" rel="noopener noreferrer">

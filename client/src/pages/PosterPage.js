@@ -1,43 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
+import eightBall from '../assets/eightBall.png';
 import PostersList from '../common/PostersList';
 import YearNavigation from '../common/YearNavigation';
-import { useHistory } from 'react-router-dom';
-import eightBall from '../assets/eightBall.png';
+import LoadingPage from './LoadingPage';
 
 export default function PosterPage({ serials, editedObject }) {
-  const allYears = serials
-    .map((serial) => serial.year)
-    .filter((value, index, self) => self.indexOf(value) === index)
-    .sort((a, b) => a - b);
-  const latestYear = allYears[allYears.length - 1];
-
-  let history = useHistory();
-
-  const [selectedYear, setSelectedYear] = useState(latestYear);
+  const [allYears, setAllYears] = useState();
+  const [selectedYear, setSelectedYear] = useState();
 
   useEffect(() => {
     document.title = 'Plakate | Rineuto Lichtspiele';
   }, []);
 
   useEffect(() => {
-    let yearFromPath = window.location.pathname.slice(9);
-    if (!yearFromPath) {
-      history.push('/posters/' + latestYear);
-    }
-    if (yearFromPath.endsWith('/')) {
-      yearFromPath = yearFromPath.slice(0, -1);
-    }
-    setSelectedYear(yearFromPath);
-  }, [latestYear, history, history.location.pathname]);
+    const years = serials
+      .map((serial) => serial.year)
+      .filter((value, index, self) => self.indexOf(value) === index)
+      .sort((a, b) => a - b);
+    setAllYears(years);
+  }, [serials]);
+
+  if (!allYears) return <LoadingPage />;
 
   return (
     <PosterPageStyled>
-      <YearNavigation
-        years={allYears}
-        setSelectedYear={setSelectedYear}
-        pagePath={history.location.pathname.split('/', 2).join('/') + '/'}
-      />
+      <YearNavigation years={allYears} setSelectedYear={setSelectedYear} pagePath={'/posters/'} />
       {editedObject.added === 'serial' && <EditNoteStyled>Filmreihe hinzugefügt</EditNoteStyled>}
       {editedObject.deleted === 'serial' && <EditNoteStyled>Filmreihe gelöscht</EditNoteStyled>}
       <PostersList
