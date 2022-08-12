@@ -4,7 +4,6 @@
     "name": "Max",
     "email": "rineuto@posteo.de"
   },
-  "version": "0.2.0",
   "proxy": "http://localhost:3333",
   "private": true,
   "dependencies": {
