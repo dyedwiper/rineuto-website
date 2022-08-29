@@ -7,12 +7,10 @@ export default function Paginator({ page, setPage, limit, itemsPerPage }) {
   const numberOfPages = useRef(0);
 
   useEffect(() => {
-    console.log(Math.ceil(limit / itemsPerPage));
     numberOfPages.current = Math.ceil(limit / itemsPerPage);
-  }, []);
+  }, [itemsPerPage, limit]);
 
   useEffect(() => {
-    console.log(page);
     const lowerBound = Math.max(1, page - 2);
     const upperBound = Math.min(page + 2, numberOfPages.current);
     const pagesArray = [];
@@ -51,18 +49,18 @@ export default function Paginator({ page, setPage, limit, itemsPerPage }) {
 }
 
 const PaginatorStyled = styled.div`
-  z-index: 2;
   width: 210px;
   margin: 40px auto;
-  border-top: 3px solid white;
-  border-bottom: 3px solid white;
+  border-top: 3px solid var(--primary-color);
+  border-bottom: 3px solid var(--primary-color);
 `;
 
 const BorderContainerStyled = styled.div`
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  border-top: 5px dashed white;
-  border-bottom: 5px dashed white;
+  border-top: 5px dashed var(--primary-color);
+  border-bottom: 5px dashed var(--primary-color);
 `;
 
 const ButtonStyled = styled.button`
@@ -70,14 +68,18 @@ const ButtonStyled = styled.button`
   align-items: center;
   height: 40px;
   width: 30px;
-  border: 2px solid white;
+  border: 2px solid var(--primary-color);
   border-top-width: 3px;
   border-bottom-width: 1px;
   border-radius: 0;
-  color: white;
+  color: var(--primary-color);
   font-weight: bold;
   text-align: center;
   writing-mode: vertical-rl;
   background: none;
-  background-color: ${(props) => props.$isCurrentPage && 'gray'};
+
+  :disabled {
+    color: grey;
+    pointer-events: none;
+  }
 `;
