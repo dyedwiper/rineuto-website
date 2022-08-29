@@ -103,6 +103,10 @@ export function getQuotes() {
   return fetch('/api/quotes').then(handleError);
 }
 
+export function getDishes() {
+  return fetch('/api/dishes').then(handleError);
+}
+
 export function postLoginUser(data) {
   return fetch('/api/users/login', {
     method: 'POST',

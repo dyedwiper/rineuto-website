@@ -27,6 +27,9 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
         <NavLinkStyled to="/posters" onClick={() => setIsNavOpen(false)}>
           Plakate
         </NavLinkStyled>
+        <NavLinkStyled to="/dishes" onClick={() => setIsNavOpen(false)}>
+          VoKü
+        </NavLinkStyled>
         <NavLinkStyled to="/about" onClick={() => setIsNavOpen(false)}>
           Über uns
         </NavLinkStyled>

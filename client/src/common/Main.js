@@ -20,6 +20,7 @@ import NoticePage from '../pages/NoticePage';
 import PosterPage from '../pages/PosterPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
+import VokuPage from '../pages/VokuPage';
 import { getNotices, getScreenings, getSerials } from '../utils/services';
 import PrivateRoute from './PrivateRoute';
 
@@ -114,6 +115,9 @@ export default function Main({
         </Route>
         <Route path="/posters">
           <PosterPage serials={serials} editedObject={editedObject} />
+        </Route>
+        <Route path="/dishes">
+          <VokuPage />
         </Route>
         <Route path="/about">
           <AboutPage />
