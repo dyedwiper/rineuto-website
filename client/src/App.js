@@ -5,13 +5,14 @@ import blackPerlImage from './assets/perls/blackPerl.png';
 import Header from './common/Header';
 import Main from './common/Main';
 import Navigation from './common/Navigation';
-import UserContext from './userContext';
+import Context from './Context';
 import { authenticateUser } from './utils/services';
 import { getFromLocalStorage } from './utils/storage';
 import Curtain from './common/Curtain';
 
 export default function App() {
   const [user, setUser] = useState({});
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const [isLoadingContent, setIsLoadingContent] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function App() {
       authenticateUser(token)
         .then((user) => {
           setUser(user);
+          setIsUserLoggedIn(true);
         })
         .then(() => {
           setIsLoadingUser(false);
@@ -45,7 +47,7 @@ export default function App() {
 
   return (
     <Router>
-      <UserContext.Provider value={{ user, setUser }}>
+      <Context.Provider value={{ user, setUser, isUserLoggedIn, setIsUserLoggedIn }}>
         <AppStyled isDragging={isDragging}>
           {isWaiting && <OverlayStyled />}
           <Curtain screenWidth={screenWidth} side="left" isDragging={isDragging} setIsDragging={setIsDragging} />
@@ -64,7 +66,7 @@ export default function App() {
           </ScreenStyled>
           <Curtain screenWidth={screenWidth} side="right" isDragging={isDragging} setIsDragging={setIsDragging} />
         </AppStyled>
-      </UserContext.Provider>
+      </Context.Provider>
     </Router>
   );
 }

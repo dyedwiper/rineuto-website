@@ -5,16 +5,15 @@ import favicon from '../assets/favicon.png';
 import leftCurtainImage from '../assets/leftCurtain.jpg';
 import greenPerlImage from '../assets/perls/darkGreenPerl.png';
 import rightCurtainImage from '../assets/rightCurtain.jpg';
-import UserContext from '../userContext';
+import Context from '../Context';
 import { removeFromLocalStorage } from '../utils/storage';
 
 export default function Navigation({ isNavOpen, setIsNavOpen }) {
-  const { user, setUser } = useContext(UserContext);
-  const loggedIn = Object.keys(user).length !== 0;
+  const { setUser, isUserLoggedIn, setIsUserLoggedIn } = useContext(Context);
 
   return (
     <>
-      <NavigationStyled loggedIn={loggedIn} isNavOpen={isNavOpen}>
+      <NavigationStyled loggedIn={isUserLoggedIn} isNavOpen={isNavOpen}>
         <NavLinkStyled exact to="/" onClick={() => setIsNavOpen(false)}>
           News
         </NavLinkStyled>
@@ -39,7 +38,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
         <NavLinkStyled to="/newsletter" onClick={() => setIsNavOpen(false)}>
           Newsletter
         </NavLinkStyled>
-        {loggedIn && (
+        {isUserLoggedIn && (
           <>
             <HorizontalLineStyled />
             <NavLinkStyled to="/intern/addNotice" onClick={() => setIsNavOpen(false)}>
@@ -70,6 +69,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
   function handleLogout() {
     removeFromLocalStorage('rineuto-token');
     setUser({});
+    setIsUserLoggedIn(false);
     setIsNavOpen(false);
   }
 }

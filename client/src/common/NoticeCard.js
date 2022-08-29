@@ -2,12 +2,11 @@ import React, { useContext } from 'react';
 import Linkify from 'react-linkify';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import UserContext from '../userContext';
+import Context from '../Context';
 import { formatToDateString } from '../utils/dateFormatters';
 
 export default function NoticeCard({ notice, editedObject }) {
-  const { user } = useContext(UserContext);
-  const loggedIn = Object.keys(user).length !== 0;
+  const { isUserLoggedIn } = useContext(Context);
 
   return (
     <NoticeCardStyled>
@@ -27,7 +26,7 @@ export default function NoticeCard({ notice, editedObject }) {
           {notice.text}
         </Linkify>
       </NoticeTextStyled>
-      {loggedIn && (
+      {isUserLoggedIn && (
         <EditContainerStyled>
           {editedObject._id === notice._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
           <EditLinkStyled to={'/intern/editNotice/' + notice._id}>Bearbeiten</EditLinkStyled>

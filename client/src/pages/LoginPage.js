@@ -2,13 +2,13 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import magicGif from '../assets/ahahah.gif';
-import UserContext from '../userContext';
+import Context from '../Context';
 import { postLoginUser } from '../utils/services';
 
 export default function LoginPage({ setIsLoadingUser }) {
   const [didLoginFail, setDidLoginFail] = useState(false);
   let history = useHistory();
-  const { setUser } = useContext(UserContext);
+  const { setUser, setIsUserLoggedIn } = useContext(Context);
 
   const nameInput = useRef(null);
 
@@ -42,6 +42,7 @@ export default function LoginPage({ setIsLoadingUser }) {
     postLoginUser(loginData)
       .then((user) => {
         setUser(user);
+        setIsUserLoggedIn(true);
         setIsLoadingUser(false);
         setDidLoginFail(false);
         history.push('/');
