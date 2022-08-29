@@ -3,6 +3,7 @@ import Linkify from 'react-linkify';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import UserContext from '../userContext';
+import { formatToDateString } from '../utils/dateFormatters';
 
 export default function NoticeCard({ notice, editedObject }) {
   const { user } = useContext(UserContext);
@@ -13,13 +14,7 @@ export default function NoticeCard({ notice, editedObject }) {
       <NoticeImageStyled src={notice.imageUrl} alt={notice.altText} />
       <NoticeTitleRowStyled>
         <NoticeTitleStyled>{notice.title}</NoticeTitleStyled>
-        <NoticeDateStyled>
-          {notice.date.toLocaleDateString('de-DE', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-          })}
-        </NoticeDateStyled>
+        <NoticeDateStyled>{formatToDateString(notice.date)}</NoticeDateStyled>
       </NoticeTitleRowStyled>
       <NoticeTextStyled>
         <Linkify
