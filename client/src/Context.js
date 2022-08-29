@@ -5,6 +5,8 @@ const Context = createContext({
   setUser: () => {},
   isUserLoggedIn: false,
   setIsUserLoggedIn: () => {},
+  isWaiting: false,
+  setIsWaiting: () => {},
 });
 
 export default Context;

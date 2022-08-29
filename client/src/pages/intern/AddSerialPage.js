@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
 import { getFromLocalStorage } from '../../utils/storage';
 import { postSerial } from '../../utils/services';
 import { WaitNoteStyled } from '../../common/styledElements';
+import Context from '../../Context';
 
-export default function AddSerialPage({ setEditedObject, isWaiting, setIsWaiting }) {
+export default function AddSerialPage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
+
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 

@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components/macro';
 import { postScreening } from '../../utils/services';
 import { getFromLocalStorage } from '../../utils/storage';
 import { useHistory } from 'react-router-dom';
 import { WaitNoteStyled } from '../../common/styledElements';
+import Context from '../../Context';
 
-export default function AddScreeningPage({ serials, setEditedObject, isWaiting, setIsWaiting }) {
+export default function AddScreeningPage({ serials, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
+
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 

@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { postNotice } from '../../utils/services';
 import { getFromLocalStorage } from '../../utils/storage';
 import { WaitNoteStyled } from '../../common/styledElements';
+import Context from '../../Context';
 
-export default function AddNoticePage({ setEditedObject, isWaiting, setIsWaiting }) {
+export default function AddNoticePage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
+
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 

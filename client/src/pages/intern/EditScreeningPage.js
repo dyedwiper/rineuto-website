@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { patchScreening, deleteScreening } from '../../utils/services';
@@ -6,13 +6,16 @@ import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 import DeletePrompt from '../../common/DeletePrompt';
 import { WaitNoteStyled } from '../../common/styledElements';
+import Context from '../../Context';
 
-export default function EditScreeningPage({ screenings, serials, setEditedObject, isWaiting, setIsWaiting }) {
+export default function EditScreeningPage({ screenings, serials, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [screeningToEdit, setScreeningToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 

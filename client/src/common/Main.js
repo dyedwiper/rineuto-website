@@ -24,15 +24,7 @@ import VokuPage from '../pages/VokuPage';
 import { getNotices, getScreenings, getSerials } from '../utils/services';
 import PrivateRoute from './PrivateRoute';
 
-export default function Main({
-  isNavOpen,
-  isLoadingUser,
-  setIsLoadingUser,
-  setIsLoadingContent,
-  setIsNavOpen,
-  isWaiting,
-  setIsWaiting,
-}) {
+export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsLoadingContent, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
   const [serials, setSerials] = useState([]);
   const [notices, setNotices] = useState([]);
@@ -129,49 +121,31 @@ export default function Main({
           <LoginPage setIsLoadingUser={setIsLoadingUser} />
         </Route>
         <Route exact path="/newsletter">
-          <NewsletterPage isWaiting={isWaiting} setIsWaiting={setIsWaiting} setIsError={setIsError} />
+          <NewsletterPage setIsError={setIsError} />
         </Route>
         <Route exact path="/newsletter/confirmation">
           <NewsletterConfirmationPage />
         </Route>
         <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
-          <EditNoticePage
-            notices={notices}
-            setEditedObject={setEditedObject}
-            isWaiting={isWaiting}
-            setIsWaiting={setIsWaiting}
-          />
+          <EditNoticePage notices={notices} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addNotice" isLoadingUser={isLoadingUser}>
-          <AddNoticePage setEditedObject={setEditedObject} isWaiting={isWaiting} setIsWaiting={setIsWaiting} />
+          <AddNoticePage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
-          <EditScreeningPage
-            screenings={screenings}
-            serials={serials}
-            setEditedObject={setEditedObject}
-            isWaiting={isWaiting}
-            setIsWaiting={setIsWaiting}
-          />
+          <EditScreeningPage screenings={screenings} serials={serials} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
-          <AddScreeningPage
-            serials={serials}
-            setEditedObject={setEditedObject}
-            isWaiting={isWaiting}
-            setIsWaiting={setIsWaiting}
-          />
+          <AddScreeningPage serials={serials} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
           <EditSerialPage
             serials={serials}
             setEditedObject={setEditedObject}
-            isWaiting={isWaiting}
-            setIsWaiting={setIsWaiting}
           />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addSerial" isLoadingUser={isLoadingUser}>
-          <AddSerialPage setEditedObject={setEditedObject} isWaiting={isWaiting} setIsWaiting={setIsWaiting} />
+          <AddSerialPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <Route path="/logout">
           <Redirect exact to="/" />

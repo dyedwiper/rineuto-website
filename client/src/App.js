@@ -47,7 +47,7 @@ export default function App() {
 
   return (
     <Router>
-      <Context.Provider value={{ user, setUser, isUserLoggedIn, setIsUserLoggedIn }}>
+      <Context.Provider value={{ user, setUser, isUserLoggedIn, setIsUserLoggedIn, isWaiting, setIsWaiting }}>
         <AppStyled isDragging={isDragging}>
           {isWaiting && <OverlayStyled />}
           <Curtain screenWidth={screenWidth} side="left" isDragging={isDragging} setIsDragging={setIsDragging} />
@@ -60,8 +60,6 @@ export default function App() {
               isLoadingUser={isLoadingUser}
               setIsLoadingUser={setIsLoadingUser}
               setIsLoadingContent={setIsLoadingContent}
-              isWaiting={isWaiting}
-              setIsWaiting={setIsWaiting}
             />
           </ScreenStyled>
           <Curtain screenWidth={screenWidth} side="right" isDragging={isDragging} setIsDragging={setIsDragging} />
