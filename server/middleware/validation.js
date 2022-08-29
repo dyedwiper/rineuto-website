@@ -93,9 +93,22 @@ function validateQuote(req, res, next) {
   next();
 }
 
+function validateDish(req, res, next) {
+  const dishSchema = Joi.object({
+    name: Joi.string.max(200),
+    date: Joi.date(),
+  });
+  const { error } = dishSchema.validate(req.body);
+  if (error) {
+    return res.status(422).json({ joiError: error.details[0].message });
+  }
+  next();
+}
+
 module.exports.validateUser = validateUser;
 module.exports.validateLogin = validateLogin;
 module.exports.validateScreening = validateScreening;
 module.exports.validateSerial = validateSerial;
 module.exports.validateNotice = validateNotice;
 module.exports.validateQuote = validateQuote;
+module.exports.validateDish = validateDish;
