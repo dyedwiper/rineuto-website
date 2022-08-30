@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import QuotePerl from '../common/QuotePerl';
 import { getQuotes } from '../utils/services';
@@ -54,7 +55,8 @@ export default function AboutPage() {
           </div>
           <br />
           <div>
-            Bilder fließen in uns wie Getränke von der Bar, nähren uns wie vegane Speisen von der Küfa
+            Bilder fließen in uns wie Getränke von der Bar, nähren uns wie vegane Speisen von der{' '}
+            <InternalLinkStyled to={'/dishes'}>Küfa</InternalLinkStyled>
             <FootnoteLinkStyled href="#foodnotes">
               <sup>2</sup>&nbsp;
             </FootnoteLinkStyled>
@@ -62,15 +64,15 @@ export default function AboutPage() {
           </div>
           <br />
           <div>
-            Jeden paarten Dienstag in der{' '}
-            <MokryLinkStyled href="http://mokrymokry.blogsport.eu/" target="_blank" rel="noopener noreferrer">
-              Mokry
+            Jeden paarten Dienstag im{' '}
+            <MokryLinkStyled href="https://m1kollektiv.blackblogs.org/" target="_blank" rel="noopener noreferrer">
+              M1
             </MokryLinkStyled>{' '}
-            in Hamburg-Wilhelmsburg.
+            (Mokrystr. 1) in Hamburg-Wilhelmsburg.
           </div>
           <br />
           <br />
-          <div>Zitate sprechen lauter als weitere Worte. Klicke auf die Perlen, um mehr herauszufinden.</div>
+          <div>Zitate sprechen lauter als weitere Worte. Bitte klicken Sie auf die Perlen.</div>
         </AboutTextStyled>
       </AboutTextContainerStyled>
       <QuotePerlsContainerStyled
@@ -125,6 +127,10 @@ const AboutTextStyled = styled.div`
 const FootnoteLinkStyled = styled.a`
   color: var(--primary-color);
   text-decoration: none;
+`;
+
+const InternalLinkStyled = styled(Link)`
+  color: var(--primary-color);
 `;
 
 const MokryLinkStyled = styled.a`
