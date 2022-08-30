@@ -21,6 +21,10 @@ export default function VokuPage() {
     });
   }, []);
 
+  useEffect(() => {
+    document.title = 'VoKü | Rineuto Lichtspiele';
+  }, []);
+
   if (isLoading) {
     return <LoadingPage />;
   }
