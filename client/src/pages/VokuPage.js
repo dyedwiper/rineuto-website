@@ -43,7 +43,7 @@ export default function VokuPage() {
           ))}
       </DishListStyled>
       {isUserLoggedIn && <DishForm dishes={dishes} setDishes={setDishes} />}
-      <FootnoteStyled>
+      <FootnoteStyled id="foodnote">
         <sup>*</sup> Michelin-Stern
       </FootnoteStyled>
     </VokuPageStyled>
