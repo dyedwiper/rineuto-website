@@ -30,18 +30,18 @@ export default function DishForm({ dishes, setDishes }) {
     setIsWaiting(true);
     const form = event.currentTarget;
     const data = { date: form.date.value, name: form.name.value };
-    console.log(data);
     const jwt = getFromLocalStorage('rineuto-token');
     postDish(data, jwt)
       .then((newDish) => {
-        setIsWaiting(false);
         setDishes([...dishes, newDish]);
       })
       .catch((err) => {
-        setIsWaiting(false);
         if (err.hasOwnProperty('joiError')) {
           setValidationError(err.joiError);
         }
+      })
+      .finally(() => {
+        setIsWaiting(false);
       });
   }
 }

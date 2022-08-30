@@ -18,12 +18,6 @@ router.post('/', authenticate, validateDish, (req, res) => {
     .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
 });
 
-router.patch('/:id', authenticate, validateDish, (req, res) => {
-  Dish.findByIdAndUpdate(req.params.id, req.body)
-    .then((dish) => res.json(dish))
-    .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
-});
-
 router.delete('/:id', authenticate, (req, res) => {
   Dish.findByIdAndDelete(req.params.id)
     .then(() => res.json(STANDARD_SUCCESS_MESSAGE))

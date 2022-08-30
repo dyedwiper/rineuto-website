@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import michelImage from '../assets/michel.jpg';
+import DishForm from '../common/DishForm';
+import DishListItem from '../common/DishListItem';
+import Context from '../Context';
 import { getDishes } from '../utils/services';
 import LoadingPage from './LoadingPage';
-import michelImage from '../assets/michel.jpg';
-import { formatToDateString } from '../utils/dateFormatters';
-import Context from '../Context';
-import DishForm from '../common/DishForm';
 
 export default function VokuPage() {
   const [dishes, setDishes] = useState([]);
@@ -39,10 +39,7 @@ export default function VokuPage() {
         {dishes
           .sort((a, b) => new Date(b.date) - new Date(a.date))
           .map((dish) => (
-            <DishListItemStyled key={dish._id}>
-              <DateStyled>{formatToDateString(dish.date)}</DateStyled>
-              <NameStyled>{dish.name}</NameStyled>
-            </DishListItemStyled>
+            <DishListItem key={dish._id} dish={dish} dishes={dishes} setDishes={setDishes} />
           ))}
       </DishListStyled>
       {isUserLoggedIn && <DishForm dishes={dishes} setDishes={setDishes} />}
@@ -91,18 +88,6 @@ const DishListStyled = styled.ul`
   padding: 0;
   list-style: none;
 `;
-
-const DishListItemStyled = styled.li`
-  margin: 5px 0;
-  font-size: 1.2em;
-  color: var(--primary-color);
-`;
-
-const DateStyled = styled.span`
-  margin: 0 20px 0 0;
-`;
-
-const NameStyled = styled.span``;
 
 const FootnoteStyled = styled.div`
   margin: 40px auto 20px auto;

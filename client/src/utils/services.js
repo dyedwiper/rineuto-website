@@ -118,6 +118,15 @@ export function postDish(data, token) {
   }).then(handleError);
 }
 
+export function deleteDish(id, token) {
+  return fetch('/api/dishes/' + id, {
+    method: 'DELETE',
+    headers: {
+      'auth-token': token,
+    },
+  }).then(handleError);
+}
+
 export function postLoginUser(data) {
   return fetch('/api/users/login', {
     method: 'POST',
