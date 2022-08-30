@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Context from '../Context';
-import { removeItem } from '../utils/arrayUtils';
 import { formatToDateString } from '../utils/dateFormatters';
 import { deleteDish } from '../utils/services';
 import { getFromLocalStorage } from '../utils/storage';
@@ -22,7 +21,7 @@ export default function DishListItem({ dish, dishes, setDishes }) {
     setIsWaiting(true);
     deleteDish(dish._id, jwt)
       .then(() => {
-        const updatedDishes = removeItem(dishes, dish);
+        const updatedDishes = dishes.filter((x) => x !== dish);
         setDishes(updatedDishes);
       })
       .finally(() => {
