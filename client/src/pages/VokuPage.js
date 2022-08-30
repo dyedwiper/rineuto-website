@@ -34,6 +34,10 @@ export default function VokuPage() {
         innen
       </HeadlineStyled>
       <MichelStyled src={michelImage} />
+      <DescriptionStyled>
+        Vor den Filmen kochen wir für euch. <br />
+        Immer vegan. Fast immer um 19:30 Uhr fertig.
+      </DescriptionStyled>
       <SubHeadlineStyled>Gerichte:</SubHeadlineStyled>
       <DishListStyled>
         {dishes
@@ -78,8 +82,14 @@ const MichelStyled = styled.img`
   margin: 0 auto;
 `;
 
+const DescriptionStyled = styled.p`
+  margin: 40px 0 0 0;
+  font-size: 1.2em;
+  color: var(--primary-color);
+`;
+
 const SubHeadlineStyled = styled.h3`
-  margin: 40px 0 20px 0;
+  margin: 20px 0 10px 0;
   color: var(--primary-color);
 `;
 
