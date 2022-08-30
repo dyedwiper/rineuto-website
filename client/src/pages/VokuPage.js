@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import michelImage from '../assets/michel.jpg';
+import piez from '../assets/piez.png';
 import DishForm from '../common/DishForm';
 import DishListItem from '../common/DishListItem';
 import Context from '../Context';
@@ -50,6 +51,9 @@ export default function VokuPage() {
       <FootnoteStyled id="foodnote">
         <sup>*</sup> Michelin-Stern
       </FootnoteStyled>
+      <PerlLinkStyled href="https://www.youtube.com/watch?v=-8yTGXKUZJs" target="_blank" rel="noopener noreferrer">
+        <PerlImageStyled src={piez} alt="Eine Pizza" />
+      </PerlLinkStyled>
     </VokuPageStyled>
   );
 }
@@ -103,4 +107,13 @@ const FootnoteStyled = styled.div`
   margin: 40px auto 20px auto;
   max-width: 600px;
   color: var(--primary-color);
+`;
+
+const PerlLinkStyled = styled.a`
+  margin-left: 200px;
+`;
+
+const PerlImageStyled = styled.img`
+  height: 20px;
+  width: 20px;
 `;

@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/macro';
 import QuotePerl from '../common/QuotePerl';
 import { getQuotes } from '../utils/services';
 import LoadingPage from './LoadingPage';
-import piez from '../assets/piez.png';
 
 export default function AboutPage() {
   const [quotes, setQuotes] = useState([]);
@@ -94,9 +93,6 @@ export default function AboutPage() {
         <br />
         <sup>2</sup> Kulinarische überreste fantasielos angerichtet - circa eine Stunde vor Filmbeginn
       </FootnotesStyled>
-      <PerlLinkStyled href="https://www.youtube.com/watch?v=-8yTGXKUZJs" target="_blank" rel="noopener noreferrer">
-        <PerlImageStyled src={piez} alt="Eine Pizza" />
-      </PerlLinkStyled>
     </AboutPageStyled>
   );
 
@@ -148,13 +144,4 @@ const FootnotesStyled = styled.div`
   margin: 40px auto 20px auto;
   max-width: 600px;
   color: var(--primary-color);
-`;
-
-const PerlLinkStyled = styled.a`
-  margin-left: 200px;
-`;
-
-const PerlImageStyled = styled.img`
-  height: 20px;
-  width: 20px;
 `;
