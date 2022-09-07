@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { WaitNoteStyled } from '../common/styledElements';
+import Context from '../Context';
 import { postNewsletterContact } from '../utils/services';
 
-export default function NewsletterPage({ isWaiting, setIsWaiting, setIsError }) {
+export default function NewsletterPage({ setIsError }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [validationError, setValidationError] = useState('');
+
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   useEffect(() => {
     document.title = 'Newsletter | Rineuto Lichtspiele';

@@ -3,7 +3,7 @@ import Linkify from 'react-linkify';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import DateRibbon from '../common/DateRibbon';
-import UserContext from '../userContext';
+import Context from '../Context';
 import LoadingPage from './LoadingPage';
 
 export default function ScreeningPage({ screenings, editedObject }) {
@@ -11,8 +11,7 @@ export default function ScreeningPage({ screenings, editedObject }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
 
-  const { user } = useContext(UserContext);
-  const loggedIn = Object.keys(user).length !== 0;
+  const { isUserLoggedIn } = useContext(Context);
 
   let history = useHistory();
 
@@ -73,7 +72,9 @@ export default function ScreeningPage({ screenings, editedObject }) {
         <ScreeningSerialStyled>
           Filmreihe: {selectedScreening.serial ? selectedScreening.serial.title : ''}
         </ScreeningSerialStyled>
-        {loggedIn && <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>Bearbeiten</EditLinkStyled>}
+        {isUserLoggedIn && (
+          <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>Bearbeiten</EditLinkStyled>
+        )}
       </ScreeningInfoContainerStyled>
     </ScreeningPageStyled>
   );
