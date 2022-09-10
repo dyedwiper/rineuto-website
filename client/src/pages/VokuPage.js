@@ -34,12 +34,16 @@ export default function VokuPage() {
       <HeadlineStyled>
         Wir füttern die Hamburger Michel*
         <FootnoteLinkStyled href="#foodnote">
-          <sup>*</sup>&nbsp;
+          <sup>*</sup>
         </FootnoteLinkStyled>
         innen
       </HeadlineStyled>
       <MichelStyled src={michelImage} />
-      <DescriptionStyled>Immer vegan. Fast immer um 19:30 Uhr fertig.</DescriptionStyled>
+      <DescriptionStyled>
+        <strong>Vo</strong>r dem <strong>Kü</strong>no.
+        <br />
+        Immer vegan. Fast immer um 19:30 Uhr fertig.
+      </DescriptionStyled>
       <SubHeadlineStyled>Gerichte:</SubHeadlineStyled>
       <DishListStyled>
         {dishes
