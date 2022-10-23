@@ -124,7 +124,7 @@ const ScreeningTitleStyled = styled.h2`
 const SpecialStyled = styled.div`
   max-width: 560px;
   padding: 10px;
-  background-color: #ffee00;
+  background-color: var(--special-color);
   font-weight: bold;
 `;
 

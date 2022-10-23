@@ -8,6 +8,7 @@ export default createGlobalStyle`
   :root{
       --primary-color: white;
       --secondary-color: black;
+      --special-color: #ffee00;
       --success-color: chartreuse;
       --error-color: coral;
   }
