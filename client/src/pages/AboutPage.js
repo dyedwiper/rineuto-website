@@ -56,7 +56,7 @@ export default function AboutPage() {
           <br />
           <div>
             Bilder fließen in uns wie Getränke von der Bar, nähren uns wie vegane Speisen von der{' '}
-            <InternalLinkStyled to={'/dishes'}>Küfa</InternalLinkStyled>
+            <InternalLinkStyled to={'/voku'}>Küfa</InternalLinkStyled>
             <FootnoteLinkStyled href="#foodnotes">
               <sup>2</sup>&nbsp;
             </FootnoteLinkStyled>

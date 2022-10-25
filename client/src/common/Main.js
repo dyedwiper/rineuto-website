@@ -108,7 +108,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
         <Route path="/posters">
           <PosterPage serials={serials} editedObject={editedObject} />
         </Route>
-        <Route path="/dishes">
+        <Route path="/voku">
           <VokuPage />
         </Route>
         <Route path="/about">
@@ -139,10 +139,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <AddScreeningPage serials={serials} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
-          <EditSerialPage
-            serials={serials}
-            setEditedObject={setEditedObject}
-          />
+          <EditSerialPage serials={serials} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addSerial" isLoadingUser={isLoadingUser}>
           <AddSerialPage setEditedObject={setEditedObject} />
