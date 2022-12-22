@@ -8,7 +8,7 @@
   "scripts": {
     "postinstall": "cd server && npm install",
     "start": "cd server && npm run start",
-    "start-local": "cd server && npm run start-local",
+    "serve-local": "cd server && npm run serve-local",
     "build": "cd client && npm install && npm run build",
     "dev": "run-p server-dev react-dev",
     "server-dev": "cd server && npm run dev",

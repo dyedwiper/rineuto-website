@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "start-local": "env NODE_ENV=production nodemon index.js",
+    "serve-local": "env NODE_ENV=production nodemon index.js",
     "dev": "nodemon index.js"
   },
   "dependencies": {
