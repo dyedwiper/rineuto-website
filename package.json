@@ -6,6 +6,7 @@
     "npm": "8.x"
   },
   "scripts": {
+    "postinstall": "cd server && npm install",
     "start": "cd server && npm run start",
     "start-local": "cd server && npm run start-local",
     "build": "cd client && npm install && npm run build",
