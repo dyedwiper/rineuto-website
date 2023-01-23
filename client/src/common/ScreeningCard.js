@@ -52,6 +52,7 @@ const SpecialStyled = styled.div`
   max-width: 560px;
   padding: 10px;
   background-color: var(--special-color);
+  color: var(--secondary-color);
   font-weight: bold;
 `;
 

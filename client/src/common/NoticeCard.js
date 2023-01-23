@@ -55,6 +55,7 @@ const NoticeTitleStyled = styled.h3`
   margin: 0;
   padding: 40px 20px 0 20px;
   background-color: var(--primary-color);
+  color: var(--secondary-color);
   font-size: 1.5rem;
 `;
 
@@ -72,6 +73,7 @@ const NoticeTextStyled = styled.p`
   margin: 0;
   padding: 20px;
   background-color: var(--primary-color);
+  color: var(--secondary-color);
   white-space: pre-line;
 `;
 

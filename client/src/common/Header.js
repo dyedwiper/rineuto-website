@@ -60,6 +60,7 @@ const TitleStyled = styled.h1`
   margin: 0;
   padding-left: 20px;
   cursor: pointer;
+  color: var(--secondary-color);
 
   @media (max-width: 340px) {
     font-size: 1.75em;

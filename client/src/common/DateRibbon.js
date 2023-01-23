@@ -31,6 +31,7 @@ const DateRibbonStyled = styled.div`
 const DateStyled = styled.span`
   padding: 5px 10px;
   background-color: var(--primary-color);
+  color: var(--secondary-color);
 `;
 
 const TimeStyled = styled.span`

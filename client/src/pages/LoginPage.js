@@ -85,7 +85,6 @@ const ButtonStyled = styled.button`
   justify-self: center;
   width: min-content;
   padding: 5px 20px;
-  background-color: var(--primary-color);
   border-radius: 3px;
 `;
 

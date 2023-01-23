@@ -119,12 +119,14 @@ const ScreeningTitleStyled = styled.h2`
   margin: 0;
   padding: 10px;
   background-color: var(--primary-color);
+  color: var(--secondary-color);
 `;
 
 const SpecialStyled = styled.div`
   max-width: 560px;
   padding: 10px;
   background-color: var(--special-color);
+  color: var(--secondary-color);
   font-weight: bold;
 `;
 
@@ -145,6 +147,7 @@ const FilmSynopsisStyled = styled.p`
   margin: 0;
   padding: 10px;
   background-color: var(--primary-color);
+  color: var(--secondary-color);
   white-space: pre-line;
 `;
 
