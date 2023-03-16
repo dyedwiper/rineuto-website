@@ -1,10 +1,6 @@
 {
   "name": "rineuto-server",
   "private": true,
-  "engines": {
-    "node": "16.x",
-    "npm": "8.x"
-  },
   "scripts": {
     "start": "node index.js",
     "serve-local": "env NODE_ENV=production nodemon index.js",

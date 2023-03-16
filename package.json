@@ -2,8 +2,8 @@
   "name": "rineuto-app",
   "private": true,
   "engines": {
-    "node": "16.x",
-    "npm": "8.x"
+    "node": "18.x",
+    "npm": "9.x"
   },
   "scripts": {
     "postinstall": "cd server && npm install",
