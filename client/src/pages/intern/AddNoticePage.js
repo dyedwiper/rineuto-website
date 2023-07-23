@@ -5,9 +5,12 @@ import { postNotice } from '../../utils/services';
 import { getFromLocalStorage } from '../../utils/storage';
 import { WaitNoteStyled } from '../../common/styledElements';
 import Context from '../../Context';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default function AddNoticePage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
+  const [editor, setEditor] = useState();
 
   const { isWaiting, setIsWaiting } = useContext(Context);
 
@@ -42,10 +45,16 @@ export default function AddNoticePage({ setEditedObject }) {
           </span>
           <InputStyled name="altText" />
         </LabelStyled>
-        <LabelStyled>
-          Text
-          <TextareaStyled name="text" />
-        </LabelStyled>
+        <LabelStyled htmlFor="ckEditor">Text</LabelStyled>
+        <CKEditor
+          editor={ClassicEditor}
+          id="ckEditor"
+          config={{ toolbar: ['bold', 'italic', '|', 'link'] }}
+          data="<p>Hello</p>"
+          onReady={(editor) => {
+            setEditor(editor);
+          }}
+        />
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         {isWaiting ? (
           <WaitNoteStyled>Bitte warten</WaitNoteStyled>
@@ -66,6 +75,7 @@ export default function AddNoticePage({ setEditedObject }) {
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
+    formData.append('text', editor.getData());
     const jwt = getFromLocalStorage('rineuto-token');
     postNotice(formData, jwt)
       .then(() => {
@@ -115,13 +125,6 @@ const InputStyled = styled.input``;
 
 const LinkStyled = styled.a`
   color: var(--primary-color);
-`;
-
-const TextareaStyled = styled.textarea`
-  display: block;
-  overflow: auto;
-  resize: none;
-  min-height: 150px;
 `;
 
 const ButtonStyled = styled.button`

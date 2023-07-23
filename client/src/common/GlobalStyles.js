@@ -41,4 +41,9 @@ export default createGlobalStyle`
     color: var(--secondary-color);
     cursor: pointer;
   }
+
+  /* Styles for CKEditor */
+  .ck {
+    color: black;
+  }
 `;
