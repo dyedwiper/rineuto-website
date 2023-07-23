@@ -2,7 +2,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import React from 'react';
 
-export default function WysiwygEditor({ setEditor }) {
+export default function WysiwygEditor({ setEditor, data }) {
   return (
     <CKEditor
       editor={ClassicEditor}
@@ -22,7 +22,7 @@ export default function WysiwygEditor({ setEditor }) {
           },
         },
       }}
-      data="<p>Hello</p>"
+      data={data}
       onReady={(editor) => {
         setEditor(editor);
       }}
