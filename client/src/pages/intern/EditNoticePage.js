@@ -69,8 +69,10 @@ export default function EditNoticePage({ notices, setEditedObject }) {
           </span>
           <InputStyled name="altText" defaultValue={noticeToEdit.altText} />
         </LabelStyled>
-        <LabelStyled htmlFor="ckEditor">Text</LabelStyled>
-        <WysiwygEditor setEditor={setEditor} data={noticeToEdit.text} />
+        <FormGroupStyled>
+          <LabelStyled htmlFor="ckEditor">Text</LabelStyled>
+          <WysiwygEditor setEditor={setEditor} data={noticeToEdit.text} />
+        </FormGroupStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         {isWaiting ? (
           <WaitNoteStyled>Bitte warten</WaitNoteStyled>
@@ -171,6 +173,12 @@ const LinkStyled = styled.a`
 
 const ButtonStyled = styled.button`
   justify-self: center;
+`;
+
+const FormGroupStyled = styled.div`
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-gap: 5px;
 `;
 
 const ErrorMessageStyled = styled.span`

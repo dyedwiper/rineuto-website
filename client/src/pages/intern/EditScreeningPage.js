@@ -103,8 +103,10 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
           Version
           <InputStyled name="version" defaultValue={screeningToEdit.version} />
         </LabelStyled>
-        <LabelStyled htmlFor="ckEditor">Text</LabelStyled>
-        <WysiwygEditor setEditor={setEditor} data={screeningToEdit.synopsis} />
+        <FormGroupStyled>
+          <LabelStyled htmlFor="ckEditor">Beschreibung</LabelStyled>
+          <WysiwygEditor setEditor={setEditor} data={screeningToEdit.synopsis} />
+        </FormGroupStyled>
         <LabelStyled>
           Sonderbemerkung
           <InputStyled name="special" defaultValue={screeningToEdit.special} />
@@ -229,6 +231,12 @@ const SelectStyled = styled.select`
 
 const ButtonStyled = styled.button`
   justify-self: center;
+`;
+
+const FormGroupStyled = styled.div`
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-gap: 5px;
 `;
 
 const ErrorMessageStyled = styled.span`
