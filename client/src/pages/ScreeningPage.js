@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Linkify from 'react-linkify';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import DateRibbon from '../common/DateRibbon';
 import Context from '../Context';
+import DateRibbon from '../common/DateRibbon';
 import LoadingPage from './LoadingPage';
 
 export default function ScreeningPage({ screenings, editedObject }) {
@@ -58,17 +57,7 @@ export default function ScreeningPage({ screenings, editedObject }) {
             (selectedScreening.version && ' | ' + selectedScreening.version)}
         </FilmInfoStyled>
         <FilmDirectorStyled>{'Regie: ' + selectedScreening.director}</FilmDirectorStyled>
-        <FilmSynopsisStyled>
-          <Linkify
-            componentDecorator={(decoratedHref, decoratedText, key) => (
-              <a target="blank" href={decoratedHref} key={key}>
-                {decoratedText}
-              </a>
-            )}
-          >
-            {selectedScreening.synopsis}
-          </Linkify>
-        </FilmSynopsisStyled>
+        <FilmSynopsisStyled dangerouslySetInnerHTML={{ __html: selectedScreening.synopsis }} />
         <ScreeningSerialStyled>
           Filmreihe: {selectedScreening.serial ? selectedScreening.serial.title : ''}
         </ScreeningSerialStyled>
