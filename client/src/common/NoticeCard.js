@@ -57,13 +57,17 @@ const NoticeDateStyled = styled.div`
   background-color: var(--secondary-color);
 `;
 
-const NoticeTextStyled = styled.p`
+const NoticeTextStyled = styled.div`
   overflow: auto;
   margin: 0;
   padding: 20px;
   background-color: var(--primary-color);
   color: var(--secondary-color);
   white-space: pre-line;
+
+  & p {
+    margin: 0;
+  }
 `;
 
 const EditContainerStyled = styled.div`

@@ -42,8 +42,8 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
-  /* Styles for CKEditor */
-  .ck {
+  .ck-editor {
     color: black;
+    overflow: auto;
   }
 `;

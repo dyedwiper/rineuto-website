@@ -131,13 +131,17 @@ const FilmDirectorStyled = styled.div`
   color: var(--primary-color);
 `;
 
-const FilmSynopsisStyled = styled.p`
+const FilmSynopsisStyled = styled.div`
   overflow: auto;
   margin: 0;
   padding: 10px;
   background-color: var(--primary-color);
   color: var(--secondary-color);
   white-space: pre-line;
+
+  & p {
+    margin: 0;
+  }
 `;
 
 const ScreeningSerialStyled = styled.div`
