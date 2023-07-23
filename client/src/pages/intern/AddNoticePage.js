@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import Context from '../../Context';
+import WysiwygEditor from '../../common/WysiwygEditor';
+import { WaitNoteStyled } from '../../common/styledElements';
 import { postNotice } from '../../utils/services';
 import { getFromLocalStorage } from '../../utils/storage';
-import { WaitNoteStyled } from '../../common/styledElements';
-import Context from '../../Context';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default function AddNoticePage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
@@ -46,15 +45,7 @@ export default function AddNoticePage({ setEditedObject }) {
           <InputStyled name="altText" />
         </LabelStyled>
         <LabelStyled htmlFor="ckEditor">Text</LabelStyled>
-        <CKEditor
-          editor={ClassicEditor}
-          id="ckEditor"
-          config={{ toolbar: ['bold', 'italic', '|', 'link'] }}
-          data="<p>Hello</p>"
-          onReady={(editor) => {
-            setEditor(editor);
-          }}
-        />
+        <WysiwygEditor setEditor={setEditor} />
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         {isWaiting ? (
           <WaitNoteStyled>Bitte warten</WaitNoteStyled>
