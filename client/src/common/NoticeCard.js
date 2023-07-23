@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import Linkify from 'react-linkify';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import Context from '../Context';
@@ -15,17 +14,7 @@ export default function NoticeCard({ notice, editedObject }) {
         <NoticeTitleStyled>{notice.title}</NoticeTitleStyled>
         <NoticeDateStyled>{formatToDateString(notice.date)}</NoticeDateStyled>
       </NoticeTitleRowStyled>
-      <NoticeTextStyled>
-        <Linkify
-          componentDecorator={(decoratedHref, decoratedText, key) => (
-            <a target="_blank" rel="noopener noreferrer" href={decoratedHref} key={key}>
-              {decoratedText}
-            </a>
-          )}
-        >
-          {notice.text}
-        </Linkify>
-      </NoticeTextStyled>
+      <NoticeTextStyled dangerouslySetInnerHTML={{ __html: notice.text }} />
       {isUserLoggedIn && (
         <EditContainerStyled>
           {editedObject._id === notice._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
@@ -68,13 +57,16 @@ const NoticeDateStyled = styled.div`
   background-color: var(--secondary-color);
 `;
 
-const NoticeTextStyled = styled.p`
+const NoticeTextStyled = styled.div`
   overflow: auto;
-  margin: 0;
   padding: 20px;
   background-color: var(--primary-color);
   color: var(--secondary-color);
   white-space: pre-line;
+
+  & p {
+    margin: 0;
+  }
 `;
 
 const EditContainerStyled = styled.div`

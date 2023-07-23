@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { patchScreening, deleteScreening } from '../../utils/services';
+import Context from '../../Context';
+import DeletePrompt from '../../common/DeletePrompt';
+import WysiwygEditor from '../../common/WysiwygEditor';
+import { WaitNoteStyled } from '../../common/styledElements';
+import { deleteScreening, patchScreening } from '../../utils/services';
 import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
-import DeletePrompt from '../../common/DeletePrompt';
-import { WaitNoteStyled } from '../../common/styledElements';
-import Context from '../../Context';
 
 export default function EditScreeningPage({ screenings, serials, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
@@ -14,6 +15,7 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+  const [editor, setEditor] = useState();
 
   const { isWaiting, setIsWaiting } = useContext(Context);
 
@@ -101,10 +103,10 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
           Version
           <InputStyled name="version" defaultValue={screeningToEdit.version} />
         </LabelStyled>
-        <LabelStyled>
-          Beschreibung
-          <TextareaStyled name="synopsis" defaultValue={screeningToEdit.synopsis} />
-        </LabelStyled>
+        <FormGroupStyled>
+          <LabelStyled htmlFor="ckEditor">Beschreibung</LabelStyled>
+          <WysiwygEditor setEditor={setEditor} data={screeningToEdit.synopsis} />
+        </FormGroupStyled>
         <LabelStyled>
           Sonderbemerkung
           <InputStyled name="special" defaultValue={screeningToEdit.special} />
@@ -155,6 +157,7 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
+    formData.append('synopsis', editor.getData());
     const jwt = getFromLocalStorage('rineuto-token');
     patchScreening(screeningToEdit._id, formData, jwt)
       .then(() => {
@@ -222,19 +225,18 @@ const LinkStyled = styled.a`
   color: var(--primary-color);
 `;
 
-const TextareaStyled = styled.textarea`
-  display: block;
-  overflow: auto;
-  resize: none;
-  min-height: 150px;
-`;
-
 const SelectStyled = styled.select`
   padding: 5px;
 `;
 
 const ButtonStyled = styled.button`
   justify-self: center;
+`;
+
+const FormGroupStyled = styled.div`
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-gap: 5px;
 `;
 
 const ErrorMessageStyled = styled.span`

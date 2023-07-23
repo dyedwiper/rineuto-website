@@ -9,12 +9,13 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^38.1.1",
+    "@ckeditor/ckeditor5-react": "^6.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-linkify": "^1.0.0-alpha",
     "react-router-dom": "^5.1.2",
-    "styled-components": "^4.4.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "styled-components": "^4.4.1"
   },
   "browserslist": {
     "production": [

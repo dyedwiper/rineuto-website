@@ -41,4 +41,9 @@ export default createGlobalStyle`
     color: var(--secondary-color);
     cursor: pointer;
   }
+
+  .ck-editor {
+    color: black;
+    overflow: auto;
+  }
 `;

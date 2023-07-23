@@ -158,24 +158,15 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
   function formatScreenings(screenings) {
     const formattedScreenings = screenings.map((screening) => {
       const dateFormatted = new Date(screening.date);
-      let synopsisFormatted = '';
-      if (screening.synopsis) {
-        synopsisFormatted = screening.synopsis.replace(/\\n/g, '\n');
-      }
-      return {
-        ...screening,
-        date: dateFormatted,
-        synopsis: synopsisFormatted,
-      };
+      return { ...screening, date: dateFormatted };
     });
     return formattedScreenings;
   }
 
   function formatNotices(notices) {
     const formattedNotices = notices.map((notice) => {
-      const textFormatted = notice.text.replace(/\\n/g, '\n');
       const dateFormatted = new Date(notice.date);
-      return { ...notice, text: textFormatted, date: dateFormatted };
+      return { ...notice, date: dateFormatted };
     });
     return formattedNotices;
   }
