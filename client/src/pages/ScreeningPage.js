@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import Context from '../Context';
 import DateRibbon from '../common/DateRibbon';
@@ -11,8 +11,6 @@ export default function ScreeningPage({ screenings, editedObject }) {
   const [isInvalidId, setIsInvalidId] = useState(false);
 
   const { isUserLoggedIn } = useContext(Context);
-
-  let history = useHistory();
 
   useEffect(() => {
     if (selectedScreening) {
@@ -41,7 +39,6 @@ export default function ScreeningPage({ screenings, editedObject }) {
   return (
     <ScreeningPageStyled>
       {editedObject._id === selectedScreening._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
-      <BackButtonStyled onClick={history.goBack}>Zurück</BackButtonStyled>
       <ScreeningInfoContainerStyled>
         <DateRibbon date={selectedScreening.date} />
         <FilmStillStyled src={selectedScreening.imageUrl} alt={selectedScreening.altText} />
@@ -81,15 +78,6 @@ const EditNoteStyled = styled.div`
   color: var(--success-color);
   font-size: 1.5em;
   font-weight: bold;
-`;
-
-const BackButtonStyled = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 60px;
-  height: 20px;
-  padding: 0 5px;
 `;
 
 const ScreeningInfoContainerStyled = styled.div`
