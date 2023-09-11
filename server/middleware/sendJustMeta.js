@@ -1,9 +1,20 @@
 const Screening = require('../models/Screening');
 const { STANDARD_ERROR_MESSAGE } = require('../utils/constants');
 
+const USER_AGENT_FACEBOOK = 'facebookexternalhit';
+const USER_AGENT_TELEGRAM = 'TelegramBot';
+const USER_AGENT_TWITTER = 'Twitterbot';
+const USER_AGENT_WHATSAPP = 'WhatsApp';
+
 function sendJustMeta(req, res, next) {
   const userAgent = req.header('user-agent');
-  if (userAgent && (userAgent.includes('facebookexternalhit') || userAgent.includes('TelegramBot'))) {
+  if (
+    userAgent &&
+    (userAgent.includes(USER_AGENT_FACEBOOK) ||
+      userAgent.includes(USER_AGENT_TELEGRAM) ||
+      userAgent.includes(USER_AGENT_TWITTER) ||
+      userAgent.includes(USER_AGENT_WHATSAPP))
+  ) {
     if (req.path.startsWith('/screening')) {
       const screeningId = req.path.slice(req.path.indexOf('screening') + 10, req.path.indexOf('screening') + 34);
       Screening.findById(screeningId)
@@ -71,60 +82,6 @@ function sendJustMeta(req, res, next) {
         <meta property="og:site_name" content="Rineuto Lichtspiele" />
         <meta property="og:description" content="Adresse etc." />
         <meta property="og:locale" content="de_DE" />
-      `);
-    } else {
-      next();
-    }
-  } else if (userAgent && userAgent.includes('Twitterbot')) {
-    if (req.path.startsWith('/screening')) {
-      const screeningId = req.path.slice(req.path.indexOf('screening') + 10, req.path.indexOf('screening') + 34);
-      Screening.findById(screeningId)
-        .then((screening) => {
-          if (!screening) {
-            return res.status(404).json('screening not found');
-          }
-          res.send(`
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="${screening.title}">
-            <meta name="twitter:description" content="${screening.synopsis}" />
-            <meta name="twitter:image" content="${screening.imageUrl}">
-          `);
-        })
-        .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
-    } else if (req.path.startsWith('/program')) {
-      res.send(`
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Programm | Rineuto Lichtspiele">
-        <meta name="twitter:description" content="Unsere nächsten Filmperlen" />
-        <meta name="twitter:image" content="https://www.rineuto.de/filmperlen.jpg">
-      `);
-    } else if (req.path.startsWith('/archive')) {
-      res.send(`
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Archiv | Rineuto Lichtspiele">
-        <meta name="twitter:description" content="Vergangene Filmperlen" />
-        <meta name="twitter:image" content="https://www.rineuto.de/filmperlen.jpg">
-      `);
-    } else if (req.path.startsWith('/posters')) {
-      res.send(`
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Plakate | Rineuto Lichtspiele">
-        <meta name="twitter:description" content="Selbstgebügelte Plakate" />
-        <meta name="twitter:image" content="https://www.rineuto.de/filmperlen.jpg">
-      `);
-    } else if (req.path.startsWith('/about')) {
-      res.send(`
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Über uns | Rineuto Lichtspiele">
-        <meta name="twitter:description" content="Perlen für die Säue" />
-        <meta name="twitter:image" content="https://www.rineuto.de/filmperlen.jpg">
-      `);
-    } else if (req.path.startsWith('/contact')) {
-      res.send(`
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Kontakt | Rineuto Lichtspiele">
-        <meta name="twitter:description" content="Adresse etc." />
-        <meta name="twitter:image" content="https://www.rineuto.de/filmperlen.jpg">
       `);
     } else {
       next();
