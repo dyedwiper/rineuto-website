@@ -1,9 +1,5 @@
 import axios from 'axios';
 
 export function postNewsletterContact(data) {
-  return axios.post('/api/newsletter', data, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  return axios.post('/api/newsletter', data, {});
 }
