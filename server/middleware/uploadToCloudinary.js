@@ -1,7 +1,7 @@
 const DatauriParser = require('datauri/parser');
 const path = require('path');
 const { config, uploader } = require('cloudinary').v2;
-const { replaceUmlautsAndSpecialCharacters } = require('../utils/stringMethods');
+const { replaceUmlautsAndSpecialCharacters } = require('../utils/stringUtils');
 const { STANDARD_ERROR_MESSAGE } = require('../constants');
 
 const parser = new DatauriParser();
