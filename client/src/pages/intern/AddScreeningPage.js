@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import Context from '../../Context';
 import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
-import { postScreening } from '../../utils/services';
+import { postScreening } from '../../services/screeningServices';
 import { getFromLocalStorage } from '../../utils/storage';
 
 export default function AddScreeningPage({ serials, setEditedObject }) {

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import magicGif from '../assets/ahahah.gif';
 import Context from '../Context';
-import { postLoginUser } from '../utils/services';
+import magicGif from '../assets/ahahah.gif';
+import { postLoginUser } from '../services/userServices';
 
 export default function LoginPage({ setIsLoadingUser }) {
   const [didLoginFail, setDidLoginFail] = useState(false);
@@ -40,8 +40,8 @@ export default function LoginPage({ setIsLoadingUser }) {
     const formData = new FormData(form);
     const loginData = Object.fromEntries(formData);
     postLoginUser(loginData)
-      .then((user) => {
-        setUser(user);
+      .then((res) => {
+        setUser(res.data);
         setIsUserLoggedIn(true);
         setIsLoadingUser(false);
         setDidLoginFail(false);

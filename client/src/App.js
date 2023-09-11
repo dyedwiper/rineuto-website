@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import Context from './Context';
 import blackPerlImage from './assets/perls/blackPerl.png';
+import Curtain from './common/Curtain';
 import Header from './common/Header';
 import Main from './common/Main';
 import Navigation from './common/Navigation';
-import Context from './Context';
-import { authenticateUser } from './utils/services';
+import { authenticateUser } from './services/userServices';
 import { getFromLocalStorage } from './utils/storage';
-import Curtain from './common/Curtain';
 
 export default function App() {
   const [user, setUser] = useState({});
@@ -32,8 +32,8 @@ export default function App() {
     const token = getFromLocalStorage('rineuto-token');
     if (token) {
       authenticateUser(token)
-        .then((user) => {
-          setUser(user);
+        .then((res) => {
+          setUser(res.data);
           setIsUserLoggedIn(true);
         })
         .then(() => {

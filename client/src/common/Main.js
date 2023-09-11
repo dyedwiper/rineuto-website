@@ -5,12 +5,6 @@ import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import ContactPage from '../pages/ContactPage';
 import ErrorPage from '../pages/ErrorPage';
-import AddNoticePage from '../pages/intern/AddNoticePage';
-import AddScreeningPage from '../pages/intern/AddScreeningPage';
-import AddSerialPage from '../pages/intern/AddSerialPage';
-import EditNoticePage from '../pages/intern/EditNoticePage';
-import EditScreeningPage from '../pages/intern/EditScreeningPage';
-import EditSerialPage from '../pages/intern/EditSerialPage';
 import LoadingPage from '../pages/LoadingPage';
 import LoginPage from '../pages/LoginPage';
 import NewsletterConfirmationPage from '../pages/NewsletterConfirmationPage';
@@ -21,7 +15,15 @@ import PosterPage from '../pages/PosterPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
 import VokuPage from '../pages/VokuPage';
-import { getNotices, getScreenings, getSerials } from '../utils/services';
+import AddNoticePage from '../pages/intern/AddNoticePage';
+import AddScreeningPage from '../pages/intern/AddScreeningPage';
+import AddSerialPage from '../pages/intern/AddSerialPage';
+import EditNoticePage from '../pages/intern/EditNoticePage';
+import EditScreeningPage from '../pages/intern/EditScreeningPage';
+import EditSerialPage from '../pages/intern/EditSerialPage';
+import { getNotices } from '../services/noticeServices';
+import { getScreenings } from '../services/screeningServices';
+import { getSerials } from '../services/serialServices';
 import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsLoadingContent, setIsNavOpen }) {
@@ -48,8 +50,8 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
 
   useEffect(() => {
     getScreenings()
-      .then((screenings) => {
-        const screeningsFormatted = formatScreenings(screenings);
+      .then((res) => {
+        const screeningsFormatted = formatScreenings(res.data);
         setScreenings(screeningsFormatted);
         setIsLoadingScreenings(false);
       })
@@ -58,8 +60,8 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
 
   useEffect(() => {
     getSerials()
-      .then((serials) => {
-        setSerials(serials);
+      .then((res) => {
+        setSerials(res.data);
         setIsLoadingSerials(false);
       })
       .catch(() => setIsError(true));
@@ -67,8 +69,8 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
 
   useEffect(() => {
     getNotices()
-      .then((notices) => {
-        const noticesFormatted = formatNotices(notices);
+      .then((res) => {
+        const noticesFormatted = formatNotices(res.data);
         setNotices(noticesFormatted);
         setIsLoadingNotices(false);
       })

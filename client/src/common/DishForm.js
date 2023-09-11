@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Context from '../Context';
-import { postDish } from '../utils/services';
+import { postDish } from '../services/dishServices';
 import { getFromLocalStorage } from '../utils/storage';
 
 export default function DishForm({ dishes, setDishes }) {
@@ -32,8 +32,8 @@ export default function DishForm({ dishes, setDishes }) {
     const data = { date: form.date.value, name: form.name.value };
     const jwt = getFromLocalStorage('rineuto-token');
     postDish(data, jwt)
-      .then((newDish) => {
-        setDishes([...dishes, newDish]);
+      .then((res) => {
+        setDishes([...dishes, res.data]);
       })
       .catch((err) => {
         if (err.hasOwnProperty('joiError')) {

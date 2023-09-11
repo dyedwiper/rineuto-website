@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { WaitNoteStyled } from '../common/styledElements';
 import Context from '../Context';
-import { postNewsletterContact } from '../utils/services';
+import { postNewsletterContact } from '../services/newsletterServices';
 
 export default function NewsletterPage({ setIsError }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
