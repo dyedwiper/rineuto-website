@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { validateUser, validateLogin } = require('../middleware/validation');
 const authenticate = require('../middleware/authenticate');
 const authorize = require('../middleware/authorize');
-const { STANDARD_ERROR_MESSAGE } = require('../utils/constants');
+const { STANDARD_ERROR_MESSAGE } = require('../constants');
 
 router.get('/', authenticate, authorize, (req, res) => {
   User.find()

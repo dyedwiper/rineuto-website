@@ -1,5 +1,5 @@
 const multer = require('multer');
-const { STANDARD_ERROR_MESSAGE } = require('../utils/constants');
+const { STANDARD_ERROR_MESSAGE } = require('../constants');
 
 const ERROR_MESSAGE_MIMETYPE = 'Nur die Dateiformate JPEG und PNG sind erlaubt.';
 

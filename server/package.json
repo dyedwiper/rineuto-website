@@ -23,5 +23,11 @@
   "devDependencies": {
     "eslint": "^7.15.0",
     "nodemon": "^2.0.6"
+  },
+  "eslintConfig": {
+    "env": {
+      "es2016": true
+    },
+    "extends": "eslint:recommended"
   }
 }

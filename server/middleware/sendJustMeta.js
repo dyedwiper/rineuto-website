@@ -1,137 +1,104 @@
+const path = require('path');
+const {
+  RINEUTO_BASE_URL,
+  ROUTE_SCREENING,
+  FILENAME_PEARLS_IMAGE,
+  RINEUTO_NAME,
+  ROUTE_PROGRAM,
+  DESCRIPTION_PROGRAM,
+  ROUTE_ARCHIVE,
+  PAGE_TITLE_PROGRAM,
+  PAGE_TITLE_ARCHIVE,
+  DESCRIPTION_ARCHIVE,
+  DESCRIPTION_POSTERS,
+  PAGE_TITLE_POSTERS,
+  PAGE_TITLE_ABOUT,
+  ROUTE_ABOUT,
+  DESCRIPTION_ABOUT,
+  PAGE_TITLE_CONTACT,
+  ROUTE_CONTACT,
+  DESCRIPTION_CONTACT,
+  ROUTE_POSTERS,
+} = require('../constants');
 const Screening = require('../models/Screening');
-const { STANDARD_ERROR_MESSAGE } = require('../utils/constants');
+const { STANDARD_ERROR_MESSAGE } = require('../constants');
+
+const USER_AGENT_FACEBOOK = 'facebookexternalhit';
+const USER_AGENT_TELEGRAM = 'TelegramBot';
+const USER_AGENT_TWITTER = 'Twitterbot';
+const USER_AGENT_WHATSAPP = 'WhatsApp';
+
+const OG_TYPE = 'website';
+const OG_LOCALE = 'de_DE';
 
 function sendJustMeta(req, res, next) {
   const userAgent = req.header('user-agent');
-  if (userAgent && (userAgent.includes('facebookexternalhit') || userAgent.includes('TelegramBot'))) {
-    if (req.path.startsWith('/screening')) {
-      const screeningId = req.path.slice(req.path.indexOf('screening') + 10, req.path.indexOf('screening') + 34);
+  if (
+    userAgent &&
+    (userAgent.includes(USER_AGENT_FACEBOOK) ||
+      userAgent.includes(USER_AGENT_TELEGRAM) ||
+      userAgent.includes(USER_AGENT_TWITTER) ||
+      userAgent.includes(USER_AGENT_WHATSAPP))
+  ) {
+    if (req.path.startsWith(ROUTE_SCREENING)) {
+      const screeningId = req.path.split('/')[2];
       Screening.findById(screeningId)
         .then((screening) => {
           if (!screening) {
             return res.status(404).json('screening not found');
           }
-          res.send(`
-            <meta property="og:title" content="${screening.title} | Rineuto Lichtspiele">
-            <meta property="og:image" content="${screening.imageUrl}">
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content="https://www.rineuto.de/screening/${screeningId}" />
-            <meta property="og:site_name" content="Rineuto Lichtspiele" />
-            <meta property="og:description" content="${screening.synopsis}" />
-            <meta property="og:locale" content="de_DE" />
-          `);
+          const ogMeta = createOgMeta(
+            screening.title,
+            path.join(ROUTE_SCREENING, screeningId),
+            screening.synopsis,
+            screening.imageUrl
+          );
+          res.send(ogMeta);
         })
-        .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
-    } else if (req.path.startsWith('/program')) {
-      res.send(`
-        <meta property="og:title" content="Programm | Rineuto Lichtspiele">
-        <meta property="og:image" content="https://www.rineuto.de/filmperlen.jpg">
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.rineuto.de/program" />
-        <meta property="og:site_name" content="Rineuto Lichtspiele" />
-        <meta property="og:description" content="Unsere nächsten Filmperlen" />
-        <meta property="og:locale" content="de_DE" />
-      `);
-    } else if (req.path.startsWith('/archive')) {
-      res.send(`
-        <meta property="og:title" content="Archiv | Rineuto Lichtspiele">
-        <meta property="og:image" content="https://www.rineuto.de/filmperlen.jpg">
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.rineuto.de/archive" />
-        <meta property="og:site_name" content="Rineuto Lichtspiele" />
-        <meta property="og:description" content="Vergangene Filmperlen" />
-        <meta property="og:locale" content="de_DE" />
-      `);
-    } else if (req.path.startsWith('/posters')) {
-      res.send(`
-        <meta property="og:title" content="Plakate | Rineuto Lichtspiele">
-        <meta property="og:image" content="https://www.rineuto.de/filmperlen.jpg">
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.rineuto.de/posters" />
-        <meta property="og:site_name" content="Rineuto Lichtspiele" />
-        <meta property="og:description" content="Selbstgebügelte Plakate" />
-        <meta property="og:locale" content="de_DE" />
-      `);
-    } else if (req.path.startsWith('/about')) {
-      res.send(`
-        <meta property="og:title" content="Über uns | Rineuto Lichtspiele">
-        <meta property="og:image" content="https://www.rineuto.de/filmperlen.jpg">
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.rineuto.de/about" />
-        <meta property="og:site_name" content="Rineuto Lichtspiele" />
-        <meta property="og:description" content="Perlen für die Säue" />
-        <meta property="og:locale" content="de_DE" />
-      `);
-    } else if (req.path.startsWith('/contact')) {
-      res.send(`
-        <meta property="og:title" content="Kontakt | Rineuto Lichtspiele">
-        <meta property="og:image" content="https://www.rineuto.de/filmperlen.jpg">
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.rineuto.de/contact" />
-        <meta property="og:site_name" content="Rineuto Lichtspiele" />
-        <meta property="og:description" content="Adresse etc." />
-        <meta property="og:locale" content="de_DE" />
-      `);
-    } else {
-      next();
-    }
-  } else if (userAgent && userAgent.includes('Twitterbot')) {
-    if (req.path.startsWith('/screening')) {
-      const screeningId = req.path.slice(req.path.indexOf('screening') + 10, req.path.indexOf('screening') + 34);
-      Screening.findById(screeningId)
-        .then((screening) => {
-          if (!screening) {
-            return res.status(404).json('screening not found');
-          }
-          res.send(`
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="${screening.title}">
-            <meta name="twitter:description" content="${screening.synopsis}" />
-            <meta name="twitter:image" content="${screening.imageUrl}">
-          `);
-        })
-        .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
-    } else if (req.path.startsWith('/program')) {
-      res.send(`
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Programm | Rineuto Lichtspiele">
-        <meta name="twitter:description" content="Unsere nächsten Filmperlen" />
-        <meta name="twitter:image" content="https://www.rineuto.de/filmperlen.jpg">
-      `);
-    } else if (req.path.startsWith('/archive')) {
-      res.send(`
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Archiv | Rineuto Lichtspiele">
-        <meta name="twitter:description" content="Vergangene Filmperlen" />
-        <meta name="twitter:image" content="https://www.rineuto.de/filmperlen.jpg">
-      `);
-    } else if (req.path.startsWith('/posters')) {
-      res.send(`
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Plakate | Rineuto Lichtspiele">
-        <meta name="twitter:description" content="Selbstgebügelte Plakate" />
-        <meta name="twitter:image" content="https://www.rineuto.de/filmperlen.jpg">
-      `);
-    } else if (req.path.startsWith('/about')) {
-      res.send(`
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Über uns | Rineuto Lichtspiele">
-        <meta name="twitter:description" content="Perlen für die Säue" />
-        <meta name="twitter:image" content="https://www.rineuto.de/filmperlen.jpg">
-      `);
-    } else if (req.path.startsWith('/contact')) {
-      res.send(`
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Kontakt | Rineuto Lichtspiele">
-        <meta name="twitter:description" content="Adresse etc." />
-        <meta name="twitter:image" content="https://www.rineuto.de/filmperlen.jpg">
-      `);
+        .catch((error) => {
+          console.log(error);
+          res.status(500).json(STANDARD_ERROR_MESSAGE);
+        });
+    } else if (req.path.startsWith(ROUTE_PROGRAM)) {
+      const ogMeta = createOgMeta(PAGE_TITLE_PROGRAM, ROUTE_PROGRAM, DESCRIPTION_PROGRAM);
+      res.send(ogMeta);
+    } else if (req.path.startsWith(ROUTE_ARCHIVE)) {
+      const ogMeta = createOgMeta(PAGE_TITLE_ARCHIVE, ROUTE_ARCHIVE, DESCRIPTION_ARCHIVE);
+      res.send(ogMeta);
+    } else if (req.path.startsWith(ROUTE_POSTERS)) {
+      const ogMeta = createOgMeta(PAGE_TITLE_POSTERS, ROUTE_POSTERS, DESCRIPTION_POSTERS);
+      res.send(ogMeta);
+    } else if (req.path.startsWith(ROUTE_ABOUT)) {
+      const ogMeta = createOgMeta(PAGE_TITLE_ABOUT, ROUTE_ABOUT, DESCRIPTION_ABOUT);
+      res.send(ogMeta);
+    } else if (req.path.startsWith(ROUTE_CONTACT)) {
+      const ogMeta = createOgMeta(PAGE_TITLE_CONTACT, ROUTE_CONTACT, DESCRIPTION_CONTACT);
+      res.send(ogMeta);
     } else {
       next();
     }
   } else {
     next();
   }
+}
+
+function createOgMeta(title, route, description, imageUrl) {
+  const ogTitle = `${title} | ${RINEUTO_NAME}`;
+
+  let ogImage = imageUrl;
+  if (!imageUrl) {
+    ogImage = path.join(RINEUTO_BASE_URL, FILENAME_PEARLS_IMAGE);
+  }
+
+  const ogUrl = path.join(RINEUTO_BASE_URL, route);
+
+  return `<meta property="og:title" content="${ogTitle}">
+    <meta property="og:image" content="${ogImage}">
+    <meta property="og:type" content="${OG_TYPE}" />
+    <meta property="og:url" content="${ogUrl}" />
+    <meta property="og:site_name" content="${RINEUTO_NAME}" />
+    <meta property="og:description" content="${description}" />
+    <meta property="og:locale" content="${OG_LOCALE}" />`;
 }
 
 module.exports = sendJustMeta;
