@@ -32,8 +32,8 @@ export default function App() {
     const token = getFromLocalStorage('rineuto-token');
     if (token) {
       authenticateUser(token)
-        .then((user) => {
-          setUser(user);
+        .then((res) => {
+          setUser(res.data);
           setIsUserLoggedIn(true);
         })
         .then(() => {

@@ -16,8 +16,8 @@ export default function AboutPage() {
   const numberOfOpenPerlsBefore = useRef(null);
 
   useEffect(() => {
-    getQuotes().then((response) => {
-      setQuotes(response.data);
+    getQuotes().then((res) => {
+      setQuotes(res.data);
       setIsLoading(false);
     });
   }, []);

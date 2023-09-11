@@ -50,8 +50,8 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
 
   useEffect(() => {
     getScreenings()
-      .then((response) => {
-        const screeningsFormatted = formatScreenings(response.data);
+      .then((res) => {
+        const screeningsFormatted = formatScreenings(res.data);
         setScreenings(screeningsFormatted);
         setIsLoadingScreenings(false);
       })
@@ -60,8 +60,8 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
 
   useEffect(() => {
     getSerials()
-      .then((response) => {
-        setSerials(response.data);
+      .then((res) => {
+        setSerials(res.data);
         setIsLoadingSerials(false);
       })
       .catch(() => setIsError(true));
@@ -69,8 +69,8 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
 
   useEffect(() => {
     getNotices()
-      .then((response) => {
-        const noticesFormatted = formatNotices(response.data);
+      .then((res) => {
+        const noticesFormatted = formatNotices(res.data);
         setNotices(noticesFormatted);
         setIsLoadingNotices(false);
       })

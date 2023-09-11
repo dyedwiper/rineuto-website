@@ -40,8 +40,8 @@ export default function LoginPage({ setIsLoadingUser }) {
     const formData = new FormData(form);
     const loginData = Object.fromEntries(formData);
     postLoginUser(loginData)
-      .then((user) => {
-        setUser(user);
+      .then((res) => {
+        setUser(res.data);
         setIsUserLoggedIn(true);
         setIsLoadingUser(false);
         setDidLoginFail(false);

@@ -15,8 +15,8 @@ export default function VokuPage() {
   const { isUserLoggedIn } = useContext(Context);
 
   useEffect(() => {
-    getDishes().then((response) => {
-      setDishes(response.data);
+    getDishes().then((res) => {
+      setDishes(res.data);
       setIsLoading(false);
     });
   }, []);

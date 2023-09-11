@@ -32,8 +32,8 @@ export default function DishForm({ dishes, setDishes }) {
     const data = { date: form.date.value, name: form.name.value };
     const jwt = getFromLocalStorage('rineuto-token');
     postDish(data, jwt)
-      .then((response) => {
-        setDishes([...dishes, response.data]);
+      .then((res) => {
+        setDishes([...dishes, res.data]);
       })
       .catch((err) => {
         if (err.hasOwnProperty('joiError')) {
