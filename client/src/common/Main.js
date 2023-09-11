@@ -22,7 +22,8 @@ import EditNoticePage from '../pages/intern/EditNoticePage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
 import { getScreenings } from '../services/screeningServices';
-import { getNotices, getSerials } from '../utils/services';
+import { getSerials } from '../services/serialServices';
+import { getNotices } from '../utils/services';
 import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsLoadingContent, setIsNavOpen }) {
@@ -59,8 +60,8 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
 
   useEffect(() => {
     getSerials()
-      .then((serials) => {
-        setSerials(serials);
+      .then((response) => {
+        setSerials(response.data);
         setIsLoadingSerials(false);
       })
       .catch(() => setIsError(true));

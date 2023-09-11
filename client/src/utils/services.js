@@ -1,37 +1,6 @@
 import { setToLocalStorage } from '../utils/storage';
 
-export function getSerials() {
-  return fetch('/api/serials').then(handleError);
-}
 
-export function postSerial(data, token) {
-  return fetch('/api/serials', {
-    method: 'POST',
-    body: data,
-    headers: {
-      'auth-token': token,
-    },
-  }).then(handleError);
-}
-
-export function patchSerial(id, data, token) {
-  return fetch('/api/serials/' + id, {
-    method: 'PATCH',
-    body: data,
-    headers: {
-      'auth-token': token,
-    },
-  }).then(handleError);
-}
-
-export function deleteSerial(id, token) {
-  return fetch('/api/serials/' + id, {
-    method: 'DELETE',
-    headers: {
-      'auth-token': token,
-    },
-  }).then(handleError);
-}
 
 export function getNotices() {
   return fetch('/api/notices').then(handleError);

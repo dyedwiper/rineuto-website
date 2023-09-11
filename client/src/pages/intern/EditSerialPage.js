@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
-import { deleteSerial, patchSerial } from '../../utils/services';
+import { WaitNoteStyled } from '../../common/styledElements';
+import { deleteSerial, patchSerial } from '../../services/serialServices';
 import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
-import { WaitNoteStyled } from '../../common/styledElements';
-import Context from '../../Context';
 
 export default function EditSerialPage({ serials, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
