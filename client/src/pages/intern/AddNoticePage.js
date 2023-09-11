@@ -5,7 +5,6 @@ import Context from '../../Context';
 import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { postNotice } from '../../services/noticeServices';
-import { getFromLocalStorage } from '../../utils/storage';
 
 export default function AddNoticePage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
@@ -69,8 +68,7 @@ export default function AddNoticePage({ setEditedObject }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     formData.append('text', editor.getData());
-    const jwt = getFromLocalStorage('rineuto-token');
-    postNotice(formData, jwt)
+    postNotice(formData)
       .then(() => {
         setEditedObject({ added: 'notice' });
         setIsWaiting(false);

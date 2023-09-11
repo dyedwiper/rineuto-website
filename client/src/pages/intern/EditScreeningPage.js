@@ -6,7 +6,6 @@ import DeletePrompt from '../../common/DeletePrompt';
 import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { deleteScreening, patchScreening } from '../../services/screeningServices';
-import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
 export default function EditScreeningPage({ screenings, serials, setEditedObject }) {
@@ -158,8 +157,7 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
     const form = event.currentTarget;
     const formData = new FormData(form);
     formData.append('synopsis', editor.getData());
-    const jwt = getFromLocalStorage('rineuto-token');
-    patchScreening(screeningToEdit._id, formData, jwt)
+    patchScreening(screeningToEdit._id, formData)
       .then(() => {
         setIsWaiting(false);
         setEditedObject(screeningToEdit);
@@ -182,8 +180,7 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
   function handleDelete() {
     setIsWaiting(true);
     setShowDeletePrompt(false);
-    const jwt = getFromLocalStorage('rineuto-token');
-    deleteScreening(screeningToEdit._id, jwt)
+    deleteScreening(screeningToEdit._id)
       .then(() => {
         setIsWaiting(false);
         setEditedObject({ deleted: 'screening' });

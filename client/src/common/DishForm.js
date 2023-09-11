@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Context from '../Context';
 import { postDish } from '../services/dishServices';
-import { getFromLocalStorage } from '../utils/storage';
 
 export default function DishForm({ dishes, setDishes }) {
   const [validationError, setValidationError] = useState('');
@@ -30,8 +29,7 @@ export default function DishForm({ dishes, setDishes }) {
     setIsWaiting(true);
     const form = event.currentTarget;
     const data = { date: form.date.value, name: form.name.value };
-    const jwt = getFromLocalStorage('rineuto-token');
-    postDish(data, jwt)
+    postDish(data)
       .then((res) => {
         setDishes([...dishes, res.data]);
       })

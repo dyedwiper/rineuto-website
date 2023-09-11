@@ -4,7 +4,6 @@ import styled from 'styled-components/macro';
 import Context from '../../Context';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { postSerial } from '../../services/serialServices';
-import { getFromLocalStorage } from '../../utils/storage';
 
 export default function AddSerialPage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
@@ -66,8 +65,7 @@ export default function AddSerialPage({ setEditedObject }) {
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromLocalStorage('rineuto-token');
-    postSerial(formData, jwt)
+    postSerial(formData)
       .then(() => {
         setIsWaiting(false);
         setEditedObject({ added: 'serial' });

@@ -6,7 +6,6 @@ import DeletePrompt from '../../common/DeletePrompt';
 import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { deleteNotice, patchNotice } from '../../services/noticeServices';
-import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
 export default function EditNoticePage({ notices, setEditedObject }) {
@@ -104,8 +103,7 @@ export default function EditNoticePage({ notices, setEditedObject }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     formData.append('text', editor.getData());
-    const jwt = getFromLocalStorage('rineuto-token');
-    patchNotice(noticeToEdit._id, formData, jwt)
+    patchNotice(noticeToEdit._id, formData)
       .then(() => {
         setEditedObject(noticeToEdit);
         setIsWaiting(false);
@@ -128,8 +126,7 @@ export default function EditNoticePage({ notices, setEditedObject }) {
   function handleDelete() {
     setShowDeletePrompt(false);
     setIsWaiting(true);
-    const jwt = getFromLocalStorage('rineuto-token');
-    deleteNotice(noticeToEdit._id, jwt)
+    deleteNotice(noticeToEdit._id)
       .then(() => {
         setIsWaiting(false);
         setEditedObject({ deleted: 'notice' });
