@@ -41,7 +41,7 @@ function sendJustMeta(req, res, next) {
       userAgent.includes(USER_AGENT_WHATSAPP))
   ) {
     if (req.path.startsWith(ROUTE_SCREENING)) {
-      const screeningId = req.path.slice(req.path.indexOf('screening') + 10, req.path.indexOf('screening') + 34);
+      const screeningId = req.path.split('/')[2];
       Screening.findById(screeningId)
         .then((screening) => {
           if (!screening) {
@@ -49,7 +49,7 @@ function sendJustMeta(req, res, next) {
           }
           const ogMeta = createOgMeta(
             screening.title,
-            ROUTE_SCREENING + screeningId,
+            path.join(ROUTE_SCREENING, screeningId),
             screening.synopsis,
             screening.imageUrl
           );
