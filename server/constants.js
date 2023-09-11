@@ -23,6 +23,9 @@ const ROUTE_POSTERS = '/posters';
 const ROUTE_PROGRAM = '/program';
 const ROUTE_SCREENING = '/screening';
 
+const STANDARD_SUCCESS_MESSAGE = 'Great success';
+const STANDARD_ERROR_MESSAGE = 'In my app there is problem';
+
 module.exports = {
   RINEUTO_NAME,
   HEADLINE_ABOUT,
@@ -43,4 +46,6 @@ module.exports = {
   ROUTE_POSTERS,
   ROUTE_PROGRAM,
   ROUTE_SCREENING,
+  STANDARD_SUCCESS_MESSAGE,
+  STANDARD_ERROR_MESSAGE,
 };

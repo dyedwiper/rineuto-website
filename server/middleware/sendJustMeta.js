@@ -21,7 +21,7 @@ const {
   ROUTE_POSTERS,
 } = require('../constants');
 const Screening = require('../models/Screening');
-const { STANDARD_ERROR_MESSAGE } = require('../utils/constants');
+const { STANDARD_ERROR_MESSAGE } = require('../constants');
 
 const USER_AGENT_FACEBOOK = 'facebookexternalhit';
 const USER_AGENT_TELEGRAM = 'TelegramBot';

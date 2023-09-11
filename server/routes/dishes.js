@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Dish = require('../models/Dish');
 const authenticate = require('../middleware/authenticate');
 const { validateDish } = require('../middleware/validation');
-const { STANDARD_SUCCESS_MESSAGE, STANDARD_ERROR_MESSAGE } = require('../utils/constants');
+const { STANDARD_SUCCESS_MESSAGE, STANDARD_ERROR_MESSAGE } = require('../constants');
 
 router.get('/', (req, res) => {
   Dish.find()

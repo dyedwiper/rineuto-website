@@ -5,7 +5,7 @@ const { validateScreening } = require('../middleware/validation');
 const formatDate = require('../middleware/formatDate');
 const { readFileWithMulter } = require('../middleware/readFileWithMulter');
 const { uploadToCloudinary } = require('../middleware/uploadToCloudinary');
-const { STANDARD_ERROR_MESSAGE, STANDARD_SUCCESS_MESSAGE } = require('../utils/constants');
+const { STANDARD_ERROR_MESSAGE, STANDARD_SUCCESS_MESSAGE } = require('../constants');
 
 router.get('/', (req, res) => {
   Screening.find()

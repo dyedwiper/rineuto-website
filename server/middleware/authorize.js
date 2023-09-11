@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { STANDARD_ERROR_MESSAGE } = require('../utils/constants');
+const { STANDARD_ERROR_MESSAGE } = require('../constants');
 
 function authorize(req, res, next) {
   User.findById(req.user)
