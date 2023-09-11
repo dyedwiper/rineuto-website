@@ -7,4 +7,8 @@ function replaceUmlautsAndSpecialCharacters(someString) {
     .replace(/[^a-z^A-Z^0-9]+/g, '_');
 }
 
-module.exports.replaceUmlautsAndSpecialCharacters = replaceUmlautsAndSpecialCharacters;
+function stripHtml(html) {
+  return html.replace(/<[^>]*>?/gm, '');
+}
+
+module.exports = { replaceUmlautsAndSpecialCharacters, stripHtml };

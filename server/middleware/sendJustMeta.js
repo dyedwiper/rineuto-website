@@ -22,6 +22,7 @@ const {
 } = require('../constants');
 const Screening = require('../models/Screening');
 const { STANDARD_ERROR_MESSAGE } = require('../constants');
+const { stripHtml } = require('../utils/stringUtils');
 
 const USER_AGENT_FACEBOOK = 'facebookexternalhit';
 const USER_AGENT_TELEGRAM = 'TelegramBot';
@@ -50,7 +51,7 @@ function sendJustMeta(req, res, next) {
           const ogMeta = createOgMeta(
             screening.title,
             path.join(ROUTE_SCREENING, screeningId),
-            screening.synopsis,
+            stripHtml(screening.synopsis),
             screening.imageUrl
           );
           res.send(ogMeta);
