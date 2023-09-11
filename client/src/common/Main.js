@@ -21,7 +21,7 @@ import AddSerialPage from '../pages/intern/AddSerialPage';
 import EditNoticePage from '../pages/intern/EditNoticePage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
-import { getScreenings } from '../services/screeningService';
+import { getScreenings } from '../services/screeningServices';
 import { getNotices, getSerials } from '../utils/services';
 import PrivateRoute from './PrivateRoute';
 
