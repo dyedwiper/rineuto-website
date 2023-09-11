@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Context from '../Context';
+import { deleteDish } from '../services/dishServices';
 import { formatToDateString } from '../utils/dateFormatters';
-import { deleteDish } from '../utils/services';
 import { getFromLocalStorage } from '../utils/storage';
 
 export default function DishListItem({ dish, dishes, setDishes }) {

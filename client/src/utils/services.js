@@ -1,28 +1,6 @@
 import { setToLocalStorage } from '../utils/storage';
 
-export function getDishes() {
-  return fetch('/api/dishes').then(handleError);
-}
 
-export function postDish(data, token) {
-  return fetch('/api/dishes', {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json',
-      'auth-token': token,
-    },
-  }).then(handleError);
-}
-
-export function deleteDish(id, token) {
-  return fetch('/api/dishes/' + id, {
-    method: 'DELETE',
-    headers: {
-      'auth-token': token,
-    },
-  }).then(handleError);
-}
 
 export function postLoginUser(data) {
   return fetch('/api/users/login', {

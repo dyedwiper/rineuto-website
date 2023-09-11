@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Context from '../Context';
 import michelImage from '../assets/michel.jpg';
 import piez from '../assets/piez.png';
 import DishForm from '../common/DishForm';
 import DishListItem from '../common/DishListItem';
-import Context from '../Context';
-import { getDishes } from '../utils/services';
+import { getDishes } from '../services/dishServices';
 import LoadingPage from './LoadingPage';
 
 export default function VokuPage() {
@@ -15,8 +15,8 @@ export default function VokuPage() {
   const { isUserLoggedIn } = useContext(Context);
 
   useEffect(() => {
-    getDishes().then((dishes) => {
-      setDishes(dishes);
+    getDishes().then((response) => {
+      setDishes(response.data);
       setIsLoading(false);
     });
   }, []);
