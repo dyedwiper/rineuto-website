@@ -2,38 +2,7 @@ import { setToLocalStorage } from '../utils/storage';
 
 
 
-export function getNotices() {
-  return fetch('/api/notices').then(handleError);
-}
 
-export function postNotice(data, token) {
-  return fetch('/api/notices', {
-    method: 'POST',
-    body: data,
-    headers: {
-      'auth-token': token,
-    },
-  }).then(handleError);
-}
-
-export function patchNotice(id, data, token) {
-  return fetch('/api/notices/' + id, {
-    method: 'PATCH',
-    body: data,
-    headers: {
-      'auth-token': token,
-    },
-  }).then(handleError);
-}
-
-export function deleteNotice(id, token) {
-  return fetch('/api/notices/' + id, {
-    method: 'DELETE',
-    headers: {
-      'auth-token': token,
-    },
-  }).then(handleError);
-}
 
 export function getQuotes() {
   return fetch('/api/quotes').then(handleError);

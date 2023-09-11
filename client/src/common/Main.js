@@ -21,9 +21,9 @@ import AddSerialPage from '../pages/intern/AddSerialPage';
 import EditNoticePage from '../pages/intern/EditNoticePage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
+import { getNotices } from '../services/noticeServices';
 import { getScreenings } from '../services/screeningServices';
 import { getSerials } from '../services/serialServices';
-import { getNotices } from '../utils/services';
 import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsLoadingContent, setIsNavOpen }) {
@@ -69,8 +69,8 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
 
   useEffect(() => {
     getNotices()
-      .then((notices) => {
-        const noticesFormatted = formatNotices(notices);
+      .then((response) => {
+        const noticesFormatted = formatNotices(response.data);
         setNotices(noticesFormatted);
         setIsLoadingNotices(false);
       })

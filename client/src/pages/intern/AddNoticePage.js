@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import Context from '../../Context';
 import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
-import { postNotice } from '../../utils/services';
+import { postNotice } from '../../services/noticeServices';
 import { getFromLocalStorage } from '../../utils/storage';
 
 export default function AddNoticePage({ setEditedObject }) {
