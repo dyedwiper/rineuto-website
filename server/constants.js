@@ -2,19 +2,19 @@ const RINEUTO_NAME = 'Rineuto Lichtspiele';
 
 const RINEUTO_BASE_URL = 'https://www.rineuto.de';
 
-const PEARLS_IMAGE_FILENAME = 'filmperlen.jpg';
-
-const HEADLINE_ABOUT = 'Perlen für die Säue';
-const HEADLINE_ARCHIVE = 'Vergangene Filmperlen';
-const HEADLINE_CONTACT = 'Adresse etc.';
-const HEADLINE_POSTERS = 'Selbstgebügelte Plakate';
-const HEADLINE_PROGRAM = 'Unsere nächsten Filmperlen';
+const FILENAME_PEARLS_IMAGE = 'filmperlen.jpg';
 
 const PAGE_TITLE_ABOUT = 'Über uns';
 const PAGE_TITLE_ARCHIVE = 'Archiv';
 const PAGE_TITLE_CONTACT = 'Kontakt';
 const PAGE_TITLE_POSTERS = 'Plakate';
 const PAGE_TITLE_PROGRAM = 'Programm';
+
+const DESCRIPTION_ABOUT = 'Perlen für die Säue';
+const DESCRIPTION_ARCHIVE = 'Vergangene Filmperlen';
+const DESCRIPTION_CONTACT = 'Adresse etc.';
+const DESCRIPTION_POSTERS = 'Selbstgebügelte Plakate';
+const DESCRIPTION_PROGRAM = 'Unsere nächsten Filmperlen';
 
 const ROUTE_ABOUT = '/about';
 const ROUTE_ARCHIVE = '/archive';
@@ -28,13 +28,13 @@ const STANDARD_ERROR_MESSAGE = 'In my app there is problem';
 
 module.exports = {
   RINEUTO_NAME,
-  HEADLINE_ABOUT,
-  HEADLINE_ARCHIVE,
-  HEADLINE_CONTACT,
-  HEADLINE_POSTERS,
-  HEADLINE_PROGRAM,
+  DESCRIPTION_ABOUT,
+  DESCRIPTION_ARCHIVE,
+  DESCRIPTION_CONTACT,
+  DESCRIPTION_POSTERS,
+  DESCRIPTION_PROGRAM,
   RINEUTO_BASE_URL,
-  PEARLS_IMAGE_FILENAME,
+  FILENAME_PEARLS_IMAGE,
   PAGE_TITLE_ABOUT,
   PAGE_TITLE_ARCHIVE,
   PAGE_TITLE_CONTACT,

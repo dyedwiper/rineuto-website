@@ -2,22 +2,22 @@ const path = require('path');
 const {
   RINEUTO_BASE_URL,
   ROUTE_SCREENING,
-  PEARLS_IMAGE_FILENAME,
+  FILENAME_PEARLS_IMAGE,
   RINEUTO_NAME,
   ROUTE_PROGRAM,
-  HEADLINE_PROGRAM,
+  DESCRIPTION_PROGRAM,
   ROUTE_ARCHIVE,
   PAGE_TITLE_PROGRAM,
   PAGE_TITLE_ARCHIVE,
-  HEADLINE_ARCHIVE,
-  HEADLINE_POSTERS,
+  DESCRIPTION_ARCHIVE,
+  DESCRIPTION_POSTERS,
   PAGE_TITLE_POSTERS,
   PAGE_TITLE_ABOUT,
   ROUTE_ABOUT,
-  HEADLINE_ABOUT,
+  DESCRIPTION_ABOUT,
   PAGE_TITLE_CONTACT,
   ROUTE_CONTACT,
-  HEADLINE_CONTACT,
+  DESCRIPTION_CONTACT,
   ROUTE_POSTERS,
 } = require('../constants');
 const Screening = require('../models/Screening');
@@ -60,19 +60,19 @@ function sendJustMeta(req, res, next) {
           res.status(500).json(STANDARD_ERROR_MESSAGE);
         });
     } else if (req.path.startsWith(ROUTE_PROGRAM)) {
-      const ogMeta = createOgMeta(PAGE_TITLE_PROGRAM, ROUTE_PROGRAM, HEADLINE_PROGRAM);
+      const ogMeta = createOgMeta(PAGE_TITLE_PROGRAM, ROUTE_PROGRAM, DESCRIPTION_PROGRAM);
       res.send(ogMeta);
     } else if (req.path.startsWith(ROUTE_ARCHIVE)) {
-      const ogMeta = createOgMeta(PAGE_TITLE_ARCHIVE, ROUTE_ARCHIVE, HEADLINE_ARCHIVE);
+      const ogMeta = createOgMeta(PAGE_TITLE_ARCHIVE, ROUTE_ARCHIVE, DESCRIPTION_ARCHIVE);
       res.send(ogMeta);
     } else if (req.path.startsWith(ROUTE_POSTERS)) {
-      const ogMeta = createOgMeta(PAGE_TITLE_POSTERS, ROUTE_POSTERS, HEADLINE_POSTERS);
+      const ogMeta = createOgMeta(PAGE_TITLE_POSTERS, ROUTE_POSTERS, DESCRIPTION_POSTERS);
       res.send(ogMeta);
     } else if (req.path.startsWith(ROUTE_ABOUT)) {
-      const ogMeta = createOgMeta(PAGE_TITLE_ABOUT, ROUTE_ABOUT, HEADLINE_ABOUT);
+      const ogMeta = createOgMeta(PAGE_TITLE_ABOUT, ROUTE_ABOUT, DESCRIPTION_ABOUT);
       res.send(ogMeta);
     } else if (req.path.startsWith(ROUTE_CONTACT)) {
-      const ogMeta = createOgMeta(PAGE_TITLE_CONTACT, ROUTE_CONTACT, HEADLINE_CONTACT);
+      const ogMeta = createOgMeta(PAGE_TITLE_CONTACT, ROUTE_CONTACT, DESCRIPTION_CONTACT);
       res.send(ogMeta);
     } else {
       next();
@@ -87,7 +87,7 @@ function createOgMeta(title, route, description, imageUrl) {
 
   let ogImage = imageUrl;
   if (!imageUrl) {
-    ogImage = path.join(RINEUTO_BASE_URL, PEARLS_IMAGE_FILENAME);
+    ogImage = path.join(RINEUTO_BASE_URL, FILENAME_PEARLS_IMAGE);
   }
 
   const ogUrl = path.join(RINEUTO_BASE_URL, route);
