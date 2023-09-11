@@ -1,13 +1,5 @@
 import { setToLocalStorage } from '../utils/storage';
 
-
-
-
-
-export function getQuotes() {
-  return fetch('/api/quotes').then(handleError);
-}
-
 export function getDishes() {
   return fetch('/api/dishes').then(handleError);
 }

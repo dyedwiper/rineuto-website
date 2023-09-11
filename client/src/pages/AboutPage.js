@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import QuotePerl from '../common/QuotePerl';
-import { getQuotes } from '../utils/services';
+import { getQuotes } from '../services/quoteServices';
 import LoadingPage from './LoadingPage';
 
 export default function AboutPage() {
@@ -16,8 +16,8 @@ export default function AboutPage() {
   const numberOfOpenPerlsBefore = useRef(null);
 
   useEffect(() => {
-    getQuotes().then((quotes) => {
-      setQuotes(quotes);
+    getQuotes().then((response) => {
+      setQuotes(response.data);
       setIsLoading(false);
     });
   }, []);
