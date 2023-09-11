@@ -55,7 +55,10 @@ function sendJustMeta(req, res, next) {
           );
           res.send(ogMeta);
         })
-        .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
+        .catch((error) => {
+          console.log(error);
+          res.status(500).json(STANDARD_ERROR_MESSAGE);
+        });
     } else if (req.path.startsWith(ROUTE_PROGRAM)) {
       const ogMeta = createOgMeta(PAGE_TITLE_PROGRAM, ROUTE_PROGRAM, HEADLINE_PROGRAM);
       res.send(ogMeta);
