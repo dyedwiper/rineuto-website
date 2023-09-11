@@ -9,7 +9,7 @@ const {
   ROUTE_ARCHIVE,
   PAGE_TITLE_PROGRAM,
   PAGE_TITLE_ARCHIVE,
-  HEADLINE_ARCHIV,
+  HEADLINE_ARCHIVE,
   HEADLINE_POSTERS,
   PAGE_TITLE_POSTERS,
   PAGE_TITLE_ABOUT,
@@ -47,73 +47,55 @@ function sendJustMeta(req, res, next) {
           if (!screening) {
             return res.status(404).json('screening not found');
           }
-          res.send(`
-            <meta property="og:title" content="${screening.title} | ${RINEUTO_NAME}">
-            <meta property="og:image" content="${screening.imageUrl}">
-            <meta property="og:type" content="${OG_TYPE}" />
-            <meta property="og:url" content="${path.join(RINEUTO_BASE_URL, ROUTE_SCREENING, screeningId)}" />
-            <meta property="og:site_name" content="${RINEUTO_NAME}" />
-            <meta property="og:description" content="${screening.synopsis}" />
-            <meta property="og:locale" content="${OG_LOCALE}" />
-          `);
+          const ogMeta = createOgMeta(
+            screening.title,
+            ROUTE_SCREENING + screeningId,
+            screening.synopsis,
+            screening.imageUrl
+          );
+          res.send(ogMeta);
         })
         .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
     } else if (req.path.startsWith(ROUTE_PROGRAM)) {
-      res.send(`
-        <meta property="og:title" content="${PAGE_TITLE_PROGRAM} | ${RINEUTO_NAME}">
-        <meta property="og:image" content="${path.join(RINEUTO_BASE_URL, PEARLS_IMAGE_FILENAME)}">
-        <meta property="og:type" content="${OG_TYPE}" />
-        <meta property="og:url" content="${path.join(RINEUTO_BASE_URL, ROUTE_PROGRAM)}" />
-        <meta property="og:site_name" content="${RINEUTO_NAME}" />
-        <meta property="og:description" content="${HEADLINE_PROGRAM}" />
-        <meta property="og:locale" content="${OG_LOCALE}" />
-      `);
+      const ogMeta = createOgMeta(PAGE_TITLE_PROGRAM, ROUTE_PROGRAM, HEADLINE_PROGRAM);
+      res.send(ogMeta);
     } else if (req.path.startsWith(ROUTE_ARCHIVE)) {
-      res.send(`
-        <meta property="og:title" content="${PAGE_TITLE_ARCHIVE} | ${RINEUTO_NAME}">
-        <meta property="og:image" content="${path.join(RINEUTO_BASE_URL, PEARLS_IMAGE_FILENAME)}">
-        <meta property="og:type" content="${OG_TYPE}" />
-        <meta property="og:url" content="${path.join(RINEUTO_BASE_URL, ROUTE_ARCHIVE)}" />
-        <meta property="og:site_name" content="${RINEUTO_NAME}" />
-        <meta property="og:description" content="${HEADLINE_ARCHIV}" />
-        <meta property="og:locale" content="${OG_LOCALE}" />
-      `);
+      const ogMeta = createOgMeta(PAGE_TITLE_ARCHIVE, ROUTE_ARCHIVE, HEADLINE_ARCHIVE);
+      res.send(ogMeta);
     } else if (req.path.startsWith(ROUTE_POSTERS)) {
-      res.send(`
-        <meta property="og:title" content="${PAGE_TITLE_POSTERS} | ${RINEUTO_NAME}">
-        <meta property="og:image" content="${path.join(RINEUTO_BASE_URL, PEARLS_IMAGE_FILENAME)}">
-        <meta property="og:type" content="${OG_TYPE}" />
-        <meta property="og:url" content="${path.join(RINEUTO_BASE_URL, ROUTE_POSTERS)}" />
-        <meta property="og:site_name" content="${RINEUTO_NAME}" />
-        <meta property="og:description" content="${HEADLINE_POSTERS}" />
-        <meta property="og:locale" content="${OG_LOCALE}" />
-      `);
+      const ogMeta = createOgMeta(PAGE_TITLE_POSTERS, ROUTE_POSTERS, HEADLINE_POSTERS);
+      res.send(ogMeta);
     } else if (req.path.startsWith(ROUTE_ABOUT)) {
-      res.send(`
-        <meta property="og:title" content="${PAGE_TITLE_ABOUT} | ${RINEUTO_NAME}">
-        <meta property="og:image" content="${path.join(RINEUTO_BASE_URL, PEARLS_IMAGE_FILENAME)}">
-        <meta property="og:type" content="${OG_TYPE}" />
-        <meta property="og:url" content="${path.join(RINEUTO_BASE_URL, ROUTE_ABOUT)}" />
-        <meta property="og:site_name" content="${RINEUTO_NAME}" />
-        <meta property="og:description" content="${HEADLINE_ABOUT}" />
-        <meta property="og:locale" content="${OG_LOCALE}" />
-      `);
+      const ogMeta = createOgMeta(PAGE_TITLE_ABOUT, ROUTE_ABOUT, HEADLINE_ABOUT);
+      res.send(ogMeta);
     } else if (req.path.startsWith(ROUTE_CONTACT)) {
-      res.send(`
-        <meta property="og:title" content="${PAGE_TITLE_CONTACT} | ${RINEUTO_NAME}">
-        <meta property="og:image" content="${path.join(RINEUTO_BASE_URL, PEARLS_IMAGE_FILENAME)}">
-        <meta property="og:type" content="${OG_TYPE}" />
-        <meta property="og:url" content="${path.join(RINEUTO_BASE_URL, ROUTE_CONTACT)}" />
-        <meta property="og:site_name" content="${RINEUTO_NAME}" />
-        <meta property="og:description" content="${HEADLINE_CONTACT}" />
-        <meta property="og:locale" content="${OG_LOCALE}" />
-      `);
+      const ogMeta = createOgMeta(PAGE_TITLE_CONTACT, ROUTE_CONTACT, HEADLINE_CONTACT);
+      res.send(ogMeta);
     } else {
       next();
     }
   } else {
     next();
   }
+}
+
+function createOgMeta(title, route, description, imageUrl) {
+  const ogTitle = `${title} | ${RINEUTO_NAME}`;
+
+  let ogImage = imageUrl;
+  if (!imageUrl) {
+    ogImage = path.join(RINEUTO_BASE_URL, PEARLS_IMAGE_FILENAME);
+  }
+
+  const ogUrl = path.join(RINEUTO_BASE_URL, route);
+
+  return `<meta property="og:title" content="${ogTitle}">
+    <meta property="og:image" content="${ogImage}">
+    <meta property="og:type" content="${OG_TYPE}" />
+    <meta property="og:url" content="${ogUrl}" />
+    <meta property="og:site_name" content="${RINEUTO_NAME}" />
+    <meta property="og:description" content="${description}" />
+    <meta property="og:locale" content="${OG_LOCALE}" />`;
 }
 
 module.exports = sendJustMeta;

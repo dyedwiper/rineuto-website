@@ -5,7 +5,7 @@ const RINEUTO_BASE_URL = 'https://www.rineuto.de';
 const PEARLS_IMAGE_FILENAME = 'filmperlen.jpg';
 
 const HEADLINE_ABOUT = 'Perlen für die Säue';
-const HEADLINE_ARCHIV = 'Vergangene Filmperlen';
+const HEADLINE_ARCHIVE = 'Vergangene Filmperlen';
 const HEADLINE_CONTACT = 'Adresse etc.';
 const HEADLINE_POSTERS = 'Selbstgebügelte Plakate';
 const HEADLINE_PROGRAM = 'Unsere nächsten Filmperlen';
@@ -26,7 +26,7 @@ const ROUTE_SCREENING = '/screening';
 module.exports = {
   RINEUTO_NAME,
   HEADLINE_ABOUT,
-  HEADLINE_ARCHIV,
+  HEADLINE_ARCHIVE,
   HEADLINE_CONTACT,
   HEADLINE_POSTERS,
   HEADLINE_PROGRAM,
