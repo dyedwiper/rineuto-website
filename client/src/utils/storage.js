@@ -1,7 +1,4 @@
 export function getFromLocalStorage(key) {
-  if (!key) {
-    return null;
-  }
   try {
     return localStorage.getItem(key);
   } catch {

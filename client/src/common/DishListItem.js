@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Context from '../Context';
 import { deleteDish } from '../services/dishServices';
 import { formatToDateString } from '../utils/dateFormatters';
-import { getFromLocalStorage } from '../utils/storage';
 
 export default function DishListItem({ dish, dishes, setDishes }) {
   const { isUserLoggedIn, setIsWaiting } = useContext(Context);
@@ -17,9 +16,8 @@ export default function DishListItem({ dish, dishes, setDishes }) {
   );
 
   function handleDelete() {
-    const jwt = getFromLocalStorage('rineuto-token');
     setIsWaiting(true);
-    deleteDish(dish._id, jwt)
+    deleteDish(dish._id)
       .then(() => {
         const updatedDishes = dishes.filter((x) => x !== dish);
         setDishes(updatedDishes);

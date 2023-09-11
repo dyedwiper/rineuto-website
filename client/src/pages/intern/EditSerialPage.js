@@ -5,7 +5,6 @@ import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { deleteSerial, patchSerial } from '../../services/serialServices';
-import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 
 export default function EditSerialPage({ serials, setEditedObject }) {
@@ -102,8 +101,7 @@ export default function EditSerialPage({ serials, setEditedObject }) {
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromLocalStorage('rineuto-token');
-    patchSerial(serialToEdit._id, formData, jwt)
+    patchSerial(serialToEdit._id, formData)
       .then((res) => {
         setIsWaiting(false);
         setEditedObject(serialToEdit);
@@ -126,8 +124,7 @@ export default function EditSerialPage({ serials, setEditedObject }) {
   function handleDelete() {
     setIsWaiting(true);
     setShowDeletePrompt(false);
-    const jwt = getFromLocalStorage('rineuto-token');
-    deleteSerial(serialToEdit._id, jwt)
+    deleteSerial(serialToEdit._id)
       .then(() => {
         setIsWaiting(false);
         setEditedObject({ deleted: 'serial' });

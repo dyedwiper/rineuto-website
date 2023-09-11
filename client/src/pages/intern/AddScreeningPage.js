@@ -5,7 +5,6 @@ import Context from '../../Context';
 import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { postScreening } from '../../services/screeningServices';
-import { getFromLocalStorage } from '../../utils/storage';
 
 export default function AddScreeningPage({ serials, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
@@ -110,8 +109,7 @@ export default function AddScreeningPage({ serials, setEditedObject }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     formData.append('synopsis', editor.getData());
-    const jwt = getFromLocalStorage('rineuto-token');
-    postScreening(formData, jwt)
+    postScreening(formData)
       .then(() => {
         setIsWaiting(false);
         setEditedObject({ added: 'screening' });
