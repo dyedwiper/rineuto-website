@@ -1,38 +1,5 @@
 import { setToLocalStorage } from '../utils/storage';
 
-export function getScreenings() {
-  return fetch('/api/screenings').then(handleError);
-}
-
-export function postScreening(data, token) {
-  return fetch('/api/screenings', {
-    method: 'POST',
-    body: data,
-    headers: {
-      'auth-token': token,
-    },
-  }).then(handleError);
-}
-
-export function patchScreening(id, data, token) {
-  return fetch('/api/screenings/' + id, {
-    method: 'PATCH',
-    body: data,
-    headers: {
-      'auth-token': token,
-    },
-  }).then(handleError);
-}
-
-export function deleteScreening(id, token) {
-  return fetch('/api/screenings/' + id, {
-    method: 'DELETE',
-    headers: {
-      'auth-token': token,
-    },
-  }).then(handleError);
-}
-
 export function getSerials() {
   return fetch('/api/serials').then(handleError);
 }

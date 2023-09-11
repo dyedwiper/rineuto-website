@@ -5,7 +5,7 @@ import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
 import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
-import { deleteScreening, patchScreening } from '../../utils/services';
+import { deleteScreening, patchScreening } from '../../services/screeningService';
 import { getFromLocalStorage } from '../../utils/storage';
 import LoadingPage from '../LoadingPage';
 

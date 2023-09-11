@@ -5,12 +5,6 @@ import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import ContactPage from '../pages/ContactPage';
 import ErrorPage from '../pages/ErrorPage';
-import AddNoticePage from '../pages/intern/AddNoticePage';
-import AddScreeningPage from '../pages/intern/AddScreeningPage';
-import AddSerialPage from '../pages/intern/AddSerialPage';
-import EditNoticePage from '../pages/intern/EditNoticePage';
-import EditScreeningPage from '../pages/intern/EditScreeningPage';
-import EditSerialPage from '../pages/intern/EditSerialPage';
 import LoadingPage from '../pages/LoadingPage';
 import LoginPage from '../pages/LoginPage';
 import NewsletterConfirmationPage from '../pages/NewsletterConfirmationPage';
@@ -21,7 +15,14 @@ import PosterPage from '../pages/PosterPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
 import VokuPage from '../pages/VokuPage';
-import { getNotices, getScreenings, getSerials } from '../utils/services';
+import AddNoticePage from '../pages/intern/AddNoticePage';
+import AddScreeningPage from '../pages/intern/AddScreeningPage';
+import AddSerialPage from '../pages/intern/AddSerialPage';
+import EditNoticePage from '../pages/intern/EditNoticePage';
+import EditScreeningPage from '../pages/intern/EditScreeningPage';
+import EditSerialPage from '../pages/intern/EditSerialPage';
+import { getScreenings } from '../services/screeningService';
+import { getNotices, getSerials } from '../utils/services';
 import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsLoadingContent, setIsNavOpen }) {
@@ -48,8 +49,8 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
 
   useEffect(() => {
     getScreenings()
-      .then((screenings) => {
-        const screeningsFormatted = formatScreenings(screenings);
+      .then((response) => {
+        const screeningsFormatted = formatScreenings(response.data);
         setScreenings(screeningsFormatted);
         setIsLoadingScreenings(false);
       })
