@@ -8,6 +8,7 @@ function replaceUmlautsAndSpecialCharacters(someString) {
 }
 
 function stripHtml(html) {
+  // Very simple and unsafe stripping, taken from https://stackoverflow.com/a/822464/11854580
   return html.replace(/<[^>]*>?/gm, '');
 }
 
