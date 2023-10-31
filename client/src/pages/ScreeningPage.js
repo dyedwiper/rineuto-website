@@ -55,9 +55,9 @@ export default function ScreeningPage({ screenings, editedObject }) {
         </FilmInfoStyled>
         <FilmDirectorStyled>{'Regie: ' + selectedScreening.director}</FilmDirectorStyled>
         <FilmSynopsisStyled dangerouslySetInnerHTML={{ __html: selectedScreening.synopsis }} />
-        <ScreeningSerialStyled>
-          Filmreihe: {selectedScreening.serial ? selectedScreening.serial.title : ''}
-        </ScreeningSerialStyled>
+        {selectedScreening.serial && (
+          <ScreeningSerialStyled>Filmreihe: {selectedScreening.serial.title}</ScreeningSerialStyled>
+        )}
         {isUserLoggedIn && (
           <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>Bearbeiten</EditLinkStyled>
         )}
