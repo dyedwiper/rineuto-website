@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/macro';
-import NoticeCard from '../common/NoticeCard';
 import jeverFunImage from '../assets/jeverFun.png';
+import NoticeCard from '../common/NoticeCard';
 import Paginator from '../common/Paginator';
 import { NOTICES_PER_PAGE } from '../constants';
 

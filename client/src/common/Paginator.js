@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 export default function Paginator({ page, setPage, limit, itemsPerPage }) {
-  const [pageNumbers, setPageNumbers] = useState([]);
+  const [displayedNumbers, setDisplayedNumbers] = useState([]);
 
   const numberOfPages = useRef(0);
 
@@ -13,11 +13,11 @@ export default function Paginator({ page, setPage, limit, itemsPerPage }) {
   useEffect(() => {
     const lowerBound = Math.max(1, page - 2);
     const upperBound = Math.min(page + 2, numberOfPages.current);
-    const pagesArray = [];
+    const numbers = [];
     for (let i = lowerBound; i <= upperBound; i++) {
-      pagesArray.push(i);
+      numbers.push(i);
     }
-    setPageNumbers(pagesArray);
+    setDisplayedNumbers(numbers);
   }, [page]);
 
   return (
@@ -28,9 +28,9 @@ export default function Paginator({ page, setPage, limit, itemsPerPage }) {
         </ButtonStyled>
         {page <= 2 && <ButtonStyled disabled />}
         {page === 1 && <ButtonStyled disabled />}
-        {pageNumbers.map((pageNumber) => (
-          <ButtonStyled key={pageNumber} onClick={() => setPage(pageNumber)} disabled={pageNumber === page}>
-            {pageNumber}
+        {displayedNumbers.map((number) => (
+          <ButtonStyled key={number} onClick={() => setPage(number)} disabled={number === page}>
+            {number}
           </ButtonStyled>
         ))}
         {page === numberOfPages.current && <ButtonStyled disabled />}
