@@ -1,1 +1,1 @@
-export const NOTICES_PER_PAGE = 3;
+export const NOTICES_PER_PAGE = 5;
