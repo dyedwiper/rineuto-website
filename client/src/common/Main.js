@@ -10,7 +10,7 @@ import LoginPage from '../pages/LoginPage';
 import NewsletterConfirmationPage from '../pages/NewsletterConfirmationPage';
 import NewsletterPage from '../pages/NewsletterPage';
 import NotFoundPage from '../pages/NotFoundPage';
-import NoticePage from '../pages/NoticePage';
+import NoticesPage from '../pages/NoticesPage';
 import PosterPage from '../pages/PosterPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
@@ -93,7 +93,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
     <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
       <Switch>
         <Route exact path="/">
-          <NoticePage notices={notices} editedObject={editedObject} />
+          <NoticesPage notices={notices} editedObject={editedObject} />
         </Route>
         <Route path="/program">
           <ProgramPage

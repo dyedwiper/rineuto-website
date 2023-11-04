@@ -1,9 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/macro';
-import NoticeCard from '../common/NoticeCard';
 import jeverFunImage from '../assets/jeverFun.png';
+import NoticeCard from '../common/NoticeCard';
+import Paginator from '../common/Paginator';
+import { NOTICES_PER_PAGE } from '../constants';
 
-export default function NoticePage({ notices, editedObject }) {
+export default function NoticesPage({ notices, editedObject }) {
+  const [page, setPage] = useState(1);
+
   const windowHeight = useRef(null);
 
   useEffect(() => {
@@ -19,10 +23,12 @@ export default function NoticePage({ notices, editedObject }) {
       <NoticesListStyled>
         {notices
           .sort((a, b) => b.date - a.date)
+          .slice((page - 1) * NOTICES_PER_PAGE, page * NOTICES_PER_PAGE)
           .map((notice) => (
             <NoticeCard key={notice._id} notice={notice} editedObject={editedObject} />
           ))}
       </NoticesListStyled>
+      <Paginator page={page} setPage={setPage} limit={notices.length} itemsPerPage={NOTICES_PER_PAGE} />
       <Cushion />
       <PerlLinkStyled
         windowHeight={windowHeight.current}
