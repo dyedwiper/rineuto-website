@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { formatToDateString, formatToDateStringWithoutYear, formatToTimeString } from '../utils/dateFormatters';
 
 export default function DateRibbon({ date }) {
   const isArchived = date < Date.now();
@@ -7,27 +8,11 @@ export default function DateRibbon({ date }) {
   return (
     <DateRibbonStyled>
       {isArchived ? (
-        <DateStyled>
-          {date.toLocaleDateString('de-DE', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-          })}
-        </DateStyled>
+        <DateStyled>{formatToDateString(date)}</DateStyled>
       ) : (
         <>
-          <DateStyled>
-            {date.toLocaleDateString('de-DE', {
-              day: '2-digit',
-              month: '2-digit',
-            })}
-          </DateStyled>
-          <TimeStyled>
-            {date.toLocaleTimeString('de-DE', {
-              hour: '2-digit',
-              minute: '2-digit',
-            })}
-          </TimeStyled>
+          <DateStyled>{formatToDateStringWithoutYear(date)}</DateStyled>
+          <TimeStyled>{formatToTimeString(date)}</TimeStyled>
         </>
       )}
     </DateRibbonStyled>
@@ -46,6 +31,7 @@ const DateRibbonStyled = styled.div`
 const DateStyled = styled.span`
   padding: 5px 10px;
   background-color: var(--primary-color);
+  color: var(--secondary-color);
 `;
 
 const TimeStyled = styled.span`

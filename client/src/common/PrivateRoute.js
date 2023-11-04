@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import LoadingPage from '../pages/LoadingPage';
-import UserContext from '../userContext';
+import Context from '../Context';
 
 export default function PrivateRoute({ children, isLoadingUser }) {
-  const { user } = useContext(UserContext);
-  const loggedIn = Object.keys(user).length !== 0;
+  const { isUserLoggedIn } = useContext(Context);
 
   if (isLoadingUser) {
     return (
@@ -15,5 +14,5 @@ export default function PrivateRoute({ children, isLoadingUser }) {
     );
   }
 
-  return <Route>{loggedIn ? children : <Redirect to="/login" />}</Route>;
+  return <Route>{isUserLoggedIn ? children : <Redirect to="/login" />}</Route>;
 }

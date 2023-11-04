@@ -8,6 +8,7 @@ export default createGlobalStyle`
   :root{
       --primary-color: white;
       --secondary-color: black;
+      --special-color: #ffee00;
       --success-color: chartreuse;
       --error-color: coral;
   }
@@ -37,6 +38,12 @@ export default createGlobalStyle`
 
   button {
     background-color: var(--primary-color);
+    color: var(--secondary-color);
     cursor: pointer;
+  }
+
+  .ck-editor {
+    color: black;
+    overflow: auto;
   }
 `;

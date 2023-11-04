@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
-import { deleteNotice, patchNotice } from '../../utils/services';
-import { getFromLocalStorage } from '../../utils/storage';
-import LoadingPage from '../LoadingPage';
+import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
+import { deleteNotice, patchNotice } from '../../services/noticeServices';
+import LoadingPage from '../LoadingPage';
 
-export default function EditNoticePage({ notices, setEditedObject, isWaiting, setIsWaiting }) {
+export default function EditNoticePage({ notices, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [noticeToEdit, setNoticeToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+  const [editor, setEditor] = useState();
+
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 
@@ -64,10 +68,10 @@ export default function EditNoticePage({ notices, setEditedObject, isWaiting, se
           </span>
           <InputStyled name="altText" defaultValue={noticeToEdit.altText} />
         </LabelStyled>
-        <LabelStyled>
-          Text
-          <TextareaStyled name="text" defaultValue={noticeToEdit.text} />
-        </LabelStyled>
+        <FormGroupStyled>
+          <LabelStyled htmlFor="ckEditor">Text</LabelStyled>
+          <WysiwygEditor setEditor={setEditor} data={noticeToEdit.text} />
+        </FormGroupStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         {isWaiting ? (
           <WaitNoteStyled>Bitte warten</WaitNoteStyled>
@@ -98,8 +102,8 @@ export default function EditNoticePage({ notices, setEditedObject, isWaiting, se
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromLocalStorage('rineuto-token');
-    patchNotice(noticeToEdit._id, formData, jwt)
+    formData.append('text', editor.getData());
+    patchNotice(noticeToEdit._id, formData)
       .then(() => {
         setEditedObject(noticeToEdit);
         setIsWaiting(false);
@@ -122,8 +126,7 @@ export default function EditNoticePage({ notices, setEditedObject, isWaiting, se
   function handleDelete() {
     setShowDeletePrompt(false);
     setIsWaiting(true);
-    const jwt = getFromLocalStorage('rineuto-token');
-    deleteNotice(noticeToEdit._id, jwt)
+    deleteNotice(noticeToEdit._id)
       .then(() => {
         setIsWaiting(false);
         setEditedObject({ deleted: 'notice' });
@@ -165,15 +168,14 @@ const LinkStyled = styled.a`
   color: var(--primary-color);
 `;
 
-const TextareaStyled = styled.textarea`
-  display: block;
-  overflow: auto;
-  resize: none;
-  min-height: 150px;
-`;
-
 const ButtonStyled = styled.button`
   justify-self: center;
+`;
+
+const FormGroupStyled = styled.div`
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-gap: 5px;
 `;
 
 const ErrorMessageStyled = styled.span`

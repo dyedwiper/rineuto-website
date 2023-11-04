@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components/macro';
-import { postScreening } from '../../utils/services';
-import { getFromLocalStorage } from '../../utils/storage';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components/macro';
+import Context from '../../Context';
+import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
+import { postScreening } from '../../services/screeningServices';
 
-export default function AddScreeningPage({ serials, setEditedObject, isWaiting, setIsWaiting }) {
+export default function AddScreeningPage({ serials, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
+  const [editor, setEditor] = useState();
+
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 
@@ -63,10 +67,10 @@ export default function AddScreeningPage({ serials, setEditedObject, isWaiting, 
           Version
           <InputStyled name="version" />
         </LabelStyled>
-        <LabelStyled>
-          Beschreibung
-          <TextareaStyled name="synopsis" />
-        </LabelStyled>
+        <FormGroupStyled>
+          <LabelStyled htmlFor="ckEditor">Beschreibung</LabelStyled>
+          <WysiwygEditor setEditor={setEditor} />
+        </FormGroupStyled>
         <LabelStyled>
           Sonderbemerkung
           <InputStyled name="special" />
@@ -104,8 +108,8 @@ export default function AddScreeningPage({ serials, setEditedObject, isWaiting, 
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromLocalStorage('rineuto-token');
-    postScreening(formData, jwt)
+    formData.append('synopsis', editor.getData());
+    postScreening(formData)
       .then(() => {
         setIsWaiting(false);
         setEditedObject({ added: 'screening' });
@@ -156,19 +160,18 @@ const LinkStyled = styled.a`
   color: var(--primary-color);
 `;
 
-const TextareaStyled = styled.textarea`
-  display: block;
-  overflow: auto;
-  resize: none;
-  min-height: 150px;
-`;
-
 const SelectStyled = styled.select`
   padding: 5px;
 `;
 
 const ButtonStyled = styled.button`
   justify-self: center;
+`;
+
+const FormGroupStyled = styled.div`
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-gap: 5px;
 `;
 
 const ErrorMessageStyled = styled.span`

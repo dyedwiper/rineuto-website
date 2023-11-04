@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components/macro';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getFromLocalStorage } from '../../utils/storage';
-import { postSerial } from '../../utils/services';
+import styled from 'styled-components/macro';
+import Context from '../../Context';
 import { WaitNoteStyled } from '../../common/styledElements';
+import { postSerial } from '../../services/serialServices';
 
-export default function AddSerialPage({ setEditedObject, isWaiting, setIsWaiting }) {
+export default function AddSerialPage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
+
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 
@@ -63,8 +65,7 @@ export default function AddSerialPage({ setEditedObject, isWaiting, setIsWaiting
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromLocalStorage('rineuto-token');
-    postSerial(formData, jwt)
+    postSerial(formData)
       .then(() => {
         setIsWaiting(false);
         setEditedObject({ added: 'serial' });

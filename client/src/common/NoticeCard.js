@@ -1,38 +1,21 @@
 import React, { useContext } from 'react';
-import Linkify from 'react-linkify';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import UserContext from '../userContext';
+import Context from '../Context';
+import { formatToDateString } from '../utils/dateFormatters';
 
 export default function NoticeCard({ notice, editedObject }) {
-  const { user } = useContext(UserContext);
-  const loggedIn = Object.keys(user).length !== 0;
+  const { isUserLoggedIn } = useContext(Context);
 
   return (
     <NoticeCardStyled>
       <NoticeImageStyled src={notice.imageUrl} alt={notice.altText} />
       <NoticeTitleRowStyled>
         <NoticeTitleStyled>{notice.title}</NoticeTitleStyled>
-        <NoticeDateStyled>
-          {notice.date.toLocaleDateString('de-DE', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-          })}
-        </NoticeDateStyled>
+        <NoticeDateStyled>{formatToDateString(notice.date)}</NoticeDateStyled>
       </NoticeTitleRowStyled>
-      <NoticeTextStyled>
-        <Linkify
-          componentDecorator={(decoratedHref, decoratedText, key) => (
-            <a target="_blank" rel="noopener noreferrer" href={decoratedHref} key={key}>
-              {decoratedText}
-            </a>
-          )}
-        >
-          {notice.text}
-        </Linkify>
-      </NoticeTextStyled>
-      {loggedIn && (
+      <NoticeTextStyled dangerouslySetInnerHTML={{ __html: notice.text }} />
+      {isUserLoggedIn && (
         <EditContainerStyled>
           {editedObject._id === notice._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
           <EditLinkStyled to={'/intern/editNotice/' + notice._id}>Bearbeiten</EditLinkStyled>
@@ -61,6 +44,7 @@ const NoticeTitleStyled = styled.h3`
   margin: 0;
   padding: 40px 20px 0 20px;
   background-color: var(--primary-color);
+  color: var(--secondary-color);
   font-size: 1.5rem;
 `;
 
@@ -73,12 +57,16 @@ const NoticeDateStyled = styled.div`
   background-color: var(--secondary-color);
 `;
 
-const NoticeTextStyled = styled.p`
+const NoticeTextStyled = styled.div`
   overflow: auto;
-  margin: 0;
   padding: 20px;
   background-color: var(--primary-color);
+  color: var(--secondary-color);
   white-space: pre-line;
+
+  & p {
+    margin: 0;
+  }
 `;
 
 const EditContainerStyled = styled.div`

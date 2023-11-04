@@ -7,11 +7,7 @@ function validateUser(req, res, next) {
     repeat_password: Joi.ref('password'),
     isAdmin: Joi.boolean(),
   }).with('password', 'repeat_password');
-  const { error } = userSchema.validate(req.body);
-  if (error) {
-    return res.status(422).json({ joiError: error.details[0].message });
-  }
-  next();
+  handleError(req, res, next, userSchema);
 }
 
 function validateLogin(req, res, next) {
@@ -19,11 +15,7 @@ function validateLogin(req, res, next) {
     username: Joi.string().max(20).required(),
     password: Joi.string().max(100).required(),
   });
-  const { error } = loginSchema.validate(req.body);
-  if (error) {
-    return res.status(422).json({ joiError: error.details[0].message });
-  }
-  next();
+  handleError(req, res, next, loginSchema);
 }
 
 function validateScreening(req, res, next) {
@@ -33,52 +25,40 @@ function validateScreening(req, res, next) {
     time: Joi.string()
       .pattern(/([0-1]\d|[2][0-3]):([0-5]\d)/)
       .required(),
-    director: Joi.string().allow('').max(50),
+    director: Joi.string().allow('').max(300),
     imageUrl: Joi.string().allow('').max(300),
     altText: Joi.string().allow('').max(300),
-    length: Joi.number().integer().positive().max(1440),
+    length: Joi.number().integer().positive().max(10000),
     country: Joi.string().allow('').max(50),
-    year: Joi.string().allow('').max(20),
-    version: Joi.string().allow('').max(50),
+    year: Joi.string().allow('').max(50),
+    version: Joi.string().allow('').max(100),
     synopsis: Joi.string().allow('').max(10000),
-    special: Joi.string().allow('').max(100),
-    serial: Joi.string().allow('').max(50),
+    special: Joi.string().allow('').max(300),
+    serial: Joi.string().allow('').max(300),
   });
-  const { error } = screeningSchema.validate(req.body);
-  if (error) {
-    return res.status(422).json({ joiError: error.details[0].message });
-  }
-  next();
+  handleError(req, res, next, screeningSchema);
 }
 
 function validateSerial(req, res, next) {
   const serialSchema = Joi.object({
-    title: Joi.string().max(50),
+    title: Joi.string().max(300),
     year: Joi.number().min(2018).max(10000),
     month: Joi.number().min(1).max(12),
     imageUrl: Joi.string().allow('').max(300),
     altText: Joi.string().allow('').max(300),
   });
-  const { error } = serialSchema.validate(req.body);
-  if (error) {
-    return res.status(422).json({ joiError: error.details[0].message });
-  }
-  next();
+  handleError(req, res, next, serialSchema);
 }
 
 function validateNotice(req, res, next) {
   const noticeSchema = Joi.object({
-    title: Joi.string().max(50),
+    title: Joi.string().max(300),
     date: Joi.date(),
     text: Joi.string().allow('').max(10000),
     imageUrl: Joi.string().allow('').max(300),
     altText: Joi.string().allow('').max(300),
   });
-  const { error } = noticeSchema.validate(req.body);
-  if (error) {
-    return res.status(422).json({ joiError: error.details[0].message });
-  }
-  next();
+  handleError(req, res, next, noticeSchema);
 }
 
 function validateQuote(req, res, next) {
@@ -86,7 +66,19 @@ function validateQuote(req, res, next) {
     text: Joi.string().max(2000),
     author: Joi.string().max(100),
   });
-  const { error } = quoteSchema.validate(req.body);
+  handleError(req, res, next, quoteSchema);
+}
+
+function validateDish(req, res, next) {
+  const dishSchema = Joi.object({
+    name: Joi.string().max(200),
+    date: Joi.date(),
+  });
+  handleError(req, res, next, dishSchema);
+}
+
+function handleError(req, res, next, joiSchema) {
+  const { error } = joiSchema.validate(req.body);
   if (error) {
     return res.status(422).json({ joiError: error.details[0].message });
   }
@@ -99,3 +91,4 @@ module.exports.validateScreening = validateScreening;
 module.exports.validateSerial = validateSerial;
 module.exports.validateNotice = validateNotice;
 module.exports.validateQuote = validateQuote;
+module.exports.validateDish = validateDish;

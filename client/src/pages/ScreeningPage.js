@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Linkify from 'react-linkify';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import Context from '../Context';
 import DateRibbon from '../common/DateRibbon';
-import UserContext from '../userContext';
 import LoadingPage from './LoadingPage';
 
 export default function ScreeningPage({ screenings, editedObject }) {
@@ -11,10 +10,7 @@ export default function ScreeningPage({ screenings, editedObject }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
 
-  const { user } = useContext(UserContext);
-  const loggedIn = Object.keys(user).length !== 0;
-
-  let history = useHistory();
+  const { isUserLoggedIn } = useContext(Context);
 
   useEffect(() => {
     if (selectedScreening) {
@@ -43,7 +39,6 @@ export default function ScreeningPage({ screenings, editedObject }) {
   return (
     <ScreeningPageStyled>
       {editedObject._id === selectedScreening._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
-      <BackButtonStyled onClick={history.goBack}>Zurück</BackButtonStyled>
       <ScreeningInfoContainerStyled>
         <DateRibbon date={selectedScreening.date} />
         <FilmStillStyled src={selectedScreening.imageUrl} alt={selectedScreening.altText} />
@@ -59,21 +54,13 @@ export default function ScreeningPage({ screenings, editedObject }) {
             (selectedScreening.version && ' | ' + selectedScreening.version)}
         </FilmInfoStyled>
         <FilmDirectorStyled>{'Regie: ' + selectedScreening.director}</FilmDirectorStyled>
-        <FilmSynopsisStyled>
-          <Linkify
-            componentDecorator={(decoratedHref, decoratedText, key) => (
-              <a target="blank" href={decoratedHref} key={key}>
-                {decoratedText}
-              </a>
-            )}
-          >
-            {selectedScreening.synopsis}
-          </Linkify>
-        </FilmSynopsisStyled>
-        <ScreeningSerialStyled>
-          Filmreihe: {selectedScreening.serial ? selectedScreening.serial.title : ''}
-        </ScreeningSerialStyled>
-        {loggedIn && <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>Bearbeiten</EditLinkStyled>}
+        <FilmSynopsisStyled dangerouslySetInnerHTML={{ __html: selectedScreening.synopsis }} />
+        {selectedScreening.serial && (
+          <ScreeningSerialStyled>Filmreihe: {selectedScreening.serial.title}</ScreeningSerialStyled>
+        )}
+        {isUserLoggedIn && (
+          <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>Bearbeiten</EditLinkStyled>
+        )}
       </ScreeningInfoContainerStyled>
     </ScreeningPageStyled>
   );
@@ -93,15 +80,6 @@ const EditNoteStyled = styled.div`
   font-weight: bold;
 `;
 
-const BackButtonStyled = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 60px;
-  height: 20px;
-  padding: 0 5px;
-`;
-
 const ScreeningInfoContainerStyled = styled.div`
   position: relative;
   display: grid;
@@ -118,12 +96,14 @@ const ScreeningTitleStyled = styled.h2`
   margin: 0;
   padding: 10px;
   background-color: var(--primary-color);
+  color: var(--secondary-color);
 `;
 
 const SpecialStyled = styled.div`
   max-width: 560px;
   padding: 10px;
-  background-color: #ffee00;
+  background-color: var(--special-color);
+  color: var(--secondary-color);
   font-weight: bold;
 `;
 
@@ -139,12 +119,16 @@ const FilmDirectorStyled = styled.div`
   color: var(--primary-color);
 `;
 
-const FilmSynopsisStyled = styled.p`
+const FilmSynopsisStyled = styled.div`
   overflow: auto;
-  margin: 0;
   padding: 10px;
   background-color: var(--primary-color);
+  color: var(--secondary-color);
   white-space: pre-line;
+
+  & p {
+    margin: 0;
+  }
 `;
 
 const ScreeningSerialStyled = styled.div`

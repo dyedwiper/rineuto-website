@@ -1,26 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components/macro';
-import whitePerlImage from '../assets/perls/whitePerl.png';
-import redPerlImage from '../assets/perls/redPerl.png';
 import glubsch from '../assets/glubsch.png';
 import darkGreenPerlImage from '../assets/perls/darkGreenPerl.png';
+import redPerlImage from '../assets/perls/redPerl.png';
+import whitePerlImage from '../assets/perls/whitePerl.png';
 
 export default function Header({ isNavOpen, setIsNavOpen }) {
-  const [title, setTitle] = useState('Rineuto Lichtspiele');
   let history = useHistory();
-
-  const mql = window.matchMedia('(min-width: 900px)');
-  mql.addListener(handleWidthChange);
-
-  useEffect(() => {
-    handleWidthChange();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <HeaderStyled>
-      <TitleStyled onClick={handleTitleClick}>{title}</TitleStyled>
+      <TitleStyled onClick={handleTitleClick}>
+        Rineuto Lichtspiele <SubtitleStyled>- Filmperlen im M1</SubtitleStyled>
+      </TitleStyled>
       <PerlLinkStyled target="_blank" rel="noopener noreferrer" href="https://youtu.be/hKBfQdKvyXc">
         <PerlStyled src={glubsch} alt="Glubschauge" />
       </PerlLinkStyled>
@@ -29,14 +22,6 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
       </PerlMenuLabelStyled>
     </HeaderStyled>
   );
-
-  function handleWidthChange() {
-    if (mql.matches) {
-      setTitle('Rineuto Lichtspiele - Filmperlen in der Mokry');
-    } else {
-      setTitle('Rineuto Lichtspiele');
-    }
-  }
 
   function handleTitleClick() {
     history.push('/');
@@ -60,9 +45,16 @@ const TitleStyled = styled.h1`
   margin: 0;
   padding-left: 20px;
   cursor: pointer;
+  color: var(--secondary-color);
 
   @media (max-width: 340px) {
     font-size: 1.75em;
+  }
+`;
+
+const SubtitleStyled = styled.span`
+  @media (max-width: 900px) {
+    display: none;
   }
 `;
 

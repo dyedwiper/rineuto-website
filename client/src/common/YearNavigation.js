@@ -1,10 +1,34 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import darkGreenPerlImage from '../assets/perls/darkGreenPerl.png';
 import whitePerlImage from '../assets/perls/whitePerl.png';
 
 export default function YearNavigation({ years, setSelectedYear, pagePath }) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  let history = useHistory();
+
+  useEffect(() => {
+    let yearFromPath = window.location.pathname.slice(pagePath.length);
+    if (!yearFromPath) {
+      const latestYear = years[years.length - 1];
+      history.push(pagePath + latestYear);
+      setSelectedYear(latestYear);
+    } else {
+      setSelectedYear(yearFromPath);
+    }
+    setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      const activeLink = document.querySelector('[class*=YearLinkStyled].active');
+      activeLink.scrollIntoView({ block: 'end', inline: 'center' });
+    }
+  }, [isLoading]);
+
   return (
     <YearNavigationStyled>
       {years.map((year) => (

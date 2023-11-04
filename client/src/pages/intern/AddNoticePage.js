@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { postNotice } from '../../utils/services';
-import { getFromLocalStorage } from '../../utils/storage';
+import Context from '../../Context';
+import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
+import { postNotice } from '../../services/noticeServices';
 
-export default function AddNoticePage({ setEditedObject, isWaiting, setIsWaiting }) {
+export default function AddNoticePage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
+  const [editor, setEditor] = useState();
+
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 
@@ -39,10 +43,10 @@ export default function AddNoticePage({ setEditedObject, isWaiting, setIsWaiting
           </span>
           <InputStyled name="altText" />
         </LabelStyled>
-        <LabelStyled>
-          Text
-          <TextareaStyled name="text" />
-        </LabelStyled>
+        <FormGroupStyled>
+          <LabelStyled htmlFor="ckEditor">Text</LabelStyled>
+          <WysiwygEditor setEditor={setEditor} />
+        </FormGroupStyled>
         <ErrorMessageStyled>{validationError}</ErrorMessageStyled>
         {isWaiting ? (
           <WaitNoteStyled>Bitte warten</WaitNoteStyled>
@@ -63,8 +67,8 @@ export default function AddNoticePage({ setEditedObject, isWaiting, setIsWaiting
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromLocalStorage('rineuto-token');
-    postNotice(formData, jwt)
+    formData.append('text', editor.getData());
+    postNotice(formData)
       .then(() => {
         setEditedObject({ added: 'notice' });
         setIsWaiting(false);
@@ -114,15 +118,14 @@ const LinkStyled = styled.a`
   color: var(--primary-color);
 `;
 
-const TextareaStyled = styled.textarea`
-  display: block;
-  overflow: auto;
-  resize: none;
-  min-height: 150px;
-`;
-
 const ButtonStyled = styled.button`
   justify-self: center;
+`;
+
+const FormGroupStyled = styled.div`
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-gap: 5px;
 `;
 
 const ErrorMessageStyled = styled.span`

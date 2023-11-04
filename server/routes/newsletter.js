@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const axios = require('axios');
-const { STANDARD_ERROR_MESSAGE, STANDARD_SUCCESS_MESSAGE } = require('../utils/constants');
+const { STANDARD_ERROR_MESSAGE, STANDARD_SUCCESS_MESSAGE } = require('../constants');
 
 router.post('/', (req, res) => {
   const data = {

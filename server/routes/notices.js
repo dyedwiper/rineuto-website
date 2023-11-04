@@ -4,7 +4,7 @@ const authenticate = require('../middleware/authenticate');
 const { validateNotice } = require('../middleware/validation');
 const { readFileWithMulter } = require('../middleware/readFileWithMulter');
 const { uploadToCloudinary } = require('../middleware/uploadToCloudinary');
-const { STANDARD_ERROR_MESSAGE, STANDARD_SUCCESS_MESSAGE } = require('../utils/constants');
+const { STANDARD_ERROR_MESSAGE, STANDARD_SUCCESS_MESSAGE } = require('../constants');
 
 router.get('/', (req, res) => {
   Notice.find()

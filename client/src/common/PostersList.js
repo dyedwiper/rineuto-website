@@ -2,11 +2,10 @@ import React, { useContext } from 'react';
 import styled from 'styled-components/macro';
 import whitePerlImage from '../assets/perls/whitePerl.png';
 import { Link } from 'react-router-dom';
-import UserContext from '../userContext';
+import Context from '../Context';
 
 export default function PostersList({ serials, selectedYear, editedObject }) {
-  const { user } = useContext(UserContext);
-  const loggedIn = Object.keys(user).length !== 0;
+  const { isUserLoggedIn } = useContext(Context);
 
   return (
     <PosterListStyled>
@@ -17,7 +16,7 @@ export default function PostersList({ serials, selectedYear, editedObject }) {
             <a href={serial.imageUrl} target="_blank" rel="noopener noreferrer">
               <PosterStyled src={serial.imageUrl} alt={serial.altText} />
             </a>
-            {loggedIn && (
+            {isUserLoggedIn && (
               <EditContainerStyled>
                 {serial._id === editedObject._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
                 <EditLinkStyled to={'/intern/editSerial/' + serial._id}>Bearbeiten</EditLinkStyled>

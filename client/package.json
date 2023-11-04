@@ -1,35 +1,33 @@
 {
-  "name": "rineuto-react-ui",
-  "author": {
-    "name": "Max",
-    "email": "rineuto@posteo.de"
-  },
-  "version": "0.2.0",
+  "name": "rineuto-client",
   "proxy": "http://localhost:3333",
   "private": true,
-  "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-linkify": "^1.0.0-alpha",
-    "react-router-dom": "^5.1.2",
-    "styled-components": "^4.4.1",
-    "react-scripts": "^4.0.3"
-  },
   "scripts": {
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^38.1.1",
+    "@ckeditor/ckeditor5-react": "^6.1.0",
+    "axios": "^1.5.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^5.0.1",
+    "styled-components": "^4.4.1"
+  },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "defaults"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version"
     ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   }
 }

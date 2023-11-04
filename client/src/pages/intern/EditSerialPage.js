@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
-import { deleteSerial, patchSerial } from '../../utils/services';
-import { getFromLocalStorage } from '../../utils/storage';
-import LoadingPage from '../LoadingPage';
 import { WaitNoteStyled } from '../../common/styledElements';
+import { deleteSerial, patchSerial } from '../../services/serialServices';
+import LoadingPage from '../LoadingPage';
 
-export default function EditSerialPage({ serials, setEditedObject, isWaiting, setIsWaiting }) {
+export default function EditSerialPage({ serials, setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [serialToEdit, setSerialToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isInvalidId, setIsInvalidId] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
+
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 
@@ -99,8 +101,7 @@ export default function EditSerialPage({ serials, setEditedObject, isWaiting, se
     setIsWaiting(true);
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const jwt = getFromLocalStorage('rineuto-token');
-    patchSerial(serialToEdit._id, formData, jwt)
+    patchSerial(serialToEdit._id, formData)
       .then((res) => {
         setIsWaiting(false);
         setEditedObject(serialToEdit);
@@ -123,8 +124,7 @@ export default function EditSerialPage({ serials, setEditedObject, isWaiting, se
   function handleDelete() {
     setIsWaiting(true);
     setShowDeletePrompt(false);
-    const jwt = getFromLocalStorage('rineuto-token');
-    deleteSerial(serialToEdit._id, jwt)
+    deleteSerial(serialToEdit._id)
       .then(() => {
         setIsWaiting(false);
         setEditedObject({ deleted: 'serial' });

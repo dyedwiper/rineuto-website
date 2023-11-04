@@ -5,12 +5,6 @@ import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import ContactPage from '../pages/ContactPage';
 import ErrorPage from '../pages/ErrorPage';
-import AddNoticePage from '../pages/intern/AddNoticePage';
-import AddScreeningPage from '../pages/intern/AddScreeningPage';
-import AddSerialPage from '../pages/intern/AddSerialPage';
-import EditNoticePage from '../pages/intern/EditNoticePage';
-import EditScreeningPage from '../pages/intern/EditScreeningPage';
-import EditSerialPage from '../pages/intern/EditSerialPage';
 import LoadingPage from '../pages/LoadingPage';
 import LoginPage from '../pages/LoginPage';
 import NewsletterConfirmationPage from '../pages/NewsletterConfirmationPage';
@@ -20,18 +14,19 @@ import NoticesPage from '../pages/NoticesPage';
 import PosterPage from '../pages/PosterPage';
 import ProgramPage from '../pages/ProgramPage';
 import ScreeningPage from '../pages/ScreeningPage';
-import { getNotices, getScreenings, getSerials } from '../utils/services';
+import VokuPage from '../pages/VokuPage';
+import AddNoticePage from '../pages/intern/AddNoticePage';
+import AddScreeningPage from '../pages/intern/AddScreeningPage';
+import AddSerialPage from '../pages/intern/AddSerialPage';
+import EditNoticePage from '../pages/intern/EditNoticePage';
+import EditScreeningPage from '../pages/intern/EditScreeningPage';
+import EditSerialPage from '../pages/intern/EditSerialPage';
+import { getNotices } from '../services/noticeServices';
+import { getScreenings } from '../services/screeningServices';
+import { getSerials } from '../services/serialServices';
 import PrivateRoute from './PrivateRoute';
 
-export default function Main({
-  isNavOpen,
-  isLoadingUser,
-  setIsLoadingUser,
-  setIsLoadingContent,
-  setIsNavOpen,
-  isWaiting,
-  setIsWaiting,
-}) {
+export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsLoadingContent, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
   const [serials, setSerials] = useState([]);
   const [notices, setNotices] = useState([]);
@@ -55,8 +50,8 @@ export default function Main({
 
   useEffect(() => {
     getScreenings()
-      .then((screenings) => {
-        const screeningsFormatted = formatScreenings(screenings);
+      .then((res) => {
+        const screeningsFormatted = formatScreenings(res.data);
         setScreenings(screeningsFormatted);
         setIsLoadingScreenings(false);
       })
@@ -65,8 +60,8 @@ export default function Main({
 
   useEffect(() => {
     getSerials()
-      .then((serials) => {
-        setSerials(serials);
+      .then((res) => {
+        setSerials(res.data);
         setIsLoadingSerials(false);
       })
       .catch(() => setIsError(true));
@@ -74,8 +69,8 @@ export default function Main({
 
   useEffect(() => {
     getNotices()
-      .then((notices) => {
-        const noticesFormatted = formatNotices(notices);
+      .then((res) => {
+        const noticesFormatted = formatNotices(res.data);
         setNotices(noticesFormatted);
         setIsLoadingNotices(false);
       })
@@ -115,6 +110,9 @@ export default function Main({
         <Route path="/posters">
           <PosterPage serials={serials} editedObject={editedObject} />
         </Route>
+        <Route path="/voku">
+          <VokuPage />
+        </Route>
         <Route path="/about">
           <AboutPage />
         </Route>
@@ -125,49 +123,28 @@ export default function Main({
           <LoginPage setIsLoadingUser={setIsLoadingUser} />
         </Route>
         <Route exact path="/newsletter">
-          <NewsletterPage isWaiting={isWaiting} setIsWaiting={setIsWaiting} setIsError={setIsError} />
+          <NewsletterPage setIsError={setIsError} />
         </Route>
         <Route exact path="/newsletter/confirmation">
           <NewsletterConfirmationPage />
         </Route>
         <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
-          <EditNoticePage
-            notices={notices}
-            setEditedObject={setEditedObject}
-            isWaiting={isWaiting}
-            setIsWaiting={setIsWaiting}
-          />
+          <EditNoticePage notices={notices} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addNotice" isLoadingUser={isLoadingUser}>
-          <AddNoticePage setEditedObject={setEditedObject} isWaiting={isWaiting} setIsWaiting={setIsWaiting} />
+          <AddNoticePage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
-          <EditScreeningPage
-            screenings={screenings}
-            serials={serials}
-            setEditedObject={setEditedObject}
-            isWaiting={isWaiting}
-            setIsWaiting={setIsWaiting}
-          />
+          <EditScreeningPage screenings={screenings} serials={serials} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
-          <AddScreeningPage
-            serials={serials}
-            setEditedObject={setEditedObject}
-            isWaiting={isWaiting}
-            setIsWaiting={setIsWaiting}
-          />
+          <AddScreeningPage serials={serials} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
-          <EditSerialPage
-            serials={serials}
-            setEditedObject={setEditedObject}
-            isWaiting={isWaiting}
-            setIsWaiting={setIsWaiting}
-          />
+          <EditSerialPage serials={serials} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addSerial" isLoadingUser={isLoadingUser}>
-          <AddSerialPage setEditedObject={setEditedObject} isWaiting={isWaiting} setIsWaiting={setIsWaiting} />
+          <AddSerialPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <Route path="/logout">
           <Redirect exact to="/" />
@@ -183,24 +160,15 @@ export default function Main({
   function formatScreenings(screenings) {
     const formattedScreenings = screenings.map((screening) => {
       const dateFormatted = new Date(screening.date);
-      let synopsisFormatted = '';
-      if (screening.synopsis) {
-        synopsisFormatted = screening.synopsis.replace(/\\n/g, '\n');
-      }
-      return {
-        ...screening,
-        date: dateFormatted,
-        synopsis: synopsisFormatted,
-      };
+      return { ...screening, date: dateFormatted };
     });
     return formattedScreenings;
   }
 
   function formatNotices(notices) {
     const formattedNotices = notices.map((notice) => {
-      const textFormatted = notice.text.replace(/\\n/g, '\n');
       const dateFormatted = new Date(notice.date);
-      return { ...notice, text: textFormatted, date: dateFormatted };
+      return { ...notice, date: dateFormatted };
     });
     return formattedNotices;
   }

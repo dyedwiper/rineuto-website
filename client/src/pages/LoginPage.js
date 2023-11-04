@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import Context from '../Context';
 import magicGif from '../assets/ahahah.gif';
-import UserContext from '../userContext';
-import { postLoginUser } from '../utils/services';
+import { postLoginUser } from '../services/userServices';
 
 export default function LoginPage({ setIsLoadingUser }) {
   const [didLoginFail, setDidLoginFail] = useState(false);
   let history = useHistory();
-  const { setUser } = useContext(UserContext);
+  const { setUser, setIsUserLoggedIn } = useContext(Context);
 
   const nameInput = useRef(null);
 
@@ -40,8 +40,9 @@ export default function LoginPage({ setIsLoadingUser }) {
     const formData = new FormData(form);
     const loginData = Object.fromEntries(formData);
     postLoginUser(loginData)
-      .then((user) => {
-        setUser(user);
+      .then((res) => {
+        setUser(res.data);
+        setIsUserLoggedIn(true);
         setIsLoadingUser(false);
         setDidLoginFail(false);
         history.push('/');
@@ -84,7 +85,6 @@ const ButtonStyled = styled.button`
   justify-self: center;
   width: min-content;
   padding: 5px 20px;
-  background-color: var(--primary-color);
   border-radius: 3px;
 `;
 
