@@ -26,20 +26,15 @@ export default function Paginator({ page, setPage, limit, itemsPerPage }) {
         <ButtonStyled onClick={() => setPage(1)} disabled={page === 1}>
           {'<<'}
         </ButtonStyled>
-        {page === 1 && <ButtonStyled disabled />}
         {page <= 2 && <ButtonStyled disabled />}
+        {page === 1 && <ButtonStyled disabled />}
         {pageNumbers.map((pageNumber) => (
-          <ButtonStyled
-            key={pageNumber}
-            onClick={() => setPage(pageNumber)}
-            disabled={pageNumber === page}
-            $isCurrentPage={pageNumber === page}
-          >
+          <ButtonStyled key={pageNumber} onClick={() => setPage(pageNumber)} disabled={pageNumber === page}>
             {pageNumber}
           </ButtonStyled>
         ))}
-        {page >= numberOfPages.current - 1 && <ButtonStyled disabled />}
         {page === numberOfPages.current && <ButtonStyled disabled />}
+        {page >= numberOfPages.current - 1 && <ButtonStyled disabled />}
         <ButtonStyled onClick={() => setPage(numberOfPages.current)} disabled={page === numberOfPages.current}>
           {'>>'}
         </ButtonStyled>
