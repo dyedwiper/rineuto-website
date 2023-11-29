@@ -32,7 +32,7 @@ export default function NoticesPage({ notices, editedObject }) {
       <Cushion />
       <PerlLinkStyled
         windowHeight={windowHeight.current}
-        href="https://www.youtube.com/watch?v=Wf8294AR8mE"
+        href="https://www.youtube.com/watch?v=hXgY_L74a_U"
         target="_blank"
         rel="noopener noreferrer"
       >
