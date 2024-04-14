@@ -14,11 +14,11 @@ export default function ContactPage() {
       <div>Mokrystraße 1</div>
       <div>(neben den alten Rialto Lichtspielen)</div>
       <div>21107 Hamburg</div>
-      <LinkStyled href="mailto:rineuto@posteo.de">rineuto(ät)posteo.de</LinkStyled>
+      <LinkStyled href="mailto:info@rineuto.de">info(ät)rineuto.de</LinkStyled>
       <br />
       <br />
       <LinkStyled href="https://www.facebook.com/rineuto" target="_blank" rel="noopener noreferrer">
-        Rineuto on facebook
+        Rineuto on fakebook
       </LinkStyled>
       <br />
       <br />
