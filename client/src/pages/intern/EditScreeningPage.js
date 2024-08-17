@@ -7,8 +7,10 @@ import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { deleteScreening, patchScreening } from '../../services/screeningServices';
 import LoadingPage from '../LoadingPage';
+import { getSerials } from '../../services/serialServices';
 
-export default function EditScreeningPage({ screenings, serials, setEditedObject }) {
+export default function EditScreeningPage({ screenings, setEditedObject }) {
+  const [serials, setSerials] = useState([]);
   const [validationError, setValidationError] = useState('');
   const [screeningToEdit, setScreeningToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -19,6 +21,12 @@ export default function EditScreeningPage({ screenings, serials, setEditedObject
   const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
+
+  useEffect(() => {
+    getSerials().then((res) => {
+      setSerials(res.data);
+    });
+  }, []);
 
   useEffect(() => {
     const screeningId = window.location.pathname.slice(-24);

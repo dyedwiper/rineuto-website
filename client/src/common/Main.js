@@ -23,14 +23,11 @@ import EditNoticePage from '../pages/intern/EditNoticePage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
 import { getScreenings } from '../services/screeningServices';
-import { getSerials } from '../services/serialServices';
 import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
-  const [serials, setSerials] = useState([]);
   const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
-  const [isLoadingSerials, setIsLoadingSerials] = useState(true);
   const [editedObject, setEditedObject] = useState({});
 
   const { isError, setIsError } = useContext(Context);
@@ -57,20 +54,11 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
       .catch(() => setIsError(true));
   }, [editedObject]);
 
-  useEffect(() => {
-    getSerials()
-      .then((res) => {
-        setSerials(res.data);
-        setIsLoadingSerials(false);
-      })
-      .catch(() => setIsError(true));
-  }, [editedObject]);
-
   if (isError) {
     return <ErrorPage />;
   }
 
-  if (isLoadingScreenings || isLoadingSerials) {
+  if (isLoadingScreenings) {
     return <LoadingPage />;
   }
 
@@ -120,10 +108,10 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <AddNoticePage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
-          <EditScreeningPage screenings={screenings} serials={serials} setEditedObject={setEditedObject} />
+          <EditScreeningPage screenings={screenings} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
-          <AddScreeningPage serials={serials} setEditedObject={setEditedObject} />
+          <AddScreeningPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
           <EditSerialPage setEditedObject={setEditedObject} />
