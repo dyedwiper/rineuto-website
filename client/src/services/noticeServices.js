@@ -4,6 +4,15 @@ export function getNotices() {
   return axios.get('/api/notices');
 }
 
+export function getNotice(id) {
+  return axios.get('/api/notices/' + id).then((res) => {
+    const notice = res.data;
+    notice.date = new Date(notice.date);
+
+    return notice;
+  });
+}
+
 export function postNotice(data) {
   return axios.post('/api/notices', data);
 }

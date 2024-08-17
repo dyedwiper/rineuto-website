@@ -5,10 +5,10 @@ import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
 import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
-import { deleteNotice, patchNotice } from '../../services/noticeServices';
+import { deleteNotice, getNotice, patchNotice } from '../../services/noticeServices';
 import LoadingPage from '../LoadingPage';
 
-export default function EditNoticePage({ notices, setEditedObject }) {
+export default function EditNoticePage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [noticeToEdit, setNoticeToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -22,13 +22,14 @@ export default function EditNoticePage({ notices, setEditedObject }) {
 
   useEffect(() => {
     const noticeId = window.location.pathname.slice(-24);
-    const selectedNotice = notices.find((notice) => notice._id === noticeId);
-    if (!selectedNotice) {
-      setIsInvalidId(true);
-    }
-    setNoticeToEdit(selectedNotice);
-    setIsLoading(false);
-  }, [notices]);
+    getNotice(noticeId).then((notice) => {
+      if (!notice) {
+        setIsInvalidId(true);
+      }
+      setNoticeToEdit(notice);
+      setIsLoading(false);
+    });
+  }, []);
 
   useEffect(() => {
     if (!isInvalidId) {

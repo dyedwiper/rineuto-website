@@ -22,7 +22,6 @@ import AddSerialPage from '../pages/intern/AddSerialPage';
 import EditNoticePage from '../pages/intern/EditNoticePage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
-import { getNotices } from '../services/noticeServices';
 import { getScreenings } from '../services/screeningServices';
 import { getSerials } from '../services/serialServices';
 import PrivateRoute from './PrivateRoute';
@@ -30,10 +29,8 @@ import PrivateRoute from './PrivateRoute';
 export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsLoadingContent, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
   const [serials, setSerials] = useState([]);
-  const [notices, setNotices] = useState([]);
   const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
   const [isLoadingSerials, setIsLoadingSerials] = useState(true);
-  const [isLoadingNotice, setIsLoadingNotices] = useState(true);
   const [editedObject, setEditedObject] = useState({});
 
   const { isError, setIsError } = useContext(Context);
@@ -70,24 +67,14 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
   }, [editedObject]);
 
   useEffect(() => {
-    getNotices()
-      .then((res) => {
-        const noticesFormatted = formatNotices(res.data);
-        setNotices(noticesFormatted);
-        setIsLoadingNotices(false);
-      })
-      .catch(() => setIsError(true));
-  }, [editedObject]);
-
-  useEffect(() => {
-    setIsLoadingContent(isLoadingScreenings || isLoadingSerials || isLoadingNotice);
-  }, [setIsLoadingContent, isLoadingScreenings, isLoadingSerials, isLoadingNotice]);
+    setIsLoadingContent(isLoadingScreenings || isLoadingSerials);
+  }, [setIsLoadingContent, isLoadingScreenings, isLoadingSerials]);
 
   if (isError) {
     return <ErrorPage />;
   }
 
-  if (isLoadingScreenings || isLoadingSerials || isLoadingNotice) {
+  if (isLoadingScreenings || isLoadingSerials) {
     return <LoadingPage />;
   }
 
@@ -131,7 +118,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <NewsletterConfirmationPage />
         </Route>
         <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
-          <EditNoticePage notices={notices} setEditedObject={setEditedObject} />
+          <EditNoticePage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addNotice" isLoadingUser={isLoadingUser}>
           <AddNoticePage setEditedObject={setEditedObject} />
@@ -165,14 +152,6 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
       return { ...screening, date: dateFormatted };
     });
     return formattedScreenings;
-  }
-
-  function formatNotices(notices) {
-    const formattedNotices = notices.map((notice) => {
-      const dateFormatted = new Date(notice.date);
-      return { ...notice, date: dateFormatted };
-    });
-    return formattedNotices;
   }
 }
 
