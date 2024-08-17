@@ -14,7 +14,6 @@ export default function App() {
   const [user, setUser] = useState({});
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
-  const [isLoadingContent, setIsLoadingContent] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -27,7 +26,7 @@ export default function App() {
     return () => {
       window.removeEventListener('resize', () => setScreenWidth(document.body.clientWidth));
     };
-  }, [isLoadingContent]);
+  }, []);
 
   useEffect(() => {
     const token = getFromLocalStorage('rineuto-token');
@@ -62,7 +61,6 @@ export default function App() {
               setIsNavOpen={setIsNavOpen}
               isLoadingUser={isLoadingUser}
               setIsLoadingUser={setIsLoadingUser}
-              setIsLoadingContent={setIsLoadingContent}
             />
           </ScreenStyled>
           <Curtain screenWidth={screenWidth} side="right" isDragging={isDragging} setIsDragging={setIsDragging} />

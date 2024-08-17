@@ -26,7 +26,7 @@ import { getScreenings } from '../services/screeningServices';
 import { getSerials } from '../services/serialServices';
 import PrivateRoute from './PrivateRoute';
 
-export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsLoadingContent, setIsNavOpen }) {
+export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsNavOpen }) {
   const [screenings, setScreenings] = useState([]);
   const [serials, setSerials] = useState([]);
   const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
@@ -65,10 +65,6 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
       })
       .catch(() => setIsError(true));
   }, [editedObject]);
-
-  useEffect(() => {
-    setIsLoadingContent(isLoadingScreenings || isLoadingSerials);
-  }, [setIsLoadingContent, isLoadingScreenings, isLoadingSerials]);
 
   if (isError) {
     return <ErrorPage />;
