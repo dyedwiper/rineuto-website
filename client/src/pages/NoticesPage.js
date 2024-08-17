@@ -25,8 +25,7 @@ export default function NoticesPage({ editedObject }) {
   useEffect(() => {
     getNotices()
       .then((res) => {
-        const noticesFormatted = formatNotices(res.data);
-        setNotices(noticesFormatted);
+        setNotices(res);
         setIsLoading(false);
       })
       .catch(() => setIsError(true));
@@ -61,14 +60,6 @@ export default function NoticesPage({ editedObject }) {
       </PerlLinkStyled>
     </NoticePageStyled>
   );
-
-  function formatNotices(notices) {
-    const formattedNotices = notices.map((notice) => {
-      const dateFormatted = new Date(notice.date);
-      return { ...notice, date: dateFormatted };
-    });
-    return formattedNotices;
-  }
 }
 
 const NoticePageStyled = styled.div``;
