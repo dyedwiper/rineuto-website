@@ -93,7 +93,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <ArchivePage screenings={screenings.filter((screening) => screening.date < Date.now())} />
         </Route>
         <Route path="/posters">
-          <PosterPage serials={serials} editedObject={editedObject} />
+          <PosterPage editedObject={editedObject} />
         </Route>
         <Route path="/voku">
           <VokuPage />
@@ -126,7 +126,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <AddScreeningPage serials={serials} setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
-          <EditSerialPage serials={serials} setEditedObject={setEditedObject} />
+          <EditSerialPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addSerial" isLoadingUser={isLoadingUser}>
           <AddSerialPage setEditedObject={setEditedObject} />

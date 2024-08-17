@@ -4,6 +4,10 @@ export function getSerials() {
   return axios.get('/api/serials');
 }
 
+export function getSerial(id) {
+  return axios.get('/api/serials/id/' + id);
+}
+
 export function getSerialYears() {
   return axios.get('/api/serials/years');
 }

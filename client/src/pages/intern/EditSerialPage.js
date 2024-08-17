@@ -1,45 +1,41 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
 import { WaitNoteStyled } from '../../common/styledElements';
-import { deleteSerial, patchSerial } from '../../services/serialServices';
+import { deleteSerial, getSerial, patchSerial } from '../../services/serialServices';
 import LoadingPage from '../LoadingPage';
 
-export default function EditSerialPage({ serials, setEditedObject }) {
+export default function EditSerialPage({ setEditedObject }) {
   const [validationError, setValidationError] = useState('');
   const [serialToEdit, setSerialToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [isInvalidId, setIsInvalidId] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
 
-  const { isWaiting, setIsWaiting } = useContext(Context);
+  const { isWaiting, setIsWaiting, setIsError } = useContext(Context);
 
   let history = useHistory();
 
   useEffect(() => {
     const serialId = window.location.pathname.slice(-24);
-    const selectedSerial = serials.find((serial) => serial._id === serialId);
-    if (!selectedSerial) {
-      setIsInvalidId(true);
-    }
-    setSerialToEdit(selectedSerial);
-    setIsLoading(false);
-  }, [serials]);
+    getSerial(serialId)
+      .then((res) => {
+        const serial = res.data;
+        setSerialToEdit(serial);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsError(true);
+      });
+  }, []);
 
   useEffect(() => {
-    if (!isInvalidId) {
-      document.title = serialToEdit.title + ' - edit | Rineuto Lichtspiele';
-    }
-  }, [serialToEdit, isInvalidId]);
+    document.title = serialToEdit.title + ' - edit | Rineuto Lichtspiele';
+  }, [serialToEdit]);
 
   if (isLoading) {
     return <LoadingPage />;
-  }
-
-  if (isInvalidId) {
-    return <Redirect to="/404" />;
   }
 
   return (
@@ -102,7 +98,7 @@ export default function EditSerialPage({ serials, setEditedObject }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     patchSerial(serialToEdit._id, formData)
-      .then((res) => {
+      .then(() => {
         setIsWaiting(false);
         setEditedObject(serialToEdit);
         history.push('/posters/' + serialToEdit.year);

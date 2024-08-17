@@ -12,6 +12,12 @@ router.get('/', (req, res) => {
     .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
 });
 
+router.get('/id/:id', (req, res) => {
+  Serial.findById(req.params.id)
+    .then((serial) => res.json(serial))
+    .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
+});
+
 router.get('/years', (req, res) => {
   Serial.find()
     .then((serials) => {
