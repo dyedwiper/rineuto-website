@@ -12,6 +12,24 @@ router.get('/', (req, res) => {
     .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
 });
 
+router.get('/years', (req, res) => {
+  Serial.find()
+    .then((serials) => {
+      const years = serials
+        .map((serial) => serial.year)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .sort((a, b) => a - b);
+      res.json(years);
+    })
+    .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
+});
+
+router.get('/year/:year', (req, res) => {
+  Serial.find({ year: req.params.year })
+    .then((serials) => res.json(serials))
+    .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
+});
+
 router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateSerial, (req, res) => {
   new Serial(req.body)
     .save()

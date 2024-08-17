@@ -3,25 +3,37 @@ import styled from 'styled-components/macro';
 import eightBall from '../assets/eightBall.png';
 import PostersList from '../common/PostersList';
 import YearNavigation from '../common/YearNavigation';
+import { getSerialsByYear, getSerialYears } from '../services/serialServices';
 import LoadingPage from './LoadingPage';
 
-export default function PosterPage({ serials, editedObject }) {
+export default function PosterPage({ editedObject }) {
+  const [serials, setSerials] = useState([]);
   const [allYears, setAllYears] = useState();
   const [selectedYear, setSelectedYear] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     document.title = 'Plakate | Rineuto Lichtspiele';
   }, []);
 
   useEffect(() => {
-    const years = serials
-      .map((serial) => serial.year)
-      .filter((value, index, self) => self.indexOf(value) === index)
-      .sort((a, b) => a - b);
-    setAllYears(years);
-  }, [serials]);
+    getSerialYears().then((res) => {
+      const years = res.data;
+      setAllYears(years);
+      setSelectedYear(years[years.length - 1]);
+    });
+  }, []);
 
-  if (!allYears) return <LoadingPage />;
+  useEffect(() => {
+    if (selectedYear) {
+      getSerialsByYear(selectedYear).then((res) => {
+        setSerials(res.data);
+        setIsLoading(false);
+      });
+    }
+  }, [selectedYear]);
+
+  if (isLoading) return <LoadingPage />;
 
   return (
     <PosterPageStyled>
@@ -30,7 +42,7 @@ export default function PosterPage({ serials, editedObject }) {
       {editedObject.deleted === 'serial' && <EditNoteStyled>Filmreihe gelöscht</EditNoteStyled>}
       <PostersList
         // eslint-disable-next-line eqeqeq
-        serials={serials.filter((serial) => serial.year == selectedYear)}
+        serials={serials}
         editedObject={editedObject}
       />
       <PerlLinkStyled href="https://www.youtube.com/watch?v=fsAE2jFPqLw" target="_blank" rel="noopener noreferrer">
