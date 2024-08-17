@@ -14,6 +14,14 @@ router.get('/', (req, res) => {
     .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
 });
 
+router.get('/future', (req, res) => {
+  Screening.find({ date: { $gte: new Date() } })
+    .sort({ date: 1 })
+    .populate('serial')
+    .then((screenings) => res.json(screenings))
+    .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
+});
+
 router.get('/id/:id', (req, res) => {
   Screening.findById(req.params.id)
     .populate('serial')

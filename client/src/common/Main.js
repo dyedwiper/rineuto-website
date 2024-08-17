@@ -69,10 +69,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <NoticesPage editedObject={editedObject} />
         </Route>
         <Route path="/program">
-          <ProgramPage
-            screenings={screenings.filter((screening) => screening.date >= Date.now())}
-            editedObject={editedObject}
-          />
+          <ProgramPage editedObject={editedObject} />
         </Route>
         <Route path="/screening">
           <ScreeningPage editedObject={editedObject} />

@@ -4,6 +4,10 @@ export function getScreenings() {
   return axios.get('/api/screenings');
 }
 
+export function getFutureScreenings() {
+  return axios.get('/api/screenings/future');
+}
+
 export function getScreening(id) {
   return axios.get('/api/screenings/id/' + id).then((res) => {
     const screening = res.data;
