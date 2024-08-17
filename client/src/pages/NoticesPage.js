@@ -4,9 +4,13 @@ import jeverFunImage from '../assets/jeverFun.png';
 import NoticeCard from '../common/NoticeCard';
 import Paginator from '../common/Paginator';
 import { NOTICES_PER_PAGE } from '../constants';
+import { getNotices } from '../services/noticeServices';
+import LoadingPage from './LoadingPage';
 
-export default function NoticesPage({ notices, editedObject }) {
+export default function NoticesPage({ editedObject, setIsError }) {
+  const [notices, setNotices] = useState([]);
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   const windowHeight = useRef(null);
 
@@ -14,6 +18,20 @@ export default function NoticesPage({ notices, editedObject }) {
     document.title = 'Rineuto Lichtspiele';
     windowHeight.current = window.innerHeight;
   }, []);
+
+  useEffect(() => {
+    getNotices()
+      .then((res) => {
+        const noticesFormatted = formatNotices(res.data);
+        setNotices(noticesFormatted);
+        setIsLoading(false);
+      })
+      .catch(() => setIsError(true));
+  }, [editedObject]);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
 
   return (
     <NoticePageStyled>
@@ -40,6 +58,14 @@ export default function NoticesPage({ notices, editedObject }) {
       </PerlLinkStyled>
     </NoticePageStyled>
   );
+
+  function formatNotices(notices) {
+    const formattedNotices = notices.map((notice) => {
+      const dateFormatted = new Date(notice.date);
+      return { ...notice, date: dateFormatted };
+    });
+    return formattedNotices;
+  }
 }
 
 const NoticePageStyled = styled.div``;

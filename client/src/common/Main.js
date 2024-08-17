@@ -93,7 +93,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
     <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
       <Switch>
         <Route exact path="/">
-          <NoticesPage notices={notices} editedObject={editedObject} />
+          <NoticesPage editedObject={editedObject} setIsError={setIsError} />
         </Route>
         <Route path="/program">
           <ProgramPage
