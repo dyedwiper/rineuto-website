@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import Context from '../Context';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import ContactPage from '../pages/ContactPage';
@@ -33,8 +34,9 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
   const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
   const [isLoadingSerials, setIsLoadingSerials] = useState(true);
   const [isLoadingNotice, setIsLoadingNotices] = useState(true);
-  const [isError, setIsError] = useState(false);
   const [editedObject, setEditedObject] = useState({});
+
+  const { isError, setIsError } = useContext(Context);
 
   const history = useHistory();
   const mainElement = useRef(null);
@@ -93,7 +95,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
     <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
       <Switch>
         <Route exact path="/">
-          <NoticesPage editedObject={editedObject} setIsError={setIsError} />
+          <NoticesPage editedObject={editedObject} />
         </Route>
         <Route path="/program">
           <ProgramPage

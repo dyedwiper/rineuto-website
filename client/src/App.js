@@ -17,6 +17,7 @@ export default function App() {
   const [isLoadingContent, setIsLoadingContent] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [screenWidth, setScreenWidth] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -47,7 +48,9 @@ export default function App() {
 
   return (
     <Router>
-      <Context.Provider value={{ user, setUser, isUserLoggedIn, setIsUserLoggedIn, isWaiting, setIsWaiting }}>
+      <Context.Provider
+        value={{ user, setUser, isUserLoggedIn, setIsUserLoggedIn, isWaiting, setIsWaiting, isError, setIsError }}
+      >
         <AppStyled isDragging={isDragging}>
           {isWaiting && <OverlayStyled />}
           <Curtain screenWidth={screenWidth} side="left" isDragging={isDragging} setIsDragging={setIsDragging} />

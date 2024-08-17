@@ -1,16 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/macro';
 import jeverFunImage from '../assets/jeverFun.png';
 import NoticeCard from '../common/NoticeCard';
 import Paginator from '../common/Paginator';
 import { NOTICES_PER_PAGE } from '../constants';
+import Context from '../Context';
 import { getNotices } from '../services/noticeServices';
 import LoadingPage from './LoadingPage';
 
-export default function NoticesPage({ editedObject, setIsError }) {
+export default function NoticesPage({ editedObject }) {
   const [notices, setNotices] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { setIsError } = useContext(Context);
 
   const windowHeight = useRef(null);
 
