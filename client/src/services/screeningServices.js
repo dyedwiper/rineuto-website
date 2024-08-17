@@ -1,11 +1,15 @@
 import axios from 'axios';
 
-export function getScreenings() {
-  return axios.get('/api/screenings');
-}
-
 export function getFutureScreenings() {
   return axios.get('/api/screenings/future');
+}
+
+export function getPastScreeningsByYear(year) {
+  return axios.get('/api/screenings/past/year/' + year);
+}
+
+export function getYearsOfPastScreenings() {
+  return axios.get('/api/screenings/past/years');
 }
 
 export function getScreening(id) {

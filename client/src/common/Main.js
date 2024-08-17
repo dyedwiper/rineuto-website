@@ -6,7 +6,6 @@ import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import ContactPage from '../pages/ContactPage';
 import ErrorPage from '../pages/ErrorPage';
-import LoadingPage from '../pages/LoadingPage';
 import LoginPage from '../pages/LoginPage';
 import NewsletterConfirmationPage from '../pages/NewsletterConfirmationPage';
 import NewsletterPage from '../pages/NewsletterPage';
@@ -22,12 +21,9 @@ import AddSerialPage from '../pages/intern/AddSerialPage';
 import EditNoticePage from '../pages/intern/EditNoticePage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
-import { getScreenings } from '../services/screeningServices';
 import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsNavOpen }) {
-  const [screenings, setScreenings] = useState([]);
-  const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
   const [editedObject, setEditedObject] = useState({});
 
   const { isError, setIsError } = useContext(Context);
@@ -44,22 +40,8 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
     return unlisten;
   }, [history]);
 
-  useEffect(() => {
-    getScreenings()
-      .then((res) => {
-        const screeningsFormatted = formatScreenings(res.data);
-        setScreenings(screeningsFormatted);
-        setIsLoadingScreenings(false);
-      })
-      .catch(() => setIsError(true));
-  }, [editedObject]);
-
   if (isError) {
     return <ErrorPage />;
-  }
-
-  if (isLoadingScreenings) {
-    return <LoadingPage />;
   }
 
   return (
@@ -75,7 +57,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <ScreeningPage editedObject={editedObject} />
         </Route>
         <Route path="/archive">
-          <ArchivePage screenings={screenings.filter((screening) => screening.date < Date.now())} />
+          <ArchivePage />
         </Route>
         <Route path="/posters">
           <PosterPage editedObject={editedObject} />
@@ -126,14 +108,6 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
       </Switch>
     </MainStyled>
   );
-
-  function formatScreenings(screenings) {
-    const formattedScreenings = screenings.map((screening) => {
-      const dateFormatted = new Date(screening.date);
-      return { ...screening, date: dateFormatted };
-    });
-    return formattedScreenings;
-  }
 }
 
 const MainStyled = styled.main`
