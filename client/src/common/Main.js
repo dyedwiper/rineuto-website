@@ -75,7 +75,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           />
         </Route>
         <Route path="/screening">
-          <ScreeningPage screenings={screenings} editedObject={editedObject} />
+          <ScreeningPage editedObject={editedObject} />
         </Route>
         <Route path="/archive">
           <ArchivePage screenings={screenings.filter((screening) => screening.date < Date.now())} />
@@ -108,7 +108,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <AddNoticePage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
-          <EditScreeningPage screenings={screenings} setEditedObject={setEditedObject} />
+          <EditScreeningPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
           <AddScreeningPage setEditedObject={setEditedObject} />

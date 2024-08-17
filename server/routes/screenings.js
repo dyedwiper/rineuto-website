@@ -14,6 +14,13 @@ router.get('/', (req, res) => {
     .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
 });
 
+router.get('/id/:id', (req, res) => {
+  Screening.findById(req.params.id)
+    .populate('serial')
+    .then((screening) => res.json(screening))
+    .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
+});
+
 router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateScreening, formatDate, (req, res) => {
   new Screening(req.body)
     .save()

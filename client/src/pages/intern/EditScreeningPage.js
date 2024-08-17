@@ -1,20 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
 import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
-import { deleteScreening, patchScreening } from '../../services/screeningServices';
-import LoadingPage from '../LoadingPage';
+import { deleteScreening, getScreening, patchScreening } from '../../services/screeningServices';
 import { getSerials } from '../../services/serialServices';
+import LoadingPage from '../LoadingPage';
 
-export default function EditScreeningPage({ screenings, setEditedObject }) {
+export default function EditScreeningPage({ setEditedObject }) {
   const [serials, setSerials] = useState([]);
   const [validationError, setValidationError] = useState('');
-  const [screeningToEdit, setScreeningToEdit] = useState({});
+  const [screening, setScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [isInvalidId, setIsInvalidId] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const [editor, setEditor] = useState();
 
@@ -30,26 +29,18 @@ export default function EditScreeningPage({ screenings, setEditedObject }) {
 
   useEffect(() => {
     const screeningId = window.location.pathname.slice(-24);
-    const screening = screenings.find((screening) => screening._id === screeningId);
-    if (!screening) {
-      setIsInvalidId(true);
-    }
-    setScreeningToEdit(screening);
-    setIsLoading(false);
-  }, [screenings]);
+    getScreening(screeningId).then((res) => {
+      setScreening(res);
+      setIsLoading(false);
+    });
+  }, []);
 
   useEffect(() => {
-    if (!isInvalidId) {
-      document.title = screeningToEdit.title + ' - edit | Rineuto Lichtspiele';
-    }
-  }, [screeningToEdit, isInvalidId]);
+    document.title = screening.title + ' - edit | Rineuto Lichtspiele';
+  }, [screening]);
 
   if (isLoading) {
     return <LoadingPage />;
-  }
-
-  if (isInvalidId) {
-    return <Redirect to="/404" />;
   }
 
   return (
@@ -58,11 +49,11 @@ export default function EditScreeningPage({ screenings, setEditedObject }) {
       <FormStyled onSubmit={handleSubmit}>
         <LabelStyled>
           Filmtitel
-          <InputStyled name="title" defaultValue={screeningToEdit.title} />
+          <InputStyled name="title" defaultValue={screening.title} />
         </LabelStyled>
         <LabelStyled>
           Vorführdatum
-          <InputStyled type="date" name="day" defaultValue={screeningToEdit.date.toISOString().slice(0, 10)} />
+          <InputStyled type="date" name="day" defaultValue={screening.date.toISOString().slice(0, 10)} />
         </LabelStyled>
         <LabelStyled>
           Uhrzeit
@@ -70,16 +61,16 @@ export default function EditScreeningPage({ screenings, setEditedObject }) {
             type="time"
             name="time"
             defaultValue={
-              screeningToEdit.date.getHours() +
+              screening.date.getHours() +
               ':' +
-              (screeningToEdit.date.getMinutes() < 10 ? '0' : '') +
-              screeningToEdit.date.getMinutes()
+              (screening.date.getMinutes() < 10 ? '0' : '') +
+              screening.date.getMinutes()
             }
           />
         </LabelStyled>
         <LabelStyled>
           Regie
-          <InputStyled name="director" defaultValue={screeningToEdit.director} />
+          <InputStyled name="director" defaultValue={screening.director} />
         </LabelStyled>
         <LabelStyled>
           Bild (max. 1 MB)
@@ -92,37 +83,37 @@ export default function EditScreeningPage({ screenings, setEditedObject }) {
               (Wikipedia)
             </LinkStyled>
           </span>
-          <InputStyled name="altText" defaultValue={screeningToEdit.altText} />
+          <InputStyled name="altText" defaultValue={screening.altText} />
         </LabelStyled>
         <LabelStyled>
           Länge in Minuten
-          <InputStyled name="length" defaultValue={screeningToEdit.length} />
+          <InputStyled name="length" defaultValue={screening.length} />
         </LabelStyled>
         <LabelStyled>
           Prodoktionsländer
-          <InputStyled name="country" defaultValue={screeningToEdit.country} />
+          <InputStyled name="country" defaultValue={screening.country} />
         </LabelStyled>
         <LabelStyled>
           Erscheinungsjahr
-          <InputStyled name="year" defaultValue={screeningToEdit.year} />
+          <InputStyled name="year" defaultValue={screening.year} />
         </LabelStyled>
         <LabelStyled>
           Version
-          <InputStyled name="version" defaultValue={screeningToEdit.version} />
+          <InputStyled name="version" defaultValue={screening.version} />
         </LabelStyled>
         <FormGroupStyled>
           <LabelStyled htmlFor="ckEditor">Beschreibung</LabelStyled>
-          <WysiwygEditor setEditor={setEditor} data={screeningToEdit.synopsis} />
+          <WysiwygEditor setEditor={setEditor} data={screening.synopsis} />
         </FormGroupStyled>
         <LabelStyled>
           Sonderbemerkung
-          <InputStyled name="special" defaultValue={screeningToEdit.special} />
+          <InputStyled name="special" defaultValue={screening.special} />
         </LabelStyled>
         <LabelStyled>
           Filmreihe
           <SelectStyled
             name="serial"
-            defaultValue={screeningToEdit.serial ? screeningToEdit.serial._id : '000000000000000000000000'}
+            defaultValue={screening.serial ? screening.serial._id : '000000000000000000000000'}
           >
             <option value="000000000000000000000000">-- Film ohne Reihe --</option>
             {serials
@@ -150,7 +141,7 @@ export default function EditScreeningPage({ screenings, setEditedObject }) {
                 setEditedObject={setEditedObject}
               />
             )}
-            <ButtonStyled type="button" onClick={() => history.push('/screening/' + screeningToEdit._id)}>
+            <ButtonStyled type="button" onClick={() => history.push('/screening/' + screening._id)}>
               Abbrechen
             </ButtonStyled>
           </>
@@ -165,11 +156,11 @@ export default function EditScreeningPage({ screenings, setEditedObject }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     formData.append('synopsis', editor.getData());
-    patchScreening(screeningToEdit._id, formData)
+    patchScreening(screening._id, formData)
       .then(() => {
         setIsWaiting(false);
-        setEditedObject(screeningToEdit);
-        history.push('/screening/' + screeningToEdit._id);
+        setEditedObject(screening);
+        history.push('/screening/' + screening._id);
       })
       .catch((err) => {
         setIsWaiting(false);
@@ -188,7 +179,7 @@ export default function EditScreeningPage({ screenings, setEditedObject }) {
   function handleDelete() {
     setIsWaiting(true);
     setShowDeletePrompt(false);
-    deleteScreening(screeningToEdit._id)
+    deleteScreening(screening._id)
       .then(() => {
         setIsWaiting(false);
         setEditedObject({ deleted: 'screening' });

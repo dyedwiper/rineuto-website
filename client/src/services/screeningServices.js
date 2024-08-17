@@ -4,6 +4,14 @@ export function getScreenings() {
   return axios.get('/api/screenings');
 }
 
+export function getScreening(id) {
+  return axios.get('/api/screenings/id/' + id).then((res) => {
+    const screening = res.data;
+    screening.date = new Date(screening.date);
+    return screening;
+  });
+}
+
 export function postScreening(data) {
   return axios.post('/api/screenings', data);
 }
