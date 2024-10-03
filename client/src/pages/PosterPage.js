@@ -20,11 +20,14 @@ export default function PosterPage({ editedObject }) {
   }, []);
 
   useEffect(() => {
-    getSerialYears().then((res) => {
-      const years = res.data;
-      setAllYears(years);
-      setSelectedYear(years[years.length - 1]);
-    });
+    getSerialYears()
+      .then((res) => {
+        const years = res.data;
+        setAllYears(years);
+        setSelectedYear(years[years.length - 1]);
+      })
+      .catch(() => setIsError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
