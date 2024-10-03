@@ -12,13 +12,16 @@ export default function VokuPage() {
   const [dishes, setDishes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { isUserLoggedIn } = useContext(Context);
+  const { isUserLoggedIn, setIsError } = useContext(Context);
 
   useEffect(() => {
-    getDishes().then((res) => {
-      setDishes(res.data);
-      setIsLoading(false);
-    });
+    getDishes()
+      .then((res) => {
+        setDishes(res.data);
+        setIsLoading(false);
+      })
+      .catch(() => setIsError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

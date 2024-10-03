@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import QuotePerl from '../common/QuotePerl';
 import { getQuotes } from '../services/quoteServices';
 import LoadingPage from './LoadingPage';
+import Context from '../Context';
 
 export default function AboutPage() {
   const [quotes, setQuotes] = useState([]);
@@ -11,15 +12,20 @@ export default function AboutPage() {
   const [aboutTextHeight, setAboutTextHeight] = useState(0);
   const [openPerls, setOpenPerls] = useState([]);
 
+  const { setIsError } = useContext(Context);
+
   const quoteContainer = useRef(null);
   const aboutTextParagraph = useRef(null);
   const numberOfOpenPerlsBefore = useRef(null);
 
   useEffect(() => {
-    getQuotes().then((res) => {
-      setQuotes(res.data);
-      setIsLoading(false);
-    });
+    getQuotes()
+      .then((res) => {
+        setQuotes(res.data);
+        setIsLoading(false);
+      })
+      .catch(() => setIsError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

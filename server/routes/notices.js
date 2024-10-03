@@ -12,6 +12,12 @@ router.get('/', (req, res) => {
     .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
 });
 
+router.get('/id/:id', (req, res) => {
+  Notice.findById(req.params.id)
+    .then((notice) => res.json(notice))
+    .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
+});
+
 router.post('/', authenticate, readFileWithMulter, uploadToCloudinary, validateNotice, (req, res) => {
   const date = Date.now();
   new Notice({ date, ...req.body })

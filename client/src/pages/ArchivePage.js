@@ -1,44 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import hal9000 from '../assets/hal9000.png';
 import ScreeningsList from '../common/ScreeningsList';
 import YearNavigation from '../common/YearNavigation';
 import LoadingPage from './LoadingPage';
+import { getPastScreeningsByYear, getYearsOfPastScreenings } from '../services/screeningServices';
+import Context from '../Context';
 
-export default function ArchivePage({ screenings }) {
+export default function ArchivePage() {
+  const [screenings, setScreenings] = useState([]);
   const [allYears, setAllYears] = useState();
   const [selectedYear, setSelectedYear] = useState();
-  const [filteredScreenings, setFilteredScreenings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { setIsError } = useContext(Context);
 
   useEffect(() => {
     document.title = 'Archiv | Rineuto Lichtspiele';
   }, []);
 
   useEffect(() => {
-    const years = screenings
-      .map((screening) => screening.date.getFullYear())
-      .filter((value, index, self) => self.indexOf(value) === index)
-      .sort((a, b) => a - b);
-    setAllYears(years);
-  }, [screenings]);
+    getYearsOfPastScreenings()
+      .then((res) => {
+        setAllYears(res.data);
+      })
+      .catch(() => setIsError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
-    setFilteredScreenings(
-      screenings.filter(
-        (screening) =>
-          // eslint-disable-next-line eqeqeq
-          screening.date.getFullYear() == selectedYear && screening.date < Date.now()
-      )
-    );
-  }, [screenings, selectedYear]);
+    getPastScreeningsByYear(selectedYear)
+      .then((res) => {
+        setScreenings(res.data);
+        setIsLoading(false);
+      })
+      .catch(() => setIsError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedYear]);
 
-  if (!allYears) return <LoadingPage />;
+  if (isLoading) return <LoadingPage />;
 
   return (
     <ArchivePageStyled>
       <YearNavigation years={allYears} setSelectedYear={setSelectedYear} pagePath={'/archive/'} />
       <SubHeadlineStyled>Vergangene Filmperlen</SubHeadlineStyled>
-      <ScreeningsList screenings={filteredScreenings.sort((a, b) => b.date - a.date)} />
+      <ScreeningsList screenings={screenings} />
       <PerlLinkStyled href="https://www.youtube.com/watch?v=4VyUMIZr1PU" target="_blank" rel="noopener noreferrer">
         <HalImageStyled src={hal9000} alt="HAL 9000" />
       </PerlLinkStyled>

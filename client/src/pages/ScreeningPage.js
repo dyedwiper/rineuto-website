@@ -1,66 +1,59 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import Context from '../Context';
 import DateRibbon from '../common/DateRibbon';
+import { getScreening } from '../services/screeningServices';
 import LoadingPage from './LoadingPage';
 
-export default function ScreeningPage({ screenings, editedObject }) {
-  const [selectedScreening, setSelectedScreening] = useState({});
+export default function ScreeningPage({ editedObject }) {
+  const [screening, setScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [isInvalidId, setIsInvalidId] = useState(false);
 
-  const { isUserLoggedIn } = useContext(Context);
+  const { isUserLoggedIn, setIsError } = useContext(Context);
 
   useEffect(() => {
-    if (selectedScreening) {
-      document.title = selectedScreening.title + ' | Rineuto Lichtspiele';
+    if (screening) {
+      document.title = screening.title + ' | Rineuto Lichtspiele';
     }
-  }, [selectedScreening]);
+  }, [screening]);
 
   useEffect(() => {
     const screeningId = window.location.pathname.slice(-24);
-    const screening = screenings.find((screening) => screening._id === screeningId);
-    if (!screening) {
-      setIsInvalidId(true);
-    }
-    setSelectedScreening(screening);
-    setIsLoading(false);
-  }, [screenings]);
+    getScreening(screeningId)
+      .then((res) => {
+        setScreening(res);
+        setIsLoading(false);
+      })
+      .catch(() => setIsError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) {
     return <LoadingPage />;
   }
 
-  if (isInvalidId) {
-    return <Redirect to="/404" />;
-  }
-
   return (
     <ScreeningPageStyled>
-      {editedObject._id === selectedScreening._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
+      {editedObject._id === screening._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
       <ScreeningInfoContainerStyled>
-        <DateRibbon date={selectedScreening.date} />
-        <FilmStillStyled src={selectedScreening.imageUrl} alt={selectedScreening.altText} />
-        {selectedScreening.special && <SpecialStyled>{selectedScreening.special}</SpecialStyled>}
-        <ScreeningTitleStyled>{selectedScreening.title}</ScreeningTitleStyled>
+        <DateRibbon date={screening.date} />
+        <FilmStillStyled src={screening.imageUrl} alt={screening.altText} />
+        {screening.special && <SpecialStyled>{screening.special}</SpecialStyled>}
+        <ScreeningTitleStyled>{screening.title}</ScreeningTitleStyled>
         <FilmInfoStyled>
-          {selectedScreening.country +
+          {screening.country +
             ' ' +
-            selectedScreening.year +
+            screening.year +
             ' | ' +
-            selectedScreening.length +
+            screening.length +
             ' Min' +
-            (selectedScreening.version && ' | ' + selectedScreening.version)}
+            (screening.version && ' | ' + screening.version)}
         </FilmInfoStyled>
-        <FilmDirectorStyled>{'Regie: ' + selectedScreening.director}</FilmDirectorStyled>
-        <FilmSynopsisStyled dangerouslySetInnerHTML={{ __html: selectedScreening.synopsis }} />
-        {selectedScreening.serial && (
-          <ScreeningSerialStyled>Filmreihe: {selectedScreening.serial.title}</ScreeningSerialStyled>
-        )}
-        {isUserLoggedIn && (
-          <EditLinkStyled to={'/intern/editScreening/' + selectedScreening._id}>Bearbeiten</EditLinkStyled>
-        )}
+        <FilmDirectorStyled>{'Regie: ' + screening.director}</FilmDirectorStyled>
+        <FilmSynopsisStyled dangerouslySetInnerHTML={{ __html: screening.synopsis }} />
+        {screening.serial && <ScreeningSerialStyled>Filmreihe: {screening.serial.title}</ScreeningSerialStyled>}
+        {isUserLoggedIn && <EditLinkStyled to={'/intern/editScreening/' + screening._id}>Bearbeiten</EditLinkStyled>}
       </ScreeningInfoContainerStyled>
     </ScreeningPageStyled>
   );

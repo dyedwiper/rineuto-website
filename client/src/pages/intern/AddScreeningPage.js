@@ -5,14 +5,25 @@ import Context from '../../Context';
 import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { postScreening } from '../../services/screeningServices';
+import { getSerials } from '../../services/serialServices';
 
-export default function AddScreeningPage({ serials, setEditedObject }) {
+export default function AddScreeningPage({ setEditedObject }) {
+  const [serials, setSerials] = useState([]);
   const [validationError, setValidationError] = useState('');
   const [editor, setEditor] = useState();
 
-  const { isWaiting, setIsWaiting } = useContext(Context);
+  const { isWaiting, setIsWaiting, setIsError } = useContext(Context);
 
   let history = useHistory();
+
+  useEffect(() => {
+    getSerials()
+      .then((res) => {
+        setSerials(res.data);
+      })
+      .catch(() => setIsError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     document.title = ' Vorführung anlegen | Rineuto Lichtspiele';

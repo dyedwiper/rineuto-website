@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import Context from '../Context';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import ContactPage from '../pages/ContactPage';
 import ErrorPage from '../pages/ErrorPage';
-import LoadingPage from '../pages/LoadingPage';
 import LoginPage from '../pages/LoginPage';
 import NewsletterConfirmationPage from '../pages/NewsletterConfirmationPage';
 import NewsletterPage from '../pages/NewsletterPage';
@@ -21,20 +21,12 @@ import AddSerialPage from '../pages/intern/AddSerialPage';
 import EditNoticePage from '../pages/intern/EditNoticePage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
-import { getNotices } from '../services/noticeServices';
-import { getScreenings } from '../services/screeningServices';
-import { getSerials } from '../services/serialServices';
 import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsNavOpen }) {
-  const [screenings, setScreenings] = useState([]);
-  const [serials, setSerials] = useState([]);
-  const [notices, setNotices] = useState([]);
-  const [isLoadingScreenings, setIsLoadingScreenings] = useState(true);
-  const [isLoadingSerials, setIsLoadingSerials] = useState(true);
-  const [isLoadingNotice, setIsLoadingNotices] = useState(true);
-  const [isError, setIsError] = useState(false);
   const [editedObject, setEditedObject] = useState({});
+
+  const { isError, setIsError } = useContext(Context);
 
   const history = useHistory();
   const mainElement = useRef(null);
@@ -48,63 +40,27 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
     return unlisten;
   }, [history]);
 
-  useEffect(() => {
-    getScreenings()
-      .then((res) => {
-        const screeningsFormatted = formatScreenings(res.data);
-        setScreenings(screeningsFormatted);
-        setIsLoadingScreenings(false);
-      })
-      .catch(() => setIsError(true));
-  }, [editedObject]);
-
-  useEffect(() => {
-    getSerials()
-      .then((res) => {
-        setSerials(res.data);
-        setIsLoadingSerials(false);
-      })
-      .catch(() => setIsError(true));
-  }, [editedObject]);
-
-  useEffect(() => {
-    getNotices()
-      .then((res) => {
-        const noticesFormatted = formatNotices(res.data);
-        setNotices(noticesFormatted);
-        setIsLoadingNotices(false);
-      })
-      .catch(() => setIsError(true));
-  }, [editedObject]);
-
   if (isError) {
     return <ErrorPage />;
-  }
-
-  if (isLoadingScreenings || isLoadingSerials || isLoadingNotice) {
-    return <LoadingPage />;
   }
 
   return (
     <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
       <Switch>
         <Route exact path="/">
-          <NoticesPage notices={notices} editedObject={editedObject} />
+          <NoticesPage editedObject={editedObject} />
         </Route>
         <Route path="/program">
-          <ProgramPage
-            screenings={screenings.filter((screening) => screening.date >= Date.now())}
-            editedObject={editedObject}
-          />
+          <ProgramPage editedObject={editedObject} />
         </Route>
         <Route path="/screening">
-          <ScreeningPage screenings={screenings} editedObject={editedObject} />
+          <ScreeningPage editedObject={editedObject} />
         </Route>
         <Route path="/archive">
-          <ArchivePage screenings={screenings.filter((screening) => screening.date < Date.now())} />
+          <ArchivePage />
         </Route>
         <Route path="/posters">
-          <PosterPage serials={serials} editedObject={editedObject} />
+          <PosterPage editedObject={editedObject} />
         </Route>
         <Route path="/voku">
           <VokuPage />
@@ -125,19 +81,19 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <NewsletterConfirmationPage />
         </Route>
         <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
-          <EditNoticePage notices={notices} setEditedObject={setEditedObject} />
+          <EditNoticePage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addNotice" isLoadingUser={isLoadingUser}>
           <AddNoticePage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
-          <EditScreeningPage screenings={screenings} serials={serials} setEditedObject={setEditedObject} />
+          <EditScreeningPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
-          <AddScreeningPage serials={serials} setEditedObject={setEditedObject} />
+          <AddScreeningPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
-          <EditSerialPage serials={serials} setEditedObject={setEditedObject} />
+          <EditSerialPage setEditedObject={setEditedObject} />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addSerial" isLoadingUser={isLoadingUser}>
           <AddSerialPage setEditedObject={setEditedObject} />
@@ -152,22 +108,6 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
       </Switch>
     </MainStyled>
   );
-
-  function formatScreenings(screenings) {
-    const formattedScreenings = screenings.map((screening) => {
-      const dateFormatted = new Date(screening.date);
-      return { ...screening, date: dateFormatted };
-    });
-    return formattedScreenings;
-  }
-
-  function formatNotices(notices) {
-    const formattedNotices = notices.map((notice) => {
-      const dateFormatted = new Date(notice.date);
-      return { ...notice, date: dateFormatted };
-    });
-    return formattedNotices;
-  }
 }
 
 const MainStyled = styled.main`
