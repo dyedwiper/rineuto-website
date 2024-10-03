@@ -29,6 +29,7 @@ export default function NoticesPage({ editedObject }) {
         setIsLoading(false);
       })
       .catch(() => setIsError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editedObject]);
 
   if (isLoading) {

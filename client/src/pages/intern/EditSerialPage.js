@@ -28,6 +28,7 @@ export default function EditSerialPage({ setEditedObject }) {
       .catch(() => {
         setIsError(true);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

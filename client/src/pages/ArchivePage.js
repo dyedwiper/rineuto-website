@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import hal9000 from '../assets/hal9000.png';
 import ScreeningsList from '../common/ScreeningsList';
 import YearNavigation from '../common/YearNavigation';
 import LoadingPage from './LoadingPage';
 import { getPastScreeningsByYear, getYearsOfPastScreenings } from '../services/screeningServices';
+import Context from '../Context';
 
 export default function ArchivePage() {
   const [screenings, setScreenings] = useState([]);
@@ -12,21 +13,29 @@ export default function ArchivePage() {
   const [selectedYear, setSelectedYear] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
+  const { setIsError } = useContext(Context);
+
   useEffect(() => {
     document.title = 'Archiv | Rineuto Lichtspiele';
   }, []);
 
   useEffect(() => {
-    getYearsOfPastScreenings().then((res) => {
-      setAllYears(res.data);
-    });
+    getYearsOfPastScreenings()
+      .then((res) => {
+        setAllYears(res.data);
+      })
+      .catch(() => setIsError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    getPastScreeningsByYear(selectedYear).then((res) => {
-      setScreenings(res.data);
-      setIsLoading(false);
-    });
+    getPastScreeningsByYear(selectedYear)
+      .then((res) => {
+        setScreenings(res.data);
+        setIsLoading(false);
+      })
+      .catch(() => setIsError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedYear]);
 
   if (isLoading) return <LoadingPage />;

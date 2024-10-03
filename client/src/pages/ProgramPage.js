@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import ScreeningsList from '../common/ScreeningsList';
 import { getFutureScreenings } from '../services/screeningServices';
 import LoadingPage from './LoadingPage';
+import Context from '../Context';
 
 export default function ProgramPage({ editedObject }) {
   const [screenings, setScreenings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { setIsError } = useContext(Context);
 
   useEffect(() => {
     document.title = 'Programm | Rineuto Lichtspiele';
   }, []);
 
   useEffect(() => {
-    getFutureScreenings().then((res) => {
-      setScreenings(res.data);
-      setIsLoading(false);
-    });
+    getFutureScreenings()
+      .then((res) => {
+        setScreenings(res.data);
+        setIsLoading(false);
+      })
+      .catch(() => setIsError(true));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading) {
