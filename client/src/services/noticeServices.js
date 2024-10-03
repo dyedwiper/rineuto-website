@@ -12,7 +12,7 @@ export function getNotices() {
 }
 
 export function getNotice(id) {
-  return axios.get('/api/notices/' + id).then((res) => {
+  return axios.get('/api/notices/id/' + id).then((res) => {
     const notice = res.data;
     notice.date = new Date(notice.date);
     return notice;
