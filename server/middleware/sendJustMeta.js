@@ -52,7 +52,7 @@ function sendJustMeta(req, res, next) {
             screening.title,
             path.join(ROUTE_SCREENING, screeningId),
             stripHtml(screening.synopsis),
-            screening.imageUrl
+            screening.imageUrl,
           );
           res.send(ogMeta);
         })

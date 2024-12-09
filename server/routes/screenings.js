@@ -63,7 +63,7 @@ router.patch(
     Screening.findByIdAndUpdate(req.params.id, req.body)
       .then((screening) => res.json(screening))
       .catch(() => res.status(500).json(STANDARD_ERROR_MESSAGE));
-  }
+  },
 );
 
 router.delete('/:id', authenticate, (req, res) => {

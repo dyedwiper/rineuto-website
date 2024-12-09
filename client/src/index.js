@@ -13,5 +13,5 @@ ReactDOM.render(
     <GlobalStyles />
     <App />
   </>,
-  rootElement
+  rootElement,
 );
