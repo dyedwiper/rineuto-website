@@ -55,8 +55,7 @@ const YearLinkStyled = styled(NavLink)`
   place-items: center;
   width: 80px;
   height: 40px;
-  margin: 10px 10px;
-  padding: auto;
+  margin: 10px;
   background-image: url(${whitePerlImage});
   color: var(--secondary-color);
   font-size: 1.5em;
