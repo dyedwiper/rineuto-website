@@ -14,13 +14,16 @@ export default function ContactPage() {
       <div>Mokrystraße 1</div>
       <div>(neben den alten Rialto Lichtspielen)</div>
       <div>21107 Hamburg</div>
-      <LinkStyled href="mailto:info@rineuto.de">info(ät)rineuto.de</LinkStyled>
+      <LinkStyled href="mailto:info@rineuto.de">info@rineuto.de</LinkStyled>
       <br />
       <br />
       <LinkStyled href="https://www.facebook.com/rineuto" target="_blank" rel="noopener noreferrer">
-        Rineuto on fakebook
+        rineuto on fakebook
       </LinkStyled>
       <br />
+      <LinkStyled href="https://www.instagram.com/rineuto_lichtspiele/" target="_blank" rel="noopener noreferrer">
+        rineuto on instagram
+      </LinkStyled>
       <br />
       <br />
       <a
@@ -33,7 +36,7 @@ export default function ContactPage() {
       <br />
       <br />
       <div>Jugendschutzbeauftragter: Fabian Schauren </div>
-      <div>(jugendschutz(ät)kommunale-kinos.de)</div>
+      <div>(jugendschutz@kommunale-kinos.de)</div>
       <br />
       <br />
       <DSEStyled>
@@ -447,6 +450,7 @@ const MapImageStyled = styled.img`
 `;
 
 const LinkStyled = styled.a`
+  display: block;
   color: var(--primary-color);
 `;
 
