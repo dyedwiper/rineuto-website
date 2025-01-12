@@ -8,7 +8,9 @@ const { uploadToCloudinary } = require('../middleware/uploadToCloudinary');
 const { STANDARD_ERROR_MESSAGE, STANDARD_SUCCESS_MESSAGE } = require('../constants');
 
 router.get('/future', (req, res) => {
-  Screening.find({ date: { $gte: new Date() } })
+  const lastMidnight = new Date(new Date().setHours(0, 0, 0, 0));
+
+  Screening.find({ date: { $gt: lastMidnight } })
     .sort({ date: 1 })
     .populate('serial')
     .then((screenings) => res.json(screenings))
@@ -16,7 +18,9 @@ router.get('/future', (req, res) => {
 });
 
 router.get('/past/year/:year', (req, res) => {
-  Screening.find({ date: { $lt: new Date() } })
+  const lastMidnight = new Date(new Date().setHours(0, 0, 0, 0));
+
+  Screening.find({ date: { $lte: lastMidnight } })
     .sort({ date: -1 })
     .populate('serial')
     .then((screenings) => {
