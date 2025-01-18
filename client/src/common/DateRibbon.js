@@ -3,7 +3,8 @@ import styled from 'styled-components/macro';
 import { formatToDateString, formatToDateStringWithoutYear, formatToTimeString } from '../utils/dateFormatters';
 
 export default function DateRibbon({ date }) {
-  const isArchived = date < Date.now();
+  const lastMidnight = new Date(new Date().setHours(0, 0, 0, 0));
+  const isArchived = new Date(date) <= lastMidnight;
 
   return (
     <DateRibbonStyled>
