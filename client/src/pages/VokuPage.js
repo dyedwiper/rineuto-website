@@ -42,11 +42,7 @@ export default function VokuPage() {
         innen
       </HeadlineStyled>
       <MichelStyled src={michelImage} />
-      <DescriptionStyled>
-        <strong>Vo</strong>r dem <strong>Kü</strong>no.
-        <br />
-        Immer vegan. Fast immer um 19:30 Uhr fertig.
-      </DescriptionStyled>
+      <DescriptionStyled>Immer vegan. Fast immer um 19:30 Uhr fertig.</DescriptionStyled>
       <SubHeadlineStyled>Gerichte:</SubHeadlineStyled>
       <DishListStyled>
         {dishes
