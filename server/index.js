@@ -12,12 +12,11 @@ dotenv.config();
 app.use(express.json());
 app.set('json spaces', 2);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-  app.get(/^(?!\/api)/, sendJustMetaToCrawlers, (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-  });
-}
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.get(/^(?!\/api)/, sendJustMetaToCrawlers, (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 app.use('/api/screenings', require('./routes/screenings'));
 app.use('/api/serials', require('./routes/serials'));

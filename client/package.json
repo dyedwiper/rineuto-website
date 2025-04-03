@@ -4,9 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
+    "dev": "vite build --watch",
+    "build": "vite build"
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^38.1.1",
