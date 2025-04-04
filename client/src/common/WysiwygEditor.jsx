@@ -1,5 +1,5 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { Bold, ClassicEditor, Essentials, Italic, Link, Paragraph } from 'ckeditor5';
+import { Bold, ClassicEditor, Essentials, Italic, Link, Paragraph, Strikethrough, Underline } from 'ckeditor5';
 import React from 'react';
 
 import 'ckeditor5/ckeditor5.css';
@@ -11,8 +11,8 @@ export default function WysiwygEditor({ setEditor, data }) {
       id="ckEditor"
       config={{
         licenseKey: 'GPL',
-        plugins: [Essentials, Paragraph, Bold, Italic, Link],
-        toolbar: ['bold', 'italic', '|', 'link'],
+        plugins: [Essentials, Paragraph, Bold, Italic, Underline, Strikethrough, Link],
+        toolbar: ['bold', 'italic', 'underline', 'strikethrough', '|', 'link'],
         link: {
           decorators: {
             openInNewTab: {
