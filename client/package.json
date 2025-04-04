@@ -1,6 +1,5 @@
 {
   "name": "rineuto-client",
-  "proxy": "http://localhost:3333",
   "private": true,
   "type": "module",
   "scripts": {
