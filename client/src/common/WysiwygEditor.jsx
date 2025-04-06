@@ -1,6 +1,8 @@
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { Bold, ClassicEditor, Essentials, Italic, Link, Paragraph, Strikethrough, Underline } from 'ckeditor5';
 import React from 'react';
+
+import 'ckeditor5/ckeditor5.css';
 
 export default function WysiwygEditor({ setEditor, data }) {
   return (
@@ -8,7 +10,9 @@ export default function WysiwygEditor({ setEditor, data }) {
       editor={ClassicEditor}
       id="ckEditor"
       config={{
-        toolbar: ['bold', 'italic', '|', 'link'],
+        licenseKey: 'GPL',
+        plugins: [Essentials, Paragraph, Bold, Italic, Underline, Strikethrough, Link],
+        toolbar: ['bold', 'italic', 'underline', 'strikethrough', '|', 'link'],
         link: {
           decorators: {
             openInNewTab: {
@@ -21,8 +25,8 @@ export default function WysiwygEditor({ setEditor, data }) {
             },
           },
         },
+        initialData: data,
       }}
-      data={data}
       onReady={(editor) => {
         setEditor(editor);
       }}
