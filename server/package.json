@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "start": "node index.js",
-    "serve-local": "env NODE_ENV=production node --watch index.js",
     "dev": "node --watch index.js"
   },
   "dependencies": {
