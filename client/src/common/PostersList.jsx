@@ -10,7 +10,7 @@ export default function PostersList({ serials, selectedYear, editedObject }) {
   return (
     <PosterListStyled>
       {serials
-        .sort((a, b) => a.month - b.month)
+        .sort((a, b) => b.month - a.month)
         .map((serial) => (
           <PosterCardStyled key={serial._id}>
             <a href={serial.imageUrl} target="_blank" rel="noopener noreferrer">
