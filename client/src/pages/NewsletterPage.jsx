@@ -48,7 +48,7 @@ export default function NewsletterPage({ setIsError }) {
         setIsWaiting(false);
       })
       .catch((err) => {
-        if (err === 'Invalid email address') {
+        if (err?.response?.data === 'Invalid email address') {
           setValidationError('Die angegebene E-Mail-Adresse ist nicht valide.');
         } else {
           setIsError(true);
