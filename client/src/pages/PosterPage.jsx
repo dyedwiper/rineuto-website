@@ -57,14 +57,6 @@ export default function PosterPage() {
 
 const PosterPageStyled = styled.div``;
 
-const EditNoteStyled = styled.div`
-  margin: 20px;
-  color: var(--success-color);
-  font-size: 1.5em;
-  font-weight: bold;
-  text-align: center;
-`;
-
 const PerlLinkStyled = styled.a`
   position: absolute;
   top: 300px;
