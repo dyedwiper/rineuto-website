@@ -8,7 +8,7 @@ import { WaitNoteStyled } from '../../common/styledElements';
 import { deleteNotice, getNotice, patchNotice } from '../../services/noticeServices';
 import LoadingPage from '../LoadingPage';
 
-export default function EditNoticePage({ setEditedObject }) {
+export default function EditNoticePage() {
   const [validationError, setValidationError] = useState('');
   const [noticeToEdit, setNoticeToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -85,13 +85,7 @@ export default function EditNoticePage({ setEditedObject }) {
             <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
               Diese News löschen
             </ButtonStyled>
-            {showDeletePrompt && (
-              <DeletePrompt
-                handleDelete={handleDelete}
-                setShowDeletePrompt={setShowDeletePrompt}
-                setEditedObject={setEditedObject}
-              />
-            )}
+            {showDeletePrompt && <DeletePrompt handleDelete={handleDelete} setShowDeletePrompt={setShowDeletePrompt} />}
             <ButtonStyled type="button" onClick={() => history.push('/')}>
               Abbrechen
             </ButtonStyled>
@@ -109,7 +103,6 @@ export default function EditNoticePage({ setEditedObject }) {
     formData.append('text', editor.getData());
     patchNotice(noticeToEdit._id, formData)
       .then(() => {
-        setEditedObject(noticeToEdit);
         setIsWaiting(false);
         history.push('/');
       })
@@ -133,7 +126,6 @@ export default function EditNoticePage({ setEditedObject }) {
     deleteNotice(noticeToEdit._id)
       .then(() => {
         setIsWaiting(false);
-        setEditedObject({ deleted: 'notice' });
         history.push('/');
       })
       .catch((err) => {

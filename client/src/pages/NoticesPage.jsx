@@ -8,7 +8,7 @@ import Context from '../Context';
 import { getNotices } from '../services/noticeServices';
 import LoadingPage from './LoadingPage';
 
-export default function NoticesPage({ editedObject }) {
+export default function NoticesPage() {
   const [notices, setNotices] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +30,7 @@ export default function NoticesPage({ editedObject }) {
       })
       .catch(() => setIsError(true));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editedObject]);
+  }, []);
 
   if (isLoading) {
     return <LoadingPage />;
@@ -39,14 +39,12 @@ export default function NoticesPage({ editedObject }) {
   return (
     <NoticePageStyled>
       <SubHeadlineStyled>Neutigkeiten</SubHeadlineStyled>
-      {editedObject.added === 'notice' && <EditNoteStyled>News hinzugefügt</EditNoteStyled>}
-      {editedObject.deleted === 'notice' && <EditNoteStyled>News gelöscht</EditNoteStyled>}
       <NoticesListStyled>
         {notices
           .sort((a, b) => b.date - a.date)
           .slice((page - 1) * NOTICES_PER_PAGE, page * NOTICES_PER_PAGE)
           .map((notice) => (
-            <NoticeCard key={notice._id} notice={notice} editedObject={editedObject} />
+            <NoticeCard key={notice._id} notice={notice} />
           ))}
       </NoticesListStyled>
       <Paginator page={page} setPage={setPage} limit={notices.length} itemsPerPage={NOTICES_PER_PAGE} />

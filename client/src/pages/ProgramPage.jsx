@@ -5,7 +5,7 @@ import { getFutureScreenings } from '../services/screeningServices';
 import LoadingPage from './LoadingPage';
 import Context from '../Context';
 
-export default function ProgramPage({ editedObject }) {
+export default function ProgramPage() {
   const [screenings, setScreenings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,8 +32,6 @@ export default function ProgramPage({ editedObject }) {
   return (
     <ProgramPageStyled>
       <SubHeadlineStyled>Unsere nächsten Filmperlen</SubHeadlineStyled>
-      {editedObject.added === 'screening' && <EditNoteStyled>Vorführung hinzugefügt</EditNoteStyled>}
-      {editedObject.deleted === 'screening' && <EditNoteStyled>Vorführung gelöscht</EditNoteStyled>}
       <ScreeningsList screenings={screenings} />
     </ProgramPageStyled>
   );

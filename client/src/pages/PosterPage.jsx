@@ -7,7 +7,7 @@ import { getSerialsByYear, getSerialYears } from '../services/serialServices';
 import LoadingPage from './LoadingPage';
 import Context from '../Context';
 
-export default function PosterPage({ editedObject }) {
+export default function PosterPage() {
   const [serials, setSerials] = useState([]);
   const [allYears, setAllYears] = useState();
   const [selectedYear, setSelectedYear] = useState();
@@ -47,13 +47,7 @@ export default function PosterPage({ editedObject }) {
   return (
     <PosterPageStyled>
       <YearNavigation years={allYears} setSelectedYear={setSelectedYear} pagePath={'/posters/'} />
-      {editedObject.added === 'serial' && <EditNoteStyled>Filmreihe hinzugefügt</EditNoteStyled>}
-      {editedObject.deleted === 'serial' && <EditNoteStyled>Filmreihe gelöscht</EditNoteStyled>}
-      <PostersList
-        // eslint-disable-next-line eqeqeq
-        serials={serials}
-        editedObject={editedObject}
-      />
+      <PostersList serials={serials} />
       <PerlLinkStyled href="https://www.youtube.com/watch?v=fsAE2jFPqLw" target="_blank" rel="noopener noreferrer">
         <EightBallImageStyled src={eightBall} alt="Ein 8 ball" />
       </PerlLinkStyled>

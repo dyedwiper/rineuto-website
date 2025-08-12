@@ -5,7 +5,7 @@ import Context from '../../Context';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { postSerial } from '../../services/serialServices';
 
-export default function AddSerialPage({ setEditedObject }) {
+export default function AddSerialPage() {
   const [validationError, setValidationError] = useState('');
 
   const { isWaiting, setIsWaiting } = useContext(Context);
@@ -68,7 +68,6 @@ export default function AddSerialPage({ setEditedObject }) {
     postSerial(formData)
       .then(() => {
         setIsWaiting(false);
-        setEditedObject({ added: 'serial' });
         history.push('/posters');
       })
       .catch((err) => {

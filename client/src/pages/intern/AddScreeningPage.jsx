@@ -7,7 +7,7 @@ import { WaitNoteStyled } from '../../common/styledElements';
 import { postScreening } from '../../services/screeningServices';
 import { getSerials } from '../../services/serialServices';
 
-export default function AddScreeningPage({ setEditedObject }) {
+export default function AddScreeningPage() {
   const [serials, setSerials] = useState([]);
   const [validationError, setValidationError] = useState('');
   const [editor, setEditor] = useState();
@@ -123,7 +123,6 @@ export default function AddScreeningPage({ setEditedObject }) {
     postScreening(formData)
       .then(() => {
         setIsWaiting(false);
-        setEditedObject({ added: 'screening' });
         history.push('/program');
       })
       .catch((err) => {

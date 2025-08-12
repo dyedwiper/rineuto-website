@@ -6,7 +6,7 @@ import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { postNotice } from '../../services/noticeServices';
 
-export default function AddNoticePage({ setEditedObject }) {
+export default function AddNoticePage() {
   const [validationError, setValidationError] = useState('');
   const [editor, setEditor] = useState();
 
@@ -70,7 +70,6 @@ export default function AddNoticePage({ setEditedObject }) {
     formData.append('text', editor.getData());
     postNotice(formData)
       .then(() => {
-        setEditedObject({ added: 'notice' });
         setIsWaiting(false);
         history.push('/');
       })

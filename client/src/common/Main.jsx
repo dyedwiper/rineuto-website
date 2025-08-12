@@ -24,8 +24,6 @@ import EditSerialPage from '../pages/intern/EditSerialPage';
 import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsNavOpen }) {
-  const [editedObject, setEditedObject] = useState({});
-
   const { isError, setIsError } = useContext(Context);
 
   const history = useHistory();
@@ -48,19 +46,19 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
     <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
       <Switch>
         <Route exact path="/">
-          <NoticesPage editedObject={editedObject} />
+          <NoticesPage />
         </Route>
         <Route path="/program">
-          <ProgramPage editedObject={editedObject} />
+          <ProgramPage />
         </Route>
         <Route path="/screening">
-          <ScreeningPage editedObject={editedObject} />
+          <ScreeningPage />
         </Route>
         <Route path="/archive">
           <ArchivePage />
         </Route>
         <Route path="/posters">
-          <PosterPage editedObject={editedObject} />
+          <PosterPage />
         </Route>
         <Route path="/voku">
           <VokuPage />
@@ -81,22 +79,22 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <NewsletterConfirmationPage />
         </Route>
         <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
-          <EditNoticePage setEditedObject={setEditedObject} />
+          <EditNoticePage />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addNotice" isLoadingUser={isLoadingUser}>
-          <AddNoticePage setEditedObject={setEditedObject} />
+          <AddNoticePage />
         </PrivateRoute>
         <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
-          <EditScreeningPage setEditedObject={setEditedObject} />
+          <EditScreeningPage />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
-          <AddScreeningPage setEditedObject={setEditedObject} />
+          <AddScreeningPage />
         </PrivateRoute>
         <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
-          <EditSerialPage setEditedObject={setEditedObject} />
+          <EditSerialPage />
         </PrivateRoute>
         <PrivateRoute exact path="/intern/addSerial" isLoadingUser={isLoadingUser}>
-          <AddSerialPage setEditedObject={setEditedObject} />
+          <AddSerialPage />
         </PrivateRoute>
         <Route path="/logout">
           <Redirect exact to="/" />

@@ -4,7 +4,7 @@ import whitePerlImage from '../assets/perls/whitePerl.png';
 import { Link } from 'react-router-dom';
 import Context from '../Context';
 
-export default function PostersList({ serials, selectedYear, editedObject }) {
+export default function PostersList({ serials }) {
   const { isUserLoggedIn } = useContext(Context);
 
   return (
@@ -18,7 +18,6 @@ export default function PostersList({ serials, selectedYear, editedObject }) {
             </a>
             {isUserLoggedIn && (
               <EditContainerStyled>
-                {serial._id === editedObject._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
                 <EditLinkStyled to={'/intern/editSerial/' + serial._id}>Bearbeiten</EditLinkStyled>
               </EditContainerStyled>
             )}

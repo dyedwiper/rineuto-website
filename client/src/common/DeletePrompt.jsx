@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function DeletePrompt({ handleDelete, setShowDeletePrompt, setEditedObject }) {
+export default function DeletePrompt({ handleDelete, setShowDeletePrompt }) {
   return (
     <DeletePromptStyled>
       Wirklich?
@@ -9,7 +9,6 @@ export default function DeletePrompt({ handleDelete, setShowDeletePrompt, setEdi
         type="button"
         onClick={() => {
           setShowDeletePrompt(false);
-          setEditedObject({});
         }}
       >
         Nein

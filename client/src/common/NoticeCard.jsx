@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Context from '../Context';
 import { formatToDateString } from '../utils/dateFormatters';
 
-export default function NoticeCard({ notice, editedObject }) {
+export default function NoticeCard({ notice }) {
   const { isUserLoggedIn } = useContext(Context);
 
   return (
@@ -17,7 +17,6 @@ export default function NoticeCard({ notice, editedObject }) {
       <NoticeTextStyled dangerouslySetInnerHTML={{ __html: notice.text }} />
       {isUserLoggedIn && (
         <EditContainerStyled>
-          {editedObject._id === notice._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
           <EditLinkStyled to={'/intern/editNotice/' + notice._id}>Bearbeiten</EditLinkStyled>
         </EditContainerStyled>
       )}

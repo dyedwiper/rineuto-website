@@ -7,7 +7,7 @@ import { WaitNoteStyled } from '../../common/styledElements';
 import { deleteSerial, getSerial, patchSerial } from '../../services/serialServices';
 import LoadingPage from '../LoadingPage';
 
-export default function EditSerialPage({ setEditedObject }) {
+export default function EditSerialPage() {
   const [validationError, setValidationError] = useState('');
   const [serialToEdit, setSerialToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -77,13 +77,7 @@ export default function EditSerialPage({ setEditedObject }) {
             <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
               Diese Filmreihe löschen
             </ButtonStyled>
-            {showDeletePrompt && (
-              <DeletePrompt
-                handleDelete={handleDelete}
-                setShowDeletePrompt={setShowDeletePrompt}
-                setEditedObject={setEditedObject}
-              />
-            )}
+            {showDeletePrompt && <DeletePrompt handleDelete={handleDelete} setShowDeletePrompt={setShowDeletePrompt} />}
             <ButtonStyled type="button" onClick={() => history.push('/posters/' + serialToEdit.year)}>
               Abbrechen
             </ButtonStyled>
@@ -101,7 +95,6 @@ export default function EditSerialPage({ setEditedObject }) {
     patchSerial(serialToEdit._id, formData)
       .then(() => {
         setIsWaiting(false);
-        setEditedObject(serialToEdit);
         history.push('/posters/' + serialToEdit.year);
       })
       .catch((err) => {
@@ -124,7 +117,6 @@ export default function EditSerialPage({ setEditedObject }) {
     deleteSerial(serialToEdit._id)
       .then(() => {
         setIsWaiting(false);
-        setEditedObject({ deleted: 'serial' });
         history.push('/posters');
       })
       .catch((err) => {

@@ -6,7 +6,7 @@ import DateRibbon from '../common/DateRibbon';
 import { getScreening } from '../services/screeningServices';
 import LoadingPage from './LoadingPage';
 
-export default function ScreeningPage({ editedObject }) {
+export default function ScreeningPage() {
   const [screening, setScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,7 +35,6 @@ export default function ScreeningPage({ editedObject }) {
 
   return (
     <ScreeningPageStyled>
-      {editedObject._id === screening._id && <EditNoteStyled>Änderungen gespeichert</EditNoteStyled>}
       <ScreeningInfoContainerStyled>
         <DateRibbon date={screening.date} />
         <FilmStillStyled src={screening.imageUrl} alt={screening.altText} />

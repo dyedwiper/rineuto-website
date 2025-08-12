@@ -9,7 +9,7 @@ import { deleteScreening, getScreening, patchScreening } from '../../services/sc
 import { getSerials } from '../../services/serialServices';
 import LoadingPage from '../LoadingPage';
 
-export default function EditScreeningPage({ setEditedObject }) {
+export default function EditScreeningPage() {
   const [serials, setSerials] = useState([]);
   const [validationError, setValidationError] = useState('');
   const [screening, setScreening] = useState({});
@@ -140,13 +140,7 @@ export default function EditScreeningPage({ setEditedObject }) {
             <ButtonStyled type="button" onClick={() => setShowDeletePrompt(true)}>
               Diese Vorfürhung löschen
             </ButtonStyled>
-            {showDeletePrompt && (
-              <DeletePrompt
-                handleDelete={handleDelete}
-                setShowDeletePrompt={setShowDeletePrompt}
-                setEditedObject={setEditedObject}
-              />
-            )}
+            {showDeletePrompt && <DeletePrompt handleDelete={handleDelete} setShowDeletePrompt={setShowDeletePrompt} />}
             <ButtonStyled type="button" onClick={() => history.push('/screening/' + screening._id)}>
               Abbrechen
             </ButtonStyled>
@@ -165,7 +159,6 @@ export default function EditScreeningPage({ setEditedObject }) {
     patchScreening(screening._id, formData)
       .then(() => {
         setIsWaiting(false);
-        setEditedObject(screening);
         history.push('/screening/' + screening._id);
       })
       .catch((err) => {
@@ -188,7 +181,6 @@ export default function EditScreeningPage({ setEditedObject }) {
     deleteScreening(screening._id)
       .then(() => {
         setIsWaiting(false);
-        setEditedObject({ deleted: 'screening' });
         history.push('/program');
       })
       .catch((err) => {
