@@ -99,6 +99,9 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
         <Route path="/logout">
           <Redirect exact to="/" />
         </Route>
+        <Route path="/error">
+          <ErrorPage />
+        </Route>
         <Route path="/404">
           <NotFoundPage />
         </Route>

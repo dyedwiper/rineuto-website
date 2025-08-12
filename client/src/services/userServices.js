@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { setToLocalStorage } from '../utils/storage';
+import { makeApiCall } from './baseService';
 import { setDefaultAuthHeader } from './config';
 
 export function postLoginUser(data) {
-  return axios.post('/api/users/login', data).then((res) => {
+  return makeApiCall('/api/users/login', 'POST', data).then((res) => {
     setToLocalStorage('rineuto-token', res.headers.get('auth-token'));
     setDefaultAuthHeader();
     return res;
@@ -11,5 +11,5 @@ export function postLoginUser(data) {
 }
 
 export function authenticateUser() {
-  return axios.get('/api/users/authenticate');
+  return makeApiCall('/api/users/authenticate');
 }
