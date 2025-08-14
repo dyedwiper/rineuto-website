@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import eightBall from '../assets/eightBall.png';
 import PostersList from '../common/PostersList';
 import YearNavigation from '../common/YearNavigation';
 import { getSerialsByYear, getSerialYears } from '../services/serialServices';
 import LoadingPage from './LoadingPage';
-import Context from '../Context';
 
 export default function PosterPage() {
   const [serials, setSerials] = useState([]);
@@ -13,33 +12,25 @@ export default function PosterPage() {
   const [selectedYear, setSelectedYear] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const { setIsError } = useContext(Context);
-
   useEffect(() => {
     document.title = 'Plakate | Rineuto Lichtspiele';
   }, []);
 
   useEffect(() => {
-    getSerialYears()
-      .then((res) => {
-        const years = res.data;
-        setAllYears(years);
-        setSelectedYear(years[years.length - 1]);
-      })
-      .catch(() => setIsError(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getSerialYears().then((res) => {
+      const years = res.data;
+      setAllYears(years);
+      setSelectedYear(years[years.length - 1]);
+    });
   }, []);
 
   useEffect(() => {
     if (selectedYear) {
-      getSerialsByYear(selectedYear)
-        .then((res) => {
-          setSerials(res.data);
-          setIsLoading(false);
-        })
-        .catch(() => setIsError(true));
+      getSerialsByYear(selectedYear).then((res) => {
+        setSerials(res.data);
+        setIsLoading(false);
+      });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedYear]);
 
   if (isLoading) return <LoadingPage />;

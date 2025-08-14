@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import Context from '../Context';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
 import ContactPage from '../pages/ContactPage';
@@ -24,8 +23,6 @@ import EditSerialPage from '../pages/intern/EditSerialPage';
 import PrivateRoute from './PrivateRoute';
 
 export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsNavOpen }) {
-  const { isError, setIsError } = useContext(Context);
-
   const history = useHistory();
   const mainElement = useRef(null);
 
@@ -37,10 +34,6 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
     });
     return unlisten;
   }, [history]);
-
-  if (isError) {
-    return <ErrorPage />;
-  }
 
   return (
     <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
@@ -73,7 +66,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <LoginPage setIsLoadingUser={setIsLoadingUser} />
         </Route>
         <Route exact path="/newsletter">
-          <NewsletterPage setIsError={setIsError} />
+          <NewsletterPage />
         </Route>
         <Route exact path="/newsletter/confirmation">
           <NewsletterConfirmationPage />

@@ -13,22 +13,17 @@ export default function EditSerialPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
 
-  const { isWaiting, setIsWaiting, setIsError } = useContext(Context);
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 
   useEffect(() => {
     const serialId = window.location.pathname.slice(-24);
-    getSerial(serialId)
-      .then((res) => {
-        const serial = res.data;
-        setSerialToEdit(serial);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsError(true);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getSerial(serialId).then((res) => {
+      const serial = res.data;
+      setSerialToEdit(serial);
+      setIsLoading(false);
+    });
   }, []);
 
   useEffect(() => {

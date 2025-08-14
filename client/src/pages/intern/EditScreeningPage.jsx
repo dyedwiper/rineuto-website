@@ -17,28 +17,22 @@ export default function EditScreeningPage() {
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const [editor, setEditor] = useState();
 
-  const { isWaiting, setIsWaiting, setIsError } = useContext(Context);
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 
   useEffect(() => {
-    getSerials()
-      .then((res) => {
-        setSerials(res.data);
-      })
-      .catch(() => setIsError(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getSerials().then((res) => {
+      setSerials(res.data);
+    });
   }, []);
 
   useEffect(() => {
     const screeningId = window.location.pathname.slice(-24);
-    getScreening(screeningId)
-      .then((res) => {
-        setScreening(res);
-        setIsLoading(false);
-      })
-      .catch(() => setIsError(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getScreening(screeningId).then((res) => {
+      setScreening(res);
+      setIsLoading(false);
+    });
   }, []);
 
   useEffect(() => {

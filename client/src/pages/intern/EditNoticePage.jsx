@@ -16,22 +16,19 @@ export default function EditNoticePage() {
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const [editor, setEditor] = useState();
 
-  const { isWaiting, setIsWaiting, setIsError } = useContext(Context);
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 
   useEffect(() => {
     const noticeId = window.location.pathname.slice(-24);
-    getNotice(noticeId)
-      .then((notice) => {
-        if (!notice) {
-          setIsInvalidId(true);
-        }
-        setNoticeToEdit(notice);
-        setIsLoading(false);
-      })
-      .catch(() => setIsError(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getNotice(noticeId).then((notice) => {
+      if (!notice) {
+        setIsInvalidId(true);
+      }
+      setNoticeToEdit(notice);
+      setIsLoading(false);
+    });
   }, []);
 
   useEffect(() => {

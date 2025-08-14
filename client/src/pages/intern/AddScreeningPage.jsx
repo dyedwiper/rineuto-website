@@ -12,17 +12,14 @@ export default function AddScreeningPage() {
   const [validationError, setValidationError] = useState('');
   const [editor, setEditor] = useState();
 
-  const { isWaiting, setIsWaiting, setIsError } = useContext(Context);
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 
   useEffect(() => {
-    getSerials()
-      .then((res) => {
-        setSerials(res.data);
-      })
-      .catch(() => setIsError(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getSerials().then((res) => {
+      setSerials(res.data);
+    });
   }, []);
 
   useEffect(() => {
