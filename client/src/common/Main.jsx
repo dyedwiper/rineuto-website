@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../Context';

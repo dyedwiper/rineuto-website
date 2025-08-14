@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
-const sendJustMetaToCrawlers = require('./middleware/sendJustMeta');
+const sendJustMetaToCrawlers = require('./src/middleware/sendJustMeta');
 
 const port = process.env.PORT || 3333;
 
@@ -18,13 +18,13 @@ app.get(/^(?!\/api)/, sendJustMetaToCrawlers, (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
 });
 
-app.use('/api/screenings', require('./routes/screenings'));
-app.use('/api/serials', require('./routes/serials'));
-app.use('/api/users', require('./routes/users'));
-app.use('/api/notices', require('./routes/notices'));
-app.use('/api/quotes', require('./routes/quotes'));
-app.use('/api/dishes', require('./routes/dishes'));
-app.use('/api/newsletter', require('./routes/newsletter'));
+app.use('/api/screenings', require('./src/routes/screenings'));
+app.use('/api/serials', require('./src/routes/serials'));
+app.use('/api/users', require('./src/routes/users'));
+app.use('/api/notices', require('./src/routes/notices'));
+app.use('/api/quotes', require('./src/routes/quotes'));
+app.use('/api/dishes', require('./src/routes/dishes'));
+app.use('/api/newsletter', require('./src/routes/newsletter'));
 
 mongoose
   .connect(process.env.MONGODB_URI)

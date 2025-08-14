@@ -60,11 +60,6 @@ const EditContainerStyled = styled.div`
   grid-template-columns: 1fr 1fr;
 `;
 
-const EditNoteStyled = styled.span`
-  color: var(--success-color);
-  font-size: 1.3em;
-`;
-
 const EditLinkStyled = styled(Link)`
   grid-column-start: 2;
   justify-self: right;

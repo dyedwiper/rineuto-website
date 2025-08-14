@@ -69,14 +69,6 @@ const SubHeadlineStyled = styled.h2`
   color: var(--primary-color);
 `;
 
-const EditNoteStyled = styled.div`
-  margin: 20px;
-  color: var(--success-color);
-  font-size: 1.5em;
-  font-weight: bold;
-  text-align: center;
-`;
-
 const NoticesListStyled = styled.ul`
   display: grid;
   grid-auto-rows: min-content;
