@@ -1,7 +1,7 @@
 import js from '@eslint/js';
 import reactPlugin from 'eslint-plugin-react';
-import { defineConfig } from 'eslint/config';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 
 export default defineConfig([
