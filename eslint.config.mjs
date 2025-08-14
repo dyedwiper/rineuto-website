@@ -6,11 +6,11 @@ import globals from 'globals';
 
 export default defineConfig([
   {
-    files: ['server/**/*.js', 'client/src/**/*.{js,jsx}'],
+    files: ['server/src/**/*.js', 'client/src/**/*.{js,jsx}'],
     ...js.configs.recommended,
   },
   {
-    files: ['server/**/*.js'],
+    files: ['server/src/**/*.js'],
     languageOptions: {
       globals: {
         ...globals.node,
