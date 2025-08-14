@@ -18,14 +18,5 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^8.9.5",
     "multer": "^1.4.5-lts.1"
-  },
-  "devDependencies": {
-    "eslint": "^7.15.0"
-  },
-  "eslintConfig": {
-    "env": {
-      "es2016": true
-    },
-    "extends": "eslint:recommended"
   }
 }

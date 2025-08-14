@@ -65,13 +65,6 @@ const ScreeningPageStyled = styled.article`
   padding: 60px 20px;
 `;
 
-const EditNoteStyled = styled.div`
-  margin-bottom: 60px;
-  color: var(--success-color);
-  font-size: 1.5em;
-  font-weight: bold;
-`;
-
 const ScreeningInfoContainerStyled = styled.div`
   position: relative;
   display: grid;

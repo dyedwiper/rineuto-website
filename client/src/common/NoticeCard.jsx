@@ -75,10 +75,6 @@ const EditContainerStyled = styled.div`
   background-color: var(--secondary-color);
 `;
 
-const EditNoteStyled = styled.span`
-  color: var(--success-color);
-`;
-
 const EditLinkStyled = styled(Link)`
   grid-column-start: 2;
   color: var(--primary-color);
