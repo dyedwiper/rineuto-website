@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ScreeningsList from '../common/ScreeningsList';
 import { getFutureScreenings } from '../services/screeningServices';
 import LoadingPage from './LoadingPage';
-import Context from '../Context';
 
 export default function ProgramPage() {
   const [screenings, setScreenings] = useState([]);
