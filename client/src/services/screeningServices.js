@@ -1,19 +1,19 @@
-import axios from 'axios';
+import { makeApiCall } from './baseService';
 
 export function getFutureScreenings() {
-  return axios.get('/api/screenings/future');
+  return makeApiCall('/api/screenings/future');
 }
 
 export function getPastScreeningsByYear(year) {
-  return axios.get('/api/screenings/past/year/' + year);
+  return makeApiCall('/api/screenings/past/year/' + year);
 }
 
 export function getYearsOfPastScreenings() {
-  return axios.get('/api/screenings/past/years');
+  return makeApiCall('/api/screenings/past/years');
 }
 
 export function getScreening(id) {
-  return axios.get('/api/screenings/id/' + id).then((res) => {
+  return makeApiCall('/api/screenings/id/' + id).then((res) => {
     const screening = res.data;
     screening.date = new Date(screening.date);
     return screening;
@@ -21,13 +21,13 @@ export function getScreening(id) {
 }
 
 export function postScreening(data) {
-  return axios.post('/api/screenings', data);
+  return makeApiCall('/api/screenings', 'POST', data);
 }
 
 export function patchScreening(id, data) {
-  return axios.patch('/api/screenings/' + id, data);
+  return makeApiCall('/api/screenings/' + id, 'PATCH', data);
 }
 
 export function deleteScreening(id) {
-  return axios.delete('/api/screenings/' + id);
+  return makeApiCall('/api/screenings/' + id, 'DELETE');
 }

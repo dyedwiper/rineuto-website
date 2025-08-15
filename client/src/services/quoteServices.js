@@ -1,5 +1,5 @@
-import axios from 'axios';
+import { makeApiCall } from './baseService';
 
 export function getQuotes() {
-  return axios.get('/api/quotes');
+  return makeApiCall('/api/quotes');
 }

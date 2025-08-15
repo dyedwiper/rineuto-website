@@ -1,13 +1,13 @@
-import axios from 'axios';
+import { makeApiCall } from './baseService';
 
 export function getDishes() {
-  return axios.get('/api/dishes');
+  return makeApiCall('/api/dishes');
 }
 
 export function postDish(data) {
-  return axios.post('/api/dishes', data);
+  return makeApiCall('/api/dishes', 'POST', data);
 }
 
 export function deleteDish(id) {
-  return axios.delete('/api/dishes/' + id);
+  return makeApiCall('/api/dishes/' + id, 'DELETE');
 }

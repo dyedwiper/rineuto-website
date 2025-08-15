@@ -6,6 +6,7 @@ import DeletePrompt from '../../common/DeletePrompt';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { deleteSerial, getSerial, patchSerial } from '../../services/serialServices';
 import LoadingPage from '../LoadingPage';
+import { handleValidationError } from '../../utils/validationErrorHandler';
 
 export default function EditSerialPage() {
   const [validationError, setValidationError] = useState('');
@@ -13,22 +14,17 @@ export default function EditSerialPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
 
-  const { isWaiting, setIsWaiting, setIsError } = useContext(Context);
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 
   useEffect(() => {
     const serialId = window.location.pathname.slice(-24);
-    getSerial(serialId)
-      .then((res) => {
-        const serial = res.data;
-        setSerialToEdit(serial);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsError(true);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getSerial(serialId).then((res) => {
+      const serial = res.data;
+      setSerialToEdit(serial);
+      setIsLoading(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -94,20 +90,13 @@ export default function EditSerialPage() {
     const formData = new FormData(form);
     patchSerial(serialToEdit._id, formData)
       .then(() => {
-        setIsWaiting(false);
         history.push('/posters/' + serialToEdit.year);
       })
       .catch((err) => {
+        handleValidationError(err, setValidationError);
+      })
+      .finally(() => {
         setIsWaiting(false);
-        if (err.hasOwnProperty('joiError')) {
-          setValidationError(err.joiError);
-        }
-        if (err.hasOwnProperty('multerError')) {
-          setValidationError(err.multerError);
-        }
-        if (err.hasOwnProperty('cloudinaryError')) {
-          setValidationError(err.cloudinaryError);
-        }
       });
   }
 
@@ -116,10 +105,9 @@ export default function EditSerialPage() {
     setShowDeletePrompt(false);
     deleteSerial(serialToEdit._id)
       .then(() => {
-        setIsWaiting(false);
         history.push('/posters');
       })
-      .catch((err) => {
+      .finally(() => {
         setIsWaiting(false);
       });
   }

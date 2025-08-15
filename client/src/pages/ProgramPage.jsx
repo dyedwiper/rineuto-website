@@ -9,20 +9,15 @@ export default function ProgramPage() {
   const [screenings, setScreenings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { setIsError } = useContext(Context);
-
   useEffect(() => {
     document.title = 'Programm | Rineuto Lichtspiele';
   }, []);
 
   useEffect(() => {
-    getFutureScreenings()
-      .then((res) => {
-        setScreenings(res.data);
-        setIsLoading(false);
-      })
-      .catch(() => setIsError(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getFutureScreenings().then((res) => {
+      setScreenings(res.data);
+      setIsLoading(false);
+    });
   }, []);
 
   if (isLoading) {

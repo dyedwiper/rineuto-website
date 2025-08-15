@@ -10,7 +10,7 @@ export default function ScreeningPage() {
   const [screening, setScreening] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  const { isUserLoggedIn, setIsError } = useContext(Context);
+  const { isUserLoggedIn } = useContext(Context);
 
   useEffect(() => {
     if (screening) {
@@ -20,13 +20,10 @@ export default function ScreeningPage() {
 
   useEffect(() => {
     const screeningId = window.location.pathname.slice(-24);
-    getScreening(screeningId)
-      .then((res) => {
-        setScreening(res);
-        setIsLoading(false);
-      })
-      .catch(() => setIsError(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getScreening(screeningId).then((res) => {
+      setScreening(res);
+      setIsLoading(false);
+    });
   }, []);
 
   if (isLoading) {
