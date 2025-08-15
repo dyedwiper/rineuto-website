@@ -6,6 +6,7 @@ import DeletePrompt from '../../common/DeletePrompt';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { deleteSerial, getSerial, patchSerial } from '../../services/serialServices';
 import LoadingPage from '../LoadingPage';
+import { handleValidationError } from '../../utils/validationErrorHandler';
 
 export default function EditSerialPage() {
   const [validationError, setValidationError] = useState('');
@@ -89,20 +90,13 @@ export default function EditSerialPage() {
     const formData = new FormData(form);
     patchSerial(serialToEdit._id, formData)
       .then(() => {
-        setIsWaiting(false);
         history.push('/posters/' + serialToEdit.year);
       })
       .catch((err) => {
+        handleValidationError(err, setValidationError);
+      })
+      .finally(() => {
         setIsWaiting(false);
-        if (err.hasOwnProperty('joiError')) {
-          setValidationError(err.joiError);
-        }
-        if (err.hasOwnProperty('multerError')) {
-          setValidationError(err.multerError);
-        }
-        if (err.hasOwnProperty('cloudinaryError')) {
-          setValidationError(err.cloudinaryError);
-        }
       });
   }
 
@@ -111,10 +105,9 @@ export default function EditSerialPage() {
     setShowDeletePrompt(false);
     deleteSerial(serialToEdit._id)
       .then(() => {
-        setIsWaiting(false);
         history.push('/posters');
       })
-      .catch((err) => {
+      .finally(() => {
         setIsWaiting(false);
       });
   }

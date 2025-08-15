@@ -8,6 +8,7 @@ import { WaitNoteStyled } from '../../common/styledElements';
 import { deleteScreening, getScreening, patchScreening } from '../../services/screeningServices';
 import { getSerials } from '../../services/serialServices';
 import LoadingPage from '../LoadingPage';
+import { handleValidationError } from '../../utils/validationErrorHandler';
 
 export default function EditScreeningPage() {
   const [serials, setSerials] = useState([]);
@@ -152,20 +153,13 @@ export default function EditScreeningPage() {
     formData.append('synopsis', editor.getData());
     patchScreening(screening._id, formData)
       .then(() => {
-        setIsWaiting(false);
         history.push('/screening/' + screening._id);
       })
       .catch((err) => {
+        handleValidationError(err, setValidationError);
+      })
+      .finally(() => {
         setIsWaiting(false);
-        if (err.hasOwnProperty('joiError')) {
-          setValidationError(err.joiError);
-        }
-        if (err.hasOwnProperty('multerError')) {
-          setValidationError(err.multerError);
-        }
-        if (err.hasOwnProperty('cloudinaryError')) {
-          setValidationError(err.cloudinaryError);
-        }
       });
   }
 
@@ -174,10 +168,9 @@ export default function EditScreeningPage() {
     setShowDeletePrompt(false);
     deleteScreening(screening._id)
       .then(() => {
-        setIsWaiting(false);
         history.push('/program');
       })
-      .catch((err) => {
+      .finally(() => {
         setIsWaiting(false);
       });
   }

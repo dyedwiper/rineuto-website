@@ -7,6 +7,7 @@ import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { deleteNotice, getNotice, patchNotice } from '../../services/noticeServices';
 import LoadingPage from '../LoadingPage';
+import { handleValidationError } from '../../utils/validationErrorHandler';
 
 export default function EditNoticePage() {
   const [validationError, setValidationError] = useState('');
@@ -100,20 +101,13 @@ export default function EditNoticePage() {
     formData.append('text', editor.getData());
     patchNotice(noticeToEdit._id, formData)
       .then(() => {
-        setIsWaiting(false);
         history.push('/');
       })
       .catch((err) => {
+        handleValidationError(err, setValidationError);
+      })
+      .finally(() => {
         setIsWaiting(false);
-        if (err.hasOwnProperty('joiError')) {
-          setValidationError(err.joiError);
-        }
-        if (err.hasOwnProperty('multerError')) {
-          setValidationError(err.multerError);
-        }
-        if (err.hasOwnProperty('cloudinaryError')) {
-          setValidationError(err.cloudinaryError);
-        }
       });
   }
 
@@ -122,10 +116,9 @@ export default function EditNoticePage() {
     setIsWaiting(true);
     deleteNotice(noticeToEdit._id)
       .then(() => {
-        setIsWaiting(false);
         history.push('/');
       })
-      .catch((err) => {
+      .finally(() => {
         setIsWaiting(false);
       });
   }
