@@ -45,12 +45,13 @@ export default function NewsletterPage() {
     postNewsletterContact(data)
       .then(() => {
         setIsSubmitted(true);
-        setIsWaiting(false);
       })
       .catch((err) => {
         if (err?.response?.data === 'Invalid email address') {
           setValidationError('Die angegebene E-Mail-Adresse ist nicht valide.');
         }
+      })
+      .finally(() => {
         setIsWaiting(false);
       });
   }
