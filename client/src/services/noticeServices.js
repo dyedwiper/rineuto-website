@@ -1,7 +1,7 @@
-import axios from 'axios';
+import { makeApiCall } from './baseService';
 
 export function getNotices() {
-  return axios.get('/api/notices').then((res) => {
+  return makeApiCall('/api/notices').then((res) => {
     const notices = res.data;
     const formattedNotices = notices.map((notice) => {
       notice.date = new Date(notice.date);
@@ -12,7 +12,7 @@ export function getNotices() {
 }
 
 export function getNotice(id) {
-  return axios.get('/api/notices/id/' + id).then((res) => {
+  return makeApiCall('/api/notices/id/' + id).then((res) => {
     const notice = res.data;
     notice.date = new Date(notice.date);
     return notice;
@@ -20,13 +20,13 @@ export function getNotice(id) {
 }
 
 export function postNotice(data) {
-  return axios.post('/api/notices', data);
+  return makeApiCall('/api/notices', 'POST', data);
 }
 
 export function patchNotice(id, data) {
-  return axios.patch('/api/notices/' + id, data);
+  return makeApiCall('/api/notices/' + id, 'PATCH', data);
 }
 
 export function deleteNotice(id) {
-  return axios.delete('/api/notices/' + id);
+  return makeApiCall('/api/notices/' + id, 'DELETE');
 }

@@ -1,5 +1,5 @@
-import axios from 'axios';
+import { makeApiCall } from './baseService';
 
 export function postNewsletterContact(data) {
-  return axios.post('/api/newsletter', data, {});
+  return makeApiCall('/api/newsletter', 'POST', data);
 }

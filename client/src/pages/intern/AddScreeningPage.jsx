@@ -6,23 +6,21 @@ import WysiwygEditor from '../../common/WysiwygEditor';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { postScreening } from '../../services/screeningServices';
 import { getSerials } from '../../services/serialServices';
+import { handleValidationError } from '../../utils/validationErrorHandler';
 
 export default function AddScreeningPage() {
   const [serials, setSerials] = useState([]);
   const [validationError, setValidationError] = useState('');
   const [editor, setEditor] = useState();
 
-  const { isWaiting, setIsWaiting, setIsError } = useContext(Context);
+  const { isWaiting, setIsWaiting } = useContext(Context);
 
   let history = useHistory();
 
   useEffect(() => {
-    getSerials()
-      .then((res) => {
-        setSerials(res.data);
-      })
-      .catch(() => setIsError(true));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getSerials().then((res) => {
+      setSerials(res.data);
+    });
   }, []);
 
   useEffect(() => {
@@ -122,20 +120,13 @@ export default function AddScreeningPage() {
     formData.append('synopsis', editor.getData());
     postScreening(formData)
       .then(() => {
-        setIsWaiting(false);
         history.push('/program');
       })
       .catch((err) => {
+        handleValidationError(err, setValidationError);
+      })
+      .finally(() => {
         setIsWaiting(false);
-        if (err.hasOwnProperty('joiError')) {
-          setValidationError(err.joiError);
-        }
-        if (err.hasOwnProperty('multerError')) {
-          setValidationError(err.multerError);
-        }
-        if (err.hasOwnProperty('cloudinaryError')) {
-          setValidationError(err.cloudinaryError);
-        }
       });
   }
 }

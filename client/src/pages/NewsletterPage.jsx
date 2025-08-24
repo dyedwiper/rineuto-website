@@ -4,7 +4,7 @@ import { WaitNoteStyled } from '../common/styledElements';
 import Context from '../Context';
 import { postNewsletterContact } from '../services/newsletterServices';
 
-export default function NewsletterPage({ setIsError }) {
+export default function NewsletterPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [validationError, setValidationError] = useState('');
 
@@ -45,14 +45,13 @@ export default function NewsletterPage({ setIsError }) {
     postNewsletterContact(data)
       .then(() => {
         setIsSubmitted(true);
-        setIsWaiting(false);
       })
       .catch((err) => {
         if (err?.response?.data === 'Invalid email address') {
           setValidationError('Die angegebene E-Mail-Adresse ist nicht valide.');
-        } else {
-          setIsError(true);
         }
+      })
+      .finally(() => {
         setIsWaiting(false);
       });
   }

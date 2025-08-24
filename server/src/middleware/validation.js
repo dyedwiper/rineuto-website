@@ -21,7 +21,7 @@ function validateLogin(req, res, next) {
 function validateScreening(req, res, next) {
   const screeningSchema = Joi.object({
     title: Joi.string().max(100),
-    day: Joi.date().format('YYYY-MM-DD').required(),
+    day: Joi.date(),
     time: Joi.string()
       .pattern(/([0-1]\d|[2][0-3]):([0-5]\d)/)
       .required(),

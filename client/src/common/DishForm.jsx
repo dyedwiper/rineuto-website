@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Context from '../Context';
 import { postDish } from '../services/dishServices';
+import { handleValidationError } from '../utils/validationErrorHandler';
 
 export default function DishForm({ dishes, setDishes }) {
   const [validationError, setValidationError] = useState('');
@@ -34,9 +35,7 @@ export default function DishForm({ dishes, setDishes }) {
         setDishes([...dishes, res.data]);
       })
       .catch((err) => {
-        if (err.hasOwnProperty('joiError')) {
-          setValidationError(err.joiError);
-        }
+        handleValidationError(err, setValidationError);
       })
       .finally(() => {
         setIsWaiting(false);

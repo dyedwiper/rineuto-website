@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Context from '../../Context';
 import { WaitNoteStyled } from '../../common/styledElements';
 import { postSerial } from '../../services/serialServices';
+import { handleValidationError } from '../../utils/validationErrorHandler';
 
 export default function AddSerialPage() {
   const [validationError, setValidationError] = useState('');
@@ -67,20 +68,13 @@ export default function AddSerialPage() {
     const formData = new FormData(form);
     postSerial(formData)
       .then(() => {
-        setIsWaiting(false);
         history.push('/posters');
       })
       .catch((err) => {
+        handleValidationError(err, setValidationError);
+      })
+      .finally(() => {
         setIsWaiting(false);
-        if (err.hasOwnProperty('joiError')) {
-          setValidationError(err.joiError);
-        }
-        if (err.hasOwnProperty('multerError')) {
-          setValidationError(err.multerError);
-        }
-        if (err.hasOwnProperty('cloudinaryError')) {
-          setValidationError(err.cloudinaryError);
-        }
       });
   }
 }

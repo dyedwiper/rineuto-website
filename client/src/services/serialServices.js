@@ -1,29 +1,29 @@
-import axios from 'axios';
+import { makeApiCall } from './baseService';
 
 export function getSerials() {
-  return axios.get('/api/serials');
+  return makeApiCall('/api/serials');
 }
 
 export function getSerial(id) {
-  return axios.get('/api/serials/id/' + id);
+  return makeApiCall('/api/serials/id/' + id);
 }
 
 export function getSerialYears() {
-  return axios.get('/api/serials/years');
+  return makeApiCall('/api/serials/years');
 }
 
 export function getSerialsByYear(year) {
-  return axios.get('/api/serials/year/' + year);
+  return makeApiCall('/api/serials/year/' + year);
 }
 
 export function postSerial(data) {
-  return axios.post('/api/serials', data);
+  return makeApiCall('/api/serials', 'POST', data);
 }
 
 export function patchSerial(id, data) {
-  return axios.patch('/api/serials/' + id, data);
+  return makeApiCall('/api/serials/' + id, 'PATCH', data);
 }
 
 export function deleteSerial(id) {
-  return axios.delete('/api/serials/' + id);
+  return makeApiCall('/api/serials/' + id, 'DELETE');
 }

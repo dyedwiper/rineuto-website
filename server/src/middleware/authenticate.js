@@ -5,6 +5,7 @@ function authenticate(req, res, next) {
   try {
     req.user = jwt.verify(token, process.env.JWT_SECRET);
     next();
+    // eslint-disable-next-line no-unused-vars
   } catch (error) {
     res.status(401).json('Invalid token');
   }

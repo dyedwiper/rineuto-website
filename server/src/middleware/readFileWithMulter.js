@@ -17,7 +17,7 @@ function readFileWithMulter(req, res, next) {
     storage: multer.memoryStorage(),
   }).single('image');
   upload(req, res, function (err) {
-    if (err && err.message === ERROR_MESSAGE_MIMETYPE) {
+    if (err?.message === ERROR_MESSAGE_MIMETYPE || err?.code === 'LIMIT_FILE_SIZE') {
       return res.status(422).json({ multerError: err.message });
     } else if (err) {
       return res.status(500).json(STANDARD_ERROR_MESSAGE);
