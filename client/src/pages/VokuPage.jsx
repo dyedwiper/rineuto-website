@@ -52,7 +52,7 @@ export default function VokuPage() {
       <FootnoteStyled id="foodnote">
         <sup>*</sup> Michelin-Stern
       </FootnoteStyled>
-      <PerlLinkStyled href="https://www.youtube.com/watch?v=-8yTGXKUZJs" target="_blank" rel="noopener noreferrer">
+      <PerlLinkStyled href="https://youtu.be/zuhNIRMhkrE" target="_blank" rel="noopener noreferrer">
         <PerlImageStyled src={piez} alt="Eine Pizza" />
       </PerlLinkStyled>
     </VokuPageStyled>
