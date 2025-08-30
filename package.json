@@ -2,8 +2,8 @@
   "name": "rineuto-website",
   "private": true,
   "engines": {
-    "node": ">=20",
-    "npm": ">=10"
+    "node": "22",
+    "npm": "11"
   },
   "scripts": {
     "postinstall": "cd server && npm install",
