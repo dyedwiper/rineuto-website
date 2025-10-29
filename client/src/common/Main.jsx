@@ -20,7 +20,7 @@ import AddSerialPage from '../pages/intern/AddSerialPage';
 import EditNoticePage from '../pages/intern/EditNoticePage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
-import PrivateRoute from './PrivateRoute';
+import RequireAuth from './RequireAuth';
 
 export default function Main({ isNavOpen, setIsNavOpen }) {
   const history = useHistory();
@@ -71,24 +71,36 @@ export default function Main({ isNavOpen, setIsNavOpen }) {
         <Route exact path="/newsletter/confirmation">
           <NewsletterConfirmationPage />
         </Route>
-        <PrivateRoute path="/intern/editNotice">
-          <EditNoticePage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/intern/addNotice">
-          <AddNoticePage />
-        </PrivateRoute>
-        <PrivateRoute path="/intern/editScreening">
-          <EditScreeningPage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/intern/addScreening">
-          <AddScreeningPage />
-        </PrivateRoute>
-        <PrivateRoute path="/intern/editSerial">
-          <EditSerialPage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/intern/addSerial">
-          <AddSerialPage />
-        </PrivateRoute>
+        <Route path="/intern/editNotice">
+          <RequireAuth>
+            <EditNoticePage />
+          </RequireAuth>
+        </Route>
+        <Route exact path="/intern/addNotice">
+          <RequireAuth>
+            <AddNoticePage />
+          </RequireAuth>
+        </Route>
+        <Route path="/intern/editScreening">
+          <RequireAuth>
+            <EditScreeningPage />
+          </RequireAuth>
+        </Route>
+        <Route exact path="/intern/addScreening">
+          <RequireAuth>
+            <AddScreeningPage />
+          </RequireAuth>
+        </Route>
+        <Route path="/intern/editSerial">
+          <RequireAuth>
+            <EditSerialPage />
+          </RequireAuth>
+        </Route>
+        <Route exact path="/intern/addSerial">
+          <RequireAuth>
+            <AddSerialPage />
+          </RequireAuth>
+        </Route>
         <Route path="/logout">
           <Redirect to="/" />
         </Route>
