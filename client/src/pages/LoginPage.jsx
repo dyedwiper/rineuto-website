@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../Context';
 import magicGif from '../assets/ahahah.gif';
@@ -7,7 +7,7 @@ import { postLoginUser } from '../services/userServices';
 
 export default function LoginPage() {
   const [didLoginFail, setDidLoginFail] = useState(false);
-  let history = useHistory();
+  let navigate = useNavigate();
   const { setUser, setIsLoadingUser, setIsUserLoggedIn } = useContext(Context);
 
   const nameInput = useRef(null);
@@ -45,7 +45,7 @@ export default function LoginPage() {
         setIsUserLoggedIn(true);
         setIsLoadingUser(false);
         setDidLoginFail(false);
-        history.push('/');
+        navigate('/');
       })
       .catch(() => {
         form.reset();

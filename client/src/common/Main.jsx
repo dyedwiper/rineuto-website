@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import React, { useRef } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
@@ -23,97 +23,75 @@ import EditSerialPage from '../pages/intern/EditSerialPage';
 import RequireAuth from './RequireAuth';
 
 export default function Main({ isNavOpen, setIsNavOpen }) {
-  const history = useHistory();
   const mainElement = useRef(null);
-
-  useEffect(() => {
-    const unlisten = history.listen(() => {
-      if (mainElement.current) {
-        mainElement.current.scrollTop = 0;
-      }
-    });
-    return unlisten;
-  }, [history]);
 
   return (
     <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
-      <Switch>
-        <Route exact path="/">
-          <NoticesPage />
-        </Route>
-        <Route path="/program">
-          <ProgramPage />
-        </Route>
-        <Route path="/screening">
-          <ScreeningPage />
-        </Route>
-        <Route path="/archive">
-          <ArchivePage />
-        </Route>
-        <Route path="/posters">
-          <PosterPage />
-        </Route>
-        <Route path="/voku">
-          <VokuPage />
-        </Route>
-        <Route path="/about">
-          <AboutPage />
-        </Route>
-        <Route path="/contact">
-          <ContactPage />
-        </Route>
-        <Route exact path="/login">
-          <LoginPage />
-        </Route>
-        <Route exact path="/newsletter">
-          <NewsletterPage />
-        </Route>
-        <Route exact path="/newsletter/confirmation">
-          <NewsletterConfirmationPage />
-        </Route>
-        <Route path="/intern/editNotice">
-          <RequireAuth>
-            <EditNoticePage />
-          </RequireAuth>
-        </Route>
-        <Route exact path="/intern/addNotice">
-          <RequireAuth>
-            <AddNoticePage />
-          </RequireAuth>
-        </Route>
-        <Route path="/intern/editScreening">
-          <RequireAuth>
-            <EditScreeningPage />
-          </RequireAuth>
-        </Route>
-        <Route exact path="/intern/addScreening">
-          <RequireAuth>
-            <AddScreeningPage />
-          </RequireAuth>
-        </Route>
-        <Route path="/intern/editSerial">
-          <RequireAuth>
-            <EditSerialPage />
-          </RequireAuth>
-        </Route>
-        <Route exact path="/intern/addSerial">
-          <RequireAuth>
-            <AddSerialPage />
-          </RequireAuth>
-        </Route>
-        <Route path="/logout">
-          <Redirect to="/" />
-        </Route>
-        <Route path="/error">
-          <ErrorPage />
-        </Route>
-        <Route path="/404">
-          <NotFoundPage />
-        </Route>
-        <Route path="*">
-          <Redirect to="/404" />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<NoticesPage />} />
+        <Route path="/program" element={<ProgramPage />} />
+        <Route path="/screening/:id" element={<ScreeningPage />} />
+        <Route path="/archive/*" element={<ArchivePage />} />
+        <Route path="/posters/*" element={<PosterPage />} />
+        <Route path="/voku" element={<VokuPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/newsletter" element={<NewsletterPage />} />
+        <Route path="/newsletter/confirmation" element={<NewsletterConfirmationPage />} />
+        <Route
+          path="/intern/editNotice/*"
+          element={
+            <RequireAuth>
+              <EditNoticePage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/intern/addNotice"
+          element={
+            <RequireAuth>
+              <AddNoticePage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/intern/editScreening/*"
+          element={
+            <RequireAuth>
+              <EditScreeningPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/intern/addScreening"
+          element={
+            <RequireAuth>
+              <AddScreeningPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/intern/editSerial/*"
+          element={
+            <RequireAuth>
+              <EditSerialPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/intern/addSerial"
+          element={
+            <RequireAuth>
+              <AddSerialPage />
+            </RequireAuth>
+          }
+        />
+        <Route path="/logout" element={<Navigate to="/" />} />
+        <Route path="/error" element={<ErrorPage />} />
+        <Route path="/404" element={<NotFoundPage />} />
+        <Route path="*" element={<Navigate to="/404" />} />
+      </Routes>
     </MainStyled>
   );
 }

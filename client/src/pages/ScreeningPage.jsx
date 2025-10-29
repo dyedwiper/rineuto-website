@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../Context';
 import DateRibbon from '../common/DateRibbon';
@@ -12,6 +12,8 @@ export default function ScreeningPage() {
 
   const { isUserLoggedIn } = useContext(Context);
 
+  const { id: screeningId } = useParams();
+
   useEffect(() => {
     if (screening) {
       document.title = screening.title + ' | Rineuto Lichtspiele';
@@ -19,12 +21,11 @@ export default function ScreeningPage() {
   }, [screening]);
 
   useEffect(() => {
-    const screeningId = window.location.pathname.slice(-24);
     getScreening(screeningId).then((res) => {
       setScreening(res);
       setIsLoading(false);
     });
-  }, []);
+  }, [screeningId]);
 
   if (isLoading) {
     return <LoadingPage />;

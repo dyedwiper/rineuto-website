@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Context from '../Context';
 import LoadingPage from '../pages/LoadingPage';
 
@@ -10,5 +10,5 @@ export default function RequireAuth({ children }) {
     return <LoadingPage />;
   }
 
-  return isUserLoggedIn ? children : <Redirect to="/login" />;
+  return isUserLoggedIn ? children : <Navigate to="/login" />;
 }
