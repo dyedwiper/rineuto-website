@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
@@ -13,7 +13,6 @@ export default function EditNoticePage() {
   const [validationError, setValidationError] = useState('');
   const [noticeToEdit, setNoticeToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [isInvalidId, setIsInvalidId] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const [editor, setEditor] = useState();
 
@@ -24,27 +23,19 @@ export default function EditNoticePage() {
   useEffect(() => {
     const noticeId = window.location.pathname.slice(-24);
     getNotice(noticeId).then((notice) => {
-      if (!notice) {
-        setIsInvalidId(true);
-      }
       setNoticeToEdit(notice);
       setIsLoading(false);
     });
   }, []);
 
   useEffect(() => {
-    if (!isInvalidId) {
-      document.title = noticeToEdit.title + ' - edit | Rineuto Lichtspiele';
-    }
-  }, [noticeToEdit, isInvalidId]);
+    document.title = noticeToEdit.title + ' - edit | Rineuto Lichtspiele';
+  }, [noticeToEdit]);
 
   if (isLoading) {
     return <LoadingPage />;
   }
 
-  if (isInvalidId) {
-    return <Navigate to="/404" />;
-  }
   return (
     <EditNoticePageStyled>
       <HeadlineStyled>News bearbeiten</HeadlineStyled>
