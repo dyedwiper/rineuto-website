@@ -35,12 +35,11 @@ export default function App() {
           setUser(res.data);
           setIsUserLoggedIn(true);
         })
-        .then(() => {
-          setIsLoadingUser(false);
-        })
-        .catch(() => {
+        .finally(() => {
           setIsLoadingUser(false);
         });
+    } else {
+      setIsLoadingUser(false);
     }
   }, []);
 
