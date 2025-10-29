@@ -90,7 +90,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <AddSerialPage />
         </PrivateRoute>
         <Route path="/logout">
-          <Redirect exact to="/" />
+          <Redirect to="/" />
         </Route>
         <Route path="/error">
           <ErrorPage />
@@ -98,7 +98,9 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
         <Route path="/404">
           <NotFoundPage />
         </Route>
-        <Redirect to="/404" />
+        <Route path="*">
+          <Redirect to="/404" />
+        </Route>
       </Switch>
     </MainStyled>
   );
