@@ -5,10 +5,10 @@ import Context from '../Context';
 import magicGif from '../assets/ahahah.gif';
 import { postLoginUser } from '../services/userServices';
 
-export default function LoginPage({ setIsLoadingUser }) {
+export default function LoginPage() {
   const [didLoginFail, setDidLoginFail] = useState(false);
   let history = useHistory();
-  const { setUser, setIsUserLoggedIn } = useContext(Context);
+  const { setUser, setIsLoadingUser, setIsUserLoggedIn } = useContext(Context);
 
   const nameInput = useRef(null);
 

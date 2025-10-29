@@ -22,7 +22,7 @@ import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
 import PrivateRoute from './PrivateRoute';
 
-export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsNavOpen }) {
+export default function Main({ isNavOpen, setIsNavOpen }) {
   const history = useHistory();
   const mainElement = useRef(null);
 
@@ -63,7 +63,7 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
           <ContactPage />
         </Route>
         <Route exact path="/login">
-          <LoginPage setIsLoadingUser={setIsLoadingUser} />
+          <LoginPage />
         </Route>
         <Route exact path="/newsletter">
           <NewsletterPage />
@@ -71,22 +71,22 @@ export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIs
         <Route exact path="/newsletter/confirmation">
           <NewsletterConfirmationPage />
         </Route>
-        <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
+        <PrivateRoute path="/intern/editNotice">
           <EditNoticePage />
         </PrivateRoute>
-        <PrivateRoute exact path="/intern/addNotice" isLoadingUser={isLoadingUser}>
+        <PrivateRoute exact path="/intern/addNotice">
           <AddNoticePage />
         </PrivateRoute>
-        <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
+        <PrivateRoute path="/intern/editScreening">
           <EditScreeningPage />
         </PrivateRoute>
-        <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
+        <PrivateRoute exact path="/intern/addScreening">
           <AddScreeningPage />
         </PrivateRoute>
-        <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
+        <PrivateRoute path="/intern/editSerial">
           <EditSerialPage />
         </PrivateRoute>
-        <PrivateRoute exact path="/intern/addSerial" isLoadingUser={isLoadingUser}>
+        <PrivateRoute exact path="/intern/addSerial">
           <AddSerialPage />
         </PrivateRoute>
         <Route path="/logout">

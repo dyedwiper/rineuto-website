@@ -3,8 +3,8 @@ import { Route, Redirect } from 'react-router-dom';
 import LoadingPage from '../pages/LoadingPage';
 import Context from '../Context';
 
-export default function PrivateRoute({ children, isLoadingUser }) {
-  const { isUserLoggedIn } = useContext(Context);
+export default function PrivateRoute({ children }) {
+  const { isLoadingUser, isUserLoggedIn } = useContext(Context);
 
   if (isLoadingUser) {
     return (
