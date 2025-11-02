@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
@@ -16,7 +16,7 @@ export default function EditSerialPage() {
 
   const { isWaiting, setIsWaiting } = useContext(Context);
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   useEffect(() => {
     const serialId = window.location.pathname.slice(-24);
@@ -74,7 +74,7 @@ export default function EditSerialPage() {
               Diese Filmreihe löschen
             </ButtonStyled>
             {showDeletePrompt && <DeletePrompt handleDelete={handleDelete} setShowDeletePrompt={setShowDeletePrompt} />}
-            <ButtonStyled type="button" onClick={() => history.push('/posters/' + serialToEdit.year)}>
+            <ButtonStyled type="button" onClick={() => navigate('/posters/' + serialToEdit.year)}>
               Abbrechen
             </ButtonStyled>
           </>
@@ -90,7 +90,7 @@ export default function EditSerialPage() {
     const formData = new FormData(form);
     patchSerial(serialToEdit._id, formData)
       .then(() => {
-        history.push('/posters/' + serialToEdit.year);
+        navigate('/posters/' + serialToEdit.year);
       })
       .catch((err) => {
         handleValidationError(err, setValidationError);
@@ -105,7 +105,7 @@ export default function EditSerialPage() {
     setShowDeletePrompt(false);
     deleteSerial(serialToEdit._id)
       .then(() => {
-        history.push('/posters');
+        navigate('/posters');
       })
       .finally(() => {
         setIsWaiting(false);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import darkGreenPerlImage from '../assets/perls/darkGreenPerl.png';
 import whitePerlImage from '../assets/perls/whitePerl.png';
@@ -7,13 +7,13 @@ import whitePerlImage from '../assets/perls/whitePerl.png';
 export default function YearNavigation({ years, setSelectedYear, pagePath }) {
   const [isLoading, setIsLoading] = useState(true);
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   useEffect(() => {
     let yearFromPath = window.location.pathname.slice(pagePath.length);
     if (!yearFromPath) {
       const latestYear = years[years.length - 1];
-      history.push(pagePath + latestYear);
+      navigate(pagePath + latestYear, { replace: true });
       setSelectedYear(latestYear);
     } else {
       setSelectedYear(yearFromPath);

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../../Context';
 import WysiwygEditor from '../../common/WysiwygEditor';
@@ -15,7 +15,7 @@ export default function AddScreeningPage() {
 
   const { isWaiting, setIsWaiting } = useContext(Context);
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   useEffect(() => {
     getSerials().then((res) => {
@@ -103,7 +103,7 @@ export default function AddScreeningPage() {
         ) : (
           <>
             <ButtonStyled>Vorführung anlegen</ButtonStyled>
-            <ButtonStyled type="button" onClick={() => history.push('/')}>
+            <ButtonStyled type="button" onClick={() => navigate('/')}>
               Abbrechen
             </ButtonStyled>
           </>
@@ -120,7 +120,7 @@ export default function AddScreeningPage() {
     formData.append('synopsis', editor.getData());
     postScreening(formData)
       .then(() => {
-        history.push('/program');
+        navigate('/program');
       })
       .catch((err) => {
         handleValidationError(err, setValidationError);

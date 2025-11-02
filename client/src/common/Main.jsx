@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import React from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import AboutPage from '../pages/AboutPage';
 import ArchivePage from '../pages/ArchivePage';
@@ -20,86 +20,76 @@ import AddSerialPage from '../pages/intern/AddSerialPage';
 import EditNoticePage from '../pages/intern/EditNoticePage';
 import EditScreeningPage from '../pages/intern/EditScreeningPage';
 import EditSerialPage from '../pages/intern/EditSerialPage';
-import PrivateRoute from './PrivateRoute';
+import RequireAuth from './RequireAuth';
 
-export default function Main({ isNavOpen, isLoadingUser, setIsLoadingUser, setIsNavOpen }) {
-  const history = useHistory();
-  const mainElement = useRef(null);
-
-  useEffect(() => {
-    const unlisten = history.listen(() => {
-      if (mainElement.current) {
-        mainElement.current.scrollTop = 0;
-      }
-    });
-    return unlisten;
-  }, [history]);
-
+export default function Main({ isNavOpen, setIsNavOpen }) {
   return (
-    <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
-      <Switch>
-        <Route exact path="/">
-          <NoticesPage />
-        </Route>
-        <Route path="/program">
-          <ProgramPage />
-        </Route>
-        <Route path="/screening">
-          <ScreeningPage />
-        </Route>
-        <Route path="/archive">
-          <ArchivePage />
-        </Route>
-        <Route path="/posters">
-          <PosterPage />
-        </Route>
-        <Route path="/voku">
-          <VokuPage />
-        </Route>
-        <Route path="/about">
-          <AboutPage />
-        </Route>
-        <Route path="/contact">
-          <ContactPage />
-        </Route>
-        <Route exact path="/login">
-          <LoginPage setIsLoadingUser={setIsLoadingUser} />
-        </Route>
-        <Route exact path="/newsletter">
-          <NewsletterPage />
-        </Route>
-        <Route exact path="/newsletter/confirmation">
-          <NewsletterConfirmationPage />
-        </Route>
-        <PrivateRoute path="/intern/editNotice" isLoadingUser={isLoadingUser}>
-          <EditNoticePage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/intern/addNotice" isLoadingUser={isLoadingUser}>
-          <AddNoticePage />
-        </PrivateRoute>
-        <PrivateRoute path="/intern/editScreening" isLoadingUser={isLoadingUser}>
-          <EditScreeningPage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/intern/addScreening" isLoadingUser={isLoadingUser}>
-          <AddScreeningPage />
-        </PrivateRoute>
-        <PrivateRoute path="/intern/editSerial" isLoadingUser={isLoadingUser}>
-          <EditSerialPage />
-        </PrivateRoute>
-        <PrivateRoute exact path="/intern/addSerial" isLoadingUser={isLoadingUser}>
-          <AddSerialPage />
-        </PrivateRoute>
-        <Route path="/logout">
-          <Redirect exact to="/" />
-        </Route>
-        <Route path="/error">
-          <ErrorPage />
-        </Route>
-        <Route path="/404">
-          <NotFoundPage />
-        </Route>
-        <Redirect to="/404" />
-      </Switch>
+    <MainStyled isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
+      <Routes>
+        <Route path="/" element={<NoticesPage />} />
+        <Route path="/program" element={<ProgramPage />} />
+        <Route path="/screening/:id" element={<ScreeningPage />} />
+        <Route path="/archive/*" element={<ArchivePage />} />
+        <Route path="/posters/*" element={<PosterPage />} />
+        <Route path="/voku" element={<VokuPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/newsletter" element={<NewsletterPage />} />
+        <Route path="/newsletter/confirmation" element={<NewsletterConfirmationPage />} />
+        <Route
+          path="/intern/editNotice/*"
+          element={
+            <RequireAuth>
+              <EditNoticePage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/intern/addNotice"
+          element={
+            <RequireAuth>
+              <AddNoticePage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/intern/editScreening/*"
+          element={
+            <RequireAuth>
+              <EditScreeningPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/intern/addScreening"
+          element={
+            <RequireAuth>
+              <AddScreeningPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/intern/editSerial/*"
+          element={
+            <RequireAuth>
+              <EditSerialPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/intern/addSerial"
+          element={
+            <RequireAuth>
+              <AddSerialPage />
+            </RequireAuth>
+          }
+        />
+        <Route path="/logout" element={<Navigate to="/" />} />
+        <Route path="/error" element={<ErrorPage />} />
+        <Route path="/404" element={<NotFoundPage />} />
+        <Route path="*" element={<Navigate to="/404" />} />
+      </Routes>
     </MainStyled>
   );
 }

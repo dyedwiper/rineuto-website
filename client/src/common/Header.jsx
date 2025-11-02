@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import glubsch from '../assets/glubsch.png';
 import darkGreenPerlImage from '../assets/perls/darkGreenPerl.png';
@@ -7,7 +7,7 @@ import redPerlImage from '../assets/perls/redPerl.png';
 import whitePerlImage from '../assets/perls/whitePerl.png';
 
 export default function Header({ isNavOpen, setIsNavOpen }) {
-  let history = useHistory();
+  let navigate = useNavigate();
 
   return (
     <HeaderStyled>
@@ -24,7 +24,7 @@ export default function Header({ isNavOpen, setIsNavOpen }) {
   );
 
   function handleTitleClick() {
-    history.push('/');
+    navigate('/');
     setIsNavOpen(false);
   }
 }

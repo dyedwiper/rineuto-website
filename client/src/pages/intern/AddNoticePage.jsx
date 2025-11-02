@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../../Context';
 import WysiwygEditor from '../../common/WysiwygEditor';
@@ -13,7 +13,7 @@ export default function AddNoticePage() {
 
   const { isWaiting, setIsWaiting } = useContext(Context);
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   useEffect(() => {
     document.title = ' News anlegen | Rineuto Lichtspiele';
@@ -54,7 +54,7 @@ export default function AddNoticePage() {
         ) : (
           <>
             <ButtonStyled>News anlegen</ButtonStyled>
-            <ButtonStyled type="button" onClick={() => history.push('/')}>
+            <ButtonStyled type="button" onClick={() => navigate.push('/')}>
               Abbrechen
             </ButtonStyled>
           </>
@@ -71,7 +71,7 @@ export default function AddNoticePage() {
     formData.append('text', editor.getData());
     postNotice(formData)
       .then(() => {
-        history.push('/');
+        navigate('/');
       })
       .catch((err) => {
         handleValidationError(err, setValidationError);

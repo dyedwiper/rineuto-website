@@ -14,7 +14,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
   return (
     <>
       <NavigationStyled loggedIn={isUserLoggedIn} isNavOpen={isNavOpen}>
-        <NavLinkStyled exact to="/" onClick={() => setIsNavOpen(false)}>
+        <NavLinkStyled to="/" onClick={() => setIsNavOpen(false)}>
           News
         </NavLinkStyled>
         <NavLinkStyled to="/program" onClick={() => setIsNavOpen(false)}>
@@ -50,7 +50,7 @@ export default function Navigation({ isNavOpen, setIsNavOpen }) {
             <NavLinkStyled to="/intern/addScreening" onClick={() => setIsNavOpen(false)}>
               Neuer Film
             </NavLinkStyled>
-            <NavLinkStyled exact to="/logout" onClick={handleLogout}>
+            <NavLinkStyled to="/logout" onClick={handleLogout}>
               Logout
             </NavLinkStyled>
           </>

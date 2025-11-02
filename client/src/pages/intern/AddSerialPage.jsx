@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../../Context';
 import { WaitNoteStyled } from '../../common/styledElements';
@@ -11,7 +11,7 @@ export default function AddSerialPage() {
 
   const { isWaiting, setIsWaiting } = useContext(Context);
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   useEffect(() => {
     document.title = ' Reihe anlegen | Rineuto Lichtspiele';
@@ -52,7 +52,7 @@ export default function AddSerialPage() {
         ) : (
           <>
             <ButtonStyled>Filmreihe anlegen</ButtonStyled>
-            <ButtonStyled type="button" onClick={() => history.push('/')}>
+            <ButtonStyled type="button" onClick={() => navigate('/')}>
               Abbrechen
             </ButtonStyled>
           </>
@@ -68,7 +68,7 @@ export default function AddSerialPage() {
     const formData = new FormData(form);
     postSerial(formData)
       .then(() => {
-        history.push('/posters');
+        navigate('/posters');
       })
       .catch((err) => {
         handleValidationError(err, setValidationError);

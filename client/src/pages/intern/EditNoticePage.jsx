@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
@@ -13,38 +13,29 @@ export default function EditNoticePage() {
   const [validationError, setValidationError] = useState('');
   const [noticeToEdit, setNoticeToEdit] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [isInvalidId, setIsInvalidId] = useState(false);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const [editor, setEditor] = useState();
 
   const { isWaiting, setIsWaiting } = useContext(Context);
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   useEffect(() => {
     const noticeId = window.location.pathname.slice(-24);
     getNotice(noticeId).then((notice) => {
-      if (!notice) {
-        setIsInvalidId(true);
-      }
       setNoticeToEdit(notice);
       setIsLoading(false);
     });
   }, []);
 
   useEffect(() => {
-    if (!isInvalidId) {
-      document.title = noticeToEdit.title + ' - edit | Rineuto Lichtspiele';
-    }
-  }, [noticeToEdit, isInvalidId]);
+    document.title = noticeToEdit.title + ' - edit | Rineuto Lichtspiele';
+  }, [noticeToEdit]);
 
   if (isLoading) {
     return <LoadingPage />;
   }
 
-  if (isInvalidId) {
-    return <Redirect to="/404" />;
-  }
   return (
     <EditNoticePageStyled>
       <HeadlineStyled>News bearbeiten</HeadlineStyled>
@@ -84,7 +75,7 @@ export default function EditNoticePage() {
               Diese News löschen
             </ButtonStyled>
             {showDeletePrompt && <DeletePrompt handleDelete={handleDelete} setShowDeletePrompt={setShowDeletePrompt} />}
-            <ButtonStyled type="button" onClick={() => history.push('/')}>
+            <ButtonStyled type="button" onClick={() => navigate('/')}>
               Abbrechen
             </ButtonStyled>
           </>
@@ -101,7 +92,7 @@ export default function EditNoticePage() {
     formData.append('text', editor.getData());
     patchNotice(noticeToEdit._id, formData)
       .then(() => {
-        history.push('/');
+        navigate('/');
       })
       .catch((err) => {
         handleValidationError(err, setValidationError);
@@ -116,7 +107,7 @@ export default function EditNoticePage() {
     setIsWaiting(true);
     deleteNotice(noticeToEdit._id)
       .then(() => {
-        history.push('/');
+        navigate('/');
       })
       .finally(() => {
         setIsWaiting(false);

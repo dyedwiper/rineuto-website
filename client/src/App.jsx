@@ -35,30 +35,35 @@ export default function App() {
           setUser(res.data);
           setIsUserLoggedIn(true);
         })
-        .then(() => {
-          setIsLoadingUser(false);
-        })
-        .catch(() => {
+        .finally(() => {
           setIsLoadingUser(false);
         });
+    } else {
+      setIsLoadingUser(false);
     }
   }, []);
 
   return (
     <Router>
-      <Context.Provider value={{ user, setUser, isUserLoggedIn, setIsUserLoggedIn, isWaiting, setIsWaiting }}>
+      <Context.Provider
+        value={{
+          user,
+          setUser,
+          isLoadingUser,
+          setIsLoadingUser,
+          isUserLoggedIn,
+          setIsUserLoggedIn,
+          isWaiting,
+          setIsWaiting,
+        }}
+      >
         <AppStyled isDragging={isDragging}>
           {isWaiting && <OverlayStyled />}
           <Curtain screenWidth={screenWidth} side="left" isDragging={isDragging} setIsDragging={setIsDragging} />
           <ScreenStyled>
             <Header isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
             <Navigation isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
-            <Main
-              isNavOpen={isNavOpen}
-              setIsNavOpen={setIsNavOpen}
-              isLoadingUser={isLoadingUser}
-              setIsLoadingUser={setIsLoadingUser}
-            />
+            <Main isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
           </ScreenStyled>
           <Curtain screenWidth={screenWidth} side="right" isDragging={isDragging} setIsDragging={setIsDragging} />
         </AppStyled>

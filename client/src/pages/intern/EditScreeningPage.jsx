@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Context from '../../Context';
 import DeletePrompt from '../../common/DeletePrompt';
@@ -20,7 +20,7 @@ export default function EditScreeningPage() {
 
   const { isWaiting, setIsWaiting } = useContext(Context);
 
-  let history = useHistory();
+  let navigate = useNavigate();
 
   useEffect(() => {
     getSerials().then((res) => {
@@ -136,7 +136,7 @@ export default function EditScreeningPage() {
               Diese Vorfürhung löschen
             </ButtonStyled>
             {showDeletePrompt && <DeletePrompt handleDelete={handleDelete} setShowDeletePrompt={setShowDeletePrompt} />}
-            <ButtonStyled type="button" onClick={() => history.push('/screening/' + screening._id)}>
+            <ButtonStyled type="button" onClick={() => navigate('/screening/' + screening._id)}>
               Abbrechen
             </ButtonStyled>
           </>
@@ -153,7 +153,7 @@ export default function EditScreeningPage() {
     formData.append('synopsis', editor.getData());
     patchScreening(screening._id, formData)
       .then(() => {
-        history.push('/screening/' + screening._id);
+        navigate('/screening/' + screening._id);
       })
       .catch((err) => {
         handleValidationError(err, setValidationError);
@@ -168,7 +168,7 @@ export default function EditScreeningPage() {
     setShowDeletePrompt(false);
     deleteScreening(screening._id)
       .then(() => {
-        history.push('/program');
+        navigate('/program');
       })
       .finally(() => {
         setIsWaiting(false);
