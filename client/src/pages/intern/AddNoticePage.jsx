@@ -54,7 +54,7 @@ export default function AddNoticePage() {
         ) : (
           <>
             <ButtonStyled>News anlegen</ButtonStyled>
-            <ButtonStyled type="button" onClick={() => navigate.push('/')}>
+            <ButtonStyled type="button" onClick={() => navigate('/')}>
               Abbrechen
             </ButtonStyled>
           </>
