@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import AboutPage from '../pages/AboutPage';
@@ -23,10 +23,8 @@ import EditSerialPage from '../pages/intern/EditSerialPage';
 import RequireAuth from './RequireAuth';
 
 export default function Main({ isNavOpen, setIsNavOpen }) {
-  const mainElement = useRef(null);
-
   return (
-    <MainStyled ref={mainElement} isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
+    <MainStyled isNavOpen={isNavOpen} onClick={() => setIsNavOpen(false)}>
       <Routes>
         <Route path="/" element={<NoticesPage />} />
         <Route path="/program" element={<ProgramPage />} />
