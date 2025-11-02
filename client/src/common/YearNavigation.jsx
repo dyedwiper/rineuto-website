@@ -13,7 +13,7 @@ export default function YearNavigation({ years, setSelectedYear, pagePath }) {
     let yearFromPath = window.location.pathname.slice(pagePath.length);
     if (!yearFromPath) {
       const latestYear = years[years.length - 1];
-      navigate(pagePath + latestYear);
+      navigate(pagePath + latestYear, { replace: true });
       setSelectedYear(latestYear);
     } else {
       setSelectedYear(yearFromPath);
