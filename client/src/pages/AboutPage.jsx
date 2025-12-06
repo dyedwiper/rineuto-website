@@ -65,10 +65,10 @@ export default function AboutPage() {
           <br />
           <div>
             Jeden paarten Dienstag im{' '}
-            <MokryLinkStyled href="https://m1kollektiv.blackblogs.org/" target="_blank" rel="noopener noreferrer">
+            <MokryLinkStyled href="https://www.m1-wilhelmsburg.de/" target="_blank" rel="noopener noreferrer">
               M1
             </MokryLinkStyled>{' '}
-            (Mokrystr. 1) in Hamburg-Wilhelmsburg.
+            in Hamburg-Wilhelmsburg.
           </div>
           <br />
           <br />
