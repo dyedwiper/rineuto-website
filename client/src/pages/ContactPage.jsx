@@ -27,7 +27,7 @@ export default function ContactPage() {
       <br />
       <br />
       <a
-        href="https://www.openstreetmap.de/karte.html?zoom=19&lat=53.51843&lon=9.98398&layers=B000TT"
+        href="https://openstreetmap.de/karte/?zoom=19&lat=53.51839&lon=9.98378&layers=B00TT"
         target="_blank"
         rel="noopener noreferrer"
       >
