@@ -9,7 +9,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-react": "^9.5.0",
     "@vitejs/plugin-react": "^4.3.4",
-    "axios": "^1.8.3",
+    "axios": "^1.16.0",
     "babel-plugin-styled-components": "^2.1.4",
     "ckeditor5": "^45.2.2",
     "react": "^16.13.1",
