@@ -18,13 +18,7 @@
     "styled-components": "^6.1.7",
     "vite": "^6.2.5"
   },
-  "browserslist": {
-    "production": [
-      "defaults"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version"
-    ]
-  }
+  "browserslist": [
+    "defaults"
+  ]
 }
