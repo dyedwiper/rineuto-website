@@ -39,7 +39,7 @@ export default function PosterPage() {
     <PosterPageStyled>
       <YearNavigation years={allYears} setSelectedYear={setSelectedYear} pagePath={'/posters/'} />
       <PostersList serials={serials} />
-      <PerlLinkStyled href="https://www.youtube.com/watch?v=fsAE2jFPqLw" target="_blank" rel="noopener noreferrer">
+      <PerlLinkStyled href="https://www.youtube.com/watch?v=e2LSQ9FCSUg" target="_blank" rel="noopener noreferrer">
         <EightBallImageStyled src={eightBall} alt="Ein 8 ball" />
       </PerlLinkStyled>
     </PosterPageStyled>
