@@ -3,7 +3,7 @@
   "private": true,
   "engines": {
     "node": "24",
-    "npm": "11"
+    "npm": "12"
   },
   "scripts": {
     "postinstall": "cd server && npm ci",
