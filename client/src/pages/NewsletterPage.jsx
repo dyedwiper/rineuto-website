@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import captcha from '../assets/captcha.jpg';
 import { WaitNoteStyled } from '../common/styledElements';
 import Context from '../Context';
 import { postNewsletterContact } from '../services/newsletterServices';
@@ -29,6 +30,11 @@ export default function NewsletterPage() {
           <LabelStyled>
             E-Mail-Adresse
             <InputStyled id="newsletterEmailInput" name="email" type="email" />
+          </LabelStyled>
+          <ImageStyled src={captcha} />
+          <LabelStyled>
+            Um nahezulegen, dass du kein Bot bist, trage bitte hier das oben stehende Wort in Großbuchstaben ein.
+            <InputStyled id="newsletterCaptcha" name="captcha" />
           </LabelStyled>
           {isWaiting ? <WaitNoteStyled>Bitte Warten</WaitNoteStyled> : <ButtonStyled>Eintragen</ButtonStyled>}
         </FormStyled>
@@ -90,6 +96,10 @@ const InputStyled = styled.input`
 
 const ButtonStyled = styled.button`
   margin: 10px auto;
+`;
+
+const ImageStyled = styled.img`
+  margin-top: 20px;
 `;
 
 const ErrorMessageStyled = styled.p`
