@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import captcha from '../assets/captcha.jpg';
 import { WaitNoteStyled } from '../common/styledElements';
 import Context from '../Context';
 import { postNewsletterContact } from '../services/newsletterServices';
@@ -30,6 +31,11 @@ export default function NewsletterPage() {
             E-Mail-Adresse
             <InputStyled id="newsletterEmailInput" name="email" type="email" />
           </LabelStyled>
+          <ImageStyled src={captcha} />
+          <LabelStyled>
+            Trage hier das Passwort ein, um zu zeigen, dass du ein Mensch bist.
+            <InputStyled name="captcha" />
+          </LabelStyled>
           {isWaiting ? <WaitNoteStyled>Bitte Warten</WaitNoteStyled> : <ButtonStyled>Eintragen</ButtonStyled>}
         </FormStyled>
       )}
@@ -41,15 +47,14 @@ export default function NewsletterPage() {
     event.preventDefault();
     setIsWaiting(true);
     setValidationError('');
-    const data = { email: event.currentTarget.email.value };
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData);
     postNewsletterContact(data)
       .then(() => {
         setIsSubmitted(true);
       })
       .catch((err) => {
-        if (err?.response?.data === 'Invalid email address') {
-          setValidationError('Die angegebene E-Mail-Adresse ist nicht valide.');
-        }
+        setValidationError(err.response.data);
       })
       .finally(() => {
         setIsWaiting(false);
@@ -90,6 +95,10 @@ const InputStyled = styled.input`
 
 const ButtonStyled = styled.button`
   margin: 10px auto;
+`;
+
+const ImageStyled = styled.img`
+  margin-top: 20px;
 `;
 
 const ErrorMessageStyled = styled.p`
