@@ -33,7 +33,7 @@ export default function NewsletterPage() {
           </LabelStyled>
           <ImageStyled src={captcha} />
           <LabelStyled>
-            Um zu zeigen, dass du ein Mensch bist, trage hier das Passwort ein.
+            Trage hier das Passwort ein, um zu zeigen, dass du ein Mensch bist.
             <InputStyled name="captcha" />
           </LabelStyled>
           {isWaiting ? <WaitNoteStyled>Bitte Warten</WaitNoteStyled> : <ButtonStyled>Eintragen</ButtonStyled>}
