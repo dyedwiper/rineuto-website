@@ -33,8 +33,8 @@ export default function NewsletterPage() {
           </LabelStyled>
           <ImageStyled src={captcha} />
           <LabelStyled>
-            Um nahezulegen, dass du kein Bot bist, trage bitte hier das oben stehende Wort in Großbuchstaben ein.
-            <InputStyled id="newsletterCaptcha" name="captcha" />
+            Um zu zeigen, dass du ein Mensch bist, trage hier das Passwort ein.
+            <InputStyled name="captcha" />
           </LabelStyled>
           {isWaiting ? <WaitNoteStyled>Bitte Warten</WaitNoteStyled> : <ButtonStyled>Eintragen</ButtonStyled>}
         </FormStyled>
@@ -47,15 +47,14 @@ export default function NewsletterPage() {
     event.preventDefault();
     setIsWaiting(true);
     setValidationError('');
-    const data = { email: event.currentTarget.email.value };
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData);
     postNewsletterContact(data)
       .then(() => {
         setIsSubmitted(true);
       })
       .catch((err) => {
-        if (err?.response?.data === 'Invalid email address') {
-          setValidationError('Die angegebene E-Mail-Adresse ist nicht valide.');
-        }
+        setValidationError(err.response.data);
       })
       .finally(() => {
         setIsWaiting(false);
